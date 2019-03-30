@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0B171F">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/top_toolbar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/line11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@drawable/shape_chat_msg"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/tv_fraga"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:gravity="center_horizontal"
+            android:padding="@dimen/_10sdp"
+            android:text="profile"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/_20sdp" />
+
+        <TextView
+            android:id="@+id/tv_fragb"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:background="@drawable/shape_add_member"
+            android:gravity="center_horizontal"
+            android:padding="@dimen/_10sdp"
+            android:text="events"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/_20sdp" />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_venue_events"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/line11" />
+
+</RelativeLayout>

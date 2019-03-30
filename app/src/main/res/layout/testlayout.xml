@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="#FC7C44">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_first_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/_10sdp"
+            android:src="@drawable/arrowleft"
+            android:visibility="visible" />
+
+        <com.musicseque.Fonts.BoldNoyhr
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/_10sdp"
+            android:text="Header"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/_22sdp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/img_right_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/_10sdp"
+
+            android:src="@drawable/icon_edit"
+            android:visibility="visible" />
+    </RelativeLayout>
+</android.support.v7.widget.Toolbar>

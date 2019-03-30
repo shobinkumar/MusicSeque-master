@@ -1,0 +1,6 @@
+<com.musicseque.Fonts.Noyhr xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="@color/color_white"
+    android:textSize="@dimen/_14sdp" />

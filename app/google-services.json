@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "631151135806",
+    "firebase_url": "https://music-segue.firebaseio.com",
+    "project_id": "music-segue",
+    "storage_bucket": "music-segue.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:631151135806:android:6b0558c74e38b790",
+        "android_client_info": {
+          "package_name": "com.musicseque"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "631151135806-76c34v9bb1486bqb0itjui37iusr19kd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKCAooEd4FGxw7Z3U0V_9pKcFfbmEaqY0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

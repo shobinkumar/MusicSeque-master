@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    android:background="@color/color_background">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_top" />
+
+    <RelativeLayout
+        android:id="@+id/rlOuter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:padding="40dp">
+
+        <RelativeLayout
+            android:id="@+id/rlEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/img_istmame"
+                android:layout_width="19dp"
+                android:layout_height="19dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/username" />
+
+            <com.musicseque.Fonts.Noyhr
+                android:id="@+id/tvEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/img_istmame"
+                android:background="@android:color/transparent"
+                android:hint="@string/email"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="#ffffff"
+                android:textColorHint="#ffffff"
+                android:textSize="@dimen/_16sdp" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/rlEmail"
+            android:layout_marginTop="5dp"
+            android:background="#BDBDBD" />
+
+        <RelativeLayout
+            android:id="@+id/rlMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view1"
+            android:layout_marginTop="20dp"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/img_pasw"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_message" />
+
+            <com.musicseque.Fonts.NoyhrEditText
+                android:id="@+id/etMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/img_pasw"
+                android:background="@android:color/transparent"
+                android:hint="@string/message"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="#ffffff"
+                android:textColorHint="#ffffff"
+                android:textSize="@dimen/_16sdp" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/rlMessage"
+
+            android:layout_marginTop="5dp"
+            android:background="#BDBDBD" />
+
+
+        <RelativeLayout
+            android:id="@+id/rlAttachment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view2"
+            android:layout_marginTop="20dp"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/img_attach"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_screenshot" />
+
+            <com.musicseque.Fonts.Noyhr
+                android:id="@+id/txt_attach"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/img_attach"
+                android:text="@string/attach_error_screenshot"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_16sdp" />
+
+
+        </RelativeLayout>
+
+
+        <com.musicseque.Fonts.Noyhr
+            android:id="@+id/tvImageName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlAttachment"
+            android:maxLines="1"
+            android:layout_marginTop="15dp"
+            android:visibility="gone"
+            android:singleLine="true"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/_16sdp" />
+
+
+        <com.musicseque.Fonts.CustomButton
+            android:id="@+id/btnSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvImageName"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="35dp"
+            android:background="@color/color_orange"
+            android:padding="@dimen/_10sdp"
+            android:text="@string/txt_submit"
+            android:textAllCaps="false"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/_16sdp" />
+
+
+        <com.musicseque.Fonts.Noyhr
+            android:id="@+id/txtDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnSubmit"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="25dp"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="You can also call us at"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff"
+            android:textSize="@dimen/_16sdp" />
+
+        <com.musicseque.Fonts.Noyhr
+            android:id="@+id/txtNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtDetails"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="1800-123-4589"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff"
+            android:textSize="@dimen/_15sdp" />
+    </RelativeLayout>
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/rel5"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_marginBottom="@dimen/_20sdp"-->
+    <!--android:padding="5dp">-->
+
+    <!--<com.musicseque.Fonts.NoyhrEditText-->
+    <!--android:id="@+id/txtChat"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:paddingBottom="20dp"-->
+    <!--android:text="Happy to Help!"-->
+    <!--android:layout_toLeftOf="@+id/iv_chat"-->
+    <!--android:textColor="#FFFFFF"-->
+    <!--android:textSize="15dp" />-->
+    <!--<ImageView-->
+    <!--android:id="@+id/iv_chat"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@color/color_white"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:src="@drawable/icon_letschat" />-->
+    <!--</RelativeLayout>-->
+
+</RelativeLayout>

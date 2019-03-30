@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:src="@drawable/facebook"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="25dp" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvVideoName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="com.musicseque.Fonts.Noyhr"
+        android:textSize="@dimen/_20sdp"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvSinger"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="15dp"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="com.musicseque.Fonts.Noyhr"
+        android:textSize="@dimen/_16sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toStartOf="@+id/tvVideoTime"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tvVideoName"
+        app:layout_constraintTop_toBottomOf="@+id/tvVideoName"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvVideoTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="24dp"
+        android:text="com.musicseque.Fonts.Noyhr"
+        app:layout_constraintBottom_toBottomOf="@+id/tvSinger"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="@dimen/_18sdp"/>
+
+</android.support.constraint.ConstraintLayout>

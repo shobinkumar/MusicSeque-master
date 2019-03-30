@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#04141C"
+    tools:context="com.musicseque.musicseque.Activities.Activity.VenueProfile">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/top_toolbar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <RelativeLayout
+                android:id="@+id/rel1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_20sdp">
+
+
+                <ImageView
+                    android:id="@+id/img_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:src="@drawable/profilepic" />
+
+
+                <TextView
+                    android:id="@+id/tv_name"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_toRightOf="@+id/img_profile"
+                    android:text="Rock n Rose"
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/_18sdp" />
+
+
+                <TextView
+                    android:id="@+id/tv_loc"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_name"
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_toRightOf="@+id/img_profile"
+                    android:text="0.2 Miles"
+                    android:textColor="#ffffff"
+
+                    android:textSize="@dimen/_14sdp" />
+
+                <TextView
+                    android:id="@+id/tv_addres"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_loc"
+                    android:layout_marginLeft="@dimen/_20sdp"
+
+                    android:layout_toRightOf="@+id/img_profile"
+                    android:text="150 old park Inn."
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/_14sdp" />
+
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+
+                android:layout_below="@+id/rel1"
+                android:background="#BDBDBD" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/view1"
+                android:orientation="vertical"
+                android:padding="@dimen/_10sdp">
+
+
+                <TextView
+                    android:id="@+id/tv_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Desplay Name"
+                    android:textColor="#ffffff"
+                    android:textSize="18dp" />
+
+                <EditText
+                    android:id="@+id/et_display_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="#0C1C24"
+                    android:text="Rock n Rose"
+                    android:textColor="#ffffff" />
+
+                <TextView
+                    android:id="@+id/tv_desdfc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Venue Name"
+                    android:textColor="#ffffff"
+                    android:textSize="18dp" />
+
+                <EditText
+                    android:id="@+id/et_event_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="#0C1C24" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_postalcode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="City"
+                            android:textColor="#ffffff"
+                            android:textSize="18dp" />
+
+                        <EditText
+                            android:id="@+id/city"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginRight="@dimen/_5sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:background="#0C1C24" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_postalcddode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="PostCode"
+                            android:textColor="#ffffff"
+                            android:textSize="18dp" />
+
+                        <EditText
+                            android:id="@+id/et_postal_code"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:background="#0C1C24" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/tv_budge1t"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Country"
+                    android:textColor="#ffffff"
+                    android:textSize="18dp" />
+
+                <EditText
+                    android:id="@+id/et_country"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="#0C1C24" />
+
+
+                <TextView
+                    android:id="@+id/ddd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email"
+                    android:textColor="#ffffff"
+                    android:textSize="18dp" />
+
+                <EditText
+                    android:id="@+id/et_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="#0C1C24" />
+
+                <TextView
+                    android:id="@+id/dddddd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Phone"
+                    android:textColor="#ffffff"
+                    android:textSize="18dp" />
+
+                <EditText
+                    android:id="@+id/et_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="#0C1C24" />
+
+                <TextView
+                    android:id="@+id/dddssddd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Website"
+                    android:textColor="#ffffff"
+                    android:textSize="18dp" />
+
+                <EditText
+                    android:id="@+id/website"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="#0C1C24" />
+
+                <TextView
+                    android:id="@+id/dddssddfddd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Description"
+                    android:textColor="#ffffff"
+                    android:textSize="18dp" />
+
+                <EditText
+                    android:id="@+id/et_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="#0C1C24" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+                    <TextView
+                        android:id="@+id/dfdfdf"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:text="Special Offers"
+                        android:textColor="#ffffff"
+                        android:textSize="18dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/arrowdown" />
+
+
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/cusine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cusine"
+                    android:textColor="#ffffff"
+                    android:textSize="18dp" />
+
+                <EditText
+                    android:id="@+id/et_cusine"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="#0C1C24" />
+
+                <TextView
+                    android:id="@+id/tx_upcoming_events"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Upcoming Gigs"
+                    android:textColor="#ffffff"
+                    android:textSize="18dp" />
+
+                <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="100dp"></LinearLayout>-->
+
+                <!--<ImageView-->
+                <!--android:id="@+id/img_book_venue"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="20dp"-->
+                <!--android:src="@drawable/bookingbutton" />-->
+
+                <!--<android.support.v7.widget.RecyclerView-->
+                <!--android:id="@+id/rv_venue_events"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_below="@+id/line1" />-->
+
+
+                <ImageView
+                    android:id="@+id/img_book_venue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/bookingbutton" />
+
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

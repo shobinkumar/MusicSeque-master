@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/color_white"
+    android:orientation="vertical">
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvAvailable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textColor="@color/color_black"
+        android:text="@string/str_active"
+        android:textSize="@dimen/_13sdp" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvDoNot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+
+        android:text="@string/str_not_disturb"
+        android:textColor="@color/color_black"
+
+        android:textSize="@dimen/_13sdp" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvInvisible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textColor="@color/color_black"
+
+        android:text="@string/str_invisible"
+        android:textSize="@dimen/_13sdp" />
+</LinearLayout>

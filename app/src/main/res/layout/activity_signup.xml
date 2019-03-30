@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0B171F"
+    tools:context=".start_up.SignupActivity">
+
+    <RelativeLayout
+        android:id="@+id/rel1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#F87942"
+        android:padding="15dp">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@drawable/arrowleft" />
+
+        <com.musicseque.Fonts.BoldNoyhr
+            android:id="@+id/tvName"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:text="Create Account"
+            android:textColor="@color/color_white"
+            android:textSize="22sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rel1"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:padding="20dp">
+
+        <RelativeLayout
+            android:id="@+id/rel_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/img_istmame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/name" />
+
+            <com.musicseque.Fonts.NoyhrEditText
+                android:id="@+id/et_firstName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@+id/img_istmame"
+                android:background="@android:color/transparent"
+                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                android:hint="@string/first_name"
+                android:inputType="textFilter"
+                android:maxLength="12"
+                android:maxLines="1"
+                android:singleLine="true"
+
+                android:textColor="@color/color_white"
+                android:textColorHint="@color/color_white"
+                android:textSize="@dimen/_16sdp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/rel_search"
+            android:background="@color/color_white" />
+
+        <RelativeLayout
+            android:id="@+id/rel3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rel_search"
+            android:layout_marginTop="10dp"
+            android:padding="10dp">
+
+
+            <ImageView
+                android:id="@+id/img_lastmame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/name" />
+
+            <com.musicseque.Fonts.NoyhrEditText
+                android:id="@+id/et_lastname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@+id/img_lastmame"
+                android:background="@android:color/transparent"
+                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                android:hint="@string/last_name"
+                android:inputType="textFilter"
+                android:maxLength="12"
+                android:maxLines="1"
+                android:singleLine="true"
+
+                android:textColor="@color/color_white"
+                android:textColorHint="@color/color_white"
+                android:textSize="@dimen/_16sdp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/rel3"
+            android:background="@color/color_white" />
+
+        <RelativeLayout
+            android:id="@+id/rel4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rel3"
+            android:layout_marginTop="10dp"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/img_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/email" />
+
+            <com.musicseque.Fonts.NoyhrEditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@+id/img_email"
+                android:background="@android:color/transparent"
+                android:hint="@string/email"
+                android:inputType="textVisiblePassword"
+                android:maxLines="1"
+
+                android:textAllCaps="false"
+                android:textColor="@color/color_white"
+                android:textColorHint="@color/color_white"
+                android:textSize="@dimen/_16sdp" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/rel4"
+            android:background="@color/color_white" />
+
+
+        <LinearLayout
+            android:id="@+id/rel5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view4"
+            android:orientation="horizontal"
+            android:padding="@dimen/_5sdp"
+
+            android:weightSum="1">
+
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".5"
+                android:background="@android:color/transparent">
+
+                <ImageView
+                    android:id="@+id/iconPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/icon_phone" />
+
+                <Spinner
+                    android:id="@+id/spinnerCountryCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@+id/iconPhone"
+                    android:background="@android:color/transparent"
+                    android:padding="@dimen/_5sdp"
+                    android:popupBackground="@color/color_black"
+                    android:textColor="@color/color_white"
+                    android:textColorHint="#ffffff"
+
+                    android:textSize="@dimen/_10sdp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/spinnerCountryCode"
+                    android:src="@drawable/arrowdown" />
+            </RelativeLayout>
+
+            <com.musicseque.Fonts.NoyhrEditText
+                android:id="@+id/et_phone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_weight=".5"
+                android:background="@null"
+                android:hint="@string/str_enter_contact"
+                android:inputType="number"
+                android:maxLength="10"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingTop="@dimen/_5sdp"
+                android:paddingBottom="@dimen/_5sdp"
+                android:singleLine="true"
+
+                android:textColor="#ffffff"
+                android:textColorHint="#ffffff"
+                android:textSize="@dimen/_15sdp" />
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/rel5"
+            android:background="@color/color_white" />
+
+
+        <RelativeLayout
+            android:id="@+id/rel6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rel5"
+            android:layout_marginTop="10dp"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/img_pasw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/password_su" />
+
+            <com.musicseque.Fonts.NoyhrEditText
+                android:id="@+id/et_pasw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@+id/img_pasw"
+                android:background="@android:color/transparent"
+                android:hint="@string/passwor"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:textColor="@color/color_white"
+                android:textColorHint="@color/color_white"
+                android:textSize="@dimen/_16sdp"
+
+                />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/rel6"
+            android:background="@color/color_white" />
+
+        <RelativeLayout
+            android:id="@+id/rel7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rel6"
+            android:layout_marginTop="10dp"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/img_pasw_conf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/password_su" />
+
+            <com.musicseque.Fonts.NoyhrEditText
+                android:id="@+id/et_conf_pasw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@+id/img_pasw_conf"
+                android:background="@android:color/transparent"
+                android:hint="@string/confirm_pasw"
+                android:inputType="textPassword"
+                android:maxLines="1"
+
+                android:textColor="@color/color_white"
+                android:textColorHint="@color/color_white"
+                android:textSize="@dimen/_16sdp"
+
+                />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/rel7"
+            android:background="@color/color_white" />
+
+
+        <RelativeLayout
+            android:id="@+id/rel8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTerms"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/img_pro_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/name" />
+
+            <com.musicseque.Fonts.Noyhr
+                android:id="@+id/pro_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/img_pro_type"
+                android:text="Profile Type"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_16sdp" />
+
+
+            <ImageView
+                android:id="@+id/img_pro_typdfe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/pro_type"
+                android:src="@drawable/arrowdown" />
+
+
+        </RelativeLayout>
+
+        <!--<Spinner-->
+        <!--android:id="@+id/spinner"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/rel8"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:minWidth="120dp"-->
+        <!--android:paddingLeft="@dimen/_20sdp"-->
+        <!--android:paddingRight="@dimen/_20sdp"-->
+        <!--android:visibility="gone"-->
+
+        <!--/>-->
+
+        <ListView
+            android:id="@+id/list2"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:layout_below="@+id/rel8"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone" />
+
+
+        <CheckBox
+            android:id="@+id/radioBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="22dp"
+            android:button="@drawable/checkbox_selector"
+            android:paddingLeft="20dp"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="italic" />
+
+        <com.musicseque.Fonts.Noyhr
+            android:id="@+id/tvTerms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view"
+            android:layout_marginTop="22dp"
+            android:layout_toRightOf="@+id/radioBtn"
+            android:lineSpacingMultiplier="1.2"
+            android:text="By clicking on Submit, you agree to our Terms of Use and Privacy Policy. You will receive an OTP on registered Email for verfiying your account on App."
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/_12sdp" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/arroright"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrowright" />
+
+        <com.musicseque.Fonts.Noyhr
+            android:id="@+id/tv_sign_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/arroright"
+            android:padding="10dp"
+            android:text="Submit "
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/_18sdp" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#04141C">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/top_toolbar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:orientation="vertical"
+        android:padding="@dimen/_15sdp">
+
+        <TextView
+            android:id="@+id/tv_invite_fb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Invite Facebook Friends"
+            android:textColor="#FA7B43"
+            android:textSize="@dimen/_15sdp" />
+
+        <TextView
+            android:id="@+id/tv_find_contacts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:text="Find Contacts"
+            android:textColor="#FA7B43"
+            android:textSize="@dimen/_15sdp" />
+
+        <TextView
+            android:id="@+id/tv_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:text="Filters"
+            android:textColor="#FA7B43"
+            android:textSize="@dimen/_15sdp" />
+
+
+        <TextView
+            android:id="@+id/tv_change_pasw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:text="Language"
+            android:textColor="#FA7B43"
+            android:textSize="@dimen/_15sdp" />
+
+
+        <TextView
+            android:id="@+id/tv_report_problm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:text="Change Password"
+            android:textColor="#FA7B43"
+            android:textSize="@dimen/_15sdp" />
+
+        <TextView
+            android:id="@+id/tv_terms_of_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:text="Report a Problem"
+            android:textColor="#FA7B43"
+            android:textSize="@dimen/_15sdp" />
+
+        <TextView
+            android:id="@+id/tv_terms_policy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:text="Terms of Service"
+            android:textColor="#FA7B43"
+            android:textSize="@dimen/_15sdp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:text="Privacy Policy"
+            android:textColor="#FA7B43"
+            android:textSize="@dimen/_15sdp" />
+
+        <TextView
+            android:id="@+id/tv_del_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:text="Delete Account"
+            android:textColor="#FA7B43"
+            android:textSize="@dimen/_15sdp" />
+
+        <TextView
+            android:id="@+id/tv_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:text="LogOut"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/_15sdp" />
+
+    </LinearLayout>
+</ScrollView>
+
+
+</RelativeLayout>

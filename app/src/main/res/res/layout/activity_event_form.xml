@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#04141C"
+    tools:context="com.musicseque.musicseque.Activities.Activity.EventForm">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/top_toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/toolbar">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
+            android:layout_centerHorizontal="true"
+            android:padding="@dimen/_10sdp">
+
+
+            <TextView
+                android:id="@+id/tv_event_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:text="Event Title"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/_15sdp" />
+
+            <EditText
+                android:id="@+id/et_even_name"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/tv_event_name"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="#0C1C24" />
+
+            <TextView
+                android:id="@+id/tv_event_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_even_name"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:text="Event Description"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/_15sdp" />
+
+
+            <EditText
+                android:id="@+id/et_even_type"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/tv_event_type"
+                android:layout_marginTop="12dp"
+                android:background="#0C1C24" />
+
+
+            <TextView
+                android:id="@+id/tv_event_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_even_type"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:text="Select Event Type"
+
+                android:textColor="#ffffff"
+                android:textSize="@dimen/_15sdp" />
+
+            <LinearLayout
+                android:id="@+id/lin1"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@+id/tv_event_desc"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:background="#FFFFFF"
+                android:orientation="horizontal"></LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/line22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lin1"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_weight=".5"
+                    android:background="#0C1C24">
+
+                    <TextView
+                        android:id="@+id/tv_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:padding="@dimen/_10sdp"
+                        android:text="Date"
+                        android:textColor="#ffffff"
+                        android:textSize="@dimen/_15sdp" />
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/tv_date"
+                        android:layout_centerVertical="true"
+
+                        android:src="@drawable/eventcalendar" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_date"
+                        android:text="date"
+                        android:textColor="#ffffff" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5">
+
+                    <TextView
+                        android:id="@+id/tv_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:padding="@dimen/_10sdp"
+                        android:text="Time"
+                        android:textColor="#ffffff"
+                        android:textSize="@dimen/_15sdp" />
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/tv_time"
+                        android:layout_centerVertical="true"
+
+                        android:src="@drawable/clock" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_time"
+                        android:text="time"
+                        android:textColor="#ffffff" />
+                </RelativeLayout>
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line22"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:text="Phone"
+
+                android:textColor="#ffffff"
+                android:textSize="@dimen/_15sdp" />
+
+            <EditText
+                android:id="@+id/et_phone"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/tv_phone"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="#0C1C24" />
+
+            <TextView
+                android:id="@+id/tv_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_phone"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:text="Email"
+
+                android:textColor="#ffffff"
+                android:textSize="@dimen/_15sdp" />
+
+            <EditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/tv_email"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="#0C1C24" />
+
+
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/et_email"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:background="#FC7C44"
+                android:text="Submit"
+                android:textAllCaps="false"
+                android:textColor="#ffffff" />
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
