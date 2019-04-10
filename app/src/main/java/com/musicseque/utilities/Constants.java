@@ -3,10 +3,9 @@ package com.musicseque.utilities;
 public class Constants {
 
 
-
     public static String ROOT_URL = "http://musicapi.htistelecom.in/api/";
 
-//    public static String ROOT_URL2 = "http://musicapi.htistelecom.in/";
+// public static String ROOT_URL2 = "http://musicapi.htistelecom.in/";
 
 
     public static final String API_LOGIN = "account/login";
@@ -42,6 +41,10 @@ public class Constants {
     public static final String DELETE_ARTIST_IMAGES_API = "Service/DeleteUserImages";
     public static final String DELETE_ARTIST_MEDIA_FILES_API = "Service/DeleteUserUploadedFiles";
     public static final String DELETE_ACCOUNT_API = "Service/DeleteUser";
+    public static final String GET_ARTIST_LIST_API = "Service/GetUserList";
+    public static final String SEARCH_ARTIST_LIST_API = "Service/ProfileTypeSearch";
+
+    public static final String UPLOAD_LAT_LNG_API = "Service/UserLatLongAdd";
 
 
     public static final String DISPLAY_PROFILE_SCREEN_API = "Service/User_DisplayInfo";
@@ -126,4 +129,7 @@ public class Constants {
     public static final int FOR_DELETE_ARTIST_IMAGES = 127;
     public static final int FOR_DELETE_ARTIST_MEDIA = 128;
     public static final int FOR_DELETE_ACCOUNT =129;
+    public static final int GET_ARTIST_LIST =130;
+    public static final int SEARCH_ARTIST =131;
+    public static final int FOR_LAT_LNG =132;
 }

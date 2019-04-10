@@ -17,16 +17,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.musicseque.artist.activity.SearchArtistActivity;
 import com.musicseque.artist.activity.UploadActivity;
 import com.musicseque.artist.fragments.ProfileDetailFragment;
 import com.musicseque.artist.fragments.ProfileFragment;
+import com.musicseque.artist.service.CommonService;
 import com.musicseque.dagger_data.DaggerRetrofitComponent;
 import com.musicseque.dagger_data.RetrofitComponent;
 import com.musicseque.dagger_data.SharedPrefDependency;
 import com.musicseque.fragments.HomeFragment;
 import com.musicseque.fragments.SettingFragment;
+import com.musicseque.service.LocationService;
 import com.musicseque.start_up.LoginActivity;
 import com.musicseque.utilities.Constants;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -148,7 +154,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initOtherViews();
         initViews();
         clickListener();
+        JSONObject jsonObject=new JSONObject();
+        try {
+            jsonObject.put("UserId",sharedPreferences.getString(Constants.USER_ID,""));
+            jsonObject.put("Latitude", LocationService.mLatitude);
+            jsonObject.put("Longitude", LocationService.mLongitude);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
+        startService(new Intent(this, CommonService.class).putExtra("API",Constants.UPLOAD_LAT_LNG_API).putExtra("params",jsonObject.toString()));
 
         tvUserName.setText(sharedPreferences.getString(Constants.USER_NAME, ""));
         tvType.setText(sharedPreferences.getString(Constants.PROFILE_TYPE, ""));
@@ -359,6 +374,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.llBand:
                 break;
             case R.id.llSearch:
+                startActivity(new Intent(MainActivity.this, SearchArtistActivity.class));
+
                 break;
             case R.id.llStats:
                 break;

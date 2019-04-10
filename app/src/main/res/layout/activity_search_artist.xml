@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_app_background"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context=".artist.activity.SearchArtistActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:id="@+id/rlOuter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:background="@color/color_white"
+
+        android:padding="10dp">
+
+        <com.musicseque.Fonts.NoyhrEditText
+            android:id="@+id/etSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:hint="Find here......"
+            android:textSize="@dimen/_18sdp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/icon_artist_search" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerArtist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rlOuter"
+      />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvNoRecord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Record Found"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:textSize="@dimen/_22sdp"
+        android:textColor="@color/color_white"
+        />
+</RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

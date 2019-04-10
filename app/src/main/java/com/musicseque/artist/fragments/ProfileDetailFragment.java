@@ -107,7 +107,7 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
     @BindView(R.id.tvUserType)
     BoldNoyhr tvUserType;
     @BindView(R.id.tvUserLocation)
-    BoldNoyhr tvUserLocation;
+    Noyhr tvUserLocation;
 
     @BindView(R.id.tvGenre)
     Noyhr tvGenre;

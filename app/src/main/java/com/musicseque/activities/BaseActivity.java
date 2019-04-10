@@ -1,7 +1,9 @@
 package com.musicseque.activities;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,6 +20,8 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.ViewGroup;
 
 import com.musicseque.BuildConfig;
 import com.musicseque.artist.activity.ReportProblemActivity;
@@ -25,11 +29,14 @@ import com.musicseque.artist.activity.UploadActivity;
 import com.musicseque.dagger_data.DaggerRetrofitComponent;
 import com.musicseque.dagger_data.RetrofitComponent;
 import com.musicseque.dagger_data.SharedPrefDependency;
+import com.musicseque.service.LocationService;
 import com.musicseque.utilities.Constants;
+import com.musicseque.utilities.FileUtils;
 import com.musicseque.utilities.Utils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -37,19 +44,20 @@ import okhttp3.RequestBody;
 
 public abstract class BaseActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CODE = 102;
-    private int SELECT_FILE = 101;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 103;
+    private static final int SELECT_FILE_MULTIPLE = 1000;
+    private static final int SELECT_FILE_SINGLE = 1001;
 
-    ArrayList<String> permissionAL = new ArrayList<>();
     public SharedPreferences sharedPreferences;
     public SharedPreferences.Editor editor;
     private RetrofitComponent retrofitComponent;
-    private int MY_PERMISSIONS_REQUEST_LOCATION = 1;
     private int IMAGE_FROM;
     private File myDirectory;
     private Uri muri;
-    private int REQUEST_CAMERA;
+    private int REQUEST_CAMERA=1;
     private String selectedImagePath;
     String activityName;
+    ArrayList< MultipartBody.Part> al=new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,21 +67,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getApplicationContext())).build();
         sharedPreferences = retrofitComponent.getShared();
         editor = retrofitComponent.getEditor();
-        checkPermissionProvided();
 
 
     }
 
-
-    void checkPermissionProvided() {
-        ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("android.permission.FINE_LOCATION");
-        for (int i = 0; i < arrayList.size(); i++) {
-            if (!(ContextCompat.checkSelfPermission(BaseActivity.this, arrayList.get(i)) == PackageManager.PERMISSION_GRANTED)) {
-                permissionAL.add(arrayList.get(i));
-            }
-        }
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
@@ -81,11 +78,10 @@ public abstract class BaseActivity extends AppCompatActivity {
             case PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0) {
 
-                    boolean locationAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    boolean cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     boolean readaccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
                     boolean writeaccepted = grantResults[2] == PackageManager.PERMISSION_GRANTED;
-
-                    if (locationAccepted && readaccepted && writeaccepted) {
+                    if (readaccepted && writeaccepted && cameraAccepted) {
                         Utils.showToast(BaseActivity.this, "Permission Granted, Now you can access storage and camera.");
                         if (IMAGE_FROM == 1) {
                             cameraIntent();
@@ -103,7 +99,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
                                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                                    requestPermissions(new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                                    requestPermissions(new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION},
                                                             PERMISSION_REQUEST_CODE);
                                                 }
                                             }
@@ -115,11 +111,43 @@ public abstract class BaseActivity extends AppCompatActivity {
                     }
                 }
                 break;
+            case LOCATION_PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0) {
+
+                    boolean locationAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    if (locationAccepted) {
+                        Utils.showToast(BaseActivity.this, "Permission Granted, Now you can access location.");
+                        startService(new Intent(this, LocationService.class));
+
+
+                    } else {
+
+                        Utils.showToast(BaseActivity.this, "Permission Denied, You cannot access location");
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                                showMessageOKCancel("You need to allow access to all the permissions",
+                                        new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                                    requestLocationPermission();
+                                                }
+                                            }
+                                        });
+                                return;
+                            }
+                        }
+
+                    }
+                }
+                break;
+
         }
     }
 
     public void openDialog(String type) {
-        activityName=type;
+        activityName = type;
         myDirectory = new File(Environment.getExternalStorageDirectory(), "MusicSegue");
         try {
             if (myDirectory.exists()) {
@@ -167,7 +195,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
-    private boolean checkPermission() {
+    public boolean checkPermission() {
         int result = ContextCompat.checkSelfPermission(BaseActivity.this, android.Manifest.permission.CAMERA);
         int result1 = ContextCompat.checkSelfPermission(BaseActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE);
         int result2 = ContextCompat.checkSelfPermission(BaseActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -176,18 +204,41 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void requestPermission() {
+    public void requestPermission() {
 
         requestPermissions(new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
 
     }
 
+
+    public boolean checkLocationPermission() {
+        int result = ContextCompat.checkSelfPermission(BaseActivity.this, Manifest.permission.ACCESS_FINE_LOCATION);
+
+        return result == PackageManager.PERMISSION_GRANTED;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void requestLocationPermission() {
+
+        requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+
+    }
+
     private void galleryIntent() {
 
+        if (activityName.equalsIgnoreCase("report")) {
+            Intent openGalleryIntent = new Intent(Intent.ACTION_PICK);
+            openGalleryIntent.setType("image/*");
+            startActivityForResult(openGalleryIntent, SELECT_FILE_SINGLE);
+        } else {
+            Intent openGalleryIntent = new Intent(Intent.ACTION_PICK);
+            openGalleryIntent.setType("image/*");
+            openGalleryIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+            openGalleryIntent.setAction(Intent.ACTION_GET_CONTENT);
 
-        Intent openGalleryIntent = new Intent(Intent.ACTION_PICK);
-        openGalleryIntent.setType("image/*");
-        startActivityForResult(openGalleryIntent, SELECT_FILE);
+            startActivityForResult(openGalleryIntent, SELECT_FILE_MULTIPLE);
+        }
+
     }
 
 
@@ -244,9 +295,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-
-            if (requestCode == SELECT_FILE)
-            {
+          //  content://media/external/images/media/2849
+            if (requestCode == SELECT_FILE_SINGLE) {
                 try {
                     Uri uri = data.getData();
                     String filePath = getRealPathFromURIPath(uri, BaseActivity.this);
@@ -257,22 +307,47 @@ public abstract class BaseActivity extends AppCompatActivity {
                     MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
                     RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), sharedPreferences.getString(Constants.USER_ID, ""));
 
-                    if(activityName.equalsIgnoreCase("report"))
-                    {
-                        imageDetail(fileToUpload,mUSerId,file.getName());
-                    }
-                    else
-                    {
-                        callActivity(fileToUpload, mUSerId);
+                    if (activityName.equalsIgnoreCase("report")) {
+                        forReportProblem(fileToUpload, mUSerId, file.getName());
                     }
 
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
+            } else if (requestCode == SELECT_FILE_MULTIPLE) {
 
-            else if (requestCode == REQUEST_CAMERA) {
+
+
+                if (data.getClipData() != null) {
+                    ClipData mClipData = data.getClipData();
+                    for (int i = 0; i < mClipData.getItemCount(); i++) {
+
+                        ClipData.Item item = mClipData.getItemAt(i);
+                        Uri uri = item.getUri();
+
+
+                        String filePath = FileUtils.getPath(BaseActivity.this,uri);
+                        File file = new File(filePath);
+                        file = Utils.saveBitmapToFile(file);
+
+                        RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
+                        MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
+                        al.add(fileToUpload);
+
+
+                    }
+                    RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), sharedPreferences.getString(Constants.USER_ID, ""));
+                    callActivity(al, mUSerId);
+
+                }
+
+
+
+
+
+                
+            } else if (requestCode == REQUEST_CAMERA) {
                 Uri uri = Uri.parse(selectedImagePath);
                 String filePath = getRealPathFromURIPath(uri, BaseActivity.this);
                 File file = new File(filePath);
@@ -280,14 +355,11 @@ public abstract class BaseActivity extends AppCompatActivity {
                 RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
                 MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
                 RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), sharedPreferences.getString(Constants.USER_ID, ""));
-                //callActivity(fileToUpload, mUSerId);
-                if(activityName.equalsIgnoreCase("report"))
-                {
-                    imageDetail(fileToUpload,mUSerId,file.getName());
-                }
-                else
-                {
-                    callActivity(fileToUpload, mUSerId);
+                al.add(fileToUpload);
+                if (activityName.equalsIgnoreCase("report")) {
+                    forReportProblem(fileToUpload, mUSerId, file.getName());
+                } else {
+                    callActivity(al, mUSerId);
                 }
 
             }
@@ -295,16 +367,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    private void imageDetail(MultipartBody.Part fileToUpload, RequestBody mUSerId, String name) {
+    private void forReportProblem(MultipartBody.Part fileToUpload, RequestBody mUSerId, String name) {
         ReportProblemActivity report = (ReportProblemActivity) this;
-        report.getImageDetails(fileToUpload, mUSerId,name);
+        report.getImageDetails(fileToUpload, mUSerId, name);
 
     }
 
-    void callActivity(MultipartBody.Part fileToUpload, RequestBody mUSerId) {
+    void callActivity(ArrayList<MultipartBody.Part> fileToUpload, RequestBody mUSerId) {
 
         UploadActivity uploadActivity = (UploadActivity) this;
         uploadActivity.uploadPic(fileToUpload, mUSerId);
     }
 }
-

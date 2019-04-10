@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import com.bumptech.glide.Glide;
 import com.musicseque.R;
 import com.musicseque.models.ImageModel;
+import com.musicseque.utilities.CommonMethods;
 
 import java.util.ArrayList;
 
@@ -43,19 +44,13 @@ public class ShowPhotosAdapter extends RecyclerView.Adapter<ShowPhotosAdapter.My
         ImageModel imageModel = imageAL.get(position);
         holder.pBar.setVisibility(View.VISIBLE);
         Glide.with(context).load(imageModel.getBase_url() + imageModel.getImage_url()).into(holder.ivImage);
-//        if (imageModel.isImage()) {
-//            holder.pBar.setVisibility(View.VISIBLE);
-//            Glide.with(context).load(imageModel.getBase_url()+imageModel.getImage_url()).into(holder.ivImage);
-//        } else {
-//            Glide.with(context).load(R.drawable.icon_add_icon).into(holder.ivImage);
-//            holder.pBar.setVisibility(View.GONE);
-//            holder.ivImage.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    uploadImage.callMethod();
-//                }
-//            });
-//        }
+        holder.ivImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CommonMethods.showLargeImages(context,imageAL.get(position).getBase_url()+imageAL.get(position).getImage_url());
+
+            }
+        });
 
     }
 

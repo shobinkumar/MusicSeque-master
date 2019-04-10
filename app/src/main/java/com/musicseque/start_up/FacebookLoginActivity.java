@@ -33,8 +33,7 @@ import java.util.List;
 
 
 public class FacebookLoginActivity extends Activity {
-    private static final List<String> PERMISSIONS = Arrays.asList("email",
-            "user_birthday","user_gender", "user_hometown","user_location");
+    private static final List<String> PERMISSIONS = Arrays.asList("email" );
     CallbackManager callbackManager;
     private AccessTokenTracker accessTokenTracker;
     private AccessToken token;

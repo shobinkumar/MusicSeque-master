@@ -68,10 +68,10 @@ public interface CommonInterface {
     Call<String> callArtistUploadedImages(@Body String params);
 
 
-//    @Multipart
-//    @Headers("Content-Type: application/json")
-//    @POST(Constants.UPDATE_PROFILE)
-//    Call<String> callUploadImages(@Part MultipartBody.Part file, @Part("file") RequestBody name, @Part("Id") RequestBody id);
+// @Multipart
+// @Headers("Content-Type: application/json")
+// @POST(Constants.UPDATE_PROFILE)
+// Call<String> callUploadImages(@Part MultipartBody.Part file, @Part("file") RequestBody name, @Part("Id") RequestBody id);
 
 
     @GET(Constants.GENRE_LIST_API)
@@ -106,5 +106,19 @@ public interface CommonInterface {
     @Headers("Content-Type: application/json")
     @POST(Constants.DELETE_ACCOUNT_API)
     Call<String> callDeleteAccountMethod(@Body String params);
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.GET_ARTIST_LIST_API)
+    Call<String> getArtistListMethod(@Body String params);
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.SEARCH_ARTIST_LIST_API)
+    Call<String> getSearchArtistListMethod(@Body String params);
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.UPLOAD_LAT_LNG_API)
+    Call<String> uploadLatLongMethod(@Body String params);
+
+
 
 }

@@ -16,6 +16,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.musicseque.R;
 import com.musicseque.models.ImageModel;
+import com.musicseque.utilities.CommonMethods;
 
 import java.util.ArrayList;
 
@@ -62,9 +63,13 @@ public class UploadPhotosAdapter extends RecyclerView.Adapter<UploadPhotosAdapte
             holder.ivSelected.setVisibility(View.GONE);
         }
 
-//        holder.itemView
-//                .setBackgroundColor(mSelectedItemsIds.get(position) ? 0x9934B5E4
-//                        : Color.TRANSPARENT);
+
+        holder.ivImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+              //  CommonMethods.showLargeImages(context,imageAL.get(position).getBase_url()+imageAL.get(position).getImage_url());
+            }
+        });
 
 
     }

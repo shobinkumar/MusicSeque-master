@@ -30,6 +30,7 @@ import com.musicseque.interfaces.MyInterface;
 import com.musicseque.models.ImageModel;
 import com.musicseque.retrofit_interface.ImageUploadClass;
 import com.musicseque.retrofit_interface.RetrofitAPI;
+import com.musicseque.utilities.CommonMethods;
 import com.musicseque.utilities.Constants;
 import com.musicseque.utilities.RecyclerClick_Listener;
 import com.musicseque.utilities.RecyclerTouchListener;
@@ -173,7 +174,7 @@ public class UploadPhotoFragment extends Fragment implements MyInterface, Upload
             Utils.initializeAndShow(getActivity());
             JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put("UserId","2339");
+                jsonObject.put("UserId",sharedPreferences.getString(Constants.USER_ID,""));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -191,9 +192,9 @@ public class UploadPhotoFragment extends Fragment implements MyInterface, Upload
         ((UploadActivity) getActivity()).openDialogForPic();
     }
 
-    public void uploadImage(MultipartBody.Part fileToUpload, RequestBody mUSerId) {
+    public void uploadImage(ArrayList<MultipartBody.Part> fileToUpload, RequestBody mUSerId) {
         Utils.initializeAndShow(getActivity());
-        ImageUploadClass.imageUpload(fileToUpload, mUSerId, null, Constants.FOR_UPLOAD_ARTIST_IMAGE, UploadPhotoFragment.this);
+        //ImageUploadClass.imageUpload(fileToUpload, mUSerId, null, Constants.FOR_UPLOAD_ARTIST_IMAGE, UploadPhotoFragment.this);
     }
 
     @OnClick(R.id.floatingButtonUploadPhoto)
@@ -208,6 +209,8 @@ public class UploadPhotoFragment extends Fragment implements MyInterface, Upload
                 //If ActionMode not null select item
                 if (mActionMode != null)
                     onListItemSelect(position);
+                else
+                    CommonMethods.showLargeImages(getActivity(),arrayList.get(position).getBase_url()+arrayList.get(position).getImage_url());
             }
 
             @Override
@@ -288,5 +291,11 @@ public class UploadPhotoFragment extends Fragment implements MyInterface, Upload
         mActionMode.finish();//Finish action mode after use
 
     }
+
+    public void checkActionMode()
+    {
+
+    }
+
 
 }

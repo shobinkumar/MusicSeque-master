@@ -15,7 +15,11 @@ public class RetrofitAPI {
 
     static MyInterface commonInterface;
 
-    public static void callAPI(String params, int TYPE, MyInterface myInterface) {
+    public static void
+
+
+
+    callAPI(String params, int TYPE, MyInterface myInterface) {
         commonInterface = myInterface;
 
 
@@ -61,9 +65,17 @@ public class RetrofitAPI {
         } else if (TYPE == Constants.FOR_DELETE_ARTIST_MEDIA) {
             call = api.callDeleteArtistMediaMethod(params);
 
-        }
-        else if (TYPE == Constants.FOR_DELETE_ACCOUNT) {
+        } else if (TYPE == Constants.FOR_DELETE_ACCOUNT) {
             call = api.callDeleteAccountMethod(params);
+
+        } else if (TYPE == Constants.GET_ARTIST_LIST) {
+            call = api.getArtistListMethod(params);
+
+        } else if (TYPE == Constants.SEARCH_ARTIST) {
+            call = api.getSearchArtistListMethod(params);
+
+        } else if (TYPE == Constants.FOR_LAT_LNG) {
+            call = api.uploadLatLongMethod(params);
 
         }
         callRetrofit(call, TYPE);
@@ -164,9 +176,9 @@ public class RetrofitAPI {
                     commonInterface.sendResponse(response.body(), TYPE);
 
                 } else if (TYPE == Constants.FOR_UPLOADED_AUDIO) {
-                  //  Log.e("FOR_UPLOADED_AUDIO", response.body().toString());
-                   commonInterface.sendResponse(response.body(), TYPE);
-                   // commonInterface.sendResponse("",TYPE);
+// Log.e("FOR_UPLOADED_AUDIO", response.body().toString());
+                    commonInterface.sendResponse(response.body(), TYPE);
+// commonInterface.sendResponse("",TYPE);
                 } else if (TYPE == Constants.FOR_CHANGE_PASSWORD) {
                     Log.e("FOR_CHANGE_PASSWORD", response.body().toString());
                     commonInterface.sendResponse(response.body(), TYPE);
@@ -179,10 +191,7 @@ public class RetrofitAPI {
                     Log.e("FOR_UPLOADED_VIDEO", response.body().toString());
                     commonInterface.sendResponse(response.body(), TYPE);
 
-                }
-
-
-                else if (TYPE == Constants.FOR_DELETE_ARTIST_IMAGES) {
+                } else if (TYPE == Constants.FOR_DELETE_ARTIST_IMAGES) {
                     Log.e("FOR_DELETE_IMAGES", response.body().toString());
                     commonInterface.sendResponse(response.body(), TYPE);
 
@@ -190,44 +199,24 @@ public class RetrofitAPI {
                     Log.e("FOR_DELETE_MEDIA", response.body().toString());
                     commonInterface.sendResponse(response.body(), TYPE);
 
-                }
-                else if (TYPE == Constants.FOR_DELETE_ACCOUNT) {
+                } else if (TYPE == Constants.FOR_DELETE_ACCOUNT) {
                     Log.e("FOR_DELETE_ACCOUNT", response.body().toString());
                     commonInterface.sendResponse(response.body(), TYPE);
 
+                } else if (TYPE == Constants.GET_ARTIST_LIST) {
+                    Log.e("GET_ARTIST_LIST", response.body().toString());
+                    commonInterface.sendResponse(response.body(), TYPE);
+
+                } else if (TYPE == Constants.SEARCH_ARTIST) {
+                    Log.e("SEARCH_ARTIST", response.body().toString());
+                    commonInterface.sendResponse(response.body(), TYPE);
+
+                } else if (TYPE == Constants.FOR_LAT_LNG) {
+                    Log.e("FOR_LAT_LNG", response.body().toString());
+                    commonInterface.sendResponse(response.body(), TYPE);
+
                 }
-//                else if (TYPE == Constants.FOR_SONGS_LIST) {
-//                    Log.e("FOR_SONGS_LIST", response.body().toString());
-//                    commonInterface.sendResponse(response.body(), TYPE);
-//
-//                }
-//                else if (TYPE == Constants.FOR_ARTIST_UPLOADED_IMAGES) {
-//                    Log.e("FOR_UPLOADED_IMAGES", response.body().toString());
-//                    commonInterface.sendResponse(response.body(), TYPE);
-//
-//                } else if (TYPE == Constants.FOR_UPLOAD_ARTIST_IMAGE) {
-//                    Log.e("FOR_UPLOAD_IMAGES", response.body().toString());
-//                    commonInterface.sendResponse(response.body(), TYPE);
-//
-//                }
-//                else if (TYPE == Constants.FOR_UPLOADED_AUDIO) {
-//                    Log.e("FOR_UPLOADED_AUDIO", response.body().toString());
-//                    commonInterface.sendResponse(response.body(), TYPE);
-//
-//                } else if (TYPE == Constants.FOR_UPLOAD_AUDIO) {
-//                    Log.e("FOR_UPLOAD_AUDIO", response.body().toString());
-//                    commonInterface.sendResponse(response.body(), TYPE);
-//
-//                }
-//                else if (TYPE == Constants.FOR_UPLOADED_VIDEO) {
-//                    Log.e("FOR_UPLOADED_VIDEO", response.body().toString());
-//                    commonInterface.sendResponse(response.body(), TYPE);
-//
-//                } else if (TYPE == Constants.FOR_UPLOAD_VIDEO) {
-//                    Log.e("FOR_UPLOAD_VIDEO", response.body().toString());
-//                    commonInterface.sendResponse(response.body(), TYPE);
-//
-//                }
+
             }
 
             @Override

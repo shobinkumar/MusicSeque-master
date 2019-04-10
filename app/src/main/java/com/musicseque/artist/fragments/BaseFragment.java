@@ -61,12 +61,20 @@ public class BaseFragment extends Fragment {
 
     public void openDialog(String type, Fragment fragment) {
         fragments = (UploadVideoFragment) fragment;
-
+        String[] pictureDialogItems;
         mFileType = type;
         if (type.equalsIgnoreCase("video")) {
-
+            pictureDialogItems = new String[]{
+                    "Select video from gallery",
+                    "Capture video from camera"};
         } else {
 
+
+
+
+            pictureDialogItems = new String[]{
+                    "Select photo from gallery",
+                    "Capture photo from camera"};
         }
 
         myDirectory = new File(Environment.getExternalStorageDirectory(), "MusicSegue");
@@ -82,9 +90,7 @@ public class BaseFragment extends Fragment {
 
         AlertDialog.Builder pictureDialog = new AlertDialog.Builder(getActivity());
         pictureDialog.setTitle("Select Action");
-        String[] pictureDialogItems = {
-                "Select photo from gallery",
-                "Capture photo from camera"};
+
         pictureDialog.setItems(pictureDialogItems,
                 new DialogInterface.OnClickListener() {
                     @Override

@@ -11,7 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.musicseque.R;
-import com.musicseque.adapters.SongsAdapter;
+
+import com.musicseque.artist.artist_adapters.SongsAdapter;
 import com.musicseque.interfaces.MyInterface;
 import com.musicseque.utilities.Constants;
 import com.musicseque.utilities.Utils;

@@ -18,6 +18,8 @@ import com.musicseque.artist.fragments.UploadPhotoFragment;
 import com.musicseque.artist.fragments.UploadVideoFragment;
 import com.musicseque.utilities.Utils;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -139,7 +141,7 @@ public class UploadActivity extends BaseActivity {
     }
 
 
-    public void uploadPic(MultipartBody.Part fileToUpload, RequestBody mUSerId) {
+    public void uploadPic(ArrayList<MultipartBody.Part> fileToUpload, RequestBody mUSerId) {
 
         UploadPhotoFragment uploadPhotoFragment = (UploadPhotoFragment) fragment;
         uploadPhotoFragment.uploadImage(fileToUpload, mUSerId);

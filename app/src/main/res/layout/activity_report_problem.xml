@@ -20,6 +20,9 @@
             android:id="@+id/rlEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
+
+
             android:padding="5dp">
 
             <ImageView
@@ -155,36 +158,36 @@
             android:textSize="@dimen/_16sdp" />
 
 
-        <com.musicseque.Fonts.Noyhr
-            android:id="@+id/txtDetails"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btnSubmit"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="25dp"
-            android:background="@android:color/transparent"
-            android:gravity="center"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:text="You can also call us at"
-            android:textColor="#ffffff"
-            android:textColorHint="#ffffff"
-            android:textSize="@dimen/_16sdp" />
+        <!--<com.musicseque.Fonts.Noyhr-->
+            <!--android:id="@+id/txtDetails"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/btnSubmit"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginTop="25dp"-->
+            <!--android:background="@android:color/transparent"-->
+            <!--android:gravity="center"-->
+            <!--android:maxLines="1"-->
+            <!--android:singleLine="true"-->
+            <!--android:text="You can also call us at"-->
+            <!--android:textColor="#ffffff"-->
+            <!--android:textColorHint="#ffffff"-->
+            <!--android:textSize="@dimen/_16sdp" />-->
 
-        <com.musicseque.Fonts.Noyhr
-            android:id="@+id/txtNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtDetails"
-            android:layout_centerVertical="true"
-            android:background="@android:color/transparent"
-            android:gravity="center"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:text="1800-123-4589"
-            android:textColor="#ffffff"
-            android:textColorHint="#ffffff"
-            android:textSize="@dimen/_15sdp" />
+        <!--<com.musicseque.Fonts.Noyhr-->
+            <!--android:id="@+id/txtNumber"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/txtDetails"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:background="@android:color/transparent"-->
+            <!--android:gravity="center"-->
+            <!--android:maxLines="1"-->
+            <!--android:singleLine="true"-->
+            <!--android:text="1800-123-4589"-->
+            <!--android:textColor="#ffffff"-->
+            <!--android:textColorHint="#ffffff"-->
+            <!--android:textSize="@dimen/_15sdp" />-->
     </RelativeLayout>
     <!--<RelativeLayout-->
     <!--android:id="@+id/rel5"-->
