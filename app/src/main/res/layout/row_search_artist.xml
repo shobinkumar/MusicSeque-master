@@ -17,7 +17,7 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="75">
+            android:layout_weight="80">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/ivArtistImage"
@@ -41,7 +41,7 @@
                     android:maxLines="1"
                     android:singleLine="true"
                     android:textColor="@color/color_orange"
-                    android:textSize="@dimen/_18sdp" />
+                    android:textSize="@dimen/_16sdp" />
 
                 <ImageView
                     android:id="@+id/ivIndicator"
@@ -50,7 +50,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="@dimen/_6sdp"
                     android:layout_toRightOf="@+id/tvArtistName"
-                    android:src="@drawable/greenindicator" />
+                    android:src="@drawable/icon_green" />
 
                 <com.musicseque.Fonts.Noyhr
                     android:id="@+id/tvProfileType"
@@ -60,19 +60,26 @@
                     android:layout_marginTop="3dp"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:text="Singer, Guitar"
                     android:textColor="@color/color_white"
-                    android:textSize="@dimen/_14sdp" />
-
+                    android:textSize="@dimen/_12sdp" />
                 <com.musicseque.Fonts.Noyhr
-                    android:id="@+id/tvDistance"
+                    android:id="@+id/tvCountry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvProfileType"
                     android:layout_marginTop="3dp"
-                    android:text="0.3 miles"
+                    android:maxLines="1"
+                    android:singleLine="true"
                     android:textColor="@color/color_white"
-                    android:textSize="@dimen/_14sdp" />
+                    android:textSize="@dimen/_12sdp" />
+                <com.musicseque.Fonts.Noyhr
+                    android:id="@+id/tvDistance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvCountry"
+                    android:layout_marginTop="3dp"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/_12sdp" />
             </RelativeLayout>
         </RelativeLayout>
 
@@ -80,7 +87,7 @@
             android:id="@+id/rlOuter"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="25"
+            android:layout_weight="20"
             android:layout_gravity="center">
 
             <FrameLayout
@@ -89,8 +96,8 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="75dp"
-                    android:layout_height="73dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/icon_artist_calendar" />
 
                 <LinearLayout

@@ -20,6 +20,8 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.text.Editable;
@@ -748,6 +750,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
                 "Capture photo from camera"};
         pictureDialog.setItems(pictureDialogItems,
                 new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.M)
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
@@ -755,7 +758,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
 
                                 IMAGE_FROM = 2;
                                 if (!checkPermission()) {
-                                    requestPermission();
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                        requestPermission();
+                                    }
                                 } else {
                                     galleryIntent();
 
@@ -785,6 +790,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
         return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED && result2 == PackageManager.PERMISSION_GRANTED;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void requestPermission() {
 
         requestPermissions(new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);

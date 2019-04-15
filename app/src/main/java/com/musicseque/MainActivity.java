@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView iv_home, iv_profile, iv_feature, iv_chat, iv_settings;
 
 
-    Fragment fragment;
+
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     private RetrofitComponent retrofitComponent;
@@ -145,6 +145,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @BindView(R.id.drawerLayout)
     DrawerLayout navDrawer;
+    private Fragment  fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,6 +185,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (getIntent().getStringExtra("frag") == null)
             changeIconBottom(R.drawable.homeactive3, R.drawable.profile3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment);
         else {
+
+
 
             if (getIntent().getStringExtra("frag").equalsIgnoreCase("com.musicseque.fragments.HomeFragment")) {
                 fragment = new HomeFragment();

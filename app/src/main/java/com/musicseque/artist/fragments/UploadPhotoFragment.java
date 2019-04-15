@@ -194,7 +194,7 @@ public class UploadPhotoFragment extends Fragment implements MyInterface, Upload
 
     public void uploadImage(ArrayList<MultipartBody.Part> fileToUpload, RequestBody mUSerId) {
         Utils.initializeAndShow(getActivity());
-        //ImageUploadClass.imageUpload(fileToUpload, mUSerId, null, Constants.FOR_UPLOAD_ARTIST_IMAGE, UploadPhotoFragment.this);
+        ImageUploadClass.fileUploadMultiple(fileToUpload, mUSerId, null, Constants.FOR_UPLOAD_ARTIST_IMAGE, UploadPhotoFragment.this);
     }
 
     @OnClick(R.id.floatingButtonUploadPhoto)

@@ -2,6 +2,8 @@ package com.musicseque.retrofit_interface;
 
 import com.musicseque.utilities.Constants;
 
+import java.util.ArrayList;
+
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -22,7 +24,7 @@ public interface ImageUploadInterface {
 
     @Multipart
     @POST(Constants.UPLOAD_ARTIST_IMAGES_API)
-    Call<String> uploadArtistImage(@Part MultipartBody.Part file, @Part("UserId") RequestBody name);
+    Call<String> uploadArtistImage(@Part("UserId") RequestBody name,@Part ArrayList<MultipartBody.Part> file);
 
 
     @Multipart

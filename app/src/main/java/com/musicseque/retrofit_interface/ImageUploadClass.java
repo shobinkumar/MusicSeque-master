@@ -5,6 +5,8 @@ import android.util.Log;
 import com.musicseque.interfaces.MyInterface;
 import com.musicseque.utilities.Constants;
 
+import java.util.ArrayList;
+
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -23,10 +25,7 @@ public class ImageUploadClass {
         else if (TYPE == Constants.FOR_UPLOAD_ARTIST_PROFILE_IMAGE) {
             call = api.uploadProfilePic(fileToUpload,mUSerId);
         }
-        else if(TYPE == Constants.FOR_UPLOAD_ARTIST_IMAGE)
-        {
-            call = api.uploadArtistImage(fileToUpload,mUSerId);
-        }
+
         else if(TYPE==Constants.FOR_REPORT_PROBLEM)
         {
             call = api.callReportMethod(fileToUpload,mUSerId,mMessage);
@@ -37,6 +36,21 @@ public class ImageUploadClass {
         }
         callRetrofit(call, TYPE);
     }
+
+
+    public static void fileUploadMultiple(ArrayList<MultipartBody.Part> fileToUpload, RequestBody mUSerId, RequestBody mMessage, int TYPE, MyInterface myInterface) {
+        commonInterface = myInterface;
+        ImageUploadInterface api = RetrofitClientInstance.createService(ImageUploadInterface.class);
+        Call<String> call = null;
+
+        if(TYPE == Constants.FOR_UPLOAD_ARTIST_IMAGE)
+        {
+            call = api.uploadArtistImage(mUSerId,fileToUpload);
+        }
+
+        callRetrofit(call, TYPE);
+    }
+
 
     public static <T> void callRetrofit(Call call, final int TYPE) {
 

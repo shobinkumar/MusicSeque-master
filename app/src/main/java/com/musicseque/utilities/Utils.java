@@ -11,6 +11,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -35,8 +37,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static android.text.TextUtils.isEmpty;
 
 public class Utils {
 
@@ -234,7 +239,8 @@ public static void setTypefaces(CheckBox view, Context context)
         dist = Math.acos(dist);
         dist = rad2deg(dist);
         dist = dist * 60 * 1.1515;
-        return (dist);
+
+        return (dist)*0.621371;
     }
 
     private static  double deg2rad(double deg) {
@@ -244,5 +250,53 @@ public static void setTypefaces(CheckBox view, Context context)
     private static double rad2deg(double rad) {
         return (rad * 180.0 / Math.PI);
     }
+    public static Address getCompleteAddressString(double LATITUDE, double LONGITUDE,Context context) {
+        String strAdd = "";
+        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+        List<Address> addresses = null;
+        try {
+             addresses = geocoder.getFromLocation(LATITUDE, LONGITUDE, 1);
+            if (addresses != null) {
 
+                String address=addresses.get(0).getAddressLine(0);
+
+/*address= address.replace(addresses.get(0).getAdminArea(),"");
+address= address.replace(addresses.get(0).getCountryName(),"");
+address=address.replace(addresses.get(0).getLocality(),"");
+address=address.replace(addresses.get(0).getPostalCode(),"");*/
+                String []a=address.split(",");
+                address="";
+                String society="";
+                address=a[0];
+                for(int i=1;i<a.length;i++)
+                {
+                    if(a[i].trim().length()>1) {
+                        society+= a[i].toString() + ", ";
+                    }
+                }
+                if(society.trim().endsWith(","))
+                {
+                    society= society.substring(0,society.lastIndexOf(",")).trim();
+                }
+                String city ="";
+                if(!isEmpty(addresses.get(0).getLocality())) {
+                    city=addresses.get(0).getLocality().trim();
+                }
+                String zip ="";
+                if(!isEmpty(addresses.get(0).getPostalCode())) {
+                    zip = addresses.get(0).getPostalCode().trim();
+                }
+
+
+
+            } else {
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return addresses.get(0);
+    }
         }

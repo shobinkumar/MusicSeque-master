@@ -1,6 +1,7 @@
 package com.musicseque.artist.artist_adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,7 +15,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.musicseque.Fonts.Noyhr;
+import com.musicseque.MainActivity;
 import com.musicseque.R;
+import com.musicseque.artist.activity.OtherProfileActivity;
 import com.musicseque.artist.activity.SearchArtistActivity;
 import com.musicseque.artist.artist_models.ArtistModel;
 import com.musicseque.dagger_data.DaggerRetrofitComponent;
@@ -66,9 +69,9 @@ public class SearchArtistAdapter extends RecyclerView.Adapter<SearchArtistAdapte
             viewHolder.tvArtistName.setText(artistModel.getFirstName()+ " "+artistModel.getLastName());
 
             double mDistance=Utils.calculateDistance(Double.parseDouble(LocationService.mLatitude),Double.parseDouble(LocationService.mLongitude),Double.parseDouble(artistModel.getUserLatitude()),Double.parseDouble(artistModel.getUserLongitude()));
-            viewHolder.tvDistance.setText(df2.format(mDistance)+" km");
+            viewHolder.tvDistance.setText(df2.format(mDistance)+" miles");
         viewHolder.tvProfileType.setText(artistModel.getExpertise()+","+artistModel.getGenreTypeName());
-
+        viewHolder.tvCountry.setText(artistModel.getCity()+","+artistModel.getCountryName());
             if (artistModel.getSocialImageUrl() == null || artistModel.getSocialImageUrl().equalsIgnoreCase("null") || artistModel.getSocialImageUrl().equalsIgnoreCase("")) {
                 Glide.with(context).load(artistModel.getServerpath() + artistModel.getProfilePic()).into(viewHolder.ivArtistImage);
 
@@ -86,6 +89,12 @@ public class SearchArtistAdapter extends RecyclerView.Adapter<SearchArtistAdapte
         } else {
             viewHolder.ivIndicator.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_red));
         }
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context.startActivity(new Intent(context, OtherProfileActivity.class).putExtra("id",artistModel.getUserId()));
+            }
+        });
 
 
     }
@@ -108,6 +117,8 @@ public class SearchArtistAdapter extends RecyclerView.Adapter<SearchArtistAdapte
         Noyhr tvDistance;
         @BindView(R.id.tvDay)
         TextView tvDay;
+        @BindView(R.id.tvCountry)
+        TextView tvCountry;
         @BindView(R.id.tvMonth)
         com.musicseque.Fonts.Noyhr tvMonth;
 

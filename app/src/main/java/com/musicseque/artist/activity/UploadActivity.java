@@ -145,7 +145,6 @@ public class UploadActivity extends BaseActivity {
 
         UploadPhotoFragment uploadPhotoFragment = (UploadPhotoFragment) fragment;
         uploadPhotoFragment.uploadImage(fileToUpload, mUSerId);
-        //
 
 
     }

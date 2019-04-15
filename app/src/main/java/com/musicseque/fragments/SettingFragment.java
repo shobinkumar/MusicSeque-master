@@ -41,7 +41,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
+
 
 
 public class SettingFragment extends Fragment implements View.OnClickListener, MyInterface {
