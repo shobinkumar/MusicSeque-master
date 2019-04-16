@@ -120,5 +120,11 @@ public interface CommonInterface {
     Call<String> uploadLatLongMethod(@Body String params);
 
 
+    @Headers("Content-Type: application/json")
+    @POST(Constants.FOLLOW_UNFOLLOW_ARTIST_API)
+    Call<String> followUnfollowArtist(@Body String params);
 
+    @Headers("Content-Type: application/json")
+    @POST(Constants.OTHER_PROFILE_API )
+    Call<String> getOtherProfile(@Body String params);
 }

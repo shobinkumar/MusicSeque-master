@@ -3,6 +3,7 @@ package com.musicseque.utilities;
 public class Constants {
 
 
+
     public static String ROOT_URL = "http://musicapi.htistelecom.in/api/";
 
 // public static String ROOT_URL2 = "http://musicapi.htistelecom.in/";
@@ -45,37 +46,8 @@ public class Constants {
     public static final String SEARCH_ARTIST_LIST_API = "Service/ProfileTypeSearch";
 
     public static final String UPLOAD_LAT_LNG_API = "Service/UserLatLongAdd";
-
-
-    public static final String DISPLAY_PROFILE_SCREEN_API = "Service/User_DisplayInfo";
-    public static final String GET_ARTIST_IMAGES_API = "Service/User_DisplayInfo";
-
-
-    public static String VENUE_LIST = ROOT_URL + "Service/VenuelistByOwner";
-    public static String VENUE_ADD_EDIT = ROOT_URL + "Service/VenueAdd";
-    public static String VENUE_EVENT_LIST = ROOT_URL + "Service/Venue_DisplayGigsByVenueId";
-    public static String VENUE_PROFILE_DETAILS = ROOT_URL + "Service/VenueDetailByVenueId";
-    public static String SEARCH_HOME = ROOT_URL + "Service/VenueSearch";
-
-    public static String VENUE_FORM = ROOT_URL + "service/EventAdd";
-
-
-    public static String VENUE_LIST_OF_VM = ROOT_URL + "Service/VenuelistByOwner";
-    public static String GENRE_LIST = ROOT_URL + "Service/GenreTypeList";
-
-    public static String ADD_MEMEBER = ROOT_URL + "Service/BandArtistSerach";
-
-    public static String MEMBER_LIST = ROOT_URL + "Service/BandArtistMemberlist";
-    public static String ARTIST_LIST = ROOT_URL + "Service/ArtistTypeList";
-    public static String ARTIST_REQUEST = ROOT_URL + "Service/BandFriendsRequestSave?";
-    public static String EVENT_DETAILS = ROOT_URL + "Service/EventBooking_Detail?";
-    public static String SEARCH_ALL = ROOT_URL + "Service/HomeSearch?";
-    //Shared Key
-    public static String PROFILE_NAME = "profilename";
-    public static String SEARCH_ID = "searchid";
-    public static String VISIT_TYPE = "visittype";
-    public static String LOGIN_ID = "login id";
-    public static String VENUE_ID = "venue id";
+    public static final String FOLLOW_UNFOLLOW_ARTIST_API = "Service/ArtistFollowerAdd";
+    public static final String OTHER_PROFILE_API = "Service/User_Displayinfo_Follower";
 
 
     public static final String USER_ID = "USER_ID";
@@ -132,4 +104,6 @@ public class Constants {
     public static final int GET_ARTIST_LIST =130;
     public static final int SEARCH_ARTIST =131;
     public static final int FOR_LAT_LNG =132;
+    public static final int FOR_FOLLOW_UNFOLLOW_ARTIST =133 ;
+
 }

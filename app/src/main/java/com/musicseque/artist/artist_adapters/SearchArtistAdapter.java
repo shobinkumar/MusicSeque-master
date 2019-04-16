@@ -92,7 +92,7 @@ public class SearchArtistAdapter extends RecyclerView.Adapter<SearchArtistAdapte
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                context.startActivity(new Intent(context, OtherProfileActivity.class).putExtra("id",artistModel.getUserId()));
+                 context.startActivity(new Intent(context, OtherProfileActivity.class).putExtra("id",artistModel.getUserId()));
             }
         });
 

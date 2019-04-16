@@ -78,6 +78,14 @@ public class RetrofitAPI {
             call = api.uploadLatLongMethod(params);
 
         }
+        else if (TYPE == Constants.FOR_FOLLOW_UNFOLLOW_ARTIST) {
+            call = api.followUnfollowArtist(params);
+
+        }
+        else if (TYPE == Constants.FOR_OTHER_PROFILE) {
+            call = api.getOtherProfile(params);
+
+        }
         callRetrofit(call, TYPE);
 
 
@@ -216,7 +224,11 @@ public class RetrofitAPI {
                     commonInterface.sendResponse(response.body(), TYPE);
 
                 }
+                else if (TYPE == Constants.FOR_FOLLOW_UNFOLLOW_ARTIST) {
+                    Log.e("FOLLOW_UNFOLLOW_ARTIST", response.body().toString());
+                    commonInterface.sendResponse(response.body(), TYPE);
 
+                }
             }
 
             @Override
