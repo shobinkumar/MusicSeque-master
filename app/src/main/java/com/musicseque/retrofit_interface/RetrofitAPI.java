@@ -229,6 +229,11 @@ public class RetrofitAPI {
                     commonInterface.sendResponse(response.body(), TYPE);
 
                 }
+                else if (TYPE == Constants.FOR_OTHER_PROFILE) {
+                    Log.e("FOR_OTHER_PROFILE", response.body().toString());
+                    commonInterface.sendResponse(response.body(), TYPE);
+
+                }
             }
 
             @Override
