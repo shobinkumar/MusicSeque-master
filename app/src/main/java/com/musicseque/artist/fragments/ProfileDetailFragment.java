@@ -263,13 +263,13 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
                 break;
             case R.id.ivIconDrop:
                 //hide
-                tvBio.setVisibility(View.GONE);
+                tvBio.setVisibility(View.VISIBLE);
                 ivIconDrop.setVisibility(View.GONE);
                 ivIconUp.setVisibility(View.VISIBLE);
                 break;
             case R.id.ivIconUp:
 //visible
-                tvBio.setVisibility(View.VISIBLE);
+                tvBio.setVisibility(View.GONE);
                 ivIconDrop.setVisibility(View.VISIBLE);
                 ivIconUp.setVisibility(View.GONE);
                 break;

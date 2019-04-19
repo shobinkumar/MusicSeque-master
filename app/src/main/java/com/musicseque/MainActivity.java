@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView iv_home, iv_profile, iv_feature, iv_chat, iv_settings;
 
 
-
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     private RetrofitComponent retrofitComponent;
@@ -70,6 +69,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView tvProfile;
     @BindView(R.id.ivProfile)
     ImageView ivProfile;
+
+    @BindView(R.id.llAllProfile)
+    LinearLayout llAllProfile;
+    @BindView(R.id.tvMyProfile)
+    TextView tvMyProfile;
+    @BindView(R.id.tvBandProfile)
+    TextView tvBandProfile;
+    @BindView(R.id.ivUpArrow)
+    ImageView ivUpArrow;
+    @BindView(R.id.ivDownArrow)
+    ImageView ivDownArrow;
 
     @BindView(R.id.llAlerts)
     LinearLayout llAlerts;
@@ -145,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @BindView(R.id.drawerLayout)
     DrawerLayout navDrawer;
-    private Fragment  fragment;
+    private Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,16 +165,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initOtherViews();
         initViews();
         clickListener();
-        JSONObject jsonObject=new JSONObject();
+        JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("UserId",sharedPreferences.getString(Constants.USER_ID,""));
+            jsonObject.put("UserId", sharedPreferences.getString(Constants.USER_ID, ""));
             jsonObject.put("Latitude", LocationService.mLatitude);
             jsonObject.put("Longitude", LocationService.mLongitude);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        startService(new Intent(this, CommonService.class).putExtra("API",Constants.UPLOAD_LAT_LNG_API).putExtra("params",jsonObject.toString()));
+        startService(new Intent(this, CommonService.class).putExtra("API", Constants.UPLOAD_LAT_LNG_API).putExtra("params", jsonObject.toString()));
 
         tvUserName.setText(sharedPreferences.getString(Constants.USER_NAME, ""));
         tvType.setText(sharedPreferences.getString(Constants.PROFILE_TYPE, ""));
@@ -185,7 +195,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (getIntent().getStringExtra("frag") == null)
             changeIconBottom(R.drawable.homeactive3, R.drawable.profile3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment);
         else {
-
 
 
             if (getIntent().getStringExtra("frag").equalsIgnoreCase("com.musicseque.fragments.HomeFragment")) {
@@ -341,19 +350,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    @OnClick({R.id.llActivity, R.id.llHome, R.id.llProfile, R.id.llAlerts, R.id.llSchedule, R.id.llUpload, R.id.llBand, R.id.llSearch, R.id.llStats, R.id.llSettings, R.id.llLogout})
+    @OnClick({R.id.tvMyProfile,R.id.tvBandProfile,R.id.ivUpArrow, R.id.ivDownArrow, R.id.llActivity, R.id.llHome, R.id.llAlerts, R.id.llSchedule, R.id.llUpload, R.id.llBand, R.id.llSearch, R.id.llStats, R.id.llSettings, R.id.llLogout})
     public void onClicks(View view) {
         switch (view.getId()) {
-            case R.id.llActivity:
-                break;
-            case R.id.llHome:
-                changeIconBottom(R.drawable.homeactive3, R.drawable.profile3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment);
+            case R.id.ivUpArrow:
+                llAllProfile.setVisibility(View.GONE);
+                ivUpArrow.setVisibility(View.GONE);
+                ivDownArrow.setVisibility(View.VISIBLE);
 
-                fragment = new HomeFragment();
-                replaceFragment(fragment);
-                navDrawer.closeDrawers();
                 break;
-            case R.id.llProfile:
+            case R.id.ivDownArrow:
+                llAllProfile.setVisibility(View.VISIBLE);
+                ivDownArrow.setVisibility(View.GONE);
+                ivUpArrow.setVisibility(View.VISIBLE);
+                break;
+            case R.id.tvMyProfile:
                 changeIconBottom(R.drawable.home3, R.drawable.profileactive3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment);
 
                 if (sharedPreferences.getString(Constants.IS_FIRST_LOGIN, "").equalsIgnoreCase("Y"))
@@ -363,8 +374,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 replaceFragment(fragment);
                 navDrawer.closeDrawers();
-
                 break;
+            case R.id.tvBandProfile:
+                break;
+            case R.id.llActivity:
+                break;
+            case R.id.llHome:
+                changeIconBottom(R.drawable.homeactive3, R.drawable.profile3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment);
+
+                fragment = new HomeFragment();
+                replaceFragment(fragment);
+                navDrawer.closeDrawers();
+                break;
+
             case R.id.llAlerts:
                 break;
             case R.id.llSchedule:
@@ -411,7 +433,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             editor.putString(Constants.USER_ID, "").commit();
             editor.putString(Constants.PROFILE_TYPE, "").commit();
             editor.putString(Constants.PROFILE_ID, "").commit();
-           // editor.putString(Constants.EMAIL_ID, "").commit();
+            // editor.putString(Constants.EMAIL_ID, "").commit();
             editor.putString(Constants.PROFILE_IMAGE, "").commit();
             editor.putString(Constants.COUNTRY_NAME, "").commit();
             editor.putString(Constants.LOGIN_TYPE, "").commit();

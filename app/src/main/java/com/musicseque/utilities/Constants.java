@@ -48,7 +48,7 @@ public class Constants {
     public static final String UPLOAD_LAT_LNG_API = "Service/UserLatLongAdd";
     public static final String FOLLOW_UNFOLLOW_ARTIST_API = "Service/ArtistFollowerAdd";
     public static final String OTHER_PROFILE_API = "Service/User_Displayinfo_Follower";
-
+    public static final String BAND_PROFILE_API = "Service/BandProfileAdd";
 
     public static final String USER_ID = "USER_ID";
 
@@ -105,5 +105,6 @@ public class Constants {
     public static final int SEARCH_ARTIST =131;
     public static final int FOR_LAT_LNG =132;
     public static final int FOR_FOLLOW_UNFOLLOW_ARTIST =133 ;
+    public static final int FOR_BAND_PROFILE =134 ;
 
 }

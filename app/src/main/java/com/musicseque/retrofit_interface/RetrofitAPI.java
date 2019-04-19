@@ -86,6 +86,10 @@ public class RetrofitAPI {
             call = api.getOtherProfile(params);
 
         }
+        else if (TYPE == Constants.FOR_BAND_PROFILE) {
+            call = api.getBandProfile(params);
+
+        }
         callRetrofit(call, TYPE);
 
 

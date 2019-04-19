@@ -127,4 +127,9 @@ public interface CommonInterface {
     @Headers("Content-Type: application/json")
     @POST(Constants.OTHER_PROFILE_API )
     Call<String> getOtherProfile(@Body String params);
+
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.BAND_PROFILE_API )
+    Call<String> getBandProfile(@Body String params);
 }

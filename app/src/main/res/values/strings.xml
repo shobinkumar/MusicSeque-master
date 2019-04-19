@@ -194,6 +194,7 @@
     <string name="title_activity_play_video">PlayVideoActivity</string>
     <string name="txt_my_profile">My Profile</string>
     <string name="txt_my_band_profile">My Band Profile</string>
+    <string name="str_band_name">Band Name*</string>
 
 
 </resources>

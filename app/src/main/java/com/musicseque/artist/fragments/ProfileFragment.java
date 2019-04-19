@@ -703,20 +703,28 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
                 initializeLoader();
 
                 try {
-                    jsonBody.put("UserId", sharedPreferences.getString(Constants.USER_ID, ""));
-                    jsonBody.put("DisplayName", "");
-                    jsonBody.put("Email", mEmail);
-                    jsonBody.put("CountryId", mCountryId);
-                    jsonBody.put("Phone", mMobileNumber);
-                    jsonBody.put("City", mCity);
+
+
+
+
+
+
+
+
+
+                    jsonBody.put("BandName", "");
+                    jsonBody.put("BandContactNo", mMobileNumber);
+                    jsonBody.put("BandEmail", mEmail);
+                    jsonBody.put("BandWebsite", mWebsite);
+                    jsonBody.put("BandCity", mCity);
                     jsonBody.put("PostCode", mPostCode);
+                    jsonBody.put("CountryId", mCountryId);
                     jsonBody.put("Bio", mBio);
-                    jsonBody.put("Genre", mGenreId);
-                    jsonBody.put("Website", mWebsite);
-                    jsonBody.put("Expertise", mExpertise);
+                    jsonBody.put("BandGenreId", mGenreId);
                     jsonBody.put("ExperienceId", mExperienceId);
-                    jsonBody.put("Certifications", mCertification);
-                    jsonBody.put("Grade", mGrade);
+                    jsonBody.put("BandManagerId",  sharedPreferences.getString(Constants.USER_ID, ""));
+                     jsonBody.put("ProfileTypeId", "2");
+
 
                     requestBody = jsonBody.toString();
                     RetrofitAPI.callAPI(requestBody, Constants.FOR_UPDATE_PROFILE, ProfileFragment.this);
