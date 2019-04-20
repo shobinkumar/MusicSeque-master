@@ -17,6 +17,9 @@ public interface ImageUploadInterface {
     @POST(Constants.UPLOAD_ARTIST_IMAGE_API)
     Call<String> uploadProfilePic(@Part MultipartBody.Part file, @Part("Id") RequestBody name);
 
+
+
+
     @Multipart
     @POST(Constants.UPLOAD_ARTIST_BACKGROUND_IMAGE_API)
     Call<String> uploadBackgroundImage(@Part MultipartBody.Part file, @Part("Id") RequestBody name);
@@ -35,6 +38,16 @@ public interface ImageUploadInterface {
     @Multipart
     @POST(Constants.REPORT_ISSUE_API)
     Call<String> callReportMethod(@Part MultipartBody.Part file, @Part("UserId") RequestBody name, @Part("Message") RequestBody tag);
+
+
+    //Band
+    @Multipart
+    @POST(Constants.UPLOAD_BAND_PROFILE_IMAGE_API)
+    Call<String> uploadBandProfilePic(@Part MultipartBody.Part file, @Part("LoginUserId") RequestBody name);
+
+    @Multipart
+    @POST(Constants.UPLOAD_BAND_BACKGROUND_IMAGE_API)
+    Call<String> uploadBandCoverPic(@Part MultipartBody.Part file, @Part("LoginUserId") RequestBody name);
 
 
 }

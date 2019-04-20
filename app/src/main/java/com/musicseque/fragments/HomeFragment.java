@@ -70,7 +70,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         Address address = Utils.getCompleteAddressString(Double.parseDouble(LocationService.mLatitude), Double.parseDouble(LocationService.mLongitude), getActivity());
 
-        tvLoc.setText(address.getLocality() + "," + address.getCountryName());
+       // tvLoc.setText(address.getLocality() + "," + address.getCountryName());
+        tvLoc.setText(address.getAddressLine(0));
     }
 
     public void clickListner() {

@@ -32,6 +32,10 @@ public class CommonService extends IntentService {
                 callAPI(mParams, Constants.FOR_LAT_LNG);
 
             }
+            else if(mAPI.equalsIgnoreCase(Constants.UPDATE_BAND_AVAILABILITY_STATUS_API))
+            {
+                callAPI(mParams, Constants.FOR_BAND_VISIBILITY_STATUS);
+            }
         }
 
 
@@ -46,6 +50,10 @@ public class CommonService extends IntentService {
         } else if (TYPE == Constants.FOR_LAT_LNG) {
             call = api.uploadLatLongMethod(mParams);
 
+        }
+        else if(TYPE == Constants.FOR_BAND_VISIBILITY_STATUS)
+        {
+            call = api.callBandAvailabilityStatusMethod(mParams);
         }
         callMethod(call, TYPE);
 

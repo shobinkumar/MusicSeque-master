@@ -701,29 +701,21 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
                 Utils.showToast(getActivity(), getResources().getString(R.string.err_experience));
             } else {
                 initializeLoader();
-
                 try {
-
-
-
-
-
-
-
-
-
-                    jsonBody.put("BandName", "");
-                    jsonBody.put("BandContactNo", mMobileNumber);
-                    jsonBody.put("BandEmail", mEmail);
-                    jsonBody.put("BandWebsite", mWebsite);
-                    jsonBody.put("BandCity", mCity);
-                    jsonBody.put("PostCode", mPostCode);
+                    jsonBody.put("UserId", sharedPreferences.getString(Constants.USER_ID, ""));
+                    jsonBody.put("DisplayName", "");
+                    jsonBody.put("Email", mEmail);
                     jsonBody.put("CountryId", mCountryId);
+                    jsonBody.put("Phone", mMobileNumber);
+                    jsonBody.put("City", mCity);
+                    jsonBody.put("PostCode", mPostCode);
                     jsonBody.put("Bio", mBio);
-                    jsonBody.put("BandGenreId", mGenreId);
+                    jsonBody.put("Genre", mGenreId);
+                    jsonBody.put("Website", mWebsite);
+                    jsonBody.put("Expertise", mExpertise);
                     jsonBody.put("ExperienceId", mExperienceId);
-                    jsonBody.put("BandManagerId",  sharedPreferences.getString(Constants.USER_ID, ""));
-                     jsonBody.put("ProfileTypeId", "2");
+                    jsonBody.put("Certifications", mCertification);
+                    jsonBody.put("Grade", mGrade);
 
 
                     requestBody = jsonBody.toString();

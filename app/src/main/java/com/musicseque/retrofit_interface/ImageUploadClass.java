@@ -15,24 +15,23 @@ import retrofit2.Response;
 
 public class ImageUploadClass {
     static MyInterface commonInterface;
-    public static void imageUpload(MultipartBody.Part fileToUpload, RequestBody mUSerId,RequestBody mMessage, int TYPE, MyInterface myInterface) {
+
+    public static void imageUpload(MultipartBody.Part fileToUpload, RequestBody mUSerId, RequestBody mMessage, int TYPE, MyInterface myInterface) {
         commonInterface = myInterface;
         ImageUploadInterface api = RetrofitClientInstance.createService(ImageUploadInterface.class);
         Call<String> call = null;
         if (TYPE == Constants.FOR_UPLOAD_ARTIST_COVER_PIC) {
-            call = api.uploadBackgroundImage(fileToUpload,mUSerId);
-        }
-        else if (TYPE == Constants.FOR_UPLOAD_ARTIST_PROFILE_IMAGE) {
-            call = api.uploadProfilePic(fileToUpload,mUSerId);
-        }
-
-        else if(TYPE==Constants.FOR_REPORT_PROBLEM)
-        {
-            call = api.callReportMethod(fileToUpload,mUSerId,mMessage);
-        }
-        else if(TYPE==Constants.FOR_UPLOAD_ARTIST_AUDIO_VIDEO)
-        {
-            call = api.uploadArtistAudioVideo(fileToUpload,mUSerId,mMessage);
+            call = api.uploadBackgroundImage(fileToUpload, mUSerId);
+        } else if (TYPE == Constants.FOR_UPLOAD_ARTIST_PROFILE_IMAGE) {
+            call = api.uploadProfilePic(fileToUpload, mUSerId);
+        } else if (TYPE == Constants.FOR_REPORT_PROBLEM) {
+            call = api.callReportMethod(fileToUpload, mUSerId, mMessage);
+        } else if (TYPE == Constants.FOR_UPLOAD_ARTIST_AUDIO_VIDEO) {
+            call = api.uploadArtistAudioVideo(fileToUpload, mUSerId, mMessage);
+        } else if (TYPE == Constants.FOR_UPLOAD_BAND_PROFILE_IMAGE) {
+            call = api.uploadBandProfilePic(fileToUpload, mUSerId);
+        } else if (TYPE == Constants.FOR_UPLOAD_BAND_BACKGROUND_IMAGE) {
+            call = api.uploadBandCoverPic(fileToUpload, mUSerId);
         }
         callRetrofit(call, TYPE);
     }
@@ -43,9 +42,8 @@ public class ImageUploadClass {
         ImageUploadInterface api = RetrofitClientInstance.createService(ImageUploadInterface.class);
         Call<String> call = null;
 
-        if(TYPE == Constants.FOR_UPLOAD_ARTIST_IMAGE)
-        {
-            call = api.uploadArtistImage(mUSerId,fileToUpload);
+        if (TYPE == Constants.FOR_UPLOAD_ARTIST_IMAGE) {
+            call = api.uploadArtistImage(mUSerId, fileToUpload);
         }
 
         callRetrofit(call, TYPE);
@@ -62,25 +60,18 @@ public class ImageUploadClass {
                     Log.e("ARTIST_COVER_PIC", response.body().toString());
 
 
-                }
-               else if (TYPE == Constants.FOR_UPLOAD_ARTIST_PROFILE_IMAGE) {
+                } else if (TYPE == Constants.FOR_UPLOAD_ARTIST_PROFILE_IMAGE) {
                     commonInterface.sendResponse(response.body(), TYPE);
                     Log.e("ARTIST_PROFILE_IMAGE", response.body().toString());
 
 
-                }
-                else if(TYPE==Constants.FOR_UPLOAD_ARTIST_IMAGE)
-                {
+                } else if (TYPE == Constants.FOR_UPLOAD_ARTIST_IMAGE) {
                     commonInterface.sendResponse(response.body(), TYPE);
                     Log.e("ARTIST_PROFILE_IMAGE", response.body().toString());
-                }
-                else if(TYPE==Constants.FOR_REPORT_PROBLEM)
-                {
+                } else if (TYPE == Constants.FOR_REPORT_PROBLEM) {
                     commonInterface.sendResponse(response.body(), TYPE);
                     Log.e("FOR_REPORT_PROBLEM", response.body().toString());
-                }
-                else if(TYPE==Constants.FOR_UPLOAD_ARTIST_AUDIO_VIDEO)
-                {
+                } else if (TYPE == Constants.FOR_UPLOAD_ARTIST_AUDIO_VIDEO) {
                     commonInterface.sendResponse(response.body(), TYPE);
                     Log.e("FOR_UPLOAD_AUDIO_VIDEO", response.body().toString());
                 }
@@ -95,4 +86,4 @@ public class ImageUploadClass {
 
     }
 
-    }
+}

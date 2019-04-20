@@ -90,6 +90,10 @@ public class RetrofitAPI {
             call = api.getBandProfile(params);
 
         }
+        else if (TYPE == Constants.FOR_UPDATE_BAND_PROFILE) {
+            call = api.updateBandProfile(params);
+
+        }
         callRetrofit(call, TYPE);
 
 
@@ -235,6 +239,16 @@ public class RetrofitAPI {
                 }
                 else if (TYPE == Constants.FOR_OTHER_PROFILE) {
                     Log.e("FOR_OTHER_PROFILE", response.body().toString());
+                    commonInterface.sendResponse(response.body(), TYPE);
+
+                }
+                else if (TYPE == Constants.FOR_BAND_PROFILE) {
+                    Log.e("FOR_BAND_PROFILE", response.body().toString());
+                    commonInterface.sendResponse(response.body(), TYPE);
+
+                }
+                else if (TYPE == Constants.FOR_UPDATE_BAND_PROFILE) {
+                    Log.e("FOR_UPDATE_BAND_PROFILE", response.body().toString());
                     commonInterface.sendResponse(response.body(), TYPE);
 
                 }

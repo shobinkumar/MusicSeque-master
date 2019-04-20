@@ -76,7 +76,7 @@ public class SplashActivity extends BaseActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1) {
+        if (requestCode == 100) {
             if (resultCode == RESULT_OK) {
                 stopService(new Intent(this, LocationService.class));
                 startService(new Intent(this, LocationService.class));

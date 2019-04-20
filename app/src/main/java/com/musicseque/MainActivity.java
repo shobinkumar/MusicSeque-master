@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.musicseque.artist.activity.SearchArtistActivity;
 import com.musicseque.artist.activity.UploadActivity;
+import com.musicseque.artist.fragments.BandFormFragment;
 import com.musicseque.artist.fragments.ProfileDetailFragment;
 import com.musicseque.artist.fragments.ProfileFragment;
 import com.musicseque.artist.service.CommonService;
@@ -376,6 +377,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 navDrawer.closeDrawers();
                 break;
             case R.id.tvBandProfile:
+                fragment=new BandFormFragment();
+                replaceFragment(fragment);
+                navDrawer.closeDrawers();
                 break;
             case R.id.llActivity:
                 break;
