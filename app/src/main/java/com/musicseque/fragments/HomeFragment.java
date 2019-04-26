@@ -3,6 +3,7 @@ package com.musicseque.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -21,9 +22,14 @@ import com.musicseque.service.LocationService;
 import com.musicseque.utilities.Constants;
 import com.musicseque.utilities.Utils;
 
+import java.util.List;
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+
 
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
@@ -68,7 +74,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         img_talent_manager = (ImageView) v.findViewById(R.id.img_talent_manager);
         et_explore = (TextView) v.findViewById(R.id.et_explore);
 
-        Address address = Utils.getCompleteAddressString(Double.parseDouble(LocationService.mLatitude), Double.parseDouble(LocationService.mLongitude), getActivity());
+
+
+
+
+            Address address = Utils.getCompleteAddressString(Double.parseDouble(LocationService.mLatitude), Double.parseDouble(LocationService.mLongitude), getActivity());
 
        // tvLoc.setText(address.getLocality() + "," + address.getCountryName());
         tvLoc.setText(address.getAddressLine(0));

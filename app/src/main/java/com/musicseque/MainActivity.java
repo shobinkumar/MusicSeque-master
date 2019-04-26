@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.musicseque.artist.activity.SearchArtistActivity;
 import com.musicseque.artist.activity.UploadActivity;
 import com.musicseque.artist.fragments.BandFormFragment;
+import com.musicseque.artist.fragments.BandListFragment;
 import com.musicseque.artist.fragments.ProfileDetailFragment;
 import com.musicseque.artist.fragments.ProfileFragment;
 import com.musicseque.artist.service.CommonService;
@@ -219,6 +220,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 changeIconBottom(R.drawable.home3, R.drawable.profileactive3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment);
 
+            } else if (getIntent().getStringExtra("frag").equalsIgnoreCase("com.musicseque.artist.fragments.BandFormFragment")) {
+
+
+                fragment = new BandFormFragment();
+                Bundle args = new Bundle();
+                args.putString("band_id", getIntent().getStringExtra("band_id"));
+                fragment.setArguments(args);
+                changeIconBottom(R.drawable.home3, R.drawable.profileactive3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment);
             } else if (getIntent().getStringExtra("frag").equalsIgnoreCase("com.musicseque.fragments.SettingFragment")) {
                 fragment = new SettingFragment();
 
@@ -351,7 +360,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    @OnClick({R.id.tvMyProfile,R.id.tvBandProfile,R.id.ivUpArrow, R.id.ivDownArrow, R.id.llActivity, R.id.llHome, R.id.llAlerts, R.id.llSchedule, R.id.llUpload, R.id.llBand, R.id.llSearch, R.id.llStats, R.id.llSettings, R.id.llLogout})
+    @OnClick({R.id.tvMyProfile, R.id.tvBandProfile, R.id.ivUpArrow, R.id.ivDownArrow, R.id.llActivity, R.id.llHome, R.id.llAlerts, R.id.llSchedule, R.id.llUpload, R.id.llBand, R.id.llSearch, R.id.llStats, R.id.llSettings, R.id.llLogout})
     public void onClicks(View view) {
         switch (view.getId()) {
             case R.id.ivUpArrow:
@@ -377,7 +386,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 navDrawer.closeDrawers();
                 break;
             case R.id.tvBandProfile:
-                fragment=new BandFormFragment();
+                fragment = new BandListFragment();
                 replaceFragment(fragment);
                 navDrawer.closeDrawers();
                 break;

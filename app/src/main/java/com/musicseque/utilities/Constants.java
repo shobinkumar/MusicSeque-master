@@ -12,7 +12,7 @@ public class Constants {
     public static final String API_LOGIN = "account/login";
     public static final String API_SIGN_UP = "account/Register";
     public static final String ACCOUNT_EXISTS_API = "Account/UserSocialLogin";
-    public static final String LOGIN_SOCIAL_API = "Account/UpdateUserSocial";
+    public static final String LOGIN_SOCIAL_API = "Account/ ";
     public static final String EMAIL_VERYFIY = "account/SendOtp";
     public static final String RESET_PASSWORD_API = "account/ResetPassword";
     public static final String ACCOUNT_VERIFY_API = "account/EmailVerification";
@@ -26,9 +26,7 @@ public class Constants {
     public static final String UPDATE_USER_INFO_API = "Account/ProfileUpdate";
     public static final String UPLOAD_ARTIST_IMAGE_API = "Service/profileImageUpload";
     public static final String UPLOAD_ARTIST_BACKGROUND_IMAGE_API = "Service/BackgroundImageUpload";
-    public static final String UPLOAD_BAND_PROFILE_IMAGE_API = "Service/BandProfileImageUpload";
-    public static final String UPLOAD_BAND_BACKGROUND_IMAGE_API = "Service/BandProfileBackgroundImageUpload";
-    public static final String UPDATE_BAND_AVAILABILITY_STATUS_API ="Service/BandProfileAvailabilityStatus";
+
     public static final String GENRE_LIST_API = "Service/GenreTypeList";
     public static final String COUNTRY_LIST_API = "Service/CountryCodes";
 
@@ -49,8 +47,16 @@ public class Constants {
     public static final String UPLOAD_LAT_LNG_API = "Service/UserLatLongAdd";
     public static final String FOLLOW_UNFOLLOW_ARTIST_API = "Service/ArtistFollowerAdd";
     public static final String OTHER_PROFILE_API = "Service/User_Displayinfo_Follower";
-    public static final String GET_BAND_PROFILE_API = "Service/BandProfile";
+
+
+    //Band APIs
+    public static final String GET_BAND_LIST_API = "Service/BandProfilesListDisplay";
+    public static final String GET_BAND_DETAIL_API = "Service/BandProfileDisplayViaId";
     public static final String UPDATE_BAND_PROFILE_API ="Service/BandProfileAddUpdate" ;
+    public static final String UPLOAD_BAND_PROFILE_IMAGE_API = "Service/BandProfileImageUpload";
+    public static final String UPLOAD_BAND_BACKGROUND_IMAGE_API = "Service/BandProfileBackgroundImageUpload";
+    public static final String UPDATE_BAND_AVAILABILITY_STATUS_API ="Service/BandProfileAvailabilityStatus";
+
     public static final String USER_ID = "USER_ID";
 
     public static final String PROFILE_ID = "PROFILE_ID";
@@ -111,4 +117,5 @@ public class Constants {
     public static final int FOR_UPLOAD_BAND_PROFILE_IMAGE = 136;
     public static final int FOR_UPLOAD_BAND_BACKGROUND_IMAGE = 137;
     public static final int FOR_BAND_VISIBILITY_STATUS = 138;
+    public static final int FOR_BAND_LIST =139;
 }

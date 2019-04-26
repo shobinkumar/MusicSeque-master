@@ -74,6 +74,12 @@ public class ImageUploadClass {
                 } else if (TYPE == Constants.FOR_UPLOAD_ARTIST_AUDIO_VIDEO) {
                     commonInterface.sendResponse(response.body(), TYPE);
                     Log.e("FOR_UPLOAD_AUDIO_VIDEO", response.body().toString());
+                } else if (TYPE == Constants.FOR_UPLOAD_BAND_PROFILE_IMAGE) {
+                    commonInterface.sendResponse(response.body(), TYPE);
+                    Log.e("BAND_PROFILE_IMAGE", response.body().toString());
+                } else if (TYPE == Constants.FOR_UPLOAD_BAND_BACKGROUND_IMAGE) {
+                    commonInterface.sendResponse(response.body(), TYPE);
+                    Log.e("BAND_BACK_IMAGE", response.body().toString());
                 }
             }
 

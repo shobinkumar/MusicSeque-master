@@ -252,7 +252,7 @@ public static void setTypefaces(CheckBox view, Context context)
     }
     public static Address getCompleteAddressString(double LATITUDE, double LONGITUDE,Context context) {
         String strAdd = "";
-        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+        Geocoder geocoder = new Geocoder(context.getApplicationContext(), Locale.getDefault());
         List<Address> addresses = null;
         try {
              addresses = geocoder.getFromLocation(LATITUDE, LONGITUDE, 1);

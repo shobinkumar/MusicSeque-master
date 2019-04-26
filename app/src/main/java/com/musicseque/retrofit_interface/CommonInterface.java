@@ -130,7 +130,7 @@ public interface CommonInterface {
 
 
     @Headers("Content-Type: application/json")
-    @POST(Constants.GET_BAND_PROFILE_API )
+    @POST(Constants.GET_BAND_DETAIL_API)
     Call<String> getBandProfile(@Body String params);
 
     @Headers("Content-Type: application/json")
@@ -142,4 +142,9 @@ public interface CommonInterface {
     @Headers("Content-Type: application/json")
     @POST(Constants.UPDATE_BAND_AVAILABILITY_STATUS_API)
     Call<String> callBandAvailabilityStatusMethod(@Body String params);
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.GET_BAND_LIST_API )
+    Call<String> getBandList(@Body String params);
+
 }
