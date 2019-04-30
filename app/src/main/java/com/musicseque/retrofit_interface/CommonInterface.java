@@ -147,4 +147,16 @@ public interface CommonInterface {
     @POST(Constants.GET_BAND_LIST_API )
     Call<String> getBandList(@Body String params);
 
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.DELETE_BAND_API )
+    Call<String> deleteBand(@Body String params);
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.SEARCH_BAND_MEMBER_API )
+    Call<String> searchBandMember(@Body String params);
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.BAND_MEMBER_STATUS_API )
+    Call<String> bandMemberStatus(@Body String params);
 }

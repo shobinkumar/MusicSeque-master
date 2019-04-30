@@ -33,6 +33,8 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.musicseque.Fonts.NoyhrEditText;
 import com.musicseque.MainActivity;
 import com.musicseque.R;
@@ -47,6 +49,7 @@ import com.musicseque.utilities.Utils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -161,6 +164,14 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
         iv_fb = (ImageView) findViewById(R.id.iv_fb);
         ivGoogle = (ImageView) findViewById(R.id.ivGoogle);
 
+        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+            @Override
+            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                task.getResult().getToken();
+            }
+        });
+
+
     }
 
     private void listeners() {
@@ -186,7 +197,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
     private void googleLoginInitialization() {
 
         googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-               // .requestIdToken("797258071407-u5o6ivco8p7qukqm8s6ovbnljns3djq4.apps.googleusercontent.com")
+                // .requestIdToken("797258071407-u5o6ivco8p7qukqm8s6ovbnljns3djq4.apps.googleusercontent.com")
                 .requestIdToken("631151135806-76c34v9bb1486bqb0itjui37iusr19kd.apps.googleusercontent.com")
 
                 .requestEmail()
@@ -375,7 +386,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
             } catch (Exception e) {
-                Log.e("",e.getLocalizedMessage());
+                Log.e("", e.getLocalizedMessage());
             }
         } else if (requestCode == FB_SIGN_IN) {
             if (resultCode == RESULT_OK) {

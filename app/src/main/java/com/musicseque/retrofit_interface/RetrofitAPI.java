@@ -1,9 +1,14 @@
 package com.musicseque.retrofit_interface;
 
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
 import com.musicseque.interfaces.MyInterface;
 import com.musicseque.utilities.Constants;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.json.JSONObject;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -16,7 +21,6 @@ public class RetrofitAPI {
     static MyInterface commonInterface;
 
     public static void
-
 
 
     callAPI(String params, int TYPE, MyInterface myInterface) {
@@ -77,25 +81,29 @@ public class RetrofitAPI {
         } else if (TYPE == Constants.FOR_LAT_LNG) {
             call = api.uploadLatLongMethod(params);
 
-        }
-        else if (TYPE == Constants.FOR_FOLLOW_UNFOLLOW_ARTIST) {
+        } else if (TYPE == Constants.FOR_FOLLOW_UNFOLLOW_ARTIST) {
             call = api.followUnfollowArtist(params);
 
-        }
-        else if (TYPE == Constants.FOR_OTHER_PROFILE) {
+        } else if (TYPE == Constants.FOR_OTHER_PROFILE) {
             call = api.getOtherProfile(params);
 
-        }
-        else if (TYPE == Constants.FOR_BAND_PROFILE) {
+        } else if (TYPE == Constants.FOR_BAND_PROFILE) {
             call = api.getBandProfile(params);
 
-        }
-        else if (TYPE == Constants.FOR_UPDATE_BAND_PROFILE) {
+        } else if (TYPE == Constants.FOR_UPDATE_BAND_PROFILE) {
             call = api.updateBandProfile(params);
 
-        }
-        else if (TYPE == Constants.FOR_BAND_LIST) {
+        } else if (TYPE == Constants.FOR_BAND_LIST) {
             call = api.getBandList(params);
+
+        } else if (TYPE == Constants.FOR_DELETE_BAND) {
+            call = api.deleteBand(params);
+
+        } else if (TYPE == Constants.FOR_BAND_MEMBER_STATUS) {
+            call = api.bandMemberStatus(params);
+
+        } else if (TYPE == Constants.FOR_SEARCH_BAND_MEMBER) {
+            call = api.searchBandMember(params);
 
         }
         callRetrofit(call, TYPE);
@@ -117,18 +125,6 @@ public class RetrofitAPI {
 
     }
 
-    public static void uploadFile(MultipartBody.Part params, RequestBody file_name, RequestBody mUserId, int TYPE, MyInterface myInterface) {
-        commonInterface = myInterface;
-
-
-        CommonInterface api = RetrofitClientInstance.createService(CommonInterface.class);
-
-
-        Call<String> call = null;
-
-        callRetrofit(call, TYPE);
-
-    }
 
     public static <T> void callRetrofit(Call call, final int TYPE) {
 
@@ -196,9 +192,7 @@ public class RetrofitAPI {
                     commonInterface.sendResponse(response.body(), TYPE);
 
                 } else if (TYPE == Constants.FOR_UPLOADED_AUDIO) {
-// Log.e("FOR_UPLOADED_AUDIO", response.body().toString());
                     commonInterface.sendResponse(response.body(), TYPE);
-// commonInterface.sendResponse("",TYPE);
                 } else if (TYPE == Constants.FOR_CHANGE_PASSWORD) {
                     Log.e("FOR_CHANGE_PASSWORD", response.body().toString());
                     commonInterface.sendResponse(response.body(), TYPE);
@@ -235,29 +229,36 @@ public class RetrofitAPI {
                     Log.e("FOR_LAT_LNG", response.body().toString());
                     commonInterface.sendResponse(response.body(), TYPE);
 
-                }
-                else if (TYPE == Constants.FOR_FOLLOW_UNFOLLOW_ARTIST) {
+                } else if (TYPE == Constants.FOR_FOLLOW_UNFOLLOW_ARTIST) {
                     Log.e("FOLLOW_UNFOLLOW_ARTIST", response.body().toString());
                     commonInterface.sendResponse(response.body(), TYPE);
 
-                }
-                else if (TYPE == Constants.FOR_OTHER_PROFILE) {
+                } else if (TYPE == Constants.FOR_OTHER_PROFILE) {
                     Log.e("FOR_OTHER_PROFILE", response.body().toString());
                     commonInterface.sendResponse(response.body(), TYPE);
 
-                }
-                else if (TYPE == Constants.FOR_BAND_PROFILE) {
+                } else if (TYPE == Constants.FOR_BAND_PROFILE) {
                     Log.e("FOR_BAND_PROFILE", response.body().toString());
                     commonInterface.sendResponse(response.body(), TYPE);
 
-                }
-                else if (TYPE == Constants.FOR_UPDATE_BAND_PROFILE) {
+                } else if (TYPE == Constants.FOR_UPDATE_BAND_PROFILE) {
                     Log.e("FOR_UPDATE_BAND_PROFILE", response.body().toString());
                     commonInterface.sendResponse(response.body(), TYPE);
 
-                }
-                else if (TYPE == Constants.FOR_BAND_LIST) {
+                } else if (TYPE == Constants.FOR_BAND_LIST) {
                     Log.e("FOR_BAND_LIST", response.body().toString());
+                    commonInterface.sendResponse(response.body(), TYPE);
+
+                } else if (TYPE == Constants.FOR_DELETE_BAND) {
+                    Log.e("FOR_DELETE_BAND", response.body().toString());
+                    commonInterface.sendResponse(response.body(), TYPE);
+
+                } else if (TYPE == Constants.FOR_SEARCH_BAND_MEMBER) {
+                    Log.e("FOR_SEARCH_BAND_MEMBER", response.body().toString());
+                    commonInterface.sendResponse(response.body(), TYPE);
+
+                } else if (TYPE == Constants.FOR_BAND_MEMBER_STATUS) {
+                    Log.e("FOR_BAND_MEMBER_STATUS", response.body().toString());
                     commonInterface.sendResponse(response.body(), TYPE);
 
                 }
@@ -271,5 +272,6 @@ public class RetrofitAPI {
         });
 
     }
+
 
 }

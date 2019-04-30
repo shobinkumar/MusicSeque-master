@@ -56,9 +56,12 @@ public class Constants {
     public static final String UPLOAD_BAND_PROFILE_IMAGE_API = "Service/BandProfileImageUpload";
     public static final String UPLOAD_BAND_BACKGROUND_IMAGE_API = "Service/BandProfileBackgroundImageUpload";
     public static final String UPDATE_BAND_AVAILABILITY_STATUS_API ="Service/BandProfileAvailabilityStatus";
+    public static final String DELETE_BAND_API = "Service/BandProfileDelete";
+    public static final String SEARCH_BAND_MEMBER_API = "Service/BandMembersSearch";
+    public static final String BAND_MEMBER_STATUS_API ="Service/BandMembersList";
+
 
     public static final String USER_ID = "USER_ID";
-
     public static final String PROFILE_ID = "PROFILE_ID";
     public static final String PROFILE_TYPE = "PROFILE_TYPE";
     public static final String EMAIL_ID = "EMAIL_ID";
@@ -118,4 +121,7 @@ public class Constants {
     public static final int FOR_UPLOAD_BAND_BACKGROUND_IMAGE = 137;
     public static final int FOR_BAND_VISIBILITY_STATUS = 138;
     public static final int FOR_BAND_LIST =139;
+    public static final int FOR_DELETE_BAND =140;
+    public static final int FOR_BAND_MEMBER_STATUS =141;
+    public static final int FOR_SEARCH_BAND_MEMBER =142;
 }

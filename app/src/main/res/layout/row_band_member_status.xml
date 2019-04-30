@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlMain"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_black"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:id="@+id/llMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="80">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ivArtistImage"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:src="@color/color_white" />
+
+            <RelativeLayout
+                android:id="@+id/rlInner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toRightOf="@+id/ivArtistImage">
+
+                <com.musicseque.Fonts.Noyhr
+                    android:id="@+id/tvBandName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/color_orange"
+                    android:textSize="@dimen/_16sdp" />
+
+
+
+                <com.musicseque.Fonts.Noyhr
+                    android:id="@+id/tvProfileType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvArtistName"
+                    android:layout_marginTop="3dp"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/_12sdp" />
+                <com.musicseque.Fonts.Noyhr
+                    android:id="@+id/tvCountry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvProfileType"
+                    android:layout_marginTop="3dp"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/_12sdp" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/llMain"
+        android:layout_marginTop="15dp"
+        android:background="@color/color_white" />
+</RelativeLayout>

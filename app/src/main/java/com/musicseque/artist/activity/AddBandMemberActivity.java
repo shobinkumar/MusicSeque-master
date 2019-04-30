@@ -117,8 +117,8 @@ public class AddBandMemberActivity extends BaseActivity implements MyInterface {
                             arrayList = new Gson().fromJson(jsonArray.toString(), new TypeToken<ArrayList<ArtistModel>>() {
                             }.getType());
 
-                            searchArtistAdapter = new SearchBandMemberAdapter(AddBandMemberActivity.this, arrayList,sharedPreferences.getString(Constants.USER_ID,""));
-                            recyclerArtist.setAdapter(searchArtistAdapter);
+                          //  searchArtistAdapter = new SearchBandMemberAdapter(AddBandMemberActivity.this, arrayList,sharedPreferences.getString(Constants.USER_ID,""));
+                           // recyclerArtist.setAdapter(searchArtistAdapter);
                         }
 
                     }
@@ -143,8 +143,8 @@ public class AddBandMemberActivity extends BaseActivity implements MyInterface {
                         if (jsonArray.length() > 0) {
                             arrayList = new Gson().fromJson(jsonArray.toString(), new TypeToken<ArrayList<ArtistModel>>() {
                             }.getType());
-                            searchArtistAdapter = new SearchArtistAdapter(AddBandMemberActivity.this, arrayList,sharedPreferences.getString(Constants.USER_ID,""));
-                            recyclerArtist.setAdapter(searchArtistAdapter);
+                            //searchArtistAdapter = new SearchArtistAdapter(AddBandMemberActivity.this, arrayList,sharedPreferences.getString(Constants.USER_ID,""));
+                          //  recyclerArtist.setAdapter(searchArtistAdapter);
                         }
 
                     }

@@ -1,9 +1,8 @@
-package com.musicseque.artist.fragments;
+package com.musicseque.artist.band.band_fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,7 +19,7 @@ import com.musicseque.MainActivity;
 import com.musicseque.R;
 import com.musicseque.artist.artist_adapters.BandListAdapter;
 import com.musicseque.artist.artist_models.BandDataModel;
-import com.musicseque.artist.artist_models.UploadedMediaModel;
+import com.musicseque.artist.fragments.BaseFragment;
 import com.musicseque.interfaces.MyInterface;
 import com.musicseque.retrofit_interface.RetrofitAPI;
 import com.musicseque.utilities.Constants;
@@ -66,24 +65,36 @@ public class BandListFragment extends BaseFragment implements MyInterface {
         recyclerBand.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 
 
-        getBandList();
+        hitAPIs("get_list");
     }
 
     private void initOtherViews() {
         ButterKnife.bind(this, view);
         tvTitle = (TextView) ((MainActivity) getActivity()).findViewById(R.id.tvHeading);
-      ImageView  img_right_icon = (ImageView) ((MainActivity) getActivity()).findViewById(R.id.img_right_icon);
+        ImageView img_right_icon = (ImageView) ((MainActivity) getActivity()).findViewById(R.id.img_right_icon);
         img_right_icon.setVisibility(View.GONE);
 
     }
 
-    private void getBandList() {
+    private void hitAPIs(String type) {
         if (Utils.isNetworkConnected(getActivity())) {
             Utils.initializeAndShow(getActivity());
             try {
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("LoginUserId", getSharedPref().getString(Constants.USER_ID, ""));
-                RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_BAND_LIST, BandListFragment.this);
+
+                if (type.equalsIgnoreCase("get_list")) {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("LoginUserId", getSharedPref().getString(Constants.USER_ID, ""));
+                    RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_BAND_LIST, BandListFragment.this);
+                } else if (type.equalsIgnoreCase("for_delete")) {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("BandManagerId", getSharedPref().getString(Constants.USER_ID, ""));
+                    jsonObject.put("BandId", "");
+                    RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_DELETE_BAND, BandListFragment.this);
+
+
+                }
+
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -117,6 +128,9 @@ public class BandListFragment extends BaseFragment implements MyInterface {
                     e.printStackTrace();
                 }
                 break;
+
+            case Constants.FOR_DELETE_BAND:
+                break;
         }
     }
 
@@ -131,4 +145,5 @@ public class BandListFragment extends BaseFragment implements MyInterface {
                 .replace(R.id.frameLayout, ldf)
                 .commit();
     }
+
 }

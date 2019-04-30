@@ -1,7 +1,6 @@
 package com.musicseque.artist.artist_adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
@@ -10,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -20,8 +17,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.musicseque.R;
 import com.musicseque.artist.artist_models.BandDataModel;
-import com.musicseque.artist.fragments.BandFormFragment;
-import com.musicseque.artist.fragments.BandProfileDetailFragment;
+import com.musicseque.artist.band.band_fragment.BandFormFragment;
+import com.musicseque.artist.band.band_fragment.BandProfileDetailFragment;
 
 import java.util.ArrayList;
 

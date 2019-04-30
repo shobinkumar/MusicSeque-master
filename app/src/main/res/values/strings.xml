@@ -198,6 +198,9 @@
     <string name="err_band_name">Please enter band name.</string>
     <string name="str_about_band">About Band</string>
     <string name="txt_members">Members</string>
+    <string name="say_something">Say Something</string>
+    <string name="by_zander_ft_alisha">By Zander Ft. Alisha</string>
+    <string name="_04_45">04:45</string>
 
 
 </resources>

@@ -47,7 +47,7 @@ public class BaseFragment extends Fragment {
     String mFileType;
     UploadVideoFragment fragments;
 
-    SharedPreferences getSharedPref() {
+    public SharedPreferences getSharedPref() {
         RetrofitComponent retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getActivity())).build();
         return retrofitComponent.getShared();
     }
