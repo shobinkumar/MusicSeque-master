@@ -51,6 +51,7 @@ class SearchBandMemberActivity : BaseActivity(), MyInterface {
                         try {
                             jsonObject.put("SearchTypeValue", s.toString())
                             jsonObject.put("BandManagerId", sharedPreferences.getString(Constants.USER_ID, ""))
+                            jsonObject.put("ArtistProfileTypeId","1")
 
                         } catch (e: JSONException) {
                             e.printStackTrace()

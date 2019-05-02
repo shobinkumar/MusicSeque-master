@@ -237,7 +237,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         } else {
             Intent openGalleryIntent = new Intent(Intent.ACTION_PICK);
             openGalleryIntent.setType("image/*");
-            openGalleryIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                openGalleryIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+            }
             openGalleryIntent.setAction(Intent.ACTION_GET_CONTENT);
 
             startActivityForResult(openGalleryIntent, SELECT_FILE_MULTIPLE);
@@ -344,6 +346,26 @@ public abstract class BaseActivity extends AppCompatActivity {
                     RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), sharedPreferences.getString(Constants.USER_ID, ""));
                     callActivity(al, mUSerId);
 
+                }
+                else
+                {
+                    try {
+                        Uri uri = data.getData();
+                         String filePath = getRealPathFromURIPath(uri, BaseActivity.this);
+                        File file = new File(filePath);
+                        file = Utils.saveBitmapToFile(file);
+
+                        RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
+                        MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
+                        RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), sharedPreferences.getString(Constants.USER_ID, ""));
+                        al.add(fileToUpload);
+                        callActivity(al, mUSerId);
+
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
 
 

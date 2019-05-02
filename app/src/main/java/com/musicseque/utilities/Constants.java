@@ -12,7 +12,7 @@ public class Constants {
     public static final String API_LOGIN = "account/login";
     public static final String API_SIGN_UP = "account/Register";
     public static final String ACCOUNT_EXISTS_API = "Account/UserSocialLogin";
-    public static final String LOGIN_SOCIAL_API = "Account/ ";
+    public static final String LOGIN_SOCIAL_API = "Account/UpdateUserSocial";
     public static final String EMAIL_VERYFIY = "account/SendOtp";
     public static final String RESET_PASSWORD_API = "account/ResetPassword";
     public static final String ACCOUNT_VERIFY_API = "account/EmailVerification";

@@ -7,8 +7,18 @@
     android:orientation="vertical"
     android:padding="10dp">
 
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvHeading"
+        android:padding="10dp"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/_16sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"/>
+
     <LinearLayout
         android:id="@+id/llMain"
+        android:layout_below="@+id/tvHeading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -44,17 +54,17 @@
                     android:textSize="@dimen/_16sdp" />
 
 
-
                 <com.musicseque.Fonts.Noyhr
                     android:id="@+id/tvProfileType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvArtistName"
+                    android:layout_below="@+id/tvBandName"
                     android:layout_marginTop="3dp"
                     android:maxLines="1"
                     android:singleLine="true"
                     android:textColor="@color/color_white"
                     android:textSize="@dimen/_12sdp" />
+
                 <com.musicseque.Fonts.Noyhr
                     android:id="@+id/tvCountry"
                     android:layout_width="wrap_content"

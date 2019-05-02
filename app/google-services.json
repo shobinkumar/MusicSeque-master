@@ -15,25 +15,47 @@
       },
       "oauth_client": [
         {
+          "client_id": "631151135806-em55bg3norsig0iv1t60vdci9oke45di.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.musicseque",
+            "certificate_hash": "5b47fe529036524177d1a4e25a23ac3416e7f05d"
+          }
+        },
+        {
+          "client_id": "631151135806-ag16h5ed2a916cdo0qpu9gu2ie28k4ks.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.musicseque",
+            "certificate_hash": "c04c863388b844e952b90640377ceada04fa9434"
+          }
+        },
+        {
+          "client_id": "631151135806-ruoi38mhngnuciop3u6bqbkdb0dc31r8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.musicseque",
+            "certificate_hash": "70cdfdbca673862a9704bb04c19dbee5b02796fe"
+          }
+        },
+        {
           "client_id": "631151135806-76c34v9bb1486bqb0itjui37iusr19kd.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCKCAooEd4FGxw7Z3U0V_9pKcFfbmEaqY0"
+          "current_key": "AIzaSyDGyjFhJIBztwCt42V4uLXqjW4s3Vh-05M"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "631151135806-76c34v9bb1486bqb0itjui37iusr19kd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

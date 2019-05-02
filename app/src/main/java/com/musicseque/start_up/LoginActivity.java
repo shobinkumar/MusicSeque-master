@@ -92,6 +92,8 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
     @BindView(R.id.cbRememberMe)
     CheckBox cbRememberMe;
 
+    String mToken="";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -167,7 +169,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
         FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
             @Override
             public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                task.getResult().getToken();
+                mToken=task.getResult().getToken();
             }
         });
 
@@ -294,6 +296,8 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                         try {
                             jsonBody.put("UserName", userName);
                             jsonBody.put("Password", password);
+                            jsonBody.put("PopToken", mToken);
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
