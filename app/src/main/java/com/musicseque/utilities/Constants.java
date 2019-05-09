@@ -3,7 +3,6 @@ package com.musicseque.utilities;
 public class Constants {
 
 
-
     public static String ROOT_URL = "http://musicapi.htistelecom.in/api/";
 
 // public static String ROOT_URL2 = "http://musicapi.htistelecom.in/";
@@ -51,15 +50,17 @@ public class Constants {
 
     //Band APIs
     public static final String GET_BAND_LIST_API = "Service/BandProfilesListDisplay";
-    public static final String GET_BAND_DETAIL_API = "Service/BandProfileDisplayViaId";
-    public static final String UPDATE_BAND_PROFILE_API ="Service/BandProfileAddUpdate" ;
+    public static final String  GET_BAND_DETAIL_API = "Service/BandProfileDisplayViaId";
+    public static final String UPDATE_BAND_PROFILE_API = "Service/BandProfileAddUpdate";
     public static final String UPLOAD_BAND_PROFILE_IMAGE_API = "Service/BandProfileImageUpload";
     public static final String UPLOAD_BAND_BACKGROUND_IMAGE_API = "Service/BandProfileBackgroundImageUpload";
-    public static final String UPDATE_BAND_AVAILABILITY_STATUS_API ="Service/BandProfileAvailabilityStatus";
+    public static final String UPDATE_BAND_AVAILABILITY_STATUS_API = "Service/BandProfileAvailabilityStatus";
     public static final String DELETE_BAND_API = "Service/BandProfileDelete";
     public static final String SEARCH_BAND_MEMBER_API = "Service/BandMembersSearch";
-    public static final String BAND_MEMBER_STATUS_API ="Service/BandMembersList";
-
+    public static final String BAND_MEMBER_STATUS_API = "Service/BandMembersList";
+    public static final String BAND_MEMBER_REMOVE_API = "Service/BandMemberRemove";
+    public static final String BAND_MEMBER_ADD_API = "Service/BandMemberAdd";
+    public static final String FOLLOW_UNFOLLOW_BAND_API = "Service/BandFollowersCount";
 
     public static final String USER_ID = "USER_ID";
     public static final String PROFILE_ID = "PROFILE_ID";
@@ -110,18 +111,20 @@ public class Constants {
     public static final int FOR_UPLOAD_ARTIST_AUDIO_VIDEO = 126;
     public static final int FOR_DELETE_ARTIST_IMAGES = 127;
     public static final int FOR_DELETE_ARTIST_MEDIA = 128;
-    public static final int FOR_DELETE_ACCOUNT =129;
-    public static final int GET_ARTIST_LIST =130;
-    public static final int SEARCH_ARTIST =131;
-    public static final int FOR_LAT_LNG =132;
-    public static final int FOR_FOLLOW_UNFOLLOW_ARTIST =133 ;
-    public static final int FOR_BAND_PROFILE =134 ;
-    public static final int FOR_UPDATE_BAND_PROFILE =135;
+    public static final int FOR_DELETE_ACCOUNT = 129;
+    public static final int GET_ARTIST_LIST = 130;
+    public static final int SEARCH_ARTIST = 131;
+    public static final int FOR_LAT_LNG = 132;
+    public static final int FOR_FOLLOW_UNFOLLOW_ARTIST = 133;
+    public static final int FOR_BAND_PROFILE = 134;
+    public static final int FOR_UPDATE_BAND_PROFILE = 135;
     public static final int FOR_UPLOAD_BAND_PROFILE_IMAGE = 136;
     public static final int FOR_UPLOAD_BAND_BACKGROUND_IMAGE = 137;
     public static final int FOR_BAND_VISIBILITY_STATUS = 138;
-    public static final int FOR_BAND_LIST =139;
-    public static final int FOR_DELETE_BAND =140;
-    public static final int FOR_BAND_MEMBER_STATUS =141;
-    public static final int FOR_SEARCH_BAND_MEMBER =142;
+    public static final int FOR_BAND_LIST = 139;
+    public static final int FOR_DELETE_BAND = 140;
+    public static final int FOR_BAND_MEMBER_STATUS = 141;
+    public static final int FOR_SEARCH_BAND_MEMBER = 142;
+    public static final int FOR_REMOVE_BAND_MEMBER = 143;
+    public static final int FOR_ADD_BAND_MEMBER = 144;
 }

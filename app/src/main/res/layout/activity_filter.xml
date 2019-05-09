@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_app_background"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_top" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <com.musicseque.Fonts.Noyhr
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_18sdp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <com.musicseque.Fonts.Noyhr
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Artists"
+
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/_18sdp" />
+
+                <ImageView
+                    android:id="@+id/ivIconUp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="right"
+                    android:src="@drawable/icon_arrow_up" />
+
+                <ImageView
+                    android:id="@+id/ivIconDown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="right"
+                    android:src="@drawable/icon_arrow_down"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/color_white" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerArtist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <com.musicseque.Fonts.Noyhr
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Genre"
+
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/_18sdp" />
+
+                <ImageView
+                    android:id="@+id/ivIconUpGenre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="right"
+                    android:src="@drawable/icon_arrow_up" />
+
+                <ImageView
+                    android:id="@+id/ivIconDownGenre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="right"
+                    android:src="@drawable/icon_arrow_down"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/color_white" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerGenre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <com.musicseque.Fonts.Noyhr
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Venues"
+
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/_18sdp" />
+
+                <ImageView
+                    android:id="@+id/ivIconUpVenues"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="right"
+                    android:src="@drawable/icon_arrow_up" />
+
+                <ImageView
+                    android:id="@+id/ivIconDownVenues"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="right"
+                    android:src="@drawable/icon_arrow_down"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/color_white" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerVenues"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <com.musicseque.Fonts.Noyhr
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gigs"
+
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/_18sdp" />
+
+                <ImageView
+                    android:id="@+id/ivIconUpGigs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="right"
+                    android:src="@drawable/icon_arrow_up" />
+
+                <ImageView
+                    android:id="@+id/ivIconDownGigs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="right"
+                    android:src="@drawable/icon_arrow_down"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/color_white" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerGigs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+
+                android:orientation="horizontal">
+
+                <com.musicseque.Fonts.Noyhr
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Distance : "
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/_22sdp" />
+
+                <RadioGroup
+                    android:id="@+id/radioDistance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radioMale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:button="@drawable/drawable_radio_distance"
+                        android:checked="true"
+                        android:paddingLeft="10dp"
+                        android:text="Miles"
+
+                        android:textColor="@color/color_white"
+                        android:textSize="@dimen/_18sdp" />
+
+                    <RadioButton
+                        android:id="@+id/radioFemale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:button="@drawable/drawable_radio_distance"
+                        android:paddingLeft="10dp"
+                        android:text="Kms"
+                        android:textColor="@color/color_white"
+                        android:textSize="@dimen/_18sdp" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <com.musicseque.Fonts.Noyhr
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="123"
+                android:layout_marginTop="20dp"
+                android:textSize="@dimen/_18sdp"
+                android:textColor="@color/color_white"/>
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="100"
+                android:minHeight="30dp"
+                android:progress="10"
+                android:layout_marginTop="10dp"
+                style="@style/MySeekBar"
+                android:thumb="@drawable/icon_seek_thumb"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

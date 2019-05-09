@@ -89,6 +89,7 @@ public class Utils {
 
     public static void showProgressDialog() {
         if (pDialog.isShowing()) {
+            pDialog.dismiss();
 
 
         } else {

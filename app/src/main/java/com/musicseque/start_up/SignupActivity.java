@@ -54,7 +54,7 @@ public class  SignupActivity extends Activity implements View.OnClickListener, M
     NoyhrEditText et_firstName;
     private EditText et_lastname, et_email, et_phone, et_pasw, et_conf_pasw;
     private TextView pro_type, tv_sign_up;
-    String[] userType = {"Artist", "Band", "Talent Manager", "Event Manager", "Music Lover", "Venue", "Store"};
+    String[] userType = {"Artist","Talent Manager", "Event Manager", "Music Lover", "Venue", "Store"};
     private RelativeLayout rel8;
     private ListView list;
     private String profileType = "";
@@ -88,7 +88,7 @@ public class  SignupActivity extends Activity implements View.OnClickListener, M
 
 
     private void initOtherViews() {
-        Utils.initializeProgressDialog(SignupActivity.this);
+
         retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getApplicationContext())).build();
         sharedPreferences = retrofitComponent.getShared();
         editor = retrofitComponent.getEditor();
@@ -421,8 +421,7 @@ public class  SignupActivity extends Activity implements View.OnClickListener, M
 
 
     void initializeLoader() {
-        Utils.initializeProgressDialog(SignupActivity.this);
-        Utils.showProgressDialog();
+        Utils.initializeAndShow(SignupActivity.this);
 
     }
 

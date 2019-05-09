@@ -14,4 +14,5 @@
     <color name="color_divider">#10232d</color>
     <color name="seek_bar_secondary_progress">#3399CC</color>
     <color name="grey_200">#EEEEEE</color>
+    <color name="color_dim_line">#0C1C24</color>
 </resources>

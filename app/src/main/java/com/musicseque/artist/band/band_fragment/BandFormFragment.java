@@ -187,7 +187,7 @@ public class BandFormFragment extends Fragment implements View.OnClickListener, 
     ImageView img_right_icon;
 
 
-    String mBandId="0";
+    String mBandId = "0";
 
     @Nullable
     @Override
@@ -209,7 +209,7 @@ public class BandFormFragment extends Fragment implements View.OnClickListener, 
         arrExperience = new String[]{"1 - 2 years", "3 - 5 years", "5 - 10 years", "10+ years"};
         arrExpertise = new String[]{"Lead Vocals", "Backing Vocals", "Songwriter", "Piano", "Synthesizer", "Drums", "Band", "Lead Guitar", "Bass Guitar", "Violin", "Harp", "Sitar", "Flute", "Clarinet", "Saxophone", "Trumpet"};
 
-        mBandId =  getArguments().getString("band_id");
+        mBandId = getArguments().getString("band_id");
 
 
         img_right_icon = (ImageView) ((MainActivity) getActivity()).findViewById(R.id.img_right_icon);
@@ -233,8 +233,6 @@ public class BandFormFragment extends Fragment implements View.OnClickListener, 
     }
 
     private void initViews() {
-
-
         tvCountryCode.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -249,14 +247,10 @@ public class BandFormFragment extends Fragment implements View.OnClickListener, 
 
             }
         });
-
-
         tv_title = (TextView) ((MainActivity) getActivity()).findViewById(R.id.tvHeading);
-
-
         tv_title.setText("Band Profile");
-
         et_desc.setMovementMethod(ScrollingMovementMethod.getInstance());
+        et_email.setText(sharedPreferences.getString(Constants.EMAIL_ID, ""));
     }
 
     private void listeners() {
@@ -454,7 +448,7 @@ public class BandFormFragment extends Fragment implements View.OnClickListener, 
 
 
                         etBandName.setText(obj.getString("BandName"));
-                        et_email.setText(obj.getString("BandEmail"));
+                        //et_email.setText(obj.getString("BandEmail"));
                         tvCountryCode.setText(obj.getString("CountryCode"));
                         etMobileNumber.setText(obj.getString("BandContactNo"));
                         et_city.setText(obj.getString("BandCity"));
@@ -472,9 +466,6 @@ public class BandFormFragment extends Fragment implements View.OnClickListener, 
                         mCountryId = obj.getString("CountryId");
 
                     }
-
-
-
 
 
                 } catch (JSONException e) {
@@ -646,6 +637,7 @@ public class BandFormFragment extends Fragment implements View.OnClickListener, 
                 //instantiate popup window
                 final PopupWindow popupWindow = new PopupWindow(customView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 
+                popupWindow.setOutsideTouchable(true);
 
                 popupWindow.showAtLocation(ivStatus, Gravity.TOP | Gravity.LEFT, locateView().left, locateView().left);
                 tvAvailable.setOnClickListener(new View.OnClickListener() {
@@ -655,7 +647,7 @@ public class BandFormFragment extends Fragment implements View.OnClickListener, 
 
                         JSONObject jsonObject = new JSONObject();
                         try {
-                            jsonObject.put("LoginUserID", sharedPreferences.getString(Constants.USER_ID, ""));
+                            jsonObject.put("BandId", mBandId);
                             jsonObject.put("NewStatus", "Available");
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -673,7 +665,7 @@ public class BandFormFragment extends Fragment implements View.OnClickListener, 
                         popupWindow.dismiss();
                         JSONObject jsonObject = new JSONObject();
                         try {
-                            jsonObject.put("LoginUserID", sharedPreferences.getString(Constants.USER_ID, ""));
+                            jsonObject.put("BandId", mBandId);
                             jsonObject.put("NewStatus", "Do_not_disturb");
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -690,7 +682,7 @@ public class BandFormFragment extends Fragment implements View.OnClickListener, 
                         popupWindow.dismiss();
                         JSONObject jsonObject = new JSONObject();
                         try {
-                            jsonObject.put("UserId", sharedPreferences.getString(Constants.USER_ID, ""));
+                            jsonObject.put("BandId", mBandId);
                             jsonObject.put("NewStatus", "Offline");
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -736,7 +728,7 @@ public class BandFormFragment extends Fragment implements View.OnClickListener, 
             initializeLoader();
             try {
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("BandId",mBandId);
+                jsonObject.put("BandId", mBandId);
                 RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_BAND_PROFILE, BandFormFragment.this);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -836,8 +828,9 @@ public class BandFormFragment extends Fragment implements View.OnClickListener, 
     }
 
     void initializeLoader() {
-        Utils.initializeProgressDialog(getActivity());
-        Utils.showProgressDialog();
+//        Utils.initializeProgressDialog(getActivity());
+//        Utils.showProgressDialog();
+        Utils.initializeAndShow(getActivity());
 
     }
 
@@ -1003,7 +996,7 @@ public class BandFormFragment extends Fragment implements View.OnClickListener, 
                     showImage(file);
                     RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
                     MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
-                    RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), sharedPreferences.getString(Constants.USER_ID, ""));
+                    RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), mBandId);
                     uploadImages(fileToUpload, mUSerId);
 
                 } catch (Exception e) {
@@ -1017,7 +1010,7 @@ public class BandFormFragment extends Fragment implements View.OnClickListener, 
 
                 RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
                 MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
-                RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), sharedPreferences.getString(Constants.USER_ID, ""));
+                RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), mBandId);
                 uploadImages(fileToUpload, mUSerId);
             }
 

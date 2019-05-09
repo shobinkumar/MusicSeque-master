@@ -171,7 +171,7 @@ public class UploadPhotoFragment extends Fragment implements MyInterface, Upload
 
     private void hitAPIPhotos() {
         if (Utils.isNetworkConnected(getActivity())) {
-            Utils.initializeAndShow(getActivity());
+           showDialog();
             JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put("UserId",sharedPreferences.getString(Constants.USER_ID,""));
@@ -193,7 +193,7 @@ public class UploadPhotoFragment extends Fragment implements MyInterface, Upload
     }
 
     public void uploadImage(ArrayList<MultipartBody.Part> fileToUpload, RequestBody mUSerId) {
-        Utils.initializeAndShow(getActivity());
+       showDialog();
         ImageUploadClass.fileUploadMultiple(fileToUpload, mUSerId, null, Constants.FOR_UPLOAD_ARTIST_IMAGE, UploadPhotoFragment.this);
     }
 
@@ -271,7 +271,7 @@ public class UploadPhotoFragment extends Fragment implements MyInterface, Upload
 
         if(Utils.isNetworkConnected(getActivity()))
         {
-            Utils.initializeAndShow(getActivity());
+           showDialog();
             JSONObject jsonObject=new JSONObject();
             try {
                 jsonObject.put("UserId",sharedPreferences.getString(Constants.USER_ID,""));
@@ -297,5 +297,8 @@ public class UploadPhotoFragment extends Fragment implements MyInterface, Upload
 
     }
 
-
+void showDialog()
+{
+    Utils.initializeAndShow(getActivity());
+}
 }

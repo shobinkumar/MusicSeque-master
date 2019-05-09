@@ -66,8 +66,8 @@ public class UploadVideoFragment extends BaseFragment implements MyInterface, Pr
     private RetrofitComponent retrofitComponent;
     private ArrayList<UploadedMediaModel> uploadedAl = new ArrayList<>();
 
-    private int  mPercent=0;
-    private UploadedMediaModel  uploadedMediaModels;
+    private int mPercent = 0;
+    private UploadedMediaModel uploadedMediaModels;
 
     @Nullable
     @Override
@@ -98,7 +98,7 @@ public class UploadVideoFragment extends BaseFragment implements MyInterface, Pr
 
     private void hitAPIs() {
         if (Utils.isNetworkConnected(getActivity())) {
-            Utils.initializeAndShow(getActivity());
+            showDialog();
             String requestBody = "";
             JSONObject jsonObject = new JSONObject();
             try {
@@ -141,21 +141,18 @@ public class UploadVideoFragment extends BaseFragment implements MyInterface, Pr
                 } else {
 
                 }
-                adapter = new UploadVideoAdapter(getActivity(), uploadedAl, mPercent,UploadVideoFragment.this);
+                adapter = new UploadVideoAdapter(getActivity(), uploadedAl, mPercent, UploadVideoFragment.this);
                 recyclerVideo.setAdapter(adapter);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }
-        else if (TYPE == Constants.FOR_DELETE_ARTIST_MEDIA) {
+        } else if (TYPE == Constants.FOR_DELETE_ARTIST_MEDIA) {
             try {
                 JSONObject jsonObject = new JSONObject(response.toString());
                 if (jsonObject.getString("Status").equalsIgnoreCase("Success")) {
                     uploadedAl.remove(uploadedMediaModels);
                     adapter.notifyDataSetChanged();
-                }
-                else
-                {
+                } else {
 
                 }
             } catch (JSONException e) {
@@ -191,22 +188,18 @@ public class UploadVideoFragment extends BaseFragment implements MyInterface, Pr
         }
 
         while (c.moveToNext()) {
-           ;
-            sArtist=c.getString(c.getColumnIndex(MediaStore.Audio.Media.ARTIST));
+            ;
+            sArtist = c.getString(c.getColumnIndex(MediaStore.Audio.Media.ARTIST));
 
         }
 
 
-
-
-        UploadedMediaModel uploadedMediaModel=new UploadedMediaModel();
+        UploadedMediaModel uploadedMediaModel = new UploadedMediaModel();
         uploadedMediaModel.setUploaded(false);
         uploadedMediaModel.setArtist_name(sArtist);
         uploadedMediaModel.setFileName(new File(mPath).getName());
         uploadedAl.add(0, uploadedMediaModel);
         adapter.notifyDataSetChanged();
-
-
 
 
         RequestBody mUserId = RequestBody.create(MultipartBody.FORM, sharedPreferences.getString(Constants.USER_ID, ""));
@@ -221,7 +214,7 @@ public class UploadVideoFragment extends BaseFragment implements MyInterface, Pr
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful()) {
-                    mPercent=0;
+                    mPercent = 0;
                     hitAPIs();
                 }
             }
@@ -236,9 +229,9 @@ public class UploadVideoFragment extends BaseFragment implements MyInterface, Pr
 
     @Override
     public void onProgressUpdate(int percentage) {
-        mPercent=percentage;
+        mPercent = percentage;
         Log.e("Percent", percentage + "");
-        adapter = new UploadVideoAdapter(getActivity(), uploadedAl,mPercent,UploadVideoFragment.this);
+        adapter = new UploadVideoAdapter(getActivity(), uploadedAl, mPercent, UploadVideoFragment.this);
         recyclerVideo.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
@@ -255,7 +248,7 @@ public class UploadVideoFragment extends BaseFragment implements MyInterface, Pr
 
     public void deleteVideo(UploadedMediaModel uploadedMediaModel) {
         if (Utils.isNetworkConnected(getActivity())) {
-            Utils.initializeAndShow(getActivity());
+            showDialog();
             uploadedMediaModels = uploadedMediaModel;
             JSONObject jsonObject = new JSONObject();
             try {
@@ -271,6 +264,10 @@ public class UploadVideoFragment extends BaseFragment implements MyInterface, Pr
         }
 
 
+    }
+
+    public void showDialog() {
+        Utils.initializeAndShow(getActivity());
     }
 }
 

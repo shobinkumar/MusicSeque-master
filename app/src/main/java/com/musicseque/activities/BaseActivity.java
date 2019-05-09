@@ -151,6 +151,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void openDialog(String type) {
+        al.clear();
         activityName = type;
         myDirectory = new File(Environment.getExternalStorageDirectory(), "MusicSegue");
         try {

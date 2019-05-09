@@ -12,10 +12,11 @@ import com.bumptech.glide.Glide
 import com.musicseque.MyApplication.context
 import com.musicseque.R
 import com.musicseque.artist.band.band_model.BandMemberStatusModel
+import com.musicseque.interfaces.RemoveMemberInterface
 import kotlinx.android.synthetic.main.row_band_member_status.view.*
 
 
-class BandMemberStatusAdapter(var al: ArrayList<BandMemberStatusModel>, val act: FragmentActivity) : RecyclerView.Adapter<BandMemberStatusAdapter.ViewHolder>() {
+class BandMemberStatusAdapter(var al: ArrayList<BandMemberStatusModel>, val act: FragmentActivity,val inface:RemoveMemberInterface) : RecyclerView.Adapter<BandMemberStatusAdapter.ViewHolder>() {
 
      var sType:String=""
 
@@ -31,16 +32,16 @@ class BandMemberStatusAdapter(var al: ArrayList<BandMemberStatusModel>, val act:
     override fun onBindViewHolder(viewHolder: BandMemberStatusAdapter.ViewHolder, position: Int) {
         val model: BandMemberStatusModel = al.get(position)
 
-        viewHolder.bind(model)
+        viewHolder.bind(model,position)
     }
 
 
   inner  class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(model: BandMemberStatusModel)
+        fun bind(model: BandMemberStatusModel,pos:Int)
         {
 
-            if ((sType != model.artistIsBandMember || sType == model.artistIsBandMember) && model.artistIsBandMember == "Y") {
+            if ((sType != model.artistIsBandMember || sType == model.artistIsBandMember) && model.artistIsBandMember .equals("Y",ignoreCase = true)) {
                 sType = model.artistIsBandMember!!
                 itemView.tvHeading.visibility=View.GONE
 
@@ -75,6 +76,11 @@ class BandMemberStatusAdapter(var al: ArrayList<BandMemberStatusModel>, val act:
             } else if (model.artistSocialImageUrl != "") {
                 Glide.with(itemView.context)
                         .load(model.artistSocialImageUrl).into(itemView.ivArtistImage)
+            }
+            itemView.ivRemoveMember.setOnClickListener { view->
+
+            inface.addOrRemoveMember(model.artistUserId.toString(),"remove",model,pos)
+
             }
 
         }

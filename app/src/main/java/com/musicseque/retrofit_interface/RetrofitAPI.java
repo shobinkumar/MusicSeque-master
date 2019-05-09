@@ -105,6 +105,12 @@ public class RetrofitAPI {
         } else if (TYPE == Constants.FOR_SEARCH_BAND_MEMBER) {
             call = api.searchBandMember(params);
 
+        } else if (TYPE == Constants.FOR_ADD_BAND_MEMBER) {
+            call = api.bandMemberAdd(params);
+
+        } else if (TYPE == Constants.FOR_REMOVE_BAND_MEMBER) {
+            call = api.bandMemberRemove(params);
+
         }
         callRetrofit(call, TYPE);
 
@@ -259,6 +265,16 @@ public class RetrofitAPI {
 
                 } else if (TYPE == Constants.FOR_BAND_MEMBER_STATUS) {
                     Log.e("FOR_BAND_MEMBER_STATUS", response.body().toString());
+                    commonInterface.sendResponse(response.body(), TYPE);
+
+                }
+                else if (TYPE == Constants.FOR_ADD_BAND_MEMBER) {
+                    Log.e("FOR_ADD_BAND_MEMBER", response.body().toString());
+                    commonInterface.sendResponse(response.body(), TYPE);
+
+                }
+                else if (TYPE == Constants.FOR_REMOVE_BAND_MEMBER) {
+                    Log.e("FOR_REMOVE_BAND_MEMBER", response.body().toString());
                     commonInterface.sendResponse(response.body(), TYPE);
 
                 }

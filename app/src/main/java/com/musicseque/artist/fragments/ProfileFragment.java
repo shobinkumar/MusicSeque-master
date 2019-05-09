@@ -94,6 +94,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
 
     public final static int FOR_PROFILE_IMAGE = 1;
 
+
     int IMAGE_FROM;
 
     TextView tvUserName, tvProfileType, tvLocation, tvCityCountry;
@@ -152,7 +153,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
     int mWidthExp, mWidthCode, mWidthGebtn_submitnre;
     int mWidth;
     String STATUS_ACTIVE = "Available";
-    private String STATUS_INVISIBLE = "Offline";
+    public String STATUS_INVISIBLE = "Offline";
     private static final String STATUS_DO_NOT_DISTURB = "Do_not_disturb";
     int mStart = 0;
     ImageView img_right_icon;
@@ -536,6 +537,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
 
                 //instantiate popup window
                 final PopupWindow popupWindow = new PopupWindow(customView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+                popupWindow.setOutsideTouchable(true);
 
 
                 popupWindow.showAtLocation(ivStatus, Gravity.TOP | Gravity.LEFT, locateView().left, locateView().left);
@@ -548,12 +550,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
                         JSONObject jsonObject = new JSONObject();
                         try {
                             jsonObject.put("UserId", sharedPreferences.getString(Constants.USER_ID, ""));
-                            jsonObject.put("NewStatus","Available");
+                            jsonObject.put("NewStatus", "Available");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
 
-                        getActivity().startService(new Intent(getActivity(), CommonService.class).putExtra("API",Constants.UPDATE_STATUS_API).putExtra("params",jsonObject.toString()));
+                        getActivity().startService(new Intent(getActivity(), CommonService.class).putExtra("API", Constants.UPDATE_STATUS_API).putExtra("params", jsonObject.toString()));
                         popupWindow.dismiss();
 
                     }
@@ -567,12 +569,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
                         JSONObject jsonObject = new JSONObject();
                         try {
                             jsonObject.put("UserId", sharedPreferences.getString(Constants.USER_ID, ""));
-                            jsonObject.put("NewStatus","Do_not_disturb");
+                            jsonObject.put("NewStatus", "Do_not_disturb");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
 
-                        getActivity().startService(new Intent(getActivity(), CommonService.class).putExtra("API",Constants.UPDATE_STATUS_API).putExtra("params",jsonObject.toString()));
+                        getActivity().startService(new Intent(getActivity(), CommonService.class).putExtra("API", Constants.UPDATE_STATUS_API).putExtra("params", jsonObject.toString()));
 
                     }
                 });
@@ -585,12 +587,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
                         JSONObject jsonObject = new JSONObject();
                         try {
                             jsonObject.put("UserId", sharedPreferences.getString(Constants.USER_ID, ""));
-                            jsonObject.put("NewStatus","Offline");
+                            jsonObject.put("NewStatus", "Offline");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
 
-                        getActivity().startService(new Intent(getActivity(), CommonService.class).putExtra("API",Constants.UPDATE_STATUS_API).putExtra("params",jsonObject.toString()));
+                        getActivity().startService(new Intent(getActivity(), CommonService.class).putExtra("API", Constants.UPDATE_STATUS_API).putExtra("params", jsonObject.toString()));
 
                     }
                 });
@@ -689,8 +691,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
             } else if (mBio.equalsIgnoreCase("")) {
                 Utils.showToast(getActivity(), getResources().getString(R.string.err_bio));
 
-            }
-            else if (mCount < 275) {
+            } else if (mCount < 275) {
                 Utils.showToast(getActivity(), getResources().getString(R.string.err_bio_count));
 
             } else if (mGenre.equalsIgnoreCase("")) {
@@ -736,9 +737,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
     }
 
     void initializeLoader() {
-        Utils.initializeProgressDialog(getActivity());
-        Utils.showProgressDialog();
-
+//        Utils.initializeProgressDialog(getActivity());
+//        Utils.showProgressDialog();
+        Utils.initializeAndShow(getActivity());
     }
 
 
@@ -901,7 +902,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-     //   super.onActivityResult(requestCode, resultCode, data);
+        //   super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
 
             if (requestCode == SELECT_FILE)
@@ -1126,7 +1127,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
                     JSONObject jsonObject = new JSONObject(response.body().toString());
                     if (jsonObject.getString("Status").equalsIgnoreCase("Success")) {
                         editor.putString(Constants.PROFILE_IMAGE, jsonObject.getString("imageurl") + jsonObject.getString("ImageName")).commit();
-                        Utils.showToast(getActivity(),"Profile Pic uploaded successfully");
+                        Utils.showToast(getActivity(), "Profile Pic uploaded successfully");
                         // Utils.showToast(getActivity(), "Response " + response.raw().message());
 
                     } else {
@@ -1157,7 +1158,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
         listPopupWindow.setAnchorView(textView);
         listPopupWindow.setWidth(width);
         listPopupWindow.setHeight(400);
-
         listPopupWindow.setModal(true);
         listPopupWindow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -43,11 +43,11 @@ public interface ImageUploadInterface {
     //Band
     @Multipart
     @POST(Constants.UPLOAD_BAND_PROFILE_IMAGE_API)
-    Call<String> uploadBandProfilePic(@Part MultipartBody.Part file, @Part("LoginUserId") RequestBody name);
+    Call<String> uploadBandProfilePic(@Part MultipartBody.Part file, @Part("BandId") RequestBody name);
 
     @Multipart
     @POST(Constants.UPLOAD_BAND_BACKGROUND_IMAGE_API)
-    Call<String> uploadBandCoverPic(@Part MultipartBody.Part file, @Part("LoginUserId") RequestBody name);
+    Call<String> uploadBandCoverPic(@Part MultipartBody.Part file, @Part("BandId") RequestBody name);
 
 
 }

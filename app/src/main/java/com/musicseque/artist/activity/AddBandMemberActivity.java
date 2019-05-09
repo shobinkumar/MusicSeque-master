@@ -82,7 +82,7 @@ public class AddBandMemberActivity extends BaseActivity implements MyInterface {
 
     private void hitAPI() {
         if (Utils.isNetworkConnected(this)) {
-            Utils.initializeAndShow(AddBandMemberActivity.this);
+           showDialog();
             JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put("ProfileTypeId", "1");
@@ -198,5 +198,8 @@ public class AddBandMemberActivity extends BaseActivity implements MyInterface {
                 break;
         }
     }
-
+public void showDialog()
+{
+    Utils.initializeAndShow(AddBandMemberActivity.this);
+}
 }

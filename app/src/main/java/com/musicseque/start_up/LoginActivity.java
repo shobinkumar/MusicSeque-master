@@ -92,7 +92,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
     @BindView(R.id.cbRememberMe)
     CheckBox cbRememberMe;
 
-    String mToken="";
+    String mToken = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -149,7 +149,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
 
 
     private void initOtherViews() {
-        Utils.initializeProgressDialog(this);
+        // Utils.initializeProgressDialog(this);
         retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getApplicationContext())).build();
         sharedPreferences = retrofitComponent.getShared();
         editor = retrofitComponent.getEditor();
@@ -169,7 +169,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
         FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
             @Override
             public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                mToken=task.getResult().getToken();
+                mToken = task.getResult().getToken();
             }
         });
 
@@ -441,7 +441,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
             jsonBody.put("SocialId", mSocialId);
             // jsonBody.put("email_id", mEmail);
             jsonBody.put("SocialType", accountType);
-
+            jsonBody.put("PopToken", mToken);
             String requestBody = jsonBody.toString();
             RetrofitAPI.callAPI(requestBody, Constants.FOR_ACCOUNT_EXISTS, LoginActivity.this);
 
@@ -490,6 +490,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                         editor.putString(Constants.LOGIN_TYPE, "Simple").commit();
                         editor.putString(Constants.IS_FIRST_LOGIN, obj.getString("IsFirstLogin")).commit();
                         editor.putString(Constants.VISIBILITY_STATUS, obj.getString("NewStatus")).commit();
+                        editor.putBoolean(Constants.IS_REMEMBER, true).commit();
                         try {
                             editor.putString(Constants.UNIQUE_CODE, obj.getString("UniqueCode")).commit();
                         } catch (Exception e) {
@@ -713,7 +714,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                 jsonBody.put("LastName", "");
                 jsonBody.put("UserName", sharedPreferences.getString(Constants.EMAIL_ID, ""));
                 jsonBody.put("SocialImageUrl", mImageURL);
-
+                jsonBody.put("PopToken", mToken);
 
                 requestBody = jsonBody.toString();
 
@@ -730,7 +731,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
     }
 
     private void checkProgressDialog() {
-        Utils.initializeProgressDialog(LoginActivity.this);
+        // Utils.initializeProgressDialog(LoginActivity.this);
 
     }
 
@@ -746,7 +747,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
         final EditText etEmail = (EditText) dialogUserType.findViewById(R.id.etEmail);
         final ListView list = (ListView) dialogUserType.findViewById(R.id.userTypeList);
         final CheckBox radioBtn = (CheckBox) dialogUserType.findViewById(R.id.radioBtn);
-        final String[] pType = {"Artist", "Band", "Talent Manager", "Event Manager", "Music Lover", "Venue", "Store"};
+        final String[] pType = {"Artist", "Talent Manager", "Event Manager", "Music Lover", "Venue", "Store"};
 
 
         etEmail.setText(sharedPreferences.getString(Constants.EMAIL_ID, ""));
@@ -807,6 +808,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
 
                             editor.putString(Constants.EMAIL_ID, Utils.getEDitText(etEmail)).commit();
                             editor.putString(Constants.PROFILE_ID, userTypeId(mProfileType)).commit();
+
                             hitSignUpAPI();
 
                         } catch (Exception e) {
@@ -1089,20 +1091,17 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
         switch (user) {
             case "Artist":
                 return "1";
-
-            case "Band":
-                return "2";
             case "Talent Manager":
-                return "3";
+                return "2";
 
             case "Event Manager":
-                return "4";
+                return "3";
             case "Music Lover":
-                return "5";
+                return "4";
             case "Venue":
-                return "6";
+                return "5";
             case "Store":
-                return "7";
+                return "6";
 
             default:
                 return "0";
@@ -1111,9 +1110,12 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
     }
 
     void initializeLoader() {
-        Utils.initializeProgressDialog(LoginActivity.this);
-        Utils.showProgressDialog();
+//        Utils.initializeProgressDialog(LoginActivity.this);
+//        Utils.showProgressDialog();
+        Utils.initializeAndShow(LoginActivity.this);
 
     }
+
+
 }
 

@@ -118,7 +118,7 @@ public class UploadMusicFragment extends BaseFragment implements MyInterface, Pr
     private void hitAPIs() {
         uploadedAl.clear();
         if (Utils.isNetworkConnected(getActivity())) {
-            Utils.initializeAndShow(getActivity());
+          showDialog();
             String requestBody = "";
             JSONObject jsonObject = new JSONObject();
             try {
@@ -325,7 +325,7 @@ public class UploadMusicFragment extends BaseFragment implements MyInterface, Pr
 
     public void deleteMusic(UploadedMediaModel uploadedMediaModel) {
         if (Utils.isNetworkConnected(getActivity())) {
-            Utils.initializeAndShow(getActivity());
+          showDialog();
             uploadedMediaModels = uploadedMediaModel;
             JSONObject jsonObject = new JSONObject();
             try {

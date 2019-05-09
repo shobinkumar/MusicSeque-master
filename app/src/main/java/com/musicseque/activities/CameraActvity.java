@@ -19,7 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class CameraActvity extends Activity {
+public class  CameraActvity extends Activity {
     public static final int REQUEST_IMAGE = 100;
     private static final int PICK_IMAGE_REQUEST =101;
     private String mImage="";

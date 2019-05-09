@@ -168,11 +168,19 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
         initOtherViews();
         initViews();
         listeners();
-        getUserProfile();
+
         showDefaultData();
 
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getUserProfile();
+        changeBackgroundColor(ivGigs, tvGigs, getResources().getDrawable(R.drawable.icon_gigs_active), getResources().getString(R.string.txt_gigs), ivImage, tvImage, getResources().getDrawable(R.drawable.icon_photos), getResources().getString(R.string.txt_image), ivMusic, tvMusic, getResources().getDrawable(R.drawable.icon_music), getResources().getString(R.string.txt_music), ivVideo, tvVideo, getResources().getDrawable(R.drawable.icon_videos), getResources().getString(R.string.txt_video), ivCollaborators, tvCollaborators, getResources().getDrawable(R.drawable.icon_collaborators), getResources().getString(R.string.txt_collaborators));
+        changeFragment(new GigsFragment());   
     }
 
     private void showDefaultData() {
@@ -219,8 +227,8 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
     }
 
     private void initViews() {
-        changeBackgroundColor(ivGigs, tvGigs, getResources().getDrawable(R.drawable.icon_gigs_active), getResources().getString(R.string.txt_gigs), ivImage, tvImage, getResources().getDrawable(R.drawable.icon_photos), getResources().getString(R.string.txt_image), ivMusic, tvMusic, getResources().getDrawable(R.drawable.icon_music), getResources().getString(R.string.txt_music), ivVideo, tvVideo, getResources().getDrawable(R.drawable.icon_videos), getResources().getString(R.string.txt_video), ivCollaborators, tvCollaborators, getResources().getDrawable(R.drawable.icon_collaborators), getResources().getString(R.string.txt_collaborators));
-        changeFragment(new GigsFragment());
+        btnFollow.setVisibility(View.GONE);
+
 
     }
 
@@ -389,8 +397,9 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
     }
 
     void initializeLoader() {
-        Utils.initializeProgressDialog(getActivity());
-        Utils.showProgressDialog();
+        Utils.initializeAndShow(getActivity());
+//        Utils.initializeProgressDialog(getActivity());
+//        Utils.showProgressDialog();
 
     }
 
@@ -453,6 +462,8 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void sendResponse(Object response, int TYPE) {
+
+
         Utils.hideProgressDialog();
         switch (TYPE) {
             case Constants.FOR_USER_PROFILE:
@@ -834,7 +845,7 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
     private void hitAPI(int TYPE) {
         if (TYPE == FOR_IMAGE) {
             if (Utils.isNetworkConnected(getActivity())) {
-                Utils.initializeAndShow(getActivity());
+                initializeLoader();
                 JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.put("UserId", getSharedPref().getString(Constants.USER_ID, ""));
@@ -848,7 +859,7 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
 
         } else if (TYPE == FOR_AUDIO) {
             if (Utils.isNetworkConnected(getActivity())) {
-                Utils.initializeAndShow(getActivity());
+                initializeLoader();
                 JSONObject jsonObject = new JSONObject();
                 String requestBody = "";
                 try {

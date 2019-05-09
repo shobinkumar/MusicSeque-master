@@ -257,6 +257,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         iv_chat = (ImageView) findViewById(R.id.iv_chat);
         iv_settings = (ImageView) findViewById(R.id.iv_settings);
         ivDrawer = (ImageView) findViewById(R.id.ivDrawer);
+        llBand.setVisibility(View.GONE);
 
     }
 
@@ -325,6 +326,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 navDrawer.closeDrawer(Gravity.END);
             }
         }
+        closeProfile();
 
     }
 
@@ -354,7 +356,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
             finish();
         } else {
-
+                super.onBackPressed();
         }
 
     }
@@ -375,29 +377,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 ivUpArrow.setVisibility(View.VISIBLE);
                 break;
             case R.id.tvMyProfile:
-                changeIconBottom(R.drawable.home3, R.drawable.profileactive3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment);
 
-                if (sharedPreferences.getString(Constants.IS_FIRST_LOGIN, "").equalsIgnoreCase("Y"))
+
+                if (sharedPreferences.getString(Constants.IS_FIRST_LOGIN, "").equalsIgnoreCase("Y")) {
                     fragment = new ProfileFragment();
-                else
+                } else {
                     fragment = new ProfileDetailFragment();
+                }
 
-                replaceFragment(fragment);
+
+                changeIconBottom(R.drawable.home3, R.drawable.profileactive3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment);
                 navDrawer.closeDrawers();
+                llAllProfile.setVisibility(View.GONE);
+                ivUpArrow.setVisibility(View.GONE);
+                ivDownArrow.setVisibility(View.VISIBLE);
                 break;
             case R.id.tvBandProfile:
                 fragment = new BandListFragment();
-                replaceFragment(fragment);
+                changeIconBottom(R.drawable.home3, R.drawable.profileactive3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment);
                 navDrawer.closeDrawers();
+                llAllProfile.setVisibility(View.GONE);
+                ivUpArrow.setVisibility(View.GONE);
+                ivDownArrow.setVisibility(View.VISIBLE);
                 break;
             case R.id.llActivity:
                 break;
             case R.id.llHome:
-                changeIconBottom(R.drawable.homeactive3, R.drawable.profile3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment);
+
 
                 fragment = new HomeFragment();
-                replaceFragment(fragment);
+                changeIconBottom(R.drawable.homeactive3, R.drawable.profile3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment);
                 navDrawer.closeDrawers();
+                closeProfile();
                 break;
 
             case R.id.llAlerts:
@@ -407,13 +418,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.llUpload:
                 startActivity(new Intent(this, UploadActivity.class));
                 navDrawer.closeDrawers();
+                closeProfile();
 
                 break;
             case R.id.llBand:
                 break;
             case R.id.llSearch:
                 startActivity(new Intent(MainActivity.this, SearchArtistActivity.class));
-
+                closeProfile();
                 break;
             case R.id.llStats:
                 break;
@@ -422,7 +434,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 replaceFragment(fragment);
                 navDrawer.closeDrawers();
                 changeIconBottom(R.drawable.home3, R.drawable.profile3, R.drawable.featured3, R.drawable.chat3, R.drawable.settingactive3, fragment);
-
+                closeProfile();
                 break;
             case R.id.llLogout:
                 clearLoginCredentials();
@@ -432,6 +444,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
         }
+
     }
 
     void clearLoginCredentials() {
@@ -459,5 +472,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
 
+    }
+    void closeProfile()
+    {
+        llAllProfile.setVisibility(View.GONE);
+        ivUpArrow.setVisibility(View.GONE);
+        ivDownArrow.setVisibility(View.VISIBLE);
     }
 }

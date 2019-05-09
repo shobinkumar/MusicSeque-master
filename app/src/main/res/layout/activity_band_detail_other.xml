@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_background"
+    android:orientation="vertical">
+
+
+    <ScrollView
+        android:id="@+id/sv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/cLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_background"
+            android:descendantFocusability="blocksDescendants"
+            android:focusableInTouchMode="true">
+
+            <ImageView
+                android:id="@+id/ivBackground"
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/pBarBackgroundImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/ivProfilePic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="@drawable/circle_white_border"
+                app:layout_constraintBottom_toBottomOf="@+id/ivBackground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivBackground" />
+
+
+            <ProgressBar
+                android:id="@+id/pBarProfilePic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/ivBackground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivBackground" />
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ivProfilePic"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:padding="1dp"
+                android:src="@color/color_orange"
+                app:layout_constraintBottom_toBottomOf="@+id/ivBackground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivBackground" />
+
+            <ImageView
+                android:id="@+id/ivCameraBackground"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:visibility="invisible"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/icon_backgound_pic_upload"
+                app:layout_constraintBottom_toBottomOf="@+id/ivBackground"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivCameraProfilePic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:visibility="invisible"
+                android:src="@drawable/icon_pic_upload"
+                app:layout_constraintBottom_toBottomOf="@+id/ivProfilePic"
+                app:layout_constraintEnd_toEndOf="@+id/ivProfilePic" />
+
+            <com.musicseque.Fonts.Noyhr
+                android:id="@+id/tvFollowersCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_13sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivBackground" />
+
+            <com.musicseque.Fonts.Noyhr
+                android:id="@+id/txtFollower"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:text="Followers"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_14sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvFollowersCount" />
+
+            <com.musicseque.Fonts.Noyhr
+                android:id="@+id/btnFollow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/rectangle_orange"
+                android:paddingLeft="15dp"
+                android:paddingTop="5dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="5dp"
+                android:text="Follow"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_14sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtFollower" />
+
+            <com.musicseque.Fonts.Noyhr
+                android:id="@+id/txtID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="56dp"
+                android:text="ID"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_13sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivBackground" />
+
+            <com.musicseque.Fonts.Noyhr
+                android:id="@+id/tvUserID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_13sdp"
+                app:layout_constraintStart_toEndOf="@+id/ivProfilePic"
+                app:layout_constraintTop_toBottomOf="@+id/txtID" />
+
+            <RatingBar
+                android:id="@+id/rBar"
+                android:layout_width="13dp"
+                android:layout_height="12dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="horizontal"
+                android:progressDrawable="@drawable/rating_bar"
+                android:rating="4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/tvUserID"
+                app:layout_constraintTop_toBottomOf="@+id/tvUserID" />
+
+            <com.musicseque.Fonts.Noyhr
+                android:id="@+id/tvReviews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="24dp"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_14sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/rBar"
+                app:layout_constraintTop_toBottomOf="@+id/rBar" />
+
+            <com.musicseque.Fonts.BoldNoyhr
+                android:id="@+id/tvUserNameDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="8dp"
+                android:textColor="@color/color_orange"
+                android:textSize="@dimen/_18sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivProfilePic" />
+
+            <ImageView
+                android:id="@+id/ivIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/icon_green"
+                app:layout_constraintStart_toEndOf="@+id/tvUserNameDetail"
+                app:layout_constraintTop_toTopOf="@+id/tvUserNameDetail" />
+
+
+
+            <com.musicseque.Fonts.Noyhr
+                android:id="@+id/tvUserLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:drawableLeft="@drawable/icon_location"
+                android:drawablePadding="5dp"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_14sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvUserNameDetail" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="30dp"
+                android:background="@color/color_black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvUserLocation" />
+
+
+            <ImageView
+                android:id="@+id/iconGenre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/icon_genre"
+                app:layout_constraintEnd_toEndOf="@+id/iconExperience"
+                app:layout_constraintHorizontal_bias="0.046"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/view1" />
+
+            <ImageView
+                android:id="@+id/iconExperience"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/icon_experience"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.33"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/view1" />
+
+            <com.musicseque.Fonts.Noyhr
+                android:id="@+id/txtExperience"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/txt_experience"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintStart_toEndOf="@+id/iconExperience"
+                app:layout_constraintTop_toTopOf="@+id/view1" />
+
+            <com.musicseque.Fonts.Noyhr
+                android:id="@+id/tvExperience"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_13sdp"
+                app:layout_constraintStart_toEndOf="@+id/iconExperience"
+                app:layout_constraintTop_toBottomOf="@+id/txtExperience" />
+
+            <com.musicseque.Fonts.Noyhr
+                android:id="@+id/tvMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:drawableLeft="@drawable/icon_letschat"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="8dp"
+                android:text="@string/txt_lets_chat"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_13sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.879"
+                app:layout_constraintStart_toEndOf="@+id/txtExperience"
+                app:layout_constraintTop_toTopOf="@+id/view1" />
+
+            <com.musicseque.Fonts.Noyhr
+                android:id="@+id/txtGenre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/str_genre"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_13sdp"
+                app:layout_constraintStart_toEndOf="@+id/iconGenre"
+                app:layout_constraintTop_toTopOf="@+id/view1" />
+
+            <com.musicseque.Fonts.Noyhr
+                android:id="@+id/tvGenre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_13sdp"
+                app:layout_constraintStart_toStartOf="@+id/txtGenre"
+                app:layout_constraintTop_toBottomOf="@+id/txtGenre" />
+
+            <View
+                android:id="@+id/viewGenre"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/color_white"
+                app:layout_constraintEnd_toStartOf="@+id/iconExperience"
+                app:layout_constraintStart_toEndOf="@+id/txtGenre"
+                app:layout_constraintTop_toTopOf="@+id/view1" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/color_black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvExperience" />
+
+            <LinearLayout
+                android:id="@+id/llBio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view2">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.musicseque.Fonts.Noyhr
+                        android:id="@+id/tvAboutUser"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="16dp"
+                        android:text="About Me"
+                        android:textColor="@color/color_white"
+                        android:textSize="@dimen/_16sdp" />
+
+                    <ImageView
+                        android:id="@+id/ivIconDrop"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:paddingStart="24dp"
+                        android:paddingTop="24dp"
+
+                        android:paddingEnd="24dp"
+                        android:paddingBottom="24dp"
+                        android:src="@drawable/icon_arrow_down"
+                        android:visibility="visible" />
+
+                    <ImageView
+                        android:id="@+id/ivIconUp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:paddingStart="24dp"
+                        android:paddingTop="24dp"
+                        android:paddingEnd="24dp"
+                        android:paddingBottom="24dp"
+                        android:src="@drawable/icon_arrow_up"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
+
+
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/color_black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvAboutUser" />
+
+                <com.musicseque.Fonts.Noyhr
+                    android:id="@+id/tvBio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/color_black"
+                    android:padding="16dp"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/_16sdp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvAboutUser" />
+
+                <include
+                    android:id="@+id/bottom_layout"
+                    layout="@layout/bottom_bar_band"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvBio" />
+
+                <FrameLayout
+                    android:id="@+id/frame_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:fitsSystemWindows="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/bottom_layout" />
+
+            </LinearLayout>
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+</LinearLayout>

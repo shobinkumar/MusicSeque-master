@@ -159,4 +159,12 @@ public interface CommonInterface {
     @Headers("Content-Type: application/json")
     @POST(Constants.BAND_MEMBER_STATUS_API )
     Call<String> bandMemberStatus(@Body String params);
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.BAND_MEMBER_REMOVE_API )
+    Call<String> bandMemberRemove(@Body String params);
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.BAND_MEMBER_ADD_API )
+    Call<String> bandMemberAdd(@Body String params);
 }

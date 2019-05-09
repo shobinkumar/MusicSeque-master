@@ -13,8 +13,8 @@ android {
         applicationId "com.musicseque"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 6
-        versionName "1.5"
+        versionCode 7
+        versionName "1.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
@@ -26,6 +26,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
     }
 }
 
