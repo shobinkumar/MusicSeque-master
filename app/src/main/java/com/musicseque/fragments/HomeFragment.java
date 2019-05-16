@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -42,8 +43,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @BindView(R.id.ivArtist)
     ImageView ivArtist;
 
-    @BindView(R.id.tvLoc)
-    TextView tvLoc;
+    @BindView(R.id.etLoc)
+    EditText etLoc;
 
     @BindView(R.id.rlSearch)
     RelativeLayout rlSearch;
@@ -83,7 +84,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         {
             Address address = Utils.getCompleteAddressString(Double.parseDouble(LocationService.mLatitude), Double.parseDouble(LocationService.mLongitude), getActivity());
 
-            tvLoc.setText(address.getAddressLine(0));
+            etLoc.setText(address.getAddressLine(0));
         }
         catch(Exception e)
         {

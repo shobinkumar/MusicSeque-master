@@ -1,12 +1,14 @@
 package com.musicseque.artist.band.band_adapter
 
 import android.app.Activity
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.musicseque.R
+import com.musicseque.artist.activity.OtherProfileActivity
 import com.musicseque.artist.band.band_model.BandMemberStatusModel
 import com.musicseque.interfaces.RemoveMemberInterface
 import kotlinx.android.synthetic.main.row_band_member_status.view.ivArtistImage
@@ -34,7 +36,7 @@ class SearchBandMemberAdapter(var al: ArrayList<BandMemberStatusModel>, var acti
             itemView.tvProfileType.text = model.artistGenreTypeName + ", " + model.artistExpertise
             itemView.tvCountry.text = model.artistCity + " , " + model.artistCountryName
 
-            if (model.artistProfilePic == "") {
+            if (model.artistProfilePic == "" && model.artistSocialImageUrl=="") {
 
             } else if (model.artistProfilePic != "") {
                 Glide.with(itemView.context)
@@ -50,8 +52,14 @@ class SearchBandMemberAdapter(var al: ArrayList<BandMemberStatusModel>, var acti
                 else
                     intefce.addOrRemoveMember(model.artistUserId.toString(), "remove", model,pos)
             }
+            itemView.setOnClickListener {
+
+
+                activity.startActivity(Intent(activity, OtherProfileActivity::class.java).putExtra("id", model.artistUserId))
+            }
 
         }
+
 
     }
 

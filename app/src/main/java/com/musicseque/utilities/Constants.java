@@ -3,6 +3,7 @@ package com.musicseque.utilities;
 public class Constants {
 
 
+
     public static String ROOT_URL = "http://musicapi.htistelecom.in/api/";
 
 // public static String ROOT_URL2 = "http://musicapi.htistelecom.in/";
@@ -50,7 +51,7 @@ public class Constants {
 
     //Band APIs
     public static final String GET_BAND_LIST_API = "Service/BandProfilesListDisplay";
-    public static final String  GET_BAND_DETAIL_API = "Service/BandProfileDisplayViaId";
+    public static final String GET_BAND_DETAIL_API = "Service/BandProfileDisplayViaId";
     public static final String UPDATE_BAND_PROFILE_API = "Service/BandProfileAddUpdate";
     public static final String UPLOAD_BAND_PROFILE_IMAGE_API = "Service/BandProfileImageUpload";
     public static final String UPLOAD_BAND_BACKGROUND_IMAGE_API = "Service/BandProfileBackgroundImageUpload";
@@ -61,6 +62,10 @@ public class Constants {
     public static final String BAND_MEMBER_REMOVE_API = "Service/BandMemberRemove";
     public static final String BAND_MEMBER_ADD_API = "Service/BandMemberAdd";
     public static final String FOLLOW_UNFOLLOW_BAND_API = "Service/BandFollowersCount";
+    public static final String NOTIFICATION_API = "";
+    public static final String ACCEPT_BAND_REQUEST_API = "";
+    public static final String REJECT_BAND_REQUEST_API = "";
+
 
     public static final String USER_ID = "USER_ID";
     public static final String PROFILE_ID = "PROFILE_ID";
@@ -127,4 +132,7 @@ public class Constants {
     public static final int FOR_SEARCH_BAND_MEMBER = 142;
     public static final int FOR_REMOVE_BAND_MEMBER = 143;
     public static final int FOR_ADD_BAND_MEMBER = 144;
+    public static final int FOR_NOTIFICATION = 145;
+    public static final int FOR_ACCEPT_BAND_REQUEST =146 ;
+    public static final int FOR_REJECT_BAND_REQUEST =147 ;
 }

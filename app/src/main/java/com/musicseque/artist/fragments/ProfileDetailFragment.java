@@ -160,6 +160,9 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
     ArrayList<ImageModel> arrayList = new ArrayList<>();
     View view;
 
+
+    boolean isPicAPIHit = false;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -178,9 +181,12 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
     @Override
     public void onResume() {
         super.onResume();
-        getUserProfile();
-        changeBackgroundColor(ivGigs, tvGigs, getResources().getDrawable(R.drawable.icon_gigs_active), getResources().getString(R.string.txt_gigs), ivImage, tvImage, getResources().getDrawable(R.drawable.icon_photos), getResources().getString(R.string.txt_image), ivMusic, tvMusic, getResources().getDrawable(R.drawable.icon_music), getResources().getString(R.string.txt_music), ivVideo, tvVideo, getResources().getDrawable(R.drawable.icon_videos), getResources().getString(R.string.txt_video), ivCollaborators, tvCollaborators, getResources().getDrawable(R.drawable.icon_collaborators), getResources().getString(R.string.txt_collaborators));
-        changeFragment(new GigsFragment());   
+        if (!isPicAPIHit) {
+            getUserProfile();
+            changeBackgroundColor(ivGigs, tvGigs, getResources().getDrawable(R.drawable.icon_gigs_active), getResources().getString(R.string.txt_gigs), ivImage, tvImage, getResources().getDrawable(R.drawable.icon_photos), getResources().getString(R.string.txt_image), ivMusic, tvMusic, getResources().getDrawable(R.drawable.icon_music), getResources().getString(R.string.txt_music), ivVideo, tvVideo, getResources().getDrawable(R.drawable.icon_videos), getResources().getString(R.string.txt_video), ivCollaborators, tvCollaborators, getResources().getDrawable(R.drawable.icon_collaborators), getResources().getString(R.string.txt_collaborators));
+            changeFragment(new GigsFragment());
+        }
+
     }
 
     private void showDefaultData() {
@@ -291,7 +297,7 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
                 break;
             case R.id.llVideo:
                 changeBackgroundColor(ivVideo, tvVideo, getResources().getDrawable(R.drawable.icon_videos_active), getResources().getString(R.string.txt_video), ivMusic, tvMusic, getResources().getDrawable(R.drawable.icon_music), getResources().getString(R.string.txt_music), ivImage, tvImage, getResources().getDrawable(R.drawable.icon_photos), getResources().getString(R.string.txt_image), ivGigs, tvGigs, getResources().getDrawable(R.drawable.icon_gigs), getResources().getString(R.string.txt_gigs), ivCollaborators, tvCollaborators, getResources().getDrawable(R.drawable.icon_collaborators), getResources().getString(R.string.txt_collaborators));
-               changeFragment(new VideoFragment());
+                changeFragment(new VideoFragment());
                 //hitAPI(FOR_IMAGE);
                 break;
 
@@ -405,7 +411,7 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-      //  super.onActivityResult(requestCode, resultCode, data);
+        //  super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
 
             if (requestCode == SELECT_FILE)
@@ -420,13 +426,17 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
                     RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
                     MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
                     RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), getSharedPref().getString(Constants.USER_ID, ""));
+                    if (Utils.isNetworkConnected(getActivity())) {
+                        initializeLoader();
+                        isPicAPIHit = true;
+                        if (IMAGE_FOR == FOR_BACKGROUND)
+                            ImageUploadClass.imageUpload(fileToUpload, mUSerId, null, Constants.FOR_UPLOAD_ARTIST_COVER_PIC, ProfileDetailFragment.this);
+                        else
+                            ImageUploadClass.imageUpload(fileToUpload, mUSerId, null, Constants.FOR_UPLOAD_ARTIST_PROFILE_IMAGE, ProfileDetailFragment.this);
 
-                    if (IMAGE_FOR == FOR_BACKGROUND)
-                        ImageUploadClass.imageUpload(fileToUpload, mUSerId,null, Constants.FOR_UPLOAD_ARTIST_COVER_PIC, ProfileDetailFragment.this);
-                    else
-                        ImageUploadClass.imageUpload(fileToUpload, mUSerId,null, Constants.FOR_UPLOAD_ARTIST_PROFILE_IMAGE, ProfileDetailFragment.this);
-
-
+                    } else {
+                        Utils.showToast(getActivity(), getResources().getString(R.string.err_no_internet));
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -444,11 +454,12 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
 
 
                 if (Utils.isNetworkConnected(getActivity())) {
+                    isPicAPIHit = true;
                     initializeLoader();
                     if (IMAGE_FOR == FOR_BACKGROUND)
-                        ImageUploadClass.imageUpload(fileToUpload, mUSerId,null,Constants.FOR_UPLOAD_ARTIST_COVER_PIC, ProfileDetailFragment.this);
+                        ImageUploadClass.imageUpload(fileToUpload, mUSerId, null, Constants.FOR_UPLOAD_ARTIST_COVER_PIC, ProfileDetailFragment.this);
                     else
-                        ImageUploadClass.imageUpload(fileToUpload, mUSerId,null, Constants.FOR_UPLOAD_ARTIST_PROFILE_IMAGE, ProfileDetailFragment.this);
+                        ImageUploadClass.imageUpload(fileToUpload, mUSerId, null, Constants.FOR_UPLOAD_ARTIST_PROFILE_IMAGE, ProfileDetailFragment.this);
 
                 } else {
                     Utils.showToast(getActivity(), getResources().getString(R.string.err_no_internet));
@@ -491,7 +502,7 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
                             if (mProfilePic.equalsIgnoreCase("")) {
 
                                 ivProfilePic.setImageDrawable(getResources().getDrawable(R.drawable.icon_photo_upload_circle));
-                               pBar.setVisibility(View.GONE);
+                                pBar.setVisibility(View.GONE);
 
                             } else {
                                 mProfilePic = obj.getString("ImgUrl") + obj.getString("ProfilePic");
@@ -500,13 +511,13 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
                                         .listener(new RequestListener<Drawable>() {
                                             @Override
                                             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                                               pBar.setVisibility(View.GONE);
+                                                pBar.setVisibility(View.GONE);
                                                 return false;
                                             }
 
                                             @Override
                                             public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                                               pBar.setVisibility(View.GONE);
+                                                pBar.setVisibility(View.GONE);
                                                 return false;
                                             }
                                         })
@@ -519,7 +530,7 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
                                     .listener(new RequestListener<Drawable>() {
                                         @Override
                                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                                           pBar.setVisibility(View.GONE);
+                                            pBar.setVisibility(View.GONE);
                                             return false;
                                         }
 
@@ -545,7 +556,7 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
                     }
                     if (!obj.getString("BackgroundImage").equalsIgnoreCase("")) {
                         String mCoverPic = obj.getString("BackgroundImageUrl") + obj.getString("BackgroundImage");
-                       progressBar.setVisibility(View.VISIBLE);
+                        progressBar.setVisibility(View.VISIBLE);
                         Glide.with(getActivity())
                                 .load(mCoverPic)
                                 .listener(new RequestListener<Drawable>() {
@@ -563,9 +574,7 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
                                     }
                                 })
                                 .into(ivBackground);
-                    }
-                    else
-                    {
+                    } else {
                         progressBar.setVisibility(View.GONE);
                     }
                     sv.fullScroll(ScrollView.FOCUS_UP);
@@ -586,7 +595,7 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
                     if (jsonArray.length() > 0) {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
-                            arrayList.add(new ImageModel(jsonObject.getString("ImgUrl"), jsonObject.getString("Image"), true,-1,false));
+                            arrayList.add(new ImageModel(jsonObject.getString("ImgUrl"), jsonObject.getString("Image"), true, -1, false));
 
                             ImagesFragment fragment = new ImagesFragment();
                             Bundle bundle = new Bundle();
@@ -638,6 +647,7 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
 
                 break;
             case Constants.FOR_UPLOAD_ARTIST_PROFILE_IMAGE:
+                isPicAPIHit = false;
                 try {
                     JSONObject jsonObject = new JSONObject(response.toString());
                     if (jsonObject.getString("Status").equalsIgnoreCase("Success")) {
@@ -646,15 +656,14 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
                         //Glide.with(getActivity()).load(jsonObject.getString("imageurl") + jsonObject.getString("ImageName")).into(ivProfilePic);
 
 
-
-                       pBar.setVisibility(View.VISIBLE);
+                        pBar.setVisibility(View.VISIBLE);
 
                         Glide.with(this)
                                 .load(jsonObject.getString("imageurl") + jsonObject.getString("ImageName"))
                                 .listener(new RequestListener<Drawable>() {
                                     @Override
                                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                                       pBar.setVisibility(View.GONE);
+                                        pBar.setVisibility(View.GONE);
                                         return false;
                                     }
 
@@ -674,12 +683,12 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
                 }
                 break;
             case Constants.FOR_UPLOAD_ARTIST_COVER_PIC:
-
+                isPicAPIHit = false;
                 try {
                     JSONObject jsonObject1 = new JSONObject(response.toString());
                     if (jsonObject1.getString("Status").equalsIgnoreCase("Success")) {
                         getEditor().putString(Constants.COVER_IMAGE, jsonObject1.getString("imageurl") + jsonObject1.getString("ImageName")).commit();
-                       progressBar.setVisibility(View.VISIBLE);
+                        progressBar.setVisibility(View.VISIBLE);
                         Utils.showToast(getActivity(), "Cover Pic uploaded successfully");
 
                         Glide.with(this)
@@ -688,14 +697,14 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
                                     @Override
                                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                                         progressBar.setVisibility(View.GONE);
-                                     //   ivBackground.setVisibility(View.VISIBLE);
+                                        //   ivBackground.setVisibility(View.VISIBLE);
                                         return false;
                                     }
 
                                     @Override
                                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                                         progressBar.setVisibility(View.GONE);
-                                       // ivBackground.setVisibility(View.VISIBLE);
+                                        // ivBackground.setVisibility(View.VISIBLE);
                                         return false;
                                     }
                                 })

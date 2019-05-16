@@ -111,6 +111,15 @@ public class RetrofitAPI {
         } else if (TYPE == Constants.FOR_REMOVE_BAND_MEMBER) {
             call = api.bandMemberRemove(params);
 
+        } else if (TYPE == Constants.FOR_NOTIFICATION) {
+            call = api.methodNotification(params);
+
+        } else if (TYPE == Constants.FOR_ACCEPT_BAND_REQUEST) {
+            call = api.methodAcceptBandRequest(params);
+
+        } else if (TYPE == Constants.FOR_REJECT_BAND_REQUEST) {
+            call = api.methodRejectBandRequest(params);
+
         }
         callRetrofit(call, TYPE);
 
@@ -267,14 +276,24 @@ public class RetrofitAPI {
                     Log.e("FOR_BAND_MEMBER_STATUS", response.body().toString());
                     commonInterface.sendResponse(response.body(), TYPE);
 
-                }
-                else if (TYPE == Constants.FOR_ADD_BAND_MEMBER) {
+                } else if (TYPE == Constants.FOR_ADD_BAND_MEMBER) {
                     Log.e("FOR_ADD_BAND_MEMBER", response.body().toString());
                     commonInterface.sendResponse(response.body(), TYPE);
 
-                }
-                else if (TYPE == Constants.FOR_REMOVE_BAND_MEMBER) {
+                } else if (TYPE == Constants.FOR_REMOVE_BAND_MEMBER) {
                     Log.e("FOR_REMOVE_BAND_MEMBER", response.body().toString());
+                    commonInterface.sendResponse(response.body(), TYPE);
+
+                } else if (TYPE == Constants.FOR_NOTIFICATION) {
+                    Log.e("FOR_NOTIFICATION", response.body().toString());
+                    commonInterface.sendResponse(response.body(), TYPE);
+
+                } else if (TYPE == Constants.FOR_ACCEPT_BAND_REQUEST) {
+                    Log.e("FOR_ACCEPT_BAND_REQUEST", response.body().toString());
+                    commonInterface.sendResponse(response.body(), TYPE);
+
+                } else if (TYPE == Constants.FOR_REJECT_BAND_REQUEST) {
+                    Log.e("FOR_REJECT_BAND_REQUEST", response.body().toString());
                     commonInterface.sendResponse(response.body(), TYPE);
 
                 }

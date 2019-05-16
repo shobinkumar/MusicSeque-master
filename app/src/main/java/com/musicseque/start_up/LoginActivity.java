@@ -744,6 +744,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
         RelativeLayout rel8 = (RelativeLayout) dialogUserType.findViewById(R.id.rel8);
         final TextView pro_type = (TextView) dialogUserType.findViewById(R.id.pro_type);
         final Button btn_submit = (Button) dialogUserType.findViewById(R.id.btn_submit);
+        final Button btnCancel = (Button) dialogUserType.findViewById(R.id.btnCancel);
         final EditText etEmail = (EditText) dialogUserType.findViewById(R.id.etEmail);
         final ListView list = (ListView) dialogUserType.findViewById(R.id.userTypeList);
         final CheckBox radioBtn = (CheckBox) dialogUserType.findViewById(R.id.radioBtn);
@@ -761,6 +762,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                 pro_type.setText(pType[i]);
                 list.setVisibility(View.GONE);
                 btn_submit.setVisibility(View.VISIBLE);
+                btnCancel.setVisibility(View.VISIBLE);
 
 
             }
@@ -773,16 +775,25 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                     // Its visible
                     list.setVisibility(View.GONE);
                     btn_submit.setVisibility(View.VISIBLE);
+                    btnCancel.setVisibility(View.VISIBLE);
+
 
                 } else {
                     // Either gone or invisible
                     list.setVisibility(View.VISIBLE);
                     btn_submit.setVisibility(View.GONE);
+                    btnCancel.setVisibility(View.GONE);
+
                 }
             }
         });
 
-
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogUserType.dismiss();
+            }
+        });
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1092,16 +1103,16 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
             case "Artist":
                 return "1";
             case "Talent Manager":
-                return "2";
+                return "3";
 
             case "Event Manager":
-                return "3";
-            case "Music Lover":
                 return "4";
-            case "Venue":
+            case "Music Lover":
                 return "5";
-            case "Store":
+            case "Venue":
                 return "6";
+            case "Store":
+                return "7";
 
             default:
                 return "0";

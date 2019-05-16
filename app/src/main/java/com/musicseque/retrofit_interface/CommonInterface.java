@@ -102,7 +102,6 @@ public interface CommonInterface {
     Call<String> callDeleteArtistMediaMethod(@Body String params);
 
 
-
     @Headers("Content-Type: application/json")
     @POST(Constants.DELETE_ACCOUNT_API)
     Call<String> callDeleteAccountMethod(@Body String params);
@@ -125,7 +124,7 @@ public interface CommonInterface {
     Call<String> followUnfollowArtist(@Body String params);
 
     @Headers("Content-Type: application/json")
-    @POST(Constants.OTHER_PROFILE_API )
+    @POST(Constants.OTHER_PROFILE_API)
     Call<String> getOtherProfile(@Body String params);
 
 
@@ -134,7 +133,7 @@ public interface CommonInterface {
     Call<String> getBandProfile(@Body String params);
 
     @Headers("Content-Type: application/json")
-    @POST(Constants.UPDATE_BAND_PROFILE_API )
+    @POST(Constants.UPDATE_BAND_PROFILE_API)
     Call<String> updateBandProfile(@Body String params);
 
 
@@ -144,27 +143,41 @@ public interface CommonInterface {
     Call<String> callBandAvailabilityStatusMethod(@Body String params);
 
     @Headers("Content-Type: application/json")
-    @POST(Constants.GET_BAND_LIST_API )
+    @POST(Constants.GET_BAND_LIST_API)
     Call<String> getBandList(@Body String params);
 
 
     @Headers("Content-Type: application/json")
-    @POST(Constants.DELETE_BAND_API )
+    @POST(Constants.DELETE_BAND_API)
     Call<String> deleteBand(@Body String params);
 
     @Headers("Content-Type: application/json")
-    @POST(Constants.SEARCH_BAND_MEMBER_API )
+    @POST(Constants.SEARCH_BAND_MEMBER_API)
     Call<String> searchBandMember(@Body String params);
 
     @Headers("Content-Type: application/json")
-    @POST(Constants.BAND_MEMBER_STATUS_API )
+    @POST(Constants.BAND_MEMBER_STATUS_API)
     Call<String> bandMemberStatus(@Body String params);
 
     @Headers("Content-Type: application/json")
-    @POST(Constants.BAND_MEMBER_REMOVE_API )
+    @POST(Constants.BAND_MEMBER_REMOVE_API)
     Call<String> bandMemberRemove(@Body String params);
 
     @Headers("Content-Type: application/json")
-    @POST(Constants.BAND_MEMBER_ADD_API )
+    @POST(Constants.BAND_MEMBER_ADD_API)
     Call<String> bandMemberAdd(@Body String params);
+
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.NOTIFICATION_API)
+    Call<String> methodNotification(@Body String params);
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.ACCEPT_BAND_REQUEST_API)
+    Call<String> methodAcceptBandRequest(@Body String params);
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.REJECT_BAND_REQUEST_API)
+    Call<String> methodRejectBandRequest(@Body String params);
+
 }

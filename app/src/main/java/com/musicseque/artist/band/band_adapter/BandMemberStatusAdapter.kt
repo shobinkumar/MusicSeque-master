@@ -67,7 +67,7 @@ class BandMemberStatusAdapter(var al: ArrayList<BandMemberStatusModel>, val act:
             itemView.tvProfileType.text = model.artistGenreTypeName + ", " + model.artistExpertise
             itemView.tvCountry.text = model.artistCity + " , " + model.artistCountryName
 
-            if (model.artistProfilePic == "") {
+            if (model.artistProfilePic == "" && model.artistSocialImageUrl == "") {
 
             } else if (model.artistProfilePic != "") {
                 Glide.with(itemView.context)

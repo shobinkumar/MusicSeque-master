@@ -61,7 +61,7 @@
                     android:maxLines="1"
                     android:singleLine="true"
                     android:textColor="@color/color_white"
-                    android:textSize="@dimen/_12sdp" />
+                    android:textSize="@dimen/_14sdp" />
                 <com.musicseque.Fonts.Noyhr
                     android:id="@+id/tvCountry"
                     android:layout_width="wrap_content"
@@ -71,7 +71,7 @@
                     android:maxLines="1"
                     android:singleLine="true"
                     android:textColor="@color/color_white"
-                    android:textSize="@dimen/_12sdp" />
+                    android:textSize="@dimen/_14sdp" />
                 <com.musicseque.Fonts.Noyhr
                     android:id="@+id/tvDistance"
                     android:layout_width="wrap_content"
@@ -79,7 +79,7 @@
                     android:layout_below="@+id/tvCountry"
                     android:layout_marginTop="3dp"
                     android:textColor="@color/color_white"
-                    android:textSize="@dimen/_12sdp" />
+                    android:textSize="@dimen/_14sdp" />
             </RelativeLayout>
         </RelativeLayout>
 

@@ -257,7 +257,7 @@ public class BandFormFragment extends Fragment implements View.OnClickListener, 
         btn_submit.setOnClickListener(this);
         ivCamera.setOnClickListener(this);
         ivAddImage.setOnClickListener(this);
-        ivStatus.setOnClickListener(this);
+       // ivStatus.setOnClickListener(this);
         tvCountryCode.setOnClickListener(this);
         tvExperience.setOnClickListener(this);
         tvGenre.setOnClickListener(this);

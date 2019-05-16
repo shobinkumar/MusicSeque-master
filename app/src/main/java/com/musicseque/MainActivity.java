@@ -14,6 +14,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -89,6 +90,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView tvAlerts;
     @BindView(R.id.ivAlerts)
     ImageView ivAlerts;
+    @BindView(R.id.rlNotificationCount)
+    RelativeLayout rlNotificationCount;
+    @BindView(R.id.tvNotificationCount)
+    TextView tvNotificationCount;
 
     @BindView(R.id.llSchedule)
     LinearLayout llSchedule;
@@ -466,6 +471,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             editor.putString(Constants.UNIQUE_CODE, "").commit();
             editor.putString(Constants.IS_FIRST_LOGIN, "").commit();
+
 
         } catch (Exception e) {
 

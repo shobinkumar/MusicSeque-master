@@ -200,12 +200,14 @@ public class  SignupActivity extends Activity implements View.OnClickListener, M
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
 
-                pro_type.setText(userType[i]);
+                pro_type.setText(userType[pos]);
                 list.setVisibility(View.GONE);
-
-                profileType = String.valueOf((i + 1));
+                if(pos==0)
+                profileType = String.valueOf((pos + 1));
+                else
+                    profileType = String.valueOf((pos + 2));
 
 
             }
