@@ -10,7 +10,7 @@ import retrofit2.Retrofit;
 @ApplicationLevelScope
 public interface RetrofitComponent {
     Retrofit getRetrofit();
-    SharedPreferences getShared();
+    SharedPreferences  getShared();
     SharedPreferences.Editor getEditor();
 
 

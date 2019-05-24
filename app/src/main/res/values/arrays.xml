@@ -15,5 +15,9 @@
         <item>Ten</item>
 
     </string-array>
-
+    <array name="array_sort_value">
+        <item>Name</item>
+        <item>Size</item>
+        <item>Date</item>
+    </array>
 </resources>

@@ -32,6 +32,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
@@ -166,12 +167,12 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
         iv_fb = (ImageView) findViewById(R.id.iv_fb);
         ivGoogle = (ImageView) findViewById(R.id.ivGoogle);
 
-        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-            @Override
-            public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                mToken = task.getResult().getToken();
-            }
-        });
+//        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+//            @Override
+//            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+//                mToken = task.getResult().getToken();
+//            }
+//        });
 
 
     }
@@ -206,6 +207,8 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                 .build();
 
         googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
+        FirebaseApp.initializeApp(this);
+
         mAuth = FirebaseAuth.getInstance();
 
 

@@ -3,7 +3,6 @@ package com.musicseque.activities;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -31,6 +30,7 @@ import com.musicseque.artist.activity.UploadActivity;
 import com.musicseque.dagger_data.DaggerRetrofitComponent;
 import com.musicseque.dagger_data.RetrofitComponent;
 import com.musicseque.dagger_data.SharedPrefDependency;
+import com.musicseque.photopicker.activity.PickImageActivity;
 import com.musicseque.service.LocationService;
 import com.musicseque.utilities.Constants;
 import com.musicseque.utilities.FileUtils;
@@ -48,7 +48,7 @@ import okhttp3.RequestBody;
 public abstract class BaseActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CODE = 102;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 103;
-    private static final int SELECT_FILE_MULTIPLE = 1000;
+    //private static final int SELECT_FILE_MULTIPLE = 1000;
     private static final int SELECT_FILE_SINGLE = 1001;
 
     public SharedPreferences sharedPreferences;
@@ -57,10 +57,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     private int IMAGE_FROM;
     private File myDirectory;
     private Uri muri;
-    private int REQUEST_CAMERA=1;
+    private int REQUEST_CAMERA = 1;
     private String selectedImagePath;
     String activityName;
-    ArrayList< MultipartBody.Part> al=new ArrayList<>();
+    ArrayList<MultipartBody.Part> al = new ArrayList<>();
+    private ArrayList<String> pathList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,7 +71,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getApplicationContext())).build();
         sharedPreferences = retrofitComponent.getShared();
         editor = retrofitComponent.getEditor();
-
 
 
     }
@@ -236,14 +236,19 @@ public abstract class BaseActivity extends AppCompatActivity {
             openGalleryIntent.setType("image/*");
             startActivityForResult(openGalleryIntent, SELECT_FILE_SINGLE);
         } else {
-            Intent openGalleryIntent = new Intent(Intent.ACTION_PICK);
-            openGalleryIntent.setType("image/*");
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                openGalleryIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-            }
-            openGalleryIntent.setAction(Intent.ACTION_GET_CONTENT);
 
-            startActivityForResult(openGalleryIntent, SELECT_FILE_MULTIPLE);
+            Intent mIntent = new Intent(this, PickImageActivity.class);
+            mIntent.putExtra(PickImageActivity.KEY_LIMIT_MAX_IMAGE, 5);
+            mIntent.putExtra(PickImageActivity.KEY_LIMIT_MIN_IMAGE, 1);
+            startActivityForResult(mIntent, PickImageActivity.PICKER_REQUEST_CODE);
+//            Intent openGalleryIntent = new Intent(Intent.ACTION_PICK);
+//            openGalleryIntent.setType("image/*");
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+//                openGalleryIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+//            }
+//            openGalleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+//
+//            startActivityForResult(openGalleryIntent, SELECT_FILE_MULTIPLE);
         }
 
     }
@@ -302,7 +307,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-          //  content://media/external/images/media/2849
+            //  content://media/external/images/media/2849
             if (requestCode == SELECT_FILE_SINGLE) {
                 try {
                     Uri uri = data.getData();
@@ -322,77 +327,93 @@ public abstract class BaseActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            } else if (requestCode == SELECT_FILE_MULTIPLE) {
+            } else if (requestCode == PickImageActivity.PICKER_REQUEST_CODE) {
+                pathList = data.getExtras().getStringArrayList(PickImageActivity.KEY_DATA_RESULT);
+                if (pathList != null && !this.pathList.isEmpty()) {
+                    StringBuilder sb = new StringBuilder("");
+                    for (int i = 0; i < pathList.size(); i++) {
 
-
-
-                if (data.getClipData() != null) {
-                    ClipData mClipData = data.getClipData();
-                    for (int i = 0; i < mClipData.getItemCount(); i++) {
-
-                        ClipData.Item item = mClipData.getItemAt(i);
-                        Uri uri = item.getUri();
-
-
-                        String filePath = FileUtils.getPath(BaseActivity.this,uri);
+                        String filePath = FileUtils.compressImage(pathList.get(i),this);
                         File file = new File(filePath);
                         file = Utils.saveBitmapToFile(file);
 
                         RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
                         MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
                         al.add(fileToUpload);
-
-
                     }
                     RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), sharedPreferences.getString(Constants.USER_ID, ""));
                     callActivity(al, mUSerId);
-
                 }
-                else
-                {
-                    try {
-                        Uri uri = data.getData();
-                         String filePath = getRealPathFromURIPath(uri, BaseActivity.this);
-                        File file = new File(filePath);
-                        file = Utils.saveBitmapToFile(file);
-
-                        RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
-                        MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
-                        RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), sharedPreferences.getString(Constants.USER_ID, ""));
-                        al.add(fileToUpload);
-                        callActivity(al, mUSerId);
+            }
 
 
+//            else if (requestCode == SELECT_FILE_MULTIPLE) {
+//
+//
+//
+//                if (data.getClipData() != null) {
+//                    ClipData mClipData = data.getClipData();
+//                    for (int i = 0; i < mClipData.getItemCount(); i++) {
+//
+//                        ClipData.Item item = mClipData.getItemAt(i);
+//                        Uri uri = item.getUri();
+//
+//
+//                        String filePath = FileUtils.getPath(BaseActivity.this,uri);
+//                        File file = new File(filePath);
+//                        file = Utils.saveBitmapToFile(file);
+//
+//                        RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
+//                        MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
+//                        al.add(fileToUpload);
+//
+//
+//                    }
+//                    RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), sharedPreferences.getString(Constants.USER_ID, ""));
+//                    callActivity(al, mUSerId);
+//
+//                }
+//                else
+//                {
+//                    try {
+//                        Uri uri = data.getData();
+//                         String filePath = getRealPathFromURIPath(uri, BaseActivity.this);
+//                        File file = new File(filePath);
+//                        file = Utils.saveBitmapToFile(file);
+//
+//                        RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
+//                        MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
+//                        RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), sharedPreferences.getString(Constants.USER_ID, ""));
+//                        al.add(fileToUpload);
+//                        callActivity(al, mUSerId);
+//
+//
+//
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
 
-
-
-
-
-                
-            } else if (requestCode == REQUEST_CAMERA) {
-                Uri uri = Uri.parse(selectedImagePath);
-                String filePath = getRealPathFromURIPath(uri, BaseActivity.this);
-                File file = new File(filePath);
-                file = Utils.saveBitmapToFile(file);
-                RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
-                MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
-                RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), sharedPreferences.getString(Constants.USER_ID, ""));
-                al.add(fileToUpload);
-                if (activityName.equalsIgnoreCase("report")) {
-                    forReportProblem(fileToUpload, mUSerId, file.getName());
-                } else {
-                    callActivity(al, mUSerId);
-                }
-
+        } else if (requestCode == REQUEST_CAMERA) {
+            Uri uri = Uri.parse(selectedImagePath);
+            String filePath = getRealPathFromURIPath(uri, BaseActivity.this);
+            File file = new File(filePath);
+            file = Utils.saveBitmapToFile(file);
+            RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
+            MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
+            RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), sharedPreferences.getString(Constants.USER_ID, ""));
+            al.add(fileToUpload);
+            if (activityName.equalsIgnoreCase("report")) {
+                forReportProblem(fileToUpload, mUSerId, file.getName());
+            } else {
+                callActivity(al, mUSerId);
             }
 
         }
+
     }
+
 
     private void forReportProblem(MultipartBody.Part fileToUpload, RequestBody mUSerId, String name) {
         ReportProblemActivity report = (ReportProblemActivity) this;
