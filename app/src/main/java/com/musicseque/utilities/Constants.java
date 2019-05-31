@@ -62,9 +62,9 @@ public class Constants {
     public static final String BAND_MEMBER_REMOVE_API = "Service/BandMemberRemove";
     public static final String BAND_MEMBER_ADD_API = "Service/BandMemberAdd";
     public static final String FOLLOW_UNFOLLOW_BAND_API = "Service/BandFollowersCount";
-    public static final String NOTIFICATION_API = "";
-    public static final String ACCEPT_BAND_REQUEST_API = "";
-    public static final String REJECT_BAND_REQUEST_API = "";
+    public static final String NOTIFICATION_API = "Service/ArtistsRequestsDisplay";
+    public static final String ACCEPT_REJECT_BAND_REQUEST_API = "Service/ArtistRequestsStatus";
+
 
 
     public static final String USER_ID = "USER_ID";

@@ -103,6 +103,9 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
         initOtherViews();
         initViews();
         listeners();
+        FirebaseApp.initializeApp(this);
+
+        mAuth = FirebaseAuth.getInstance();
         googleLoginInitialization();
         boolean mEmailVerified = getIntent().getBooleanExtra("isEmailVerified", true);
         if (mEmailVerified) {
@@ -200,16 +203,16 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
     private void googleLoginInitialization() {
 
         googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+               // .requestIdToken("631151135806-ruoi38mhngnuciop3u6bqbkdb0dc31r8.apps.googleusercontent.com")
                 // .requestIdToken("797258071407-u5o6ivco8p7qukqm8s6ovbnljns3djq4.apps.googleusercontent.com")
-                .requestIdToken("631151135806-76c34v9bb1486bqb0itjui37iusr19kd.apps.googleusercontent.com")
+               // .requestIdToken("631151135806-76c34v9bb1486bqb0itjui37iusr19kd.apps.googleusercontent.com")
 
                 .requestEmail()
                 .build();
 
         googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
-        FirebaseApp.initializeApp(this);
 
-        mAuth = FirebaseAuth.getInstance();
+
 
 
     }
@@ -226,7 +229,23 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
 
             mName = acct.getDisplayName();
             mEmail = acct.getEmail();
-            mImageURL = acct.getPhotoUrl().toString();
+            try
+            {
+                if(acct.getPhotoUrl().toString()==null)
+                {
+                    mImageURL ="";
+                }
+                else
+                {
+                    mImageURL = acct.getPhotoUrl().toString();
+                }
+            }
+            catch (Exception e)
+            {
+                mImageURL="";
+            }
+
+
             mSocialId = acct.getId();
             saveDataInSharedPref(mName, mEmail);
 
@@ -362,23 +381,35 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
 //    }
 
     private void signInGoogle() {
-        FirebaseAuth.getInstance().signOut();
+      //  FirebaseAuth.getInstance().signOut();
 
-        mAuth.signOut();
 
-        // Google sign out
-        googleSignInClient.signOut().addOnCompleteListener(this,
-                new OnCompleteListener<Void>() {  //signout Google
+
+        googleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        //     FirebaseAuth.getInstance().signOut(); //signout firebase
-
+                        Intent signInIntent = googleSignInClient.getSignInIntent();
+                        startActivityForResult(signInIntent, RC_SIGN_IN);
                     }
                 });
 
 
-        Intent signInIntent = googleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
+     //   mAuth.signOut();
+
+        // Google sign out
+//        googleSignInClient.signOut().addOnCompleteListener(this,
+//                new OnCompleteListener<Void>() {  //signout Google
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        //     FirebaseAuth.getInstance().signOut(); //signout firebase
+//
+//                    }
+//                });
+
+
+//        Intent signInIntent = googleSignInClient.getSignInIntent();
+//        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
 

@@ -82,6 +82,7 @@
         <activity
             android:name=".artist.band.band_activity.SearchBandMemberActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".firebase_notification.NotificationActivity"/>
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -93,6 +94,10 @@
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" /> <!-- <activity android:name=".artist.activity.ArtistProfileActivity" /> -->
+        <activity
+            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

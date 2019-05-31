@@ -2,30 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/_15sdp"
+    android:orientation="vertical"
     android:paddingLeft="@dimen/_15sdp"
-    android:paddingRight="@dimen/_15sdp"
-    android:background="@color/color_app_background"
-    android:orientation="vertical">
+    android:paddingTop="@dimen/_15sdp"
+    android:paddingRight="@dimen/_15sdp">
 
     <com.musicseque.Fonts.Noyhr
         android:id="@+id/tvNotification"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/color_white"
-        android:textSize="@dimen/_16sdp" />
+        android:textSize="@dimen/_14sdp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="2"
         android:layout_marginTop="15dp"
+        android:gravity="center_horizontal"
         android:orientation="horizontal">
 
         <com.musicseque.Fonts.CustomButton
             android:id="@+id/btnAccept"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/btnResendOTP"
             android:layout_centerHorizontal="true"
@@ -34,23 +32,35 @@
 
             android:layout_marginBottom="@dimen/_15sdp"
             android:background="@color/color_orange"
-            android:padding="@dimen/_10sdp"
+            android:paddingLeft="@dimen/_20sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingRight="@dimen/_20sdp"
+            android:paddingBottom="@dimen/_10sdp"
+
             android:text="Accept"
             android:textColor="@color/color_white"
-            android:textSize="@dimen/_14sdp" />
+            android:textSize="@dimen/_12sdp" />
 
         <com.musicseque.Fonts.CustomButton
             android:id="@+id/btnReject"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/rectangle_orange_border"
-            android:padding="@dimen/_10sdp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:background="@drawable/rectangle_orange_border"
+            android:paddingLeft="@dimen/_20sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingRight="@dimen/_20sdp"
+            android:paddingBottom="@dimen/_10sdp"
             android:text="Reject"
             android:textColor="@color/color_white"
-            android:textSize="@dimen/_14sdp" />
+            android:textSize="@dimen/_12sdp" />
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/color_white" />
 </LinearLayout>

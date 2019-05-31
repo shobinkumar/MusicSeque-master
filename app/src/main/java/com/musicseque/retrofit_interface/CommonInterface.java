@@ -173,11 +173,11 @@ public interface CommonInterface {
     Call<String> methodNotification(@Body String params);
 
     @Headers("Content-Type: application/json")
-    @POST(Constants.ACCEPT_BAND_REQUEST_API)
+    @POST(Constants.ACCEPT_REJECT_BAND_REQUEST_API)
     Call<String> methodAcceptBandRequest(@Body String params);
 
     @Headers("Content-Type: application/json")
-    @POST(Constants.REJECT_BAND_REQUEST_API)
+    @POST(Constants.ACCEPT_REJECT_BAND_REQUEST_API)
     Call<String> methodRejectBandRequest(@Body String params);
 
 }

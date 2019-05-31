@@ -1,6 +1,9 @@
 package com.musicseque;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -28,6 +31,7 @@ import com.musicseque.artist.service.CommonService;
 import com.musicseque.dagger_data.DaggerRetrofitComponent;
 import com.musicseque.dagger_data.RetrofitComponent;
 import com.musicseque.dagger_data.SharedPrefDependency;
+import com.musicseque.firebase_notification.NotificationActivity;
 import com.musicseque.fragments.HomeFragment;
 import com.musicseque.fragments.SettingFragment;
 import com.musicseque.service.LocationService;
@@ -79,6 +83,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView tvMyProfile;
     @BindView(R.id.tvBandProfile)
     TextView tvBandProfile;
+    @BindView(R.id.tvOtherBand)
+    TextView tvOtherBand;
     @BindView(R.id.ivUpArrow)
     ImageView ivUpArrow;
     @BindView(R.id.ivDownArrow)
@@ -172,6 +178,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initOtherViews();
         initViews();
         clickListener();
+        uploadLatLng();
+        defaultValues();
+        openDefaultFragment();
+
+
+    }
+
+
+    private void initOtherViews() {
+
+        retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getApplicationContext())).build();
+        sharedPreferences = retrofitComponent.getShared();
+        editor = retrofitComponent.getEditor();
+        editor.putBoolean(Constants.IS_LOGIN, true).commit();
+
+
+    }
+
+    private void initViews() {
+        iv_home = (ImageView) findViewById(R.id.iv_home);
+        iv_profile = (ImageView) findViewById(R.id.iv_profile);
+        iv_feature = (ImageView) findViewById(R.id.iv_feature);
+        iv_chat = (ImageView) findViewById(R.id.iv_chat);
+        iv_settings = (ImageView) findViewById(R.id.iv_settings);
+        ivDrawer = (ImageView) findViewById(R.id.ivDrawer);
+        llBand.setVisibility(View.GONE);
+
+    }
+
+    private void clickListener() {
+        iv_home.setOnClickListener(this);
+        iv_profile.setOnClickListener(this);
+        iv_feature.setOnClickListener(this);
+        iv_chat.setOnClickListener(this);
+        iv_settings.setOnClickListener(this);
+        ivDrawer.setOnClickListener(this);
+
+    }
+
+    private void uploadLatLng() {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("UserId", sharedPreferences.getString(Constants.USER_ID, ""));
@@ -183,6 +229,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         startService(new Intent(this, CommonService.class).putExtra("API", Constants.UPLOAD_LAT_LNG_API).putExtra("params", jsonObject.toString()));
 
+    }
+
+    private void defaultValues() {
         tvUserName.setText(sharedPreferences.getString(Constants.USER_NAME, ""));
         tvType.setText(sharedPreferences.getString(Constants.PROFILE_TYPE, ""));
         tvId.setText("ID : " + sharedPreferences.getString(Constants.UNIQUE_CODE, ""));
@@ -198,6 +247,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
 
+    }
+
+    private void openDefaultFragment() {
         fragment = new HomeFragment();
         if (getIntent().getStringExtra("frag") == null)
             changeIconBottom(R.drawable.homeactive3, R.drawable.profile3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment);
@@ -240,39 +292,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
         }
-
-
-    }
-
-
-    private void initOtherViews() {
-
-        retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getApplicationContext())).build();
-        sharedPreferences = retrofitComponent.getShared();
-        editor = retrofitComponent.getEditor();
-        editor.putBoolean(Constants.IS_LOGIN, true).commit();
-
-
-    }
-
-    private void initViews() {
-        iv_home = (ImageView) findViewById(R.id.iv_home);
-        iv_profile = (ImageView) findViewById(R.id.iv_profile);
-        iv_feature = (ImageView) findViewById(R.id.iv_feature);
-        iv_chat = (ImageView) findViewById(R.id.iv_chat);
-        iv_settings = (ImageView) findViewById(R.id.iv_settings);
-        ivDrawer = (ImageView) findViewById(R.id.ivDrawer);
-        llBand.setVisibility(View.GONE);
-
-    }
-
-    private void clickListener() {
-        iv_home.setOnClickListener(this);
-        iv_profile.setOnClickListener(this);
-        iv_feature.setOnClickListener(this);
-        iv_chat.setOnClickListener(this);
-        iv_settings.setOnClickListener(this);
-        ivDrawer.setOnClickListener(this);
 
     }
 
@@ -361,13 +380,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
             finish();
         } else {
-                super.onBackPressed();
+            super.onBackPressed();
         }
 
     }
 
 
-    @OnClick({R.id.tvMyProfile, R.id.tvBandProfile, R.id.ivUpArrow, R.id.ivDownArrow, R.id.llActivity, R.id.llHome, R.id.llAlerts, R.id.llSchedule, R.id.llUpload, R.id.llBand, R.id.llSearch, R.id.llStats, R.id.llSettings, R.id.llLogout})
+    @OnClick({R.id.tvMyProfile, R.id.tvBandProfile, R.id.tvOtherBand, R.id.ivUpArrow, R.id.ivDownArrow, R.id.llActivity, R.id.llHome, R.id.llAlerts, R.id.llSchedule, R.id.llUpload, R.id.llBand, R.id.llSearch, R.id.llStats, R.id.llSettings, R.id.llLogout})
     public void onClicks(View view) {
         switch (view.getId()) {
             case R.id.ivUpArrow:
@@ -405,6 +424,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 ivUpArrow.setVisibility(View.GONE);
                 ivDownArrow.setVisibility(View.VISIBLE);
                 break;
+            case R.id.tvOtherBand:
+
+                break;
             case R.id.llActivity:
                 break;
             case R.id.llHome:
@@ -417,6 +439,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.llAlerts:
+                startActivity(new Intent(this, NotificationActivity.class));
+                navDrawer.closeDrawers();
+                closeProfile();
                 break;
             case R.id.llSchedule:
                 break;
@@ -479,10 +504,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
-    void closeProfile()
-    {
+
+    void closeProfile() {
         llAllProfile.setVisibility(View.GONE);
         ivUpArrow.setVisibility(View.GONE);
         ivDownArrow.setVisibility(View.VISIBLE);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(myreceiver, new IntentFilter("com.musicseque.NotificationCount"));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(myreceiver);
+    }
+
+    BroadcastReceiver myreceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            rlNotificationCount.setVisibility(View.VISIBLE);
+            tvNotificationCount.setText(intent.getStringExtra("notification_count"));
+        }
+    };
 }
