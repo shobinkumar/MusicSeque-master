@@ -163,6 +163,7 @@
                     android:text="@string/txt_my_band_profile"
                     android:textColor="@color/color_white"
                     android:textSize="@dimen/_15sdp" />
+
                 <com.musicseque.Fonts.Noyhr
                     android:id="@+id/tvOtherBand"
                     android:layout_width="wrap_content"
@@ -251,15 +252,16 @@
                 android:id="@+id/rlNotificationCount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="right">
+                android:gravity="right"
+                android:visibility="gone">
 
                 <com.musicseque.Fonts.Noyhr
                     android:id="@+id/tvNotificationCount"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:background="@drawable/circle_orange"
-                    android:text="123"
                     android:gravity="center"
+                    android:text="123"
                     android:textColor="@color/color_white"
                     android:textSize="@dimen/_13sdp" />
             </RelativeLayout>

@@ -26,10 +26,12 @@ public class NotificationAdapter extends RecyclerView.Adapter {
     public static final int FOR_REQUEST_SENT = 0;
     public static final int FOR_REQUEST_ACCEPT = 1;
     public static final int FOR_REQUEST_REJECT = 2;
+    public static final int FOR_OWNER_REMOVE_MEMBER = 3;
 
-    public static final int OWNER_REQUEST_SENT = 3;
-    public static final int OWNER_REQUEST_ACCEPT = 4;
-    public static final int OWNER_REQUEST_REJECT = 5;
+
+    public static final int OWNER_REQUEST_SENT = 4;
+    public static final int OWNER_REQUEST_ACCEPT = 5;
+    public static final int OWNER_REQUEST_REJECT = 6;
     private CommonInterface memInterface;
 
 
@@ -61,6 +63,10 @@ public class NotificationAdapter extends RecyclerView.Adapter {
             case FOR_REQUEST_REJECT:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_reject_request, parent, false);
                 return new RejectViewHolder(view);
+                case FOR_OWNER_REMOVE_MEMBER:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_accept_request, parent, false);
+                return new AcceptViewHolder(view);
+
 
             case OWNER_REQUEST_SENT:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_accept_request, parent, false);
@@ -125,6 +131,16 @@ public class NotificationAdapter extends RecyclerView.Adapter {
 
                         break;
 
+                    case FOR_OWNER_REMOVE_MEMBER:
+                        AcceptViewHolder viewHolderOwnerRemoveMember = ((AcceptViewHolder) holder);
+
+
+                        String sourceStringOwnerRemove = "<b>" + object.getBandManagerFirstName() + "</b> " + " removed you from band  " + "<b>" + object.getBandName() + "</b>" + "<br><br>" + object.getRequestSentDate()+"</br></br>";
+
+                        viewHolderOwnerRemoveMember.tvNotificationAcceptRequest.setText(Html.fromHtml(sourceStringOwnerRemove));
+
+
+                        break;
 
                     //For Owner
 
@@ -178,6 +194,8 @@ public class NotificationAdapter extends RecyclerView.Adapter {
                     return FOR_REQUEST_ACCEPT;
                 case FOR_REQUEST_REJECT:
                     return FOR_REQUEST_REJECT;
+                case FOR_OWNER_REMOVE_MEMBER:
+                    return FOR_OWNER_REMOVE_MEMBER;
                 default:
                     return -1;
             }

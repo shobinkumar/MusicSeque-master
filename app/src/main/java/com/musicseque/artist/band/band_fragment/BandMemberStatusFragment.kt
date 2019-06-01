@@ -105,19 +105,19 @@ class BandMemberStatusFragment : BaseFragment(), MyInterface, View.OnClickListen
                 if (obj.getString("Status").equals("Success")) {
 
                     val data = obj.getJSONArray("result")
-                    tvAddBandMember.visibility = View.GONE
+                   // tvAddBandMember.visibility = View.GONE
                     recyclerBandMember.visibility = View.VISIBLE
                     val gson = Gson()
                     val itemType = object : TypeToken<ArrayList<BandMemberStatusModel>>() {}.type
                     alModel = gson.fromJson<ArrayList<BandMemberStatusModel>>(data.toString(), itemType)
 
 
-                    if (alModel.size < 5) {
-                        views.tvAddBandMember.visibility = View.VISIBLE
-
-                    } else {
-                        views.tvAddBandMember.visibility = View.GONE
-                    }
+//                    if (alModel.size < 5) {
+//                        views.tvAddBandMember.visibility = View.VISIBLE
+//
+//                    } else {
+//                        views.tvAddBandMember.visibility = View.GONE
+//                    }
 
                     val adapter = BandMemberStatusAdapter(alModel, activity!!, this)
                     recyclerBandMember.adapter = adapter

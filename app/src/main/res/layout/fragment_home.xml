@@ -134,6 +134,7 @@
                 android:padding="@dimen/_5sdp"
                 android:text="Location : Camden Town. UK"
                 android:textColor="#ffffff"
+                android:focusable="false"
                 android:textSize="@dimen/_15sdp" />
 
             <ImageView
