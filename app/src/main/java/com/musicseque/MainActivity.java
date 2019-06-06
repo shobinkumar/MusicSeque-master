@@ -27,6 +27,7 @@ import com.musicseque.artist.band.band_fragment.BandFormFragment;
 import com.musicseque.artist.band.band_fragment.BandListFragment;
 import com.musicseque.artist.fragments.ProfileDetailFragment;
 import com.musicseque.artist.fragments.ProfileFragment;
+import com.musicseque.artist.other_band.fragments.OtherBandListFragment;
 import com.musicseque.artist.service.CommonService;
 import com.musicseque.dagger_data.DaggerRetrofitComponent;
 import com.musicseque.dagger_data.RetrofitComponent;
@@ -425,7 +426,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 ivDownArrow.setVisibility(View.VISIBLE);
                 break;
             case R.id.tvOtherBand:
-
+                fragment = new OtherBandListFragment();
+                changeIconBottom(R.drawable.home3, R.drawable.profileactive3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment);
+                navDrawer.closeDrawers();
+                llAllProfile.setVisibility(View.GONE);
+                ivUpArrow.setVisibility(View.GONE);
+                ivDownArrow.setVisibility(View.VISIBLE);
                 break;
             case R.id.llActivity:
                 break;

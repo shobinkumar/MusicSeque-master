@@ -1,4 +1,4 @@
-package com.musicseque.artist.artist_adapters;
+package com.musicseque.artist.band.band_adapter;
 
 import android.content.Context;
 import android.os.Bundle;

@@ -121,6 +121,10 @@ public class RetrofitAPI {
             call = api.methodRejectBandRequest(params);
 
         }
+        else if (TYPE == Constants.FOR_OTHER_BAND_LIST) {
+            call = api.methodOtherBandList(params);
+
+        }
         callRetrofit(call, TYPE);
 
 
@@ -294,6 +298,11 @@ public class RetrofitAPI {
 
                 } else if (TYPE == Constants.FOR_REJECT_BAND_REQUEST) {
                     Log.e("FOR_REJECT_BAND_REQUEST", response.body().toString());
+                    commonInterface.sendResponse(response.body(), TYPE);
+
+                }
+                else if (TYPE == Constants.FOR_OTHER_BAND_LIST) {
+                    Log.e("FOR_OTHER_BAND_LIST", response.body().toString());
                     commonInterface.sendResponse(response.body(), TYPE);
 
                 }

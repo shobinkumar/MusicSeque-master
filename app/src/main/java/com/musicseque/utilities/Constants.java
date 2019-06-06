@@ -64,7 +64,7 @@ public class Constants {
     public static final String FOLLOW_UNFOLLOW_BAND_API = "Service/BandFollowersCount";
     public static final String NOTIFICATION_API = "Service/ArtistsRequestsDisplay";
     public static final String ACCEPT_REJECT_BAND_REQUEST_API = "Service/ArtistRequestsStatus";
-
+    public static final String OTHER_BAND_LIST_API = "Service/ArtistsBandListDisplay";
 
 
     public static final String USER_ID = "USER_ID";
@@ -135,4 +135,5 @@ public class Constants {
     public static final int FOR_NOTIFICATION = 145;
     public static final int FOR_ACCEPT_BAND_REQUEST =146 ;
     public static final int FOR_REJECT_BAND_REQUEST =147 ;
+    public static final int FOR_OTHER_BAND_LIST=148;
 }

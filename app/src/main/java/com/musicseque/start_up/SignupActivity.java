@@ -47,7 +47,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 
-public class  SignupActivity extends Activity implements View.OnClickListener, MyInterface, TextWatcher {
+public class   SignupActivity extends Activity implements View.OnClickListener, MyInterface, TextWatcher {
 
     private String requestBody = "", firstName = "", lstName = "", email = "", phone = "", pasw = "", confPasw = "", proType;
     CheckBox radioBtn;

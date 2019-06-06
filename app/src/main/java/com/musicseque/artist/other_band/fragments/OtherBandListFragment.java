@@ -1,4 +1,4 @@
-package com.musicseque.artist.band.band_fragment;
+package com.musicseque.artist.other_band.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,6 +19,7 @@ import com.musicseque.MainActivity;
 import com.musicseque.R;
 import com.musicseque.artist.band.band_adapter.BandListAdapter;
 import com.musicseque.artist.artist_models.BandDataModel;
+import com.musicseque.artist.band.band_fragment.BandFormFragment;
 import com.musicseque.artist.fragments.BaseFragment;
 import com.musicseque.interfaces.MyInterface;
 import com.musicseque.retrofit_interface.RetrofitAPI;
@@ -35,13 +36,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class BandListFragment extends BaseFragment implements MyInterface {
+public class OtherBandListFragment extends BaseFragment implements MyInterface {
     View view;
     @BindView(R.id.recyclerBand)
     RecyclerView recyclerBand;
-
-    @BindView(R.id.btnAddBand)
-    Button btnAddBand;
 
 
     TextView tvTitle;
@@ -54,7 +52,7 @@ public class BandListFragment extends BaseFragment implements MyInterface {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_band_list, null);
+        view = inflater.inflate(R.layout.fragment_other_band_list, null);
         initOtherViews();
         initViews();
         return view;
@@ -84,16 +82,8 @@ public class BandListFragment extends BaseFragment implements MyInterface {
                 if (type.equalsIgnoreCase("get_list")) {
                     JSONObject jsonObject = new JSONObject();
                     jsonObject.put("LoginUserId", getSharedPref().getString(Constants.USER_ID, ""));
-                    RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_BAND_LIST, BandListFragment.this);
-                } else if (type.equalsIgnoreCase("for_delete")) {
-                    JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("BandManagerId", getSharedPref().getString(Constants.USER_ID, ""));
-                    jsonObject.put("BandId", "");
-                    RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_DELETE_BAND, BandListFragment.this);
-
-
+                    RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_OTHER_BAND_LIST, OtherBandListFragment.this);
                 }
-
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -118,32 +108,18 @@ public class BandListFragment extends BaseFragment implements MyInterface {
                         alBand = new Gson().fromJson(jsonArray.toString(), new TypeToken<ArrayList<BandDataModel>>() {
                         }.getType());
                         recyclerBand.setVisibility(View.VISIBLE);
-                        btnAddBand.setVisibility(View.GONE);
                         recyclerBand.setAdapter(new BandListAdapter(getActivity(), alBand));
                     } else {
                         recyclerBand.setVisibility(View.GONE);
-                        btnAddBand.setVisibility(View.VISIBLE);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 break;
 
-            case Constants.FOR_DELETE_BAND:
-                break;
+
         }
     }
 
-    @OnClick(R.id.btnAddBand)
-    public void onClick(View view) {
-        BandFormFragment ldf = new BandFormFragment();
-        Bundle args = new Bundle();
-        args.putString("band_id", "0");
-        ldf.setArguments(args);
-
-        ((FragmentActivity) view.getContext()).getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frameLayout, ldf)
-                .commit();
-    }
 
 }

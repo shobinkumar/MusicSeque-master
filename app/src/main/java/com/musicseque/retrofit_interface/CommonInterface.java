@@ -180,4 +180,8 @@ public interface CommonInterface {
     @POST(Constants.ACCEPT_REJECT_BAND_REQUEST_API)
     Call<String> methodRejectBandRequest(@Body String params);
 
+    @Headers("Content-Type: application/json")
+    @POST(Constants.OTHER_BAND_LIST_API)
+    Call<String> methodOtherBandList(@Body String params);
+
 }
