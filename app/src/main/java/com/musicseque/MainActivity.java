@@ -239,7 +239,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String mUrl = sharedPreferences.getString(Constants.PROFILE_IMAGE, "");
         if (mUrl.equalsIgnoreCase("")) {
             Glide.with(this)
-                    .load(R.drawable.dummy_profile)
+                    .load(R.drawable.icon_img_dummy)
                     .into(ivProfile);
         } else {
             Glide.with(this)
@@ -340,7 +340,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String mUrl = sharedPreferences.getString(Constants.PROFILE_IMAGE, "");
                 if (mUrl.equalsIgnoreCase("")) {
                     Glide.with(this)
-                            .load(R.drawable.dummy_profile)
+                            .load(R.drawable.icon_img_dummy)
                             .into(ivProfile);
                 } else {
                     Glide.with(this)

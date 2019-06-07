@@ -71,18 +71,6 @@ class BandMemberStatusFragment : BaseFragment(), MyInterface, View.OnClickListen
                 obj.put("BandId", bandId)
 
                 RetrofitAPI.callAPI(obj.toString(), Constants.FOR_BAND_MEMBER_STATUS, this);
-//            } else if(API_TYPE==REMOVE_MEMBER){
-//                val jsonObject = JSONObject()
-//                try {
-//                    jsonObject.put("BandId", mBandId)
-//                    jsonObject.put("BandManagerId", sharedPref.getString(Constants.USER_ID, ""))
-//                    jsonObject.put("ArtistId", data.artistUserId)
-//
-//                } catch (e: JSONException) {
-//                    e.printStackTrace()
-//                }
-//
-//                RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_REMOVE_BAND_MEMBER, this)
 
 
             }

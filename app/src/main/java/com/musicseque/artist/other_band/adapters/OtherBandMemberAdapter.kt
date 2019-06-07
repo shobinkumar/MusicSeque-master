@@ -1,26 +1,23 @@
-package com.musicseque.artist.band.band_adapter
+package com.musicseque.artist.other_band.adapters
 
-import android.app.Activity
-import android.content.Context
 import android.opengl.Visibility
 import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
-import com.musicseque.MyApplication.context
 import com.musicseque.R
 import com.musicseque.artist.band.band_model.BandMemberStatusModel
 import com.musicseque.interfaces.RemoveMemberInterface
 import kotlinx.android.synthetic.main.row_band_member_status.view.*
 
+class OtherBandMemberAdapter(var al: ArrayList<BandMemberStatusModel>, val act: FragmentActivity, val inface: RemoveMemberInterface) : RecyclerView.Adapter<OtherBandMemberAdapter.ViewHolder>() {
 
-class BandMemberStatusAdapter(var al: ArrayList<BandMemberStatusModel>, val act: FragmentActivity,val inface:RemoveMemberInterface) : RecyclerView.Adapter<BandMemberStatusAdapter.ViewHolder>() {
+    var sType: String = ""
 
-     var sType:String=""
-
-    override fun onCreateViewHolder(parent: ViewGroup, p1: Int): BandMemberStatusAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, p1: Int): OtherBandMemberAdapter.ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.row_band_member_status, parent, false)
         return ViewHolder(v)
     }
@@ -29,24 +26,24 @@ class BandMemberStatusAdapter(var al: ArrayList<BandMemberStatusModel>, val act:
         return al.size
     }
 
-    override fun onBindViewHolder(viewHolder: BandMemberStatusAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(viewHolder: OtherBandMemberAdapter.ViewHolder, position: Int) {
         val model: BandMemberStatusModel = al.get(position)
 
-        viewHolder.bind(model,position)
+        viewHolder.bind(model, position)
     }
 
 
-  inner  class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(model: BandMemberStatusModel,pos:Int)
-        {
+        fun bind(model: BandMemberStatusModel, pos: Int) {
 
-            if ((sType != model.artistIsBandMember || sType == model.artistIsBandMember) && model.artistIsBandMember .equals("Y",ignoreCase = true)) {
+
+            itemView.ivRemoveMember.visibility = GONE
+            if ((sType != model.artistIsBandMember || sType == model.artistIsBandMember) && model.artistIsBandMember.equals("Y", ignoreCase = true)) {
                 sType = model.artistIsBandMember!!
-                itemView.tvHeading.visibility=View.GONE
+                itemView.tvHeading.visibility = View.GONE
 
-            } else
-            {
+            } else {
 
                 val value = if (sType == model.artistIsBandMember) true
                 else
@@ -54,12 +51,12 @@ class BandMemberStatusAdapter(var al: ArrayList<BandMemberStatusModel>, val act:
 
 
                 if (value) {
-                    itemView.tvHeading.visibility=View.GONE
+                    itemView.tvHeading.visibility = View.GONE
 
                 } else {
-                    sType= model.artistIsBandMember!!
-                    itemView.tvHeading.visibility=View.VISIBLE
-                    itemView.tvHeading.text="Pending"
+                    sType = model.artistIsBandMember!!
+                    itemView.tvHeading.visibility = View.VISIBLE
+                    itemView.tvHeading.text = "Pending"
                 }
 
             }
@@ -79,11 +76,7 @@ class BandMemberStatusAdapter(var al: ArrayList<BandMemberStatusModel>, val act:
                 Glide.with(itemView.context)
                         .load(model.artistSocialImageUrl).into(itemView.ivArtistImage)
             }
-            itemView.ivRemoveMember.setOnClickListener { view->
 
-            inface.addOrRemoveMember(model.artistUserId.toString(),"remove",model,pos)
-
-            }
 
         }
 

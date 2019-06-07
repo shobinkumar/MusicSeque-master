@@ -39,7 +39,7 @@ class SearchBandMemberAdapter(var al: ArrayList<BandMemberStatusModel>, var acti
 
             if (model.artistProfilePic == "" && model.artistSocialImageUrl=="") {
                 Glide.with(itemView.context)
-                        .load(R.drawable.dummy_profile)
+                        .load(R.drawable.icon_img_dummy)
                         .into(itemView.ivArtistImage)
             }
             else if (model.artistProfilePic != "") {

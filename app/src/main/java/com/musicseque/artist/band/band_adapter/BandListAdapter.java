@@ -54,7 +54,9 @@ public class BandListAdapter extends RecyclerView.Adapter<BandListAdapter.ViewHo
             viewHolder.btnAddBand.setVisibility(View.GONE);
         }
         if (bandDataModel.getBandImg().equalsIgnoreCase("")) {
-
+            Glide.with(context)
+                    .load(R.drawable.icon_img_dummy)
+                    .into(viewHolder.ivBandImage);
         } else {
             Glide.with(context)
                     .load(bandDataModel.getBandImgPath() + bandDataModel.getBandImg())

@@ -21,6 +21,7 @@ import com.musicseque.artist.band.band_adapter.BandListAdapter;
 import com.musicseque.artist.artist_models.BandDataModel;
 import com.musicseque.artist.band.band_fragment.BandFormFragment;
 import com.musicseque.artist.fragments.BaseFragment;
+import com.musicseque.artist.other_band.adapters.OtherBandListAdapter;
 import com.musicseque.interfaces.MyInterface;
 import com.musicseque.retrofit_interface.RetrofitAPI;
 import com.musicseque.utilities.Constants;
@@ -40,6 +41,9 @@ public class OtherBandListFragment extends BaseFragment implements MyInterface {
     View view;
     @BindView(R.id.recyclerBand)
     RecyclerView recyclerBand;
+
+    @BindView(R.id.tvNoBand)
+    TextView tvNoBand;
 
 
     TextView tvTitle;
@@ -81,7 +85,7 @@ public class OtherBandListFragment extends BaseFragment implements MyInterface {
 
                 if (type.equalsIgnoreCase("get_list")) {
                     JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("LoginUserId", getSharedPref().getString(Constants.USER_ID, ""));
+                    jsonObject.put("LoggedInArtistId", getSharedPref().getString(Constants.USER_ID, ""));
                     RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_OTHER_BAND_LIST, OtherBandListFragment.this);
                 }
 
@@ -100,17 +104,20 @@ public class OtherBandListFragment extends BaseFragment implements MyInterface {
     public void sendResponse(Object response, int TYPE) {
         Utils.hideProgressDialog();
         switch (TYPE) {
-            case Constants.FOR_BAND_LIST:
+            case Constants.FOR_OTHER_BAND_LIST:
                 try {
                     JSONObject object = new JSONObject(response.toString());
                     if (object.getString("Status").equalsIgnoreCase("Success")) {
                         JSONArray jsonArray = object.getJSONArray("result");
                         alBand = new Gson().fromJson(jsonArray.toString(), new TypeToken<ArrayList<BandDataModel>>() {
                         }.getType());
+                        tvNoBand.setVisibility(View.GONE);
                         recyclerBand.setVisibility(View.VISIBLE);
-                        recyclerBand.setAdapter(new BandListAdapter(getActivity(), alBand));
+
+                        recyclerBand.setAdapter(new OtherBandListAdapter(getActivity(), alBand));
                     } else {
                         recyclerBand.setVisibility(View.GONE);
+                        tvNoBand.setVisibility(View.VISIBLE);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

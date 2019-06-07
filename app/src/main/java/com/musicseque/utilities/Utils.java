@@ -231,17 +231,13 @@ public static void setTypefaces(CheckBox view, Context context)
 
 
     public static double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
-        double theta = lon1 - lon2;
-        double dist = Math.sin(deg2rad(lat1))
-                * Math.sin(deg2rad(lat2))
-                + Math.cos(deg2rad(lat1))
-                * Math.cos(deg2rad(lat2))
-                * Math.cos(deg2rad(theta));
-        dist = Math.acos(dist);
-        dist = rad2deg(dist);
-        dist = dist * 60 * 1.1515;
+        double theDistance = (Math.sin(Math.toRadians(lat1)) *
+                Math.sin(Math.toRadians(lat2)) +
+                Math.cos(Math.toRadians(lat1)) *
+                        Math.cos(Math.toRadians(lat2)) *
+                        Math.cos(Math.toRadians(lon1 - lon2)));
+        return new Double((Math.toDegrees(Math.acos(theDistance))) * 69.09).intValue();
 
-        return (dist)*0.621371;
     }
 
     private static  double deg2rad(double deg) {

@@ -17,16 +17,18 @@ import com.bumptech.glide.request.RequestOptions
 import com.musicseque.R
 import com.musicseque.artist.artist_models.BandDataModel
 import com.musicseque.artist.band.band_fragment.BandProfileDetailFragment
+import com.musicseque.artist.band.band_model.BandMemberStatusModel
+import com.musicseque.artist.other_band.fragments.OtherBandProfileDetailFragment
 import kotlinx.android.synthetic.main.row_other_band_item.view.*
 
 class OtherBandListAdapter(val act: Activity, val al: ArrayList<BandDataModel>) : RecyclerView.Adapter<OtherBandListAdapter.ViewHolder>() {
-    override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
+    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+        val model: BandDataModel = al.get(position)
 
+        viewHolder.bindItems(model)
     }
 
-    class MyHolder {
 
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): OtherBandListAdapter.ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.row_other_band_item, parent, false)
@@ -62,9 +64,11 @@ class OtherBandListAdapter(val act: Activity, val al: ArrayList<BandDataModel>) 
 
             itemView.setOnClickListener(
                     {
-                        val ldf = BandProfileDetailFragment()
+                        val ldf = OtherBandProfileDetailFragment()
                         val args = Bundle()
                         args.putString("band_id", band_model.getBandId()!!.toString())
+                        args.putString("manager_id", band_model.bandManagerId!!.toString())
+
                         ldf.arguments = args
 
                         (itemView.getContext() as FragmentActivity).supportFragmentManager.beginTransaction()

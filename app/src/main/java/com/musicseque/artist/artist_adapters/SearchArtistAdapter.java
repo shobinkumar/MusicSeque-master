@@ -72,13 +72,18 @@ public class SearchArtistAdapter extends RecyclerView.Adapter<SearchArtistAdapte
             viewHolder.tvDistance.setText(df2.format(mDistance)+" miles");
         viewHolder.tvProfileType.setText(artistModel.getExpertise()+","+artistModel.getGenreTypeName());
         viewHolder.tvCountry.setText(artistModel.getCity()+","+artistModel.getCountryName());
-            if (artistModel.getSocialImageUrl() == null || artistModel.getSocialImageUrl().equalsIgnoreCase("null") || artistModel.getSocialImageUrl().equalsIgnoreCase("")) {
-                Glide.with(context).load(artistModel.getServerpath() + artistModel.getProfilePic()).into(viewHolder.ivArtistImage);
+            if ( !artistModel.getSocialImageUrl().equalsIgnoreCase("")) {
+                Glide.with(context).load(artistModel.getSocialImageUrl()).into(viewHolder.ivArtistImage);
+
+            }
+            else if(!artistModel.getProfilePic().equalsIgnoreCase(""))
+            {
+                Glide.with(context).load(artistModel.getServerpath()+artistModel.getProfilePic()).into(viewHolder.ivArtistImage);
 
             }
             else
             {
-                Glide.with(context).load(artistModel.getSocialImageUrl()).into(viewHolder.ivArtistImage);
+                Glide.with(context).load(R.drawable.icon_img_dummy).into(viewHolder.ivArtistImage);
 
             }
 

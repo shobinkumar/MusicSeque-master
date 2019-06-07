@@ -158,7 +158,7 @@ public class OtherBandProfileDetailFragment extends BaseFragment implements View
     private Fragment fragment;
     ArrayList<ImageModel> arrayList = new ArrayList<>();
     View view;
-    private String mBandId;
+    private String mBandId,mBandManagerId;
 
 
     boolean isPicAPIHit = false;
@@ -180,6 +180,7 @@ public class OtherBandProfileDetailFragment extends BaseFragment implements View
     private void initOtherViews() {
 
         mBandId = getArguments().getString("band_id");
+        mBandManagerId = getArguments().getString("manager_id");
         img_right_icon = (ImageView) ((MainActivity) getActivity()).findViewById(R.id.img_right_icon);
         tv_title = (BoldNoyhr) ((MainActivity) getActivity()).findViewById(R.id.tvHeading);
         img_right_icon.setVisibility(View.GONE);
@@ -207,15 +208,7 @@ public class OtherBandProfileDetailFragment extends BaseFragment implements View
 
     private void listeners() {
 
-        img_right_icon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                startActivity(new Intent(getActivity(), MainActivity.class).putExtra("band_id", mBandId).putExtra("frag", "com.musicseque.artist.fragments.BandFormFragment"));
-
-
-            }
-        });
     }
 
     @Override
@@ -279,7 +272,8 @@ public class OtherBandProfileDetailFragment extends BaseFragment implements View
 
                 Bundle bundle = new Bundle();
                 bundle.putString("band_id", mBandId);
-                BandMemberStatusFragment fragment = new BandMemberStatusFragment();
+                bundle.putString("manager_id", mBandManagerId);
+                OtherBandMembersFragment fragment = new OtherBandMembersFragment();
                 fragment.setArguments(bundle);
 
                 changeFragment(fragment);

@@ -43,6 +43,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @BindView(R.id.ivArtist)
     ImageView ivArtist;
 
+    @BindView(R.id.ivEditLoc)
+    ImageView ivEditLoc;
     @BindView(R.id.etLoc)
     EditText etLoc;
 
@@ -63,6 +65,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         tv_title.setText("Home");
         initialize();
         clickListner();
+
         return v;
     }
 
@@ -101,6 +104,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         img_event_manger.setOnClickListener(this);
         img_talent_manager.setOnClickListener(this);
         et_explore.setOnClickListener(this);
+//        etLoc.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View view, boolean b) {
+//                if(b)
+//                {
+//                    etLoc.setCursorVisible(true);
+//                    etLoc.setFocusable(true);
+//                }
+//                else
+//                {
+//                    etLoc.setCursorVisible(false);
+//                    etLoc.setFocusable(false);
+//                }
+//            }
+//        });
 
 
 
@@ -127,16 +145,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    @OnClick({R.id.ivArtist, R.id.rlSearch,R.id.ivSearch})
+    @OnClick({R.id.ivArtist, R.id.rlSearch,R.id.ivSearch,R.id.ivEditLoc})
     public void click(View view) {
         if (view.getId() == R.id.ivArtist) {
-
+            startActivity(new Intent(getActivity(), SearchArtistActivity.class));
         } else if (view.getId() == R.id.rlSearch) {
-
+            startActivity(new Intent(getActivity(), SearchArtistActivity.class));
         }
         else if (view.getId() == R.id.ivSearch) {
-
+            startActivity(new Intent(getActivity(), SearchArtistActivity.class));
         }
-        startActivity(new Intent(getActivity(), SearchArtistActivity.class));
+        else if(view.getId()==R.id.ivEditLoc)
+        {
+            etLoc.setCursorVisible(true);
+            etLoc.setFocusable(true);
+        }
+
     }
 }

@@ -131,17 +131,21 @@
                 android:id="@+id/etLoc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@null"
                 android:padding="@dimen/_5sdp"
                 android:text="Location : Camden Town. UK"
                 android:textColor="#ffffff"
-                android:focusable="false"
+
                 android:textSize="@dimen/_15sdp" />
 
             <ImageView
+                android:id="@+id/ivEditLoc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:focusable="false"
+
                 android:src="@drawable/edit" />
 
 
@@ -181,7 +185,7 @@
                 android:layout_height="1dp"
                 android:layout_below="@id/et_explore"
                 android:layout_marginTop="5dp"
-                android:background="#BDBDBD"></View>
+                android:background="#BDBDBD" />
         </RelativeLayout>
 
     </RelativeLayout>
