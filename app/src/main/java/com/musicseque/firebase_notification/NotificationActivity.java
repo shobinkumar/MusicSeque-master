@@ -1,6 +1,5 @@
 package com.musicseque.firebase_notification;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,18 +12,13 @@ import com.google.gson.reflect.TypeToken;
 import com.musicseque.R;
 import com.musicseque.activities.BaseActivity;
 import com.musicseque.adapters.NotificationAdapter;
-import com.musicseque.artist.activity.OtherProfileActivity;
-import com.musicseque.artist.artist_models.ArtistModel;
-import com.musicseque.artist.band.band_model.BandMemberStatusModel;
 import com.musicseque.interfaces.CommonInterface;
 import com.musicseque.interfaces.MyInterface;
-import com.musicseque.interfaces.RemoveMemberInterface;
 import com.musicseque.models.NotificationModel;
 import com.musicseque.retrofit_interface.RetrofitAPI;
 import com.musicseque.utilities.Constants;
 import com.musicseque.utilities.Utils;
 
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

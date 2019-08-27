@@ -3,7 +3,6 @@ package com.musicseque.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -18,13 +17,11 @@ import android.widget.Toast;
 
 import com.musicseque.MainActivity;
 import com.musicseque.R;
-import com.musicseque.artist.activity.SearchArtistActivity;
+import com.musicseque.artist.activity.other_artist_activity.SearchArtistActivity;
+import com.musicseque.artist.activity.other_artist_activity.SearchBandActivity;
 import com.musicseque.service.LocationService;
-import com.musicseque.utilities.Constants;
 import com.musicseque.utilities.Utils;
-
-import java.util.List;
-import java.util.Locale;
+import com.musicseque.venues.activity.SearchVenueActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,6 +45,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @BindView(R.id.etLoc)
     EditText etLoc;
 
+    @BindView(R.id.ivBand)
+    ImageView ivBand;
     @BindView(R.id.rlSearch)
     RelativeLayout rlSearch;
 
@@ -77,23 +76,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         img_event_manger = (ImageView) v.findViewById(R.id.img_event_manger);
         img_talent_manager = (ImageView) v.findViewById(R.id.img_talent_manager);
         et_explore = (TextView) v.findViewById(R.id.et_explore);
-
-
-
-
-
-
         try
         {
             Address address = Utils.getCompleteAddressString(Double.parseDouble(LocationService.mLatitude), Double.parseDouble(LocationService.mLongitude), getActivity());
-
             etLoc.setText(address.getAddressLine(0));
         }
         catch(Exception e)
-        {
+        {      
 
         }
-
+        
     }
 
     public void clickListner() {
@@ -131,8 +123,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             Toast.makeText(getActivity(), "Disabled", Toast.LENGTH_SHORT).show();
 
         } else if (view == img_venue) {
-            Toast.makeText(getActivity(), "Disabled", Toast.LENGTH_SHORT).show();
-
+            startActivity(new Intent(getActivity(), SearchVenueActivity.class));
         } else if (view == img_event_manger) {
             Toast.makeText(getActivity(), "Disabled", Toast.LENGTH_SHORT).show();
 
@@ -145,7 +136,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    @OnClick({R.id.ivArtist, R.id.rlSearch,R.id.ivSearch,R.id.ivEditLoc})
+    @OnClick({R.id.ivArtist, R.id.rlSearch,R.id.ivSearch,R.id.ivEditLoc,R.id.ivBand})
     public void click(View view) {
         if (view.getId() == R.id.ivArtist) {
             startActivity(new Intent(getActivity(), SearchArtistActivity.class));
@@ -159,6 +150,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         {
             etLoc.setCursorVisible(true);
             etLoc.setFocusable(true);
+        }
+        else if(view.getId()==R.id.ivBand)
+        {
+           startActivity(new Intent(getActivity(), SearchBandActivity.class));
         }
 
     }

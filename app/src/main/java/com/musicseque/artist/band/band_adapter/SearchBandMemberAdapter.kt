@@ -8,10 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.musicseque.R
-import com.musicseque.artist.activity.OtherProfileActivity
+import com.musicseque.artist.activity.other_artist_activity.OtherProfileActivity
 import com.musicseque.artist.band.band_model.BandMemberStatusModel
 import com.musicseque.interfaces.RemoveMemberInterface
-import com.musicseque.utilities.Utils
 import kotlinx.android.synthetic.main.row_band_member_status.view.ivArtistImage
 import kotlinx.android.synthetic.main.row_band_member_status.view.tvBandName
 import kotlinx.android.synthetic.main.row_band_member_status.view.tvCountry

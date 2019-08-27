@@ -3,10 +3,7 @@ package com.musicseque.retrofit_interface;
 
 import com.musicseque.utilities.Constants;
 
-import org.json.JSONObject;
 
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -15,7 +12,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 
-public interface CommonInterface {
+public interface CommonInterfaceRetrofit {
 
 
     @Headers("Content-Type: application/json")
@@ -183,5 +180,11 @@ public interface CommonInterface {
     @Headers("Content-Type: application/json")
     @POST(Constants.OTHER_BAND_LIST_API)
     Call<String> methodOtherBandList(@Body String params);
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.SEARCH_BAND_LIST_API)
+    Call<String> methodBandListSearch(@Body String params);
+
+
 
 }

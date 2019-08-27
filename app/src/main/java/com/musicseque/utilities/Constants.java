@@ -1,5 +1,7 @@
 package com.musicseque.utilities;
 
+import org.jetbrains.annotations.Nullable;
+
 public class Constants {
 
 
@@ -65,7 +67,20 @@ public class Constants {
     public static final String NOTIFICATION_API = "Service/ArtistsRequestsDisplay";
     public static final String ACCEPT_REJECT_BAND_REQUEST_API = "Service/ArtistRequestsStatus";
     public static final String OTHER_BAND_LIST_API = "Service/ArtistsBandListDisplay";
+    public static final String SEARCH_BAND_LIST_API="Service/BandListSearch";
 
+    //Event Manager
+
+    public static final String EVENT_TYPE_LIST_API  ="Service/EventTypeList";
+    public static final String CURRENCY_LIST_API  ="Service/CurrencyTypeList";
+    public static final String EVENT_DETAIL_API  ="Service/EventDetailsViaEventId";
+    public static final String EVENT_SAVE_UPDATE_DETAIL_API="Service/EventBookingSaveUpdate";
+
+
+    //Venue
+    public static final String VENUE_LIST_API  ="Service/VenueListSearch";
+    public static final String VENUE_PROFILE_API="Service/VenueProfileDisplayViaId";
+    public static final String VENUE_ADD_UPDATE_PROFILE_API="Service/EventProfileSaveUpdate";
 
     public static final String USER_ID = "USER_ID";
     public static final String PROFILE_ID = "PROFILE_ID";
@@ -136,4 +151,14 @@ public class Constants {
     public static final int FOR_ACCEPT_BAND_REQUEST =146 ;
     public static final int FOR_REJECT_BAND_REQUEST =147 ;
     public static final int FOR_OTHER_BAND_LIST=148;
+    public static final int FOR_EVENT_MANAGER_DETAIL=149;
+    public static final int FOR_EVENT_TYPE_LIST=150;
+    public static final int FOR_CURRENCY_LIST=151;
+    public static final int FOR_EVENT_DETAIL=152;
+    public static final int FOR_SAVE_UPDATE_EVENT_DETAIL=153;
+    public static final int FOR_SEARCH_BAND_LIST=154;
+    public static final int FOR_SEARCH_VENUE_LIST=155;
+    public static final int FOR_VENUE_PROFILE=156;
+    public static final int FOR_CREATE_UPDATE_VENUE_PROFILE=157;
+
 }

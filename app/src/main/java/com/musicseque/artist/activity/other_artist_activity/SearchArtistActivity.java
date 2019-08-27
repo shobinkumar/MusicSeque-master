@@ -1,4 +1,4 @@
-package com.musicseque.artist.activity;
+package com.musicseque.artist.activity.other_artist_activity;
 
 
 import android.os.Bundle;
@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,7 +19,6 @@ import com.musicseque.R;
 import com.musicseque.activities.BaseActivity;
 import com.musicseque.artist.artist_adapters.SearchArtistAdapter;
 import com.musicseque.artist.artist_models.ArtistModel;
-import com.musicseque.artist.artist_models.UploadedMediaModel;
 import com.musicseque.interfaces.MyInterface;
 import com.musicseque.retrofit_interface.RetrofitAPI;
 import com.musicseque.utilities.Constants;
@@ -108,7 +106,7 @@ public class SearchArtistActivity extends BaseActivity implements MyInterface {
         Utils.hideProgressDialog();
         switch (TYPE) {
             case Constants.GET_ARTIST_LIST:
-//                searchArtistAdapter = new SearchArtistAdapter(SearchArtistActivity.this, arrayList,sharedPreferences.getString(Constants.USER_ID,""));
+//                searchArtistAdapter = new SearchArtistAdapter(SearchArtistActivityEventManager.this, arrayList,sharedPreferences.getString(Constants.USER_ID,""));
 //                recyclerArtist.setAdapter(searchArtistAdapter);
 
 

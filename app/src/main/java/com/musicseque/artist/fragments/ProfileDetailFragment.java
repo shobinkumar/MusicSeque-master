@@ -411,16 +411,12 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //  super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
 
             if (requestCode == SELECT_FILE)
                 try {
                     Uri uri = data.getData();
-//                    String filePath = Utils.getRealPathFromURIPath(uri, getActivity());
-//                    File file = new File(filePath);
-//                    // showImage(file);
-//                    file = Utils.saveBitmapToFile(file);
+
                     String filePath = FileUtils.compressImage(uri.toString(), getActivity());
                     File file = new File(filePath);
                     RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);

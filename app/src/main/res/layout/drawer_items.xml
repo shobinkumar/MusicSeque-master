@@ -274,7 +274,101 @@
             android:layout_height="1dp"
             android:layout_marginTop="5dp"
             android:background="@color/color_white" />
+        <LinearLayout
+            android:id="@+id/llEvents"
 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/ivEvent"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/schedule" />
+
+                <com.musicseque.Fonts.Noyhr
+                    android:id="@+id/tvEvents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/txt_events"
+                    android:layout_toRightOf="@+id/ivEvent"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/_15sdp" />
+
+                <ImageView
+                    android:id="@+id/ivUpArrowEvents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:padding="10dp"
+                    android:src="@drawable/icon_arrow_up"
+
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/ivDownArrowEvents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:padding="10dp"
+                    android:src="@drawable/icon_arrow_down"
+                    android:visibility="visible" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/llAllEvents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <com.musicseque.Fonts.Noyhr
+                    android:id="@+id/tvAddEvent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+
+                    android:text="@string/txt_add_events"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/_15sdp" />
+
+                <com.musicseque.Fonts.Noyhr
+                    android:id="@+id/tvUpcomingEvent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/txt_upcoming_events"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/_15sdp" />
+
+                <com.musicseque.Fonts.Noyhr
+                    android:id="@+id/tvPastEvents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/txt_past_events"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/_15sdp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_white"
+            android:layout_marginTop="5dp"/>
         <LinearLayout
             android:id="@+id/llSchedule"
 

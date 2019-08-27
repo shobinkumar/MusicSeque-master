@@ -9,22 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
 import com.bumptech.glide.Glide;
 import com.musicseque.Fonts.Noyhr;
-import com.musicseque.MainActivity;
 import com.musicseque.R;
-import com.musicseque.artist.activity.OtherProfileActivity;
-import com.musicseque.artist.activity.SearchArtistActivity;
+import com.musicseque.artist.activity.other_artist_activity.OtherProfileActivity;
+import com.musicseque.artist.activity.other_artist_activity.SearchArtistActivity;
 import com.musicseque.artist.artist_models.ArtistModel;
-import com.musicseque.dagger_data.DaggerRetrofitComponent;
-import com.musicseque.dagger_data.SharedPrefDependency;
 import com.musicseque.service.LocationService;
-import com.musicseque.utilities.Constants;
-import com.musicseque.utilities.TextViewWithoutPaddings;
 import com.musicseque.utilities.Utils;
 
 import java.text.DecimalFormat;

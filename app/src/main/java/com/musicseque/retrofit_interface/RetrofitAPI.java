@@ -1,17 +1,10 @@
 package com.musicseque.retrofit_interface;
 
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
 import com.musicseque.interfaces.MyInterface;
 import com.musicseque.utilities.Constants;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.json.JSONObject;
-
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -20,14 +13,11 @@ public class RetrofitAPI {
 
     static MyInterface commonInterface;
 
-    public static void
-
-
-    callAPI(String params, int TYPE, MyInterface myInterface) {
+    public static void callAPI(String params, int TYPE, MyInterface myInterface) {
         commonInterface = myInterface;
 
 
-        CommonInterface api = RetrofitClientInstance.createService(CommonInterface.class);
+        CommonInterfaceRetrofit api =RetrofitClientInstance.createService(CommonInterfaceRetrofit.class);
 
 
         Call<String> call = null;
@@ -125,6 +115,14 @@ public class RetrofitAPI {
             call = api.methodOtherBandList(params);
 
         }
+        else if (TYPE == Constants.FOR_EVENT_MANAGER_DETAIL) {
+            call = api.methodOtherBandList(params);
+
+        }
+        else if (TYPE == Constants.FOR_SEARCH_BAND_LIST) {
+            call = api.methodBandListSearch(params);
+
+        }
         callRetrofit(call, TYPE);
 
 
@@ -133,7 +131,7 @@ public class RetrofitAPI {
 
     public static void callGetAPI(int TYPE, MyInterface myInterface) {
         commonInterface = myInterface;
-        CommonInterface api = RetrofitClientInstance.createService(CommonInterface.class);
+        CommonInterfaceRetrofit api = RetrofitClientInstance.createService(CommonInterfaceRetrofit.class);
         Call<String> call = null;
         if (TYPE == Constants.FOR_GENRE_LIST) {
             call = api.callGenreList();
@@ -303,6 +301,16 @@ public class RetrofitAPI {
                 }
                 else if (TYPE == Constants.FOR_OTHER_BAND_LIST) {
                     Log.e("FOR_OTHER_BAND_LIST", response.body().toString());
+                    commonInterface.sendResponse(response.body(), TYPE);
+
+                }
+                else if (TYPE == Constants.FOR_EVENT_MANAGER_DETAIL) {
+                    Log.e("FOR_EVENT_MANAGER", response.body().toString());
+                    commonInterface.sendResponse(response.body(), TYPE);
+
+                }
+                else if (TYPE == Constants.FOR_SEARCH_BAND_LIST) {
+                    Log.e("FOR_SEARCH_BAND_LIST", response.body().toString());
                     commonInterface.sendResponse(response.body(), TYPE);
 
                 }

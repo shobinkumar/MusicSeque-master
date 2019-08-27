@@ -21,7 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.musicseque.artist.activity.SearchArtistActivity;
+import com.musicseque.artist.activity.other_artist_activity.SearchArtistActivity;
 import com.musicseque.artist.activity.UploadActivity;
 import com.musicseque.artist.band.band_fragment.BandFormFragment;
 import com.musicseque.artist.band.band_fragment.BandListFragment;
@@ -32,6 +32,7 @@ import com.musicseque.artist.service.CommonService;
 import com.musicseque.dagger_data.DaggerRetrofitComponent;
 import com.musicseque.dagger_data.RetrofitComponent;
 import com.musicseque.dagger_data.SharedPrefDependency;
+import com.musicseque.event_manager.activity.CreateEventActivity;
 import com.musicseque.firebase_notification.NotificationActivity;
 import com.musicseque.fragments.HomeFragment;
 import com.musicseque.fragments.SettingFragment;
@@ -167,6 +168,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @BindView(R.id.tvId)
     TextView tvId;
 
+
+    @BindView(R.id.llAllEvents)
+    LinearLayout llAllEvents;
+    @BindView(R.id.ivDownArrowEvents)
+    ImageView ivDownArrowEvents;
+    @BindView(R.id.ivUpArrowEvents)
+    ImageView ivUpArrowEvents;
+
+
     @BindView(R.id.drawerLayout)
     DrawerLayout navDrawer;
     private Fragment fragment;
@@ -251,6 +261,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void openDefaultFragment() {
+
+
         fragment = new HomeFragment();
         if (getIntent().getStringExtra("frag") == null)
             changeIconBottom(R.drawable.homeactive3, R.drawable.profile3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment);
@@ -293,6 +305,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
         }
+
 
     }
 
@@ -387,7 +400,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    @OnClick({R.id.tvMyProfile, R.id.tvBandProfile, R.id.tvOtherBand, R.id.ivUpArrow, R.id.ivDownArrow, R.id.llActivity, R.id.llHome, R.id.llAlerts, R.id.llSchedule, R.id.llUpload, R.id.llBand, R.id.llSearch, R.id.llStats, R.id.llSettings, R.id.llLogout})
+    @OnClick({R.id.ivDownArrowEvents,R.id.ivUpArrowEvents,R.id.tvAddEvent,R.id.tvUpcomingEvent,R.id.tvMyProfile, R.id.tvBandProfile, R.id.tvOtherBand, R.id.ivUpArrow, R.id.ivDownArrow, R.id.llActivity, R.id.llHome, R.id.llAlerts, R.id.llSchedule, R.id.llUpload, R.id.llBand, R.id.llSearch, R.id.llStats, R.id.llSettings, R.id.llLogout})
     public void onClicks(View view) {
         switch (view.getId()) {
             case R.id.ivUpArrow:
@@ -478,6 +491,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 finish();
                 break;
+            case R.id.ivDownArrowEvents:
+                llAllEvents.setVisibility(View.VISIBLE);
+                ivDownArrowEvents.setVisibility(View.GONE);
+                ivUpArrowEvents.setVisibility(View.VISIBLE);
+
+
+                break;
+            case R.id.ivUpArrowEvents:
+                llAllEvents.setVisibility(View.GONE);
+                ivDownArrowEvents.setVisibility(View.VISIBLE);
+                ivUpArrowEvents.setVisibility(View.GONE);
+
+                break;
+
+            case R.id.tvAddEvent:
+                startActivity(new Intent(this, CreateEventActivity.class));
+
+
+                break;
+            case R.id.tvUpcomingEvent:
+                break;
+
+            case R.id.tvPastEvents:
+                break;
+
 
         }
 

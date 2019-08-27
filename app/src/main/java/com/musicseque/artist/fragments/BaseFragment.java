@@ -21,15 +21,11 @@ import com.musicseque.BuildConfig;
 import com.musicseque.dagger_data.DaggerRetrofitComponent;
 import com.musicseque.dagger_data.RetrofitComponent;
 import com.musicseque.dagger_data.SharedPrefDependency;
-import com.musicseque.utilities.Constants;
+import com.musicseque.event_manager.fragment.EventManagerDetailFragment;
 import com.musicseque.utilities.FileUtils;
 import com.musicseque.utilities.Utils;
 
 import java.io.File;
-
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 
 
 public class BaseFragment extends Fragment {
@@ -46,6 +42,8 @@ public class BaseFragment extends Fragment {
     private String mVideoPath = "";
     String mFileType;
     UploadVideoFragment fragments;
+    Fragment commonFragment;
+    private String selectedImagePath;
 
     public SharedPreferences getSharedPref() {
         RetrofitComponent retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getActivity())).build();
@@ -60,22 +58,6 @@ public class BaseFragment extends Fragment {
 
 
     public void openDialog(String type, Fragment fragment) {
-        fragments = (UploadVideoFragment) fragment;
-        String[] pictureDialogItems;
-        mFileType = type;
-        if (type.equalsIgnoreCase("video")) {
-            pictureDialogItems = new String[]{
-                    "Select video from gallery",
-                    "Capture video from camera"};
-        } else {
-
-
-
-
-            pictureDialogItems = new String[]{
-                    "Select photo from gallery",
-                    "Capture photo from camera"};
-        }
 
         myDirectory = new File(Environment.getExternalStorageDirectory(), "MusicSegue");
         try {
@@ -87,6 +69,25 @@ public class BaseFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+        String[] pictureDialogItems;
+        mFileType = type;
+        if (type.equalsIgnoreCase("video")) {
+            fragments = (UploadVideoFragment) fragment;
+            pictureDialogItems = new String[]{
+                    "Select video from gallery",
+                    "Capture video from camera"};
+        } else {
+
+
+            commonFragment = (EventManagerDetailFragment) fragment;
+
+            pictureDialogItems = new String[]{
+                    "Select photo from gallery",
+                    "Capture photo from camera"};
+        }
+
 
         AlertDialog.Builder pictureDialog = new AlertDialog.Builder(getActivity());
         pictureDialog.setTitle("Select Action");
@@ -102,7 +103,10 @@ public class BaseFragment extends Fragment {
                                 if (!checkPermission()) {
                                     requestPermission();
                                 } else {
-                                    galleryIntent();
+                                    if (type.equalsIgnoreCase("video"))
+                                        galleryIntentVideo();
+                                    else
+                                        galleryIntentImage();
 
                                 }
                                 break;
@@ -112,7 +116,10 @@ public class BaseFragment extends Fragment {
                                 if (!checkPermission()) {
                                     requestPermission();
                                 } else {
-                                    cameraIntent();
+                                    if (type.equalsIgnoreCase("video"))
+                                        cameraIntentVideo();
+                                    else
+                                        cameraIntentPhoto();
                                 }
                         }
                     }
@@ -123,7 +130,7 @@ public class BaseFragment extends Fragment {
     }
 
 
-    private void galleryIntent() {
+    private void galleryIntentVideo() {
 
 
         Intent openGalleryIntent = new Intent(Intent.ACTION_PICK);
@@ -131,8 +138,14 @@ public class BaseFragment extends Fragment {
         startActivityForResult(openGalleryIntent, SELECT_FILE);
     }
 
+    private void galleryIntentImage() {
+        Intent openGalleryIntent = new Intent(Intent.ACTION_PICK);
+        openGalleryIntent.setType("image/*");
+        startActivityForResult(openGalleryIntent, SELECT_FILE);
 
-    private void cameraIntent() {
+    }
+
+    private void cameraIntentVideo() {
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
 
@@ -149,30 +162,36 @@ public class BaseFragment extends Fragment {
         startActivityForResult(intent, REQUEST_CAMERA);
 
 
-//        Intent intent = new Intent(Intent.ACTION_PICK);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//
-//            String video_name = "myvideo" + System.currentTimeMillis() + ".mp4";
-//
-//            File videoFile = new File(myDirectory, video_name);
-//            muri = Uri.fromFile(videoFile);
-//            mVideoPath = muri.getPath();
-//            Uri photoURI = FileProvider.getUriForFile(getActivity(),
-//                    BuildConfig.APPLICATION_ID + ".provider",
-//                    videoFile);
-//            intent.putExtra(MediaStore.EXTRA_OUTPUT,
-//                    photoURI);
-//        } else {
-//            String video_name = "myvideo" + System.currentTimeMillis() + ".mp4";
-//
-//            File videoFile = new File(myDirectory, video_name);
-//            muri = Uri.fromFile(videoFile);
-//            mVideoPath = muri.getPath();
-//            intent.putExtra(MediaStore.EXTRA_OUTPUT, muri);
-//        }
-//        // intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-//        //  intent.putExtra("return-data", true);
-//        startActivityForResult(intent, REQUEST_CAMERA);
+    }
+
+    void cameraIntentPhoto() {
+
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            String image_name = "my_profile_" + System.currentTimeMillis() + ".jpeg";
+
+            File photoUploadFile = new File(myDirectory, image_name);
+            muri = Uri.fromFile(photoUploadFile);
+            selectedImagePath = muri.getPath();
+            Uri photoURI = FileProvider.getUriForFile(getActivity(),
+                    BuildConfig.APPLICATION_ID + ".provider",
+                    photoUploadFile);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT,
+                    photoURI);
+        } else {
+            String image_name = "my_profile_" + System.currentTimeMillis() + ".jpeg";
+
+            File photoUploadFile = new File(myDirectory, image_name);
+            muri = Uri.fromFile(photoUploadFile);
+            selectedImagePath = muri.getPath();
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, muri);
+        }
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        intent.putExtra("return-data", true);
+        startActivityForResult(intent, REQUEST_CAMERA);
+
+
     }
 
     @Override
@@ -182,19 +201,25 @@ public class BaseFragment extends Fragment {
 
             if (requestCode == SELECT_FILE)
                 try {
+                    if (mFileType.equalsIgnoreCase("video")) {
+                        Uri selectedVideo = data.getData();
+                        String[] filePathColumn = {MediaStore.Video.Media.DATA};
+                        Cursor cursor = getActivity().getContentResolver().query(selectedVideo, filePathColumn, null, null, null);
+                        if (cursor != null) {
+                            cursor.moveToFirst();
+                            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA);
+                            mVideoPath = cursor.getString(columnIndex);
 
-                    Uri selectedVideo = data.getData();
-                    String[] filePathColumn = {MediaStore.Video.Media.DATA};
-                    Cursor cursor = getActivity().getContentResolver().query(selectedVideo, filePathColumn, null, null, null);
-                    if (cursor != null) {
-                        cursor.moveToFirst();
-                        int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA);
-                        mVideoPath = cursor.getString(columnIndex);
-                        //uptestVideoName is a EditText
+                            cursor.close();
+                        }
+                        sendDataToFragment();
+                    } else {
+                        Uri uri = data.getData();
 
-                        cursor.close();
+                        String filePath = FileUtils.compressImage(uri.toString(), getActivity());
+                        File file = new File(filePath);
+                        sendImageToFragment(file);
                     }
-                    sendDataToFragment();
 
 
                 } catch (Exception e) {
@@ -202,18 +227,14 @@ public class BaseFragment extends Fragment {
                 }
             else if (requestCode == REQUEST_CAMERA) {
 
-//                Uri selectedVideo = data.getData();
-//                String[] filePathColumn = {MediaStore.Video.Media.DATA};
-//                Cursor cursor = getActivity().getContentResolver().query(selectedVideo, filePathColumn, null, null, null);
-//                if (cursor != null) {
-//                    cursor.moveToFirst();
-//                    int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA);
-//                    mVideoPath = cursor.getString(columnIndex);
-//                    //uptestVideoName is a EditText
-//
-//                    cursor.close();
-//                }
-                sendDataToFragment();
+                if (mFileType.equalsIgnoreCase("video"))
+                    sendDataToFragment();
+                else {
+                    Uri uri = Uri.parse(selectedImagePath);
+                    String filePath = FileUtils.compressImage(uri.toString(), getActivity());
+                    File file = new File(filePath);
+                    sendImageToFragment(file);
+                }
 
 
             }
@@ -221,10 +242,14 @@ public class BaseFragment extends Fragment {
         }
     }
 
+    private void sendImageToFragment(File file) {
+        Fragment frag=(EventManagerDetailFragment)commonFragment;
+       ((EventManagerDetailFragment) frag).getImageFile(file);
+    }
+
 
     void sendDataToFragment() {
-        //   String filepath = Environment.getExternalStorageDirectory().getPath();
-        // File file = new File(filepath + "/video1.mp4" );
+
         File file = new File(mVideoPath);
         fragments.selectedPath(file.getAbsolutePath());
     }
@@ -256,9 +281,15 @@ public class BaseFragment extends Fragment {
                     if (locationAccepted && readaccepted && writeaccepted) {
                         Utils.showToast(getActivity(), "Permission Granted, Now you can access storage and camera.");
                         if (VIDEO_FROM == FROM_CAMERA_VIDEO) {
-                            cameraIntent();
+                            if (mFileType.equalsIgnoreCase("video"))
+                                cameraIntentVideo();
+                            else
+                                cameraIntentPhoto();
                         } else
-                            galleryIntent();
+                        if (mFileType.equalsIgnoreCase("video"))
+                            galleryIntentVideo();
+                        else
+                            galleryIntentImage();
 
                     } else {
 

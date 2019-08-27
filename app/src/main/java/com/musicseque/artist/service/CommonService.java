@@ -4,7 +4,9 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
 
-import com.musicseque.retrofit_interface.CommonInterface;
+import com.musicseque.retrofit_interface.CommonInterfaceRetrofit;
+import com.musicseque.retrofit_interface.KotlinCommonInterface;
+import com.musicseque.retrofit_interface.KotlinRetrofitClientInstance;
 import com.musicseque.retrofit_interface.RetrofitClientInstance;
 import com.musicseque.utilities.Constants;
 import com.musicseque.utilities.Utils;
@@ -43,7 +45,7 @@ public class CommonService extends IntentService {
 
 
     public void callAPI(String mParams, int TYPE) {
-        CommonInterface api = RetrofitClientInstance.createService(CommonInterface.class);
+        CommonInterfaceRetrofit api = RetrofitClientInstance.createService(CommonInterfaceRetrofit.class);
         Call<String> call = null;
         if (TYPE == Constants.FOR_UPDATE_STATUS) {
             call = api.callUpdateStatusMethod(mParams);

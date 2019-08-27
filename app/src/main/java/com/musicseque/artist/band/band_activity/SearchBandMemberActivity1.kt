@@ -62,7 +62,7 @@ class SearchBandMemberActivity1 : BaseActivity() {
 
     private fun initViews() {
 
-        tv_title.text = "Invite Band Member"
+        tv_title. text = "Invite Band Member"
         img_first_icon.visibility = View.VISIBLE
         img_right_icon.visibility = View.GONE
         recyclerArtist.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
@@ -190,7 +190,7 @@ class SearchBandMemberActivity1 : BaseActivity() {
     /** A class to parse the Google Places in JSON format  */
     private inner class ParserTask : AsyncTask<String, Int, List<HashMap<String, String>>>() {
 
-         var jObject= JSONObject()
+          var jObject= JSONObject()
 
         override fun doInBackground(vararg jsonData: String): List<HashMap<String, String>>? {
 

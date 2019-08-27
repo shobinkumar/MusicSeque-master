@@ -174,6 +174,15 @@
 
     </string-array>
 
+    <string-array name="arr_guest">
+
+        <item>0-50</item>
+        <item>51-100</item>
+        <item>101-200</item>
+        <item>200+</item>
+
+    </string-array>
+
 
     <string-array name="arr_grade">
 
@@ -212,5 +221,27 @@
     <string name="text_title_dialog_sort_by_album">Sort album by</string>
     <string name="text_title_dialog_sort_by_photo">Sort photo by</string>
     <string name="action_sort">Sort</string>
+    <string name="txt_events">Events</string>
+    <string name="txt_upcoming_events">Upcoming Events</string>
+    <string name="txt_add_events">Add Event</string>
+    <string name="txt_past_events">Past Events</string>
+    <string name="err_event_name">Enter the event name</string>
+    <string name="err_event_desc">Enter event description</string>
+    <string name="err_event_start_date">Enter the start date</string>
+    <string name="err_event_end_date">Enter the end date</string>
+    <string name="err_event_start_time">Enter the start time</string>
+    <string name="err_event_end_time">Enter the end time</string>
+    <string name="err_event_guest_count">Enter the guest count</string>
+    <string name="err_event_guest_budget_0">Guest budget must not be 0</string>
+    <string name="err_to_date_before">To date must be after from date</string>
+    <string name="str_select_time">Select Time</string>
+    <string name="err_to_time_before">To time after from time</string>
+    <string name="err_event_type">Select event type</string>
+    <string name="str_venue_name">Venue Name</string>
+    <string name="str_about_venue">About Venue</string>
+    <string name="str_address">Address</string>
+    <string name="str_venue_capacity">Capacity</string>
+    <string name="txt_capacity">Capacity</string>
+    <string name="err_current_date">From Date should not before current date</string>
 
 </resources>

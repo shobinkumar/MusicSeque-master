@@ -360,14 +360,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
             ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.circle_red));
         }
 
-//        if (sharedPreferences.getString(Constants.COUNTRY_CODE, "").equalsIgnoreCase("")) {
-//            tvCountryCode.setEnabled(true);
-//            etMobileNumber.setEnabled(true);
-//        } else {
-//            tvCountryCode.setEnabled(false);
-//            etMobileNumber.setEnabled(false);
-//        }
-
         mCountryCode = sharedPreferences.getString(Constants.COUNTRY_CODE, "");
         mCountryId = sharedPreferences.getString(Constants.COUNTRY_ID, "");
         mCountryName = sharedPreferences.getString(Constants.COUNTRY_NAME, "");
@@ -737,8 +729,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
     }
 
     void initializeLoader() {
-//        Utils.initializeProgressDialog(getActivity());
-//        Utils.showProgressDialog();
+
         Utils.initializeAndShow(getActivity());
     }
 
@@ -1071,7 +1062,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
                         tvExperience.setText(obj.getString("ExperienceYear"));
 
 
-                        String mCertification = obj.getString("Certifications");
+                        String mCertification = obj.getString("Certifications");     
 
                         if (mCertification.equalsIgnoreCase("")) {
                             llCertification.setVisibility(View.GONE);
@@ -1096,6 +1087,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
 
 
                 break;

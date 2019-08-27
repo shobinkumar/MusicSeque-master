@@ -33,6 +33,7 @@ import com.musicseque.artist.activity.UploadActivity;
 import com.musicseque.dagger_data.DaggerRetrofitComponent;
 import com.musicseque.dagger_data.RetrofitComponent;
 import com.musicseque.dagger_data.SharedPrefDependency;
+import com.musicseque.event_manager.activity.CreateEventActivity;
 import com.musicseque.photopicker.activity.PickImageActivity;
 import com.musicseque.service.LocationService;
 import com.musicseque.utilities.Constants;
@@ -235,7 +236,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private void galleryIntent() {
 
-        if (activityName.equalsIgnoreCase("report")) {
+        if (activityName.equalsIgnoreCase("report") || activityName.equalsIgnoreCase("event_image")) {
             Intent openGalleryIntent = new Intent(Intent.ACTION_PICK);
             openGalleryIntent.setType("image/*");
             startActivityForResult(openGalleryIntent, SELECT_FILE_SINGLE);
@@ -245,14 +246,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             mIntent.putExtra(PickImageActivity.KEY_LIMIT_MAX_IMAGE, 5);
             mIntent.putExtra(PickImageActivity.KEY_LIMIT_MIN_IMAGE, 1);
             startActivityForResult(mIntent, PickImageActivity.PICKER_REQUEST_CODE);
-//            Intent openGalleryIntent = new Intent(Intent.ACTION_PICK);
-//            openGalleryIntent.setType("image/*");
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-//                openGalleryIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-//            }
-//            openGalleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-//
-//            startActivityForResult(openGalleryIntent, SELECT_FILE_MULTIPLE);
+
         }
 
     }
@@ -323,15 +317,34 @@ public abstract class BaseActivity extends AppCompatActivity {
                     MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
                     RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), sharedPreferences.getString(Constants.USER_ID, ""));
 
-                    if (activityName.equalsIgnoreCase("report")) {
-                        forReportProblem(fileToUpload, mUSerId, file.getName());
+                    if (activityName.equalsIgnoreCase("report") || activityName.equalsIgnoreCase("event_image")) {
+                        forSingleImage(file,fileToUpload, mUSerId, file.getName());
                     }
 
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            } else if (requestCode == PickImageActivity.PICKER_REQUEST_CODE) {
+            }
+
+            else if (requestCode == REQUEST_CAMERA) {
+                Uri uri = Uri.parse(selectedImagePath);
+                String filePath = getRealPathFromURIPath(uri, BaseActivity.this);
+                File file = new File(filePath);
+                file = Utils.saveBitmapToFile(file);
+                RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
+                MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
+                RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), sharedPreferences.getString(Constants.USER_ID, ""));
+                al.add(fileToUpload);
+                if (activityName.equalsIgnoreCase("report")) {
+                    forSingleImage(file,fileToUpload, mUSerId, file.getName());
+                } else {
+                    callActivity(al, mUSerId);
+                }
+
+            }
+
+            else if (requestCode == PickImageActivity.PICKER_REQUEST_CODE) {
                 pathList = data.getExtras().getStringArrayList(PickImageActivity.KEY_DATA_RESULT);
                 if (pathList != null && !this.pathList.isEmpty()) {
                     StringBuilder sb = new StringBuilder("");
@@ -350,68 +363,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                 }
             }
 
-            else if (requestCode == REQUEST_CAMERA) {
-                Uri uri = Uri.parse(selectedImagePath);
-                String filePath = getRealPathFromURIPath(uri, BaseActivity.this);
-                File file = new File(filePath);
-                file = Utils.saveBitmapToFile(file);
-                RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
-                MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
-                RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), sharedPreferences.getString(Constants.USER_ID, ""));
-                al.add(fileToUpload);
-                if (activityName.equalsIgnoreCase("report")) {
-                    forReportProblem(fileToUpload, mUSerId, file.getName());
-                } else {
-                    callActivity(al, mUSerId);
-                }
 
-            }
-//            else if (requestCode == SELECT_FILE_MULTIPLE) {
-//
-//
-//
-//                if (data.getClipData() != null) {
-//                    ClipData mClipData = data.getClipData();
-//                    for (int i = 0; i < mClipData.getItemCount(); i++) {
-//
-//                        ClipData.Item item = mClipData.getItemAt(i);
-//                        Uri uri = item.getUri();
-//
-//
-//                        String filePath = FileUtils.getPath(BaseActivity.this,uri);
-//                        File file = new File(filePath);
-//                        file = Utils.saveBitmapToFile(file);
-//
-//                        RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
-//                        MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
-//                        al.add(fileToUpload);
-//
-//
-//                    }
-//                    RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), sharedPreferences.getString(Constants.USER_ID, ""));
-//                    callActivity(al, mUSerId);
-//
-//                }
-//                else
-//                {
-//                    try {
-//                        Uri uri = data.getData();
-//                         String filePath = getRealPathFromURIPath(uri, BaseActivity.this);
-//                        File file = new File(filePath);
-//                        file = Utils.saveBitmapToFile(file);
-//
-//                        RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
-//                        MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
-//                        RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), sharedPreferences.getString(Constants.USER_ID, ""));
-//                        al.add(fileToUpload);
-//                        callActivity(al, mUSerId);
-//
-//
-//
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
+
 
 
         }
@@ -419,9 +372,18 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
-    private void forReportProblem(MultipartBody.Part fileToUpload, RequestBody mUSerId, String name) {
-        ReportProblemActivity report = (ReportProblemActivity) this;
-        report.getImageDetails(fileToUpload, mUSerId, name);
+    private void forSingleImage(File file,MultipartBody.Part fileToUpload, RequestBody mUSerId, String name) {
+        if(activityName.equalsIgnoreCase("report"))
+        {
+            ReportProblemActivity report = (ReportProblemActivity) this;
+            report.getImageDetails(fileToUpload, mUSerId, name);
+        }
+        else if(activityName.equalsIgnoreCase("event_image"))
+        {
+            CreateEventActivity report = (CreateEventActivity) this;
+            report.getImage(file,fileToUpload, mUSerId, name);
+        }
+
 
     }
 

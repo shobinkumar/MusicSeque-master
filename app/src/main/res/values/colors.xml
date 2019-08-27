@@ -15,4 +15,5 @@
     <color name="seek_bar_secondary_progress">#3399CC</color>
     <color name="grey_200">#EEEEEE</color>
     <color name="color_dim_line">#0C1C24</color>
+    <color name="color_edit_text">#0C1C24</color>
 </resources>

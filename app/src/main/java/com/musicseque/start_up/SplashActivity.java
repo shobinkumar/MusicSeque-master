@@ -22,6 +22,7 @@ import com.musicseque.dagger_data.DaggerRetrofitComponent;
 import com.musicseque.dagger_data.RetrofitComponent;
 import com.musicseque.dagger_data.SharedPrefDependency;
 
+import com.musicseque.event_manager.activity.MainActivityEventManager;
 import com.musicseque.service.LocationService;
 import com.musicseque.utilities.Constants;
 
@@ -44,7 +45,7 @@ public class SplashActivity extends BaseActivity {
             public void run() {
                 checkPermissions();
             }
-        },1000);
+        }, 1000);
 
     }
 
@@ -146,9 +147,7 @@ public class SplashActivity extends BaseActivity {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             if (!checkLocationPermission()) {
 
-            }
-            else
-            {
+            } else {
                 if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                     stopService(new Intent(this, LocationService.class));
 
@@ -159,7 +158,11 @@ public class SplashActivity extends BaseActivity {
                         public void run() {
                             Intent intent = null;
                             if (sharedPreferences.getBoolean(Constants.IS_LOGIN, false)) {
-                                intent = new Intent(SplashActivity.this, MainActivity.class);
+                                if (sharedPreferences.getString(Constants.PROFILE_TYPE, "").equalsIgnoreCase("Artist"))
+                                    intent = new Intent(SplashActivity.this, MainActivity.class);
+                                else if (sharedPreferences.getString(Constants.PROFILE_TYPE, "").equalsIgnoreCase("EventManager"))
+                                    intent = new Intent(SplashActivity.this, MainActivityEventManager.class);
+
                             } else {
                                 intent = new Intent(SplashActivity.this, LoginActivity.class);
                                 intent.putExtra("isEmailVerified", true);
@@ -201,12 +204,7 @@ public class SplashActivity extends BaseActivity {
             }
 
 
-
-
         }
-
-
-
 
 
     }

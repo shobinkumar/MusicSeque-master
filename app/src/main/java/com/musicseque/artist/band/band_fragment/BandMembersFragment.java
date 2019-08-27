@@ -11,12 +11,12 @@
 //import android.widget.TextView;
 //
 //import com.musicseque.R;
-//import com.musicseque.artist.fragments.BaseFragment;
+//import com.musicseque.artist.fragments.KotlinBaseFragment;
 //
 //import butterknife.BindView;
 //import butterknife.ButterKnife;
 //
-//public class BandMembersFragment extends BaseFragment {
+//public class BandMembersFragment extends KotlinBaseFragment {
 //    View view;
 //
 //    @BindView(R.id.recyclerBandMember)

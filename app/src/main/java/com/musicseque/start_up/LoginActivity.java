@@ -42,6 +42,7 @@ import com.musicseque.R;
 import com.musicseque.dagger_data.DaggerRetrofitComponent;
 import com.musicseque.dagger_data.RetrofitComponent;
 import com.musicseque.dagger_data.SharedPrefDependency;
+import com.musicseque.event_manager.activity.MainActivityEventManager;
 import com.musicseque.interfaces.MyInterface;
 import com.musicseque.retrofit_interface.RetrofitAPI;
 import com.musicseque.utilities.Constants;
@@ -203,16 +204,14 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
     private void googleLoginInitialization() {
 
         googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-               // .requestIdToken("631151135806-ruoi38mhngnuciop3u6bqbkdb0dc31r8.apps.googleusercontent.com")
+                // .requestIdToken("631151135806-ruoi38mhngnuciop3u6bqbkdb0dc31r8.apps.googleusercontent.com")
                 // .requestIdToken("797258071407-u5o6ivco8p7qukqm8s6ovbnljns3djq4.apps.googleusercontent.com")
-               // .requestIdToken("631151135806-76c34v9bb1486bqb0itjui37iusr19kd.apps.googleusercontent.com")
+                // .requestIdToken("631151135806-76c34v9bb1486bqb0itjui37iusr19kd.apps.googleusercontent.com")
 
                 .requestEmail()
                 .build();
 
         googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
-
-
 
 
     }
@@ -229,20 +228,14 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
 
             mName = acct.getDisplayName();
             mEmail = acct.getEmail();
-            try
-            {
-                if(acct.getPhotoUrl().toString()==null)
-                {
-                    mImageURL ="";
-                }
-                else
-                {
+            try {
+                if (acct.getPhotoUrl().toString() == null) {
+                    mImageURL = "";
+                } else {
                     mImageURL = acct.getPhotoUrl().toString();
                 }
-            }
-            catch (Exception e)
-            {
-                mImageURL="";
+            } catch (Exception e) {
+                mImageURL = "";
             }
 
 
@@ -381,8 +374,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
 //    }
 
     private void signInGoogle() {
-      //  FirebaseAuth.getInstance().signOut();
-
+        //  FirebaseAuth.getInstance().signOut();
 
 
         googleSignInClient.signOut()
@@ -395,7 +387,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                 });
 
 
-     //   mAuth.signOut();
+        //   mAuth.signOut();
 
         // Google sign out
 //        googleSignInClient.signOut().addOnCompleteListener(this,
@@ -442,29 +434,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
             Utils.hideProgressDialog();
         }
     }
-
-
-//    private void handleSignInResult(GoogleSignInResult result) {
-//        try {
-//            GoogleSignInAccount account = result.getSignInAccount();
-//
-//            mName = account.getDisplayName();
-//            mEmail = account.getEmail();
-//            mSocialId = account.getId();
-//
-//
-//            //Save data in shared preference
-//            saveDataInSharedPref(mName, mEmail);
-//
-//            //Check signup or login
-//            checkAccountExists(mEmail, mSocialId, Constants.FOR_GOOGLE);
-//
-//        } catch (Exception e) {
-//            Utils.hideProgressDialog();
-//
-//        }
-//
-//    }
 
 
     private void checkAccountExists(String mEmail, String mSocialId, String accountType) {
@@ -530,15 +499,26 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                         } catch (Exception e) {
 
                         }
-                        Intent intent;
-                        if (obj.getString("IsFirstLogin").equalsIgnoreCase("Y"))
-                            intent = new Intent(LoginActivity.this, MainActivity.class).putExtra("frag", "com.musicseque.artist.fragments.ProfileFragment");
-                        else
-                            intent = new Intent(LoginActivity.this, MainActivity.class);
 
-                        startActivity(intent);
-                        finish();
+                        if (obj.getString("ProfileTypeName").equalsIgnoreCase("Artist")) {
+                            Intent intent;
+                            if (obj.getString("IsFirstLogin").equalsIgnoreCase("Y"))
+                                intent = new Intent(LoginActivity.this, MainActivity.class).putExtra("frag", "com.musicseque.artist.fragments.ProfileFragment");
+                            else
+                                intent = new Intent(LoginActivity.this, MainActivity.class);
 
+                            startActivity(intent);
+                            finish();
+                        } else if (obj.getString("ProfileTypeName").equalsIgnoreCase("EventManager")) {
+                            Intent intent;
+                            if (obj.getString("IsFirstLogin").equalsIgnoreCase("Y"))
+                                intent = new Intent(LoginActivity.this, MainActivityEventManager.class).putExtra("frag", "com.musicseque.event_manager.fragment.EventManagerFormFragment");
+                            else
+                                intent = new Intent(LoginActivity.this, MainActivityEventManager.class);
+
+                            startActivity(intent);
+                            finish();
+                        }
 
                     } else {
                         Utils.showToast(LoginActivity.this, "" + Message);

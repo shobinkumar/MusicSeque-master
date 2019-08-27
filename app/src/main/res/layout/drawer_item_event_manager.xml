@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_background"
+    android:orientation="vertical"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+
+            android:id="@+id/llActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+            <ImageView
+                android:id="@+id/ivActivity"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_activity" />
+
+
+            <com.musicseque.Fonts.Noyhr
+                android:id="@+id/tvActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="@string/txt_activity"
+
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_15sdp"
+
+                />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/color_white" />
+
+        <LinearLayout
+            android:id="@+id/llHome"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+
+            <ImageView
+                android:id="@+id/ivHome"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_home" />
+
+
+            <com.musicseque.Fonts.Noyhr
+                android:id="@+id/tvHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="@string/txt_home"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_15sdp"
+
+                />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/color_white" />
+
+        <LinearLayout
+            android:id="@+id/llProfile"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            android:padding="12dp">
+
+
+            <ImageView
+                android:id="@+id/ivProfile"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_profile_drawer" />
+
+            <com.musicseque.Fonts.Noyhr
+                android:id="@+id/tvProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="@string/txt_profile"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_15sdp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/color_white" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/color_white"
+            android:visibility="gone" />
+
+
+        <LinearLayout
+
+            android:id="@+id/llAlerts"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            android:padding="12dp">
+
+
+            <ImageView
+                android:id="@+id/ivAlerts"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_notification" />
+
+
+            <com.musicseque.Fonts.Noyhr
+                android:id="@+id/tvAlerts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="@string/txt_alerts"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_15sdp" />
+
+            <RelativeLayout
+                android:id="@+id/rlNotificationCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:visibility="gone">
+
+                <com.musicseque.Fonts.Noyhr
+                    android:id="@+id/tvNotificationCount"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/circle_orange"
+                    android:gravity="center"
+                    android:text="123"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/_13sdp" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/color_white" />
+
+
+        <LinearLayout
+
+            android:id="@+id/llUpload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+
+            <ImageView
+                android:id="@+id/ivUpload"
+
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_upload" />
+
+            <com.musicseque.Fonts.Noyhr
+                android:id="@+id/tvUpload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="@string/txt_upload"
+
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_15sdp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/color_white" />
+
+        <LinearLayout
+            android:id="@+id/llEvents"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/ivEvent"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/schedule" />
+
+                <com.musicseque.Fonts.Noyhr
+                    android:id="@+id/tvEvents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/txt_events"
+                    android:layout_toRightOf="@+id/ivEvent"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/_15sdp" />
+
+                <ImageView
+                    android:id="@+id/ivUpArrowEvents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:padding="10dp"
+                    android:src="@drawable/icon_arrow_up"
+
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/ivDownArrowEvents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:padding="10dp"
+                    android:src="@drawable/icon_arrow_down"
+                    android:visibility="visible" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/llAllEvents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <com.musicseque.Fonts.Noyhr
+                    android:id="@+id/tvAddEvent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+
+                    android:text="@string/txt_add_events"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/_15sdp" />
+
+                <com.musicseque.Fonts.Noyhr
+                    android:id="@+id/tvUpcomingEvent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/txt_upcoming_events"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/_15sdp" />
+
+                <com.musicseque.Fonts.Noyhr
+                    android:id="@+id/tvPastEvents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/txt_past_events"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/_15sdp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/color_white" />
+
+        <LinearLayout
+
+            android:id="@+id/llStats"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            android:padding="12dp">
+
+
+            <ImageView
+                android:id="@+id/ivStats"
+
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_stats" />
+
+            <com.musicseque.Fonts.Noyhr
+                android:id="@+id/tvStats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="@string/txt_stats"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_15sdp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/color_white" />
+
+        <LinearLayout
+            android:id="@+id/llSettings"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            android:padding="12dp">
+
+
+            <ImageView
+                android:id="@+id/ivSettings"
+
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_setting" />
+
+
+            <com.musicseque.Fonts.Noyhr
+                android:id="@+id/tvSettings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="@string/txt_settings"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_15sdp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+
+            android:background="@color/color_white" />
+
+        <LinearLayout
+            android:id="@+id/llLogout"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            android:padding="12dp">
+
+
+            <ImageView
+                android:id="@+id/ivLogout"
+
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_logout" />
+
+            <com.musicseque.Fonts.Noyhr
+                android:id="@+id/tvLogout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="@string/txt_logout"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_15sdp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_white" />
+    </LinearLayout>
+</ScrollView>

@@ -20,4 +20,32 @@
         <item>Size</item>
         <item>Date</item>
     </array>
+    <array name="placeTypes">
+        <item>PlaceType</item>
+        <item>Address</item>
+        <item>Cities</item>
+        <item>Establishment</item>
+        <item>Geocode</item>
+        <item>Regions</item>
+        <item>All</item>
+    </array>
+    <array name="placeTypesValue">
+        <item>0</item>
+        <item>2</item>
+        <item>5</item>
+        <item>34</item>
+        <item>1007</item>
+        <item>4</item>
+        <item>0</item>
+    </array>
+
+    <string-array name="array_exp">
+
+        <item>1 - 2 years</item>
+        <item>3 - 5 years</item>
+        <item>5 - 10 years</item>
+        <item>10+ years</item>
+
+
+    </string-array>
 </resources>
