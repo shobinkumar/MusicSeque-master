@@ -33,6 +33,7 @@ import com.musicseque.dagger_data.DaggerRetrofitComponent;
 import com.musicseque.dagger_data.RetrofitComponent;
 import com.musicseque.dagger_data.SharedPrefDependency;
 import com.musicseque.event_manager.activity.CreateEventActivity;
+import com.musicseque.event_manager.activity.EventsListActivity;
 import com.musicseque.firebase_notification.NotificationActivity;
 import com.musicseque.fragments.HomeFragment;
 import com.musicseque.fragments.SettingFragment;
@@ -511,9 +512,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
             case R.id.tvUpcomingEvent:
+                startActivity(new Intent(this, EventsListActivity.class).putExtra("type",2));
                 break;
 
             case R.id.tvPastEvents:
+                startActivity(new Intent(this, EventsListActivity.class).putExtra("type",1));
                 break;
 
 

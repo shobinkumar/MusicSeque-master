@@ -1,8 +1,7 @@
-package com.musicseque.venues.activity
+package com.musicseque.venue_manager.activity
 
 import android.os.Bundle
 import android.os.Handler
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
@@ -15,7 +14,6 @@ import com.musicseque.artist.artist_adapters.SearchBandAdapter
 import com.musicseque.artist.artist_models.BandListModel
 import com.musicseque.interfaces.MyInterface
 import com.musicseque.retrofit_interface.KotlinHitAPI
-import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.Constants
 import com.musicseque.utilities.KotlinUtils
 import com.musicseque.utilities.Utils

@@ -37,5 +37,10 @@ public interface KotlinCommonInterface {
     abstract fun methodForVenueProfile(@Body params:String): Call<String>
 
 
+    @Headers("Content-Type: application/json")
+    @POST(Constants.GET_EVENTS_LIST_API)
+    abstract fun getEventsListMethod(@Body params:String): Call<String>
+
+
 
 }

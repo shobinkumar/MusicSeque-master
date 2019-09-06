@@ -1,4 +1,4 @@
-package com.musicseque.venues.fragment
+package com.musicseque.venue_manager.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

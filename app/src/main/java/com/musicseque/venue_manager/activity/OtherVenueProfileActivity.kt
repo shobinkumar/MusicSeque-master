@@ -1,4 +1,4 @@
-package com.musicseque.venues.activity
+package com.musicseque.venue_manager.activity
 
 import android.os.Bundle
 import com.musicseque.R

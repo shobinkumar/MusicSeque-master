@@ -37,6 +37,10 @@ class KotlinHitAPI {
             {
                 calls=apis!!.methodForVenueProfile(params)
             }
+            else if(TYPE== FOR_SHOW_EVENTS_LIST)
+            {
+                calls=apis!!.getEventsListMethod(params)
+            }
             callRetrofitKotlin(calls, TYPE)
 
         }
@@ -90,6 +94,11 @@ fun <T> callRetrofitKotlin(call: Call<T>, TYPE: Int) {
             else if(TYPE== FOR_VENUE_PROFILE)
             {
                 Log.e("FOR_VENUE_PROFILE", response.body()!!.toString())
+                myInterfaces.sendResponse(response.body(), TYPE)
+            }
+            else if(TYPE== FOR_SHOW_EVENTS_LIST)
+            {
+                Log.e("FOR_SHOW_EVENTS", response.body()!!.toString())
                 myInterfaces.sendResponse(response.body(), TYPE)
             }
         }

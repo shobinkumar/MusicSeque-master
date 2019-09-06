@@ -134,7 +134,7 @@ class KotlinUtils {
         fun dateFormatToSend(mDate1: String, mDate2: String): Pair<String, String> {
             val oldDateFormat = SimpleDateFormat("dd/MMM/yyyy");
             val newDateFormat = SimpleDateFormat("MM-dd-yyyy");
-            return Pair(newDateFormat.format(oldDateFormat.parse(mDate1)), newDateFormat.format(oldDateFormat.parse(mDate1)))
+            return Pair(newDateFormat.format(oldDateFormat.parse(mDate1)), newDateFormat.format(oldDateFormat.parse(mDate2)))
         }
     }
 

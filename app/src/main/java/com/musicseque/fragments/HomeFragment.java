@@ -21,7 +21,7 @@ import com.musicseque.artist.activity.other_artist_activity.SearchArtistActivity
 import com.musicseque.artist.activity.other_artist_activity.SearchBandActivity;
 import com.musicseque.service.LocationService;
 import com.musicseque.utilities.Utils;
-import com.musicseque.venues.activity.SearchVenueActivity;
+import com.musicseque.venue_manager.activity.SearchVenueActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

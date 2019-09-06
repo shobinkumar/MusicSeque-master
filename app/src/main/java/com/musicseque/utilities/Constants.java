@@ -75,6 +75,7 @@ public class Constants {
     public static final String CURRENCY_LIST_API  ="Service/CurrencyTypeList";
     public static final String EVENT_DETAIL_API  ="Service/EventDetailsViaEventId";
     public static final String EVENT_SAVE_UPDATE_DETAIL_API="Service/EventBookingSaveUpdate";
+    public static final String GET_EVENTS_LIST_API="Service/EventsListDisplay";
 
 
     //Venue
@@ -161,4 +162,5 @@ public class Constants {
     public static final int FOR_VENUE_PROFILE=156;
     public static final int FOR_CREATE_UPDATE_VENUE_PROFILE=157;
 
+    public static final int FOR_SHOW_EVENTS_LIST=158;
 }
