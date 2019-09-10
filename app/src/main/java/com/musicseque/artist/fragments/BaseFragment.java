@@ -45,13 +45,13 @@ public class BaseFragment extends Fragment {
     Fragment commonFragment;
     private String selectedImagePath;
 
-    public SharedPreferences getSharedPref() {
+    public SharedPreferences      getSharedPref() {
         RetrofitComponent retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getActivity())).build();
         return retrofitComponent.getShared();
     }
 
 
-    SharedPreferences.Editor getEditor() {
+    public SharedPreferences.Editor getEditor() {
         RetrofitComponent retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getActivity())).build();
         return retrofitComponent.getEditor();
     }

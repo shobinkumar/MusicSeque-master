@@ -33,8 +33,8 @@ public interface KotlinCommonInterface {
     abstract fun methodForVenueList(@Body params:String): Call<String>
 
     @Headers("Content-Type: application/json")
-    @POST(Constants.VENUE_PROFILE_API)
-    abstract fun methodForVenueProfile(@Body params:String): Call<String>
+    @POST(Constants.VENUE_ADD_UPDATE_PROFILE_API)
+    abstract fun methodForVenueProfileSaveUpdate(@Body params:String): Call<String>
 
 
     @Headers("Content-Type: application/json")

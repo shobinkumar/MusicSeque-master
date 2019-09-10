@@ -5,7 +5,6 @@ import org.jetbrains.annotations.Nullable;
 public class Constants {
 
 
-
     public static String ROOT_URL = "http://musicapi.htistelecom.in/api/";
 
 // public static String ROOT_URL2 = "http://musicapi.htistelecom.in/";
@@ -76,13 +75,12 @@ public class Constants {
     public static final String EVENT_DETAIL_API  ="Service/EventDetailsViaEventId";
     public static final String EVENT_SAVE_UPDATE_DETAIL_API="Service/EventBookingSaveUpdate";
     public static final String GET_EVENTS_LIST_API="Service/EventsListDisplay";
-
+    public static final String UPLOAD_EVENT_IMAGE_API="Service/EventPromotionImageUpload";
 
     //Venue
     public static final String VENUE_LIST_API  ="Service/VenueListSearch";
-    public static final String VENUE_PROFILE_API="Service/VenueProfileDisplayViaId";
-    public static final String VENUE_ADD_UPDATE_PROFILE_API="Service/EventProfileSaveUpdate";
-
+   // public static final String VENUE_PROFILE_API="Service/VenueProfileDisplayViaId";
+    public static final String VENUE_ADD_UPDATE_PROFILE_API="Service/VenueProfileSaveUpdate";
     public static final String USER_ID = "USER_ID";
     public static final String PROFILE_ID = "PROFILE_ID";
     public static final String PROFILE_TYPE = "PROFILE_TYPE";
@@ -113,7 +111,7 @@ public class Constants {
     public static final int FOR_VERIFY_ACCOUNT = 107;
     public static final int FOR_RESEND_OTP = 108;
     public static final int FOR_UPDATE_PROFILE = 109;
-    public static final int FOR_UPLOAD_ARTIST_PROFILE_IMAGE = 110;
+    public static final int FOR_UPLOAD_PROFILE_IMAGE = 110;
     public static final int FOR_GENRE_LIST = 111;
     public static final int FOR_COUNTRIES_LIST = 112;
     public static final int FOR_USER_PROFILE = 113;
@@ -125,7 +123,7 @@ public class Constants {
     public static final int FOR_UPLOAD_AUDIO = 119;
     public static final int FOR_UPLOADED_VIDEO = 120;
     public static final int FOR_UPLOAD_VIDEO = 121;
-    public static final int FOR_UPLOAD_ARTIST_COVER_PIC = 122;
+    public static final int FOR_UPLOAD_COVER_PIC = 122;
     public static final int FOR_CHANGE_PASSWORD = 123;
     public static final int FOR_UPDATE_STATUS = 124;
     public static final int FOR_REPORT_PROBLEM = 125;
@@ -163,4 +161,9 @@ public class Constants {
     public static final int FOR_CREATE_UPDATE_VENUE_PROFILE=157;
 
     public static final int FOR_SHOW_EVENTS_LIST=158;
+    public static final int FOR_VENUE_TIMMINGS=159;
+
+
+    public static final int FOR_UPLOAD_EVENT_PROFILE_IMAGE = 201;
+
 }

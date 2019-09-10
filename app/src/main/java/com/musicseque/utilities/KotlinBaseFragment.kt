@@ -2,11 +2,9 @@ package com.musicseque.utilities
 
 import android.Manifest
 import android.app.Activity
-import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.Intent.ACTION_PICK
-import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
@@ -22,17 +20,20 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.listener.PermissionRequest
 import com.musicseque.BuildConfig
-import com.musicseque.dagger_data.SharedPrefDependency
+import com.musicseque.artist.fragments.BaseFragment
+import com.musicseque.venue_manager.fragment.CreateVenueFragment
+import com.musicseque.venue_manager.fragment.VenueProfileDetailFragment
 
 
-open class KotlinBaseFragment : Fragment() {
+open class KotlinBaseFragment : BaseFragment() {
+    lateinit var fragmentName: String
     private lateinit var mType: String
-    private lateinit var selectedImagePath: String
+    private  var selectedImagePath: String=""
     private lateinit var muri: Uri
     private lateinit var mVideoPath: String
     private val FOR_MEDIA_FILE = 1001
     private val FOR_REQUEST_CAMERA = 1002
-
+    lateinit var frag: Fragment
 
     private lateinit var mFileType: String
     lateinit var mDir: File
@@ -42,14 +43,12 @@ open class KotlinBaseFragment : Fragment() {
 //        val retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(SharedPrefDependency(activity)).build()
 //        return retrofitComponent.shared
 //    }
-//
-//
+
+
 //    internal fun getEditor(): SharedPreferences.Editor {
 //        val retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(SharedPrefDependency(activity)).build()
 //        return retrofitComponent.editor
 //    }
-
-
 
 
     public fun openPhotoDialog(type: String) {
@@ -158,7 +157,9 @@ open class KotlinBaseFragment : Fragment() {
         startActivityForResult(intent, FOR_REQUEST_CAMERA)
     }
 
-    public fun checkPermissions(type: String, s: String) {
+    public fun checkPermissions(type: String, fName: String, fragment: Fragment) {
+        fragmentName = fName
+        frag=fragment
         Dexter.withActivity(activity)
                 .withPermissions(
                         Manifest.permission.CAMERA,
@@ -179,8 +180,8 @@ open class KotlinBaseFragment : Fragment() {
 
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        //super.onActivityResult(requestCode, resultCode, data)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+       // super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == FOR_MEDIA_FILE) {
@@ -188,7 +189,7 @@ open class KotlinBaseFragment : Fragment() {
 
 
                 } else {
-                    val uri = data.getData()
+                    val uri = data?.getData()
 
                     val filePath = FileUtils.compressImage(uri!!.toString(), activity)
                     val file = File(filePath)
@@ -212,10 +213,25 @@ open class KotlinBaseFragment : Fragment() {
     }
 
     private fun sendImage(file: File) {
-        val intent=Intent()
-        intent.putExtra("file",file.toString())
-        activity?.setResult(RESULT_OK,intent)
+        if (fragmentName.equals("com.musicseque.venue_manager.fragment.CreateVenueFragment")) {
+            val fName = frag as CreateVenueFragment
+
+            fName.getImage(file)
+
+        } else if (fragmentName.equals("com.musicseque.venue_manager.fragment.VenueProfileDetailFragment")) {
+
+            val fName = frag as VenueProfileDetailFragment
+
+            fName.getImage(file)
+
+        }
+
+//        val intent = Intent()
+//        intent.putExtra("file", file.toString())
+//        activity?.setResult(RESULT_OK, intent)
 
     }
 
 }
+
+

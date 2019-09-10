@@ -6,6 +6,8 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Build
 import android.support.annotation.RequiresApi
+import android.view.ViewTreeObserver
+import android.widget.TextView
 import android.widget.Toast
 import com.musicseque.event_manager.activity.CreateEventActivity
 import com.musicseque.interfaces.DateTimeInterface
@@ -136,7 +138,17 @@ class KotlinUtils {
             val newDateFormat = SimpleDateFormat("MM-dd-yyyy");
             return Pair(newDateFormat.format(oldDateFormat.parse(mDate1)), newDateFormat.format(oldDateFormat.parse(mDate2)))
         }
+        public  fun getViewWidth(textView: TextView):Int {
+            var mWidth=0
+
+            textView.getViewTreeObserver().addOnGlobalLayoutListener(ViewTreeObserver.OnGlobalLayoutListener
+            { mWidth= textView.getMeasuredWidth() })
+
+            return mWidth
+        }
     }
+
+
 
 
 }

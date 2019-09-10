@@ -17,6 +17,8 @@ import com.musicseque.retrofit_interface.KotlinHitAPI
 import com.musicseque.utilities.Constants
 import com.musicseque.utilities.KotlinUtils
 import com.musicseque.utilities.Utils
+import com.musicseque.venue_manager.adapter.SearchVenueAdapter
+import com.musicseque.venue_manager.model.VenueSearchModel
 import kotlinx.android.synthetic.main.activity_search_venue.*
 import kotlinx.android.synthetic.main.toolbar_top.*
 import org.json.JSONException
@@ -26,7 +28,7 @@ import java.util.ArrayList
 class SearchVenueActivity : BaseActivity(), View.OnClickListener, MyInterface {
 
 
-    lateinit private var alBand: ArrayList<BandListModel>
+    lateinit private var alVenue: ArrayList<VenueSearchModel>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -118,10 +120,10 @@ class SearchVenueActivity : BaseActivity(), View.OnClickListener, MyInterface {
                     rvVenue.visibility = View.VISIBLE
                     tvNoRecord.visibility = View.GONE
                     val array = json.getJSONArray("result")
-                    alBand = Gson().fromJson<ArrayList<BandListModel>>(array.toString(), object : TypeToken<ArrayList<BandListModel>>() {
+                    alVenue = Gson().fromJson<ArrayList<VenueSearchModel>>(array.toString(), object : TypeToken<ArrayList<VenueSearchModel>>() {
 
                     }.type)
-                    rvVenue.adapter = SearchBandAdapter(alBand)
+                    rvVenue.adapter = SearchVenueAdapter(alVenue)
 
                 } else {
                     rvVenue.visibility = View.GONE

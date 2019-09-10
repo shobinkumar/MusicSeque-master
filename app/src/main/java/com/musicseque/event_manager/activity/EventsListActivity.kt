@@ -1,12 +1,15 @@
 package com.musicseque.event_manager.activity
 
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.LinearLayout
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import com.musicseque.R
 import com.musicseque.activities.BaseActivity
+import com.musicseque.event_manager.adapter.EventListAdapter
 import com.musicseque.event_manager.model.EventListModel
 import com.musicseque.event_manager.model.EventModel
 import com.musicseque.interfaces.MyInterface
@@ -64,15 +67,15 @@ class EventsListActivity : BaseActivity(), MyInterface {
         Utils.hideProgressDialog()
         val obj = JSONObject(response.toString())
         if (obj.getString("Status").equals("Success", false)) {
-
-            val arr=obj.getJSONArray("result")
-            val listType = object : TypeToken<ArrayList<EventModel>>() {}.type
-           val eventsList = Gson().fromJson<ArrayList<EventModel>>(arr.toString(), listType)
-
-
-
             recycler_events.visibility = View.VISIBLE
             tvNoList.visibility = View.GONE
+            val arr=obj.getJSONArray("result")
+            val listType = object : TypeToken<ArrayList<EventListModel>>() {}.type
+           val eventsList = Gson().fromJson<ArrayList<EventListModel>>(arr.toString(), listType)
+            recycler_events.layoutManager=LinearLayoutManager(this,LinearLayout.VERTICAL,false)
+                recycler_events.adapter=EventListAdapter(eventsList)
+
+
 
 
 

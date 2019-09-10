@@ -84,7 +84,7 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
 
     implementation 'com.karumi:dexter:4.2.0'
-
+    implementation 'com.github.prolificinteractive:material-calendarview:2.0.0'
 
 }
 apply plugin: 'com.google.gms.google-services'

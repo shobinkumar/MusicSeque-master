@@ -294,7 +294,7 @@
                 app:layout_constraintTop_toTopOf="@+id/view1" />
 
             <com.musicseque.Fonts.Noyhr
-                android:id="@+id/tvExperience"
+                android:id="@+id/tvCapacity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -368,7 +368,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvExperience" />
+                app:layout_constraintTop_toBottomOf="@+id/tvCapacity"/>
 
             <LinearLayout
                 android:id="@+id/llBio"
@@ -442,13 +442,13 @@
                     android:padding="16dp"
                     android:textColor="@color/color_white"
                     android:textSize="@dimen/_16sdp"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvAboutUser" />
 
                 <include
                     android:id="@+id/bottom_layout"
-                    layout="@layout/bottom_bar"
+                    layout="@layout/bottom_bar_venues"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"

@@ -162,7 +162,8 @@ public class SplashActivity extends BaseActivity {
                                     intent = new Intent(SplashActivity.this, MainActivity.class);
                                 else if (sharedPreferences.getString(Constants.PROFILE_TYPE, "").equalsIgnoreCase("EventManager"))
                                     intent = new Intent(SplashActivity.this, MainActivityEventManager.class);
-
+                                if (sharedPreferences.getString(Constants.PROFILE_TYPE, "").equalsIgnoreCase("VenueManager"))
+                                    intent = new Intent(SplashActivity.this, MainActivity.class);
                             } else {
                                 intent = new Intent(SplashActivity.this, LoginActivity.class);
                                 intent.putExtra("isEmailVerified", true);

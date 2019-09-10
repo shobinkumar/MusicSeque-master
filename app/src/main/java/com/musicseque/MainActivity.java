@@ -40,6 +40,8 @@ import com.musicseque.fragments.SettingFragment;
 import com.musicseque.service.LocationService;
 import com.musicseque.start_up.LoginActivity;
 import com.musicseque.utilities.Constants;
+import com.musicseque.venue_manager.fragment.CreateVenueFragment;
+import com.musicseque.venue_manager.fragment.VenueProfileDetailFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,6 +49,8 @@ import org.json.JSONObject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.musicseque.utilities.Constants.PROFILE_TYPE;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -57,7 +61,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     private RetrofitComponent retrofitComponent;
-
+    @BindView(R.id.tvAddEvent)
+    TextView tvAddEvent;
 
     @BindView(R.id.llActivity)
     LinearLayout llActivity;
@@ -193,6 +198,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         uploadLatLng();
         defaultValues();
         openDefaultFragment();
+        showHideDrawerViews();
 
 
     }
@@ -291,6 +297,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 changeIconBottom(R.drawable.home3, R.drawable.profileactive3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment);
 
+            } else if (getIntent().getStringExtra("frag").equalsIgnoreCase("com.musicseque.venue_manager.fragment.CreateVenueFragment")) {
+                Boolean b = getIntent().getBooleanExtra("profileTemp", false);
+
+                if (b == null) {
+                    if (sharedPreferences.getString(Constants.IS_FIRST_LOGIN, "").equalsIgnoreCase("Y"))
+                        fragment = new CreateVenueFragment();
+                    else
+                        fragment = new VenueProfileDetailFragment();
+                } else {
+
+                    fragment = new CreateVenueFragment();
+
+                }
+
+
+                changeIconBottom(R.drawable.home3, R.drawable.profileactive3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment);
+
             } else if (getIntent().getStringExtra("frag").equalsIgnoreCase("com.musicseque.artist.fragments.BandFormFragment")) {
 
 
@@ -320,10 +343,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         } else if (view == iv_profile) {
 
-            if (sharedPreferences.getString(Constants.IS_FIRST_LOGIN, "").equalsIgnoreCase("Y"))
-                fragment = new ProfileFragment();
-            else
-                fragment = new ProfileDetailFragment();
+            if (sharedPreferences.getString(Constants.IS_FIRST_LOGIN, "").equalsIgnoreCase("Y")) {
+                if (sharedPreferences.getString(PROFILE_TYPE, "").equalsIgnoreCase("VenueManager")) {
+                    fragment = new CreateVenueFragment();
+                } else {
+                    fragment = new ProfileFragment();
+                }
+            } else {
+                if (sharedPreferences.getString(PROFILE_TYPE, "").equalsIgnoreCase("VenueManager")) {
+                    fragment = new VenueProfileDetailFragment();
+                } else {
+                    fragment = new ProfileDetailFragment();
+                }
+            }
+
 
             changeIconBottom(R.drawable.home3, R.drawable.profileactive3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment);
 
@@ -401,7 +434,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    @OnClick({R.id.ivDownArrowEvents,R.id.ivUpArrowEvents,R.id.tvAddEvent,R.id.tvUpcomingEvent,R.id.tvMyProfile, R.id.tvBandProfile, R.id.tvOtherBand, R.id.ivUpArrow, R.id.ivDownArrow, R.id.llActivity, R.id.llHome, R.id.llAlerts, R.id.llSchedule, R.id.llUpload, R.id.llBand, R.id.llSearch, R.id.llStats, R.id.llSettings, R.id.llLogout})
+    @OnClick({R.id.ivDownArrowEvents, R.id.ivUpArrowEvents, R.id.tvAddEvent, R.id.tvPastEvents, R.id.tvUpcomingEvent, R.id.tvMyProfile, R.id.tvBandProfile, R.id.tvOtherBand, R.id.ivUpArrow, R.id.ivDownArrow, R.id.llActivity, R.id.llHome, R.id.llAlerts, R.id.llSchedule, R.id.llUpload, R.id.llBand, R.id.llSearch, R.id.llStats, R.id.llSettings, R.id.llLogout})
     public void onClicks(View view) {
         switch (view.getId()) {
             case R.id.ivUpArrow:
@@ -512,11 +545,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
             case R.id.tvUpcomingEvent:
-                startActivity(new Intent(this, EventsListActivity.class).putExtra("type",2));
+                startActivity(new Intent(this, EventsListActivity.class).putExtra("type", 2));
                 break;
 
             case R.id.tvPastEvents:
-                startActivity(new Intent(this, EventsListActivity.class).putExtra("type",1));
+                startActivity(new Intent(this, EventsListActivity.class).putExtra("type", 1));
                 break;
 
 
@@ -553,9 +586,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     void closeProfile() {
-        llAllProfile.setVisibility(View.GONE);
-        ivUpArrow.setVisibility(View.GONE);
-        ivDownArrow.setVisibility(View.VISIBLE);
+       if(sharedPreferences.getString(PROFILE_TYPE, "").equalsIgnoreCase("VenueManager"))
+        {
+
+        }
+        else
+        {
+            llAllProfile.setVisibility(View.GONE);
+            ivUpArrow.setVisibility(View.GONE);
+            ivDownArrow.setVisibility(View.VISIBLE);
+        }
+      ;
     }
 
     @Override
@@ -568,6 +609,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onPause() {
         super.onPause();
         unregisterReceiver(myreceiver);
+    }
+
+    private void showHideDrawerViews() {
+        if (sharedPreferences.getString(PROFILE_TYPE, "").equalsIgnoreCase("VenueManager")) {
+            tvAddEvent.setVisibility(View.GONE);
+            llAllProfile.setVisibility(View.GONE);
+            ivUpArrow.setVisibility(View.GONE);
+            ivDownArrow.setVisibility(View.GONE);
+            tvProfile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (sharedPreferences.getString(Constants.IS_FIRST_LOGIN, "").equalsIgnoreCase("Y")) {
+                        fragment = new CreateVenueFragment();
+
+                    } else {
+                        fragment = new VenueProfileDetailFragment();
+
+                    }
+                    changeIconBottom(R.drawable.home3, R.drawable.profileactive3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment);
+                    navDrawer.closeDrawers();
+                }
+            });
+        } else {
+            tvAddEvent.setVisibility(View.VISIBLE);
+            llAllProfile.setVisibility(View.VISIBLE);
+            ivUpArrow.setVisibility(View.VISIBLE);
+            ivDownArrow.setVisibility(View.VISIBLE);
+        }
+
+
     }
 
     BroadcastReceiver myreceiver = new BroadcastReceiver() {

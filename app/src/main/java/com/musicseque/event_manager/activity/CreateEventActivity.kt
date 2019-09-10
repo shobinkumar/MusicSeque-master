@@ -13,7 +13,6 @@ import com.google.gson.reflect.TypeToken
 import com.musicseque.activities.BaseActivity
 import com.musicseque.event_manager.adapter.EventAdapter
 import com.musicseque.event_manager.model.CurrencyModel
-import com.musicseque.event_manager.model.EventModel
 import com.musicseque.interfaces.MyInterface
 import com.musicseque.interfaces.SpinnerData
 import com.musicseque.retrofit_interface.KotlinHitAPI
@@ -31,8 +30,11 @@ import kotlin.collections.ArrayList
 import com.crystal.crystalrangeseekbar.interfaces.OnSeekbarChangeListener
 import com.musicseque.MainActivity
 import com.musicseque.R
+import com.musicseque.event_manager.model.EventModel
 import com.musicseque.fragments.HomeFragment
+import com.musicseque.retrofit_interface.ImageUploadClass
 import kotlinx.android.synthetic.main.toolbar_top.*
+import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
@@ -63,7 +65,7 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
     var mFromTime: String = ""
     var mToTime: String = ""
     var mEventTypeId: String = ""
-
+    //var mEventId:String=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -306,10 +308,10 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
         if (DATE_TIME_FROM == FROM_DATE) {
 
 
-            if(KotlinUtils.compareCurrentDate(mDateTime))
-            tvStartDate.text = KotlinUtils.monthToReadFormat(mDateTime)
-                else
-                Utils.showToast(this,resources.getString(R.string.err_current_date))
+            if (KotlinUtils.compareCurrentDate(mDateTime))
+                tvStartDate.text = KotlinUtils.monthToReadFormat(mDateTime)
+            else
+                Utils.showToast(this, resources.getString(R.string.err_current_date))
         } else if (DATE_TIME_FROM == TO_DATE) {
 
             val newFormat = SimpleDateFormat("dd/MM/yyyy")
@@ -384,10 +386,8 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
 
                 if (json.getString("Status").equals("Success")) {
                     Utils.showToast(this, json.getString("Message"))
+                    mEventId = json.getString("EventId")
 
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
 
                 } else {
                     Utils.showToast(this, json.getString("Message"))
@@ -395,6 +395,17 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                 }
 
 
+            }
+            FOR_UPLOAD_EVENT_PROFILE_IMAGE->
+            {
+                val jsonObj=JSONObject(response.toString())
+                if(jsonObj.getString("Status").equals("Success",true))
+                {
+                    Utils.showToast(this,"Image uploaded successfully")
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
             }
         }
     }
@@ -423,15 +434,23 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
     }
 
 
-      public fun getImage(file: File, fileToUpload: MultipartBody.Part, mUSerId: RequestBody, name: String)
-      {
-          Glide.with(this).load(file).into(ivProfile)
+    public fun getImage(file: File, fileToUpload: MultipartBody.Part, mUSerId: RequestBody, name: String) {
+        Glide.with(this).load(file).into(ivProfile)
+        if (mEventId.equals("", true)) {
+            Utils.showToast(this, "First add the event details")
+        } else {
+            if (Utils.isNetworkConnected(this)) {
+
+                val mEventId = RequestBody.create(MediaType.parse("text/plain"), mEventId)
+                ImageUploadClass.imageUpload(fileToUpload, mEventId, null, FOR_UPLOAD_EVENT_PROFILE_IMAGE, this)
+            } else {
+                Utils.showToast(this, resources.getString(R.string.err_no_internet))
+            }
+
+        }
 
 
-          
-
-
-      }
+    }
 
 
 }

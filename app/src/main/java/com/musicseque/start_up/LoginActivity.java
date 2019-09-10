@@ -502,6 +502,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
 
                         if (obj.getString("ProfileTypeName").equalsIgnoreCase("Artist")) {
                             Intent intent;
+
                             if (obj.getString("IsFirstLogin").equalsIgnoreCase("Y"))
                                 intent = new Intent(LoginActivity.this, MainActivity.class).putExtra("frag", "com.musicseque.artist.fragments.ProfileFragment");
                             else
@@ -515,6 +516,17 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                                 intent = new Intent(LoginActivity.this, MainActivityEventManager.class).putExtra("frag", "com.musicseque.event_manager.fragment.EventManagerFormFragment");
                             else
                                 intent = new Intent(LoginActivity.this, MainActivityEventManager.class);
+
+                            startActivity(intent);
+                            finish();
+                        }
+                        else if(obj.getString("ProfileTypeName").equalsIgnoreCase("VenueManager"))
+                        {
+                            Intent intent;
+                            if (obj.getString("IsFirstLogin").equalsIgnoreCase("Y"))
+                                intent = new Intent(LoginActivity.this, MainActivity.class).putExtra("frag", "com.musicseque.venue_manager.fragment.CreateVenueFragment");
+                            else
+                                intent = new Intent(LoginActivity.this, MainActivity.class);
 
                             startActivity(intent);
                             finish();

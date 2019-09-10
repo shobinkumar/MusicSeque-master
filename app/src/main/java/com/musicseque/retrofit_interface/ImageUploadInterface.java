@@ -49,5 +49,7 @@ public interface ImageUploadInterface {
     @POST(Constants.UPLOAD_BAND_BACKGROUND_IMAGE_API)
     Call<String> uploadBandCoverPic(@Part MultipartBody.Part file, @Part("BandId") RequestBody name);
 
-
+    @Multipart
+    @POST(Constants.UPLOAD_EVENT_IMAGE_API)
+    Call<String> uploadEventPic(@Part MultipartBody.Part fileToUpload,@Part("EventId") RequestBody mEventId);
 }

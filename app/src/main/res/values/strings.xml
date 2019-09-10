@@ -129,6 +129,7 @@
     <string name="err_current_password_not_correct">Current password not correct</string>
     <string name="err_bio_count">Bio should be minimum 275 characters.</string>
     <string name="message">Message</string>
+    <string name="err_capacity">Enter capacity of venue</string>
     <string name="attach_error_screenshot">Attach Error Screenshot</string>
     //policy data
     <string name="policy1">Elroy Dias built the Music Segue app as a Commercial app. This SERVICE is provided by Elroy Dias and is intended for use as is.</string>
@@ -243,5 +244,6 @@
     <string name="str_venue_capacity">Capacity</string>
     <string name="txt_capacity">Capacity</string>
     <string name="err_current_date">From Date should not before current date</string>
+    <string name="err_address">Please enter the address</string>
 
 </resources>

@@ -38,10 +38,24 @@
 
 
             <com.musicseque.Fonts.Noyhr
-                android:id="@+id/tvVenueLocation"
+                android:id="@+id/tvVenueAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvBandName"
+                android:layout_below="@+id/tvVenueName"
+                android:layout_alignStart="@+id/tvVenueName"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="3dp"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_14sdp" />
+            <com.musicseque.Fonts.Noyhr
+                android:id="@+id/tvVenueCountry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvVenueAddress"
+                android:layout_alignStart="@+id/tvVenueAddress"
+                android:layout_marginStart="0dp"
                 android:layout_marginTop="3dp"
                 android:maxLines="1"
                 android:singleLine="true"

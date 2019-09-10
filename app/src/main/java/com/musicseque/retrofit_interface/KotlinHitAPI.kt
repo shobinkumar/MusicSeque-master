@@ -33,14 +33,20 @@ class KotlinHitAPI {
                 calls=apis!!.methodForVenueList(params)
             }
 
-            else if(TYPE== FOR_VENUE_PROFILE)
-            {
-                calls=apis!!.methodForVenueProfile(params)
-            }
+//            else if(TYPE== FOR_VENUE_PROFILE)
+//            {
+//                calls=apis!!.methodForVenueProfile(params)
+//            }
             else if(TYPE== FOR_SHOW_EVENTS_LIST)
             {
                 calls=apis!!.getEventsListMethod(params)
             }
+
+            else if(TYPE== FOR_CREATE_UPDATE_VENUE_PROFILE)
+            {
+                calls=apis!!.methodForVenueProfileSaveUpdate(params)
+            }
+
             callRetrofitKotlin(calls, TYPE)
 
         }
@@ -99,6 +105,11 @@ fun <T> callRetrofitKotlin(call: Call<T>, TYPE: Int) {
             else if(TYPE== FOR_SHOW_EVENTS_LIST)
             {
                 Log.e("FOR_SHOW_EVENTS", response.body()!!.toString())
+                myInterfaces.sendResponse(response.body(), TYPE)
+            }
+            else if(TYPE==FOR_CREATE_UPDATE_VENUE_PROFILE)
+            {
+                Log.e("FOR_SAVE_VENUE", response.body()!!.toString())
                 myInterfaces.sendResponse(response.body(), TYPE)
             }
         }

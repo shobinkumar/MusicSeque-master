@@ -148,8 +148,41 @@
                         android:textColor="@color/color_white"
                         android:textSize="@dimen/_15sdp" />
 
-                    <com.musicseque.Fonts.NoyhrEditText
-                        android:id="@+id/et_email"
+                    <com.musicseque.Fonts.Noyhr
+                        android:id="@+id/tvVenueName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".70"
+                        android:background="#0C1C24"
+                        android:enabled="false"
+                        android:maxLines="1"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:paddingTop="@dimen/_5sdp"
+                        android:paddingRight="@dimen/_5sdp"
+                        android:paddingBottom="@dimen/_5sdp"
+                        android:singleLine="true"
+                        android:textAllCaps="false"
+                        android:textColor="@color/color_white"
+                        android:textColorHint="@color/color_white"
+                        android:textSize="@dimen/_15sdp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_5sdp"
+                    android:weightSum="1">
+
+                    <com.musicseque.Fonts.Noyhr
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".30"
+                        android:text="@string/str_email"
+                        android:textColor="@color/color_white"
+                        android:textSize="@dimen/_15sdp" />
+
+                    <com.musicseque.Fonts.Noyhr
+                        android:id="@+id/tvVenueEmail"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".70"
@@ -249,7 +282,7 @@
                         android:textSize="@dimen/_15sdp" />
 
                     <com.musicseque.Fonts.NoyhrEditText
-                        android:id="@+id/etAddress"
+                        android:id="@+id/etVenueAddress"
 
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -284,7 +317,7 @@
                         android:textSize="@dimen/_15sdp" />
 
                     <com.musicseque.Fonts.NoyhrEditText
-                        android:id="@+id/et_city"
+                        android:id="@+id/etVenueCity"
 
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -321,7 +354,7 @@
                         android:textSize="@dimen/_15sdp" />
 
                     <com.musicseque.Fonts.NoyhrEditText
-                        android:id="@+id/et_postal_code"
+                        android:id="@+id/etVenuePinCode"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".70"
@@ -354,7 +387,7 @@
 
 
                     <com.musicseque.Fonts.Noyhr
-                        android:id="@+id/tvCountry"
+                        android:id="@+id/tvVenueCountry"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".70"
@@ -387,7 +420,7 @@
                         android:textSize="@dimen/_15sdp" />
 
                     <com.musicseque.Fonts.NoyhrEditText
-                        android:id="@+id/etDesc"
+                        android:id="@+id/etVenueDesc"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".70"
@@ -434,7 +467,7 @@
                         android:textSize="@dimen/_15sdp" />
 
                     <com.musicseque.Fonts.NoyhrEditText
-                        android:id="@+id/etCapacity"
+                        android:id="@+id/etVenueCapacity"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".70"

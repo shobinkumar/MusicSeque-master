@@ -695,6 +695,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
             } else {
                 initializeLoader();
                 try {
+
+
+
+
+
+
+
                     jsonBody.put("UserId", sharedPreferences.getString(Constants.USER_ID, ""));
                     jsonBody.put("DisplayName", "");
                     jsonBody.put("Email", mEmail);
@@ -1062,7 +1069,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
                         tvExperience.setText(obj.getString("ExperienceYear"));
 
 
-                        String mCertification = obj.getString("Certifications");     
+                        String mCertification = obj.getString("Certifications");
 
                         if (mCertification.equalsIgnoreCase("")) {
                             llCertification.setVisibility(View.GONE);

@@ -426,9 +426,9 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
                         initializeLoader();
                         isPicAPIHit = true;
                         if (IMAGE_FOR == FOR_BACKGROUND)
-                            ImageUploadClass.imageUpload(fileToUpload, mUSerId, null, Constants.FOR_UPLOAD_ARTIST_COVER_PIC, ProfileDetailFragment.this);
+                            ImageUploadClass.imageUpload(fileToUpload, mUSerId, null, Constants.FOR_UPLOAD_COVER_PIC, ProfileDetailFragment.this);
                         else
-                            ImageUploadClass.imageUpload(fileToUpload, mUSerId, null, Constants.FOR_UPLOAD_ARTIST_PROFILE_IMAGE, ProfileDetailFragment.this);
+                            ImageUploadClass.imageUpload(fileToUpload, mUSerId, null, Constants.FOR_UPLOAD_PROFILE_IMAGE, ProfileDetailFragment.this);
 
                     } else {
                         Utils.showToast(getActivity(), getResources().getString(R.string.err_no_internet));
@@ -453,9 +453,9 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
                     isPicAPIHit = true;
                     initializeLoader();
                     if (IMAGE_FOR == FOR_BACKGROUND)
-                        ImageUploadClass.imageUpload(fileToUpload, mUSerId, null, Constants.FOR_UPLOAD_ARTIST_COVER_PIC, ProfileDetailFragment.this);
+                        ImageUploadClass.imageUpload(fileToUpload, mUSerId, null, Constants.FOR_UPLOAD_COVER_PIC, ProfileDetailFragment.this);
                     else
-                        ImageUploadClass.imageUpload(fileToUpload, mUSerId, null, Constants.FOR_UPLOAD_ARTIST_PROFILE_IMAGE, ProfileDetailFragment.this);
+                        ImageUploadClass.imageUpload(fileToUpload, mUSerId, null, Constants.FOR_UPLOAD_PROFILE_IMAGE, ProfileDetailFragment.this);
 
                 } else {
                     Utils.showToast(getActivity(), getResources().getString(R.string.err_no_internet));
@@ -642,7 +642,7 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
 
 
                 break;
-            case Constants.FOR_UPLOAD_ARTIST_PROFILE_IMAGE:
+            case Constants.FOR_UPLOAD_PROFILE_IMAGE:
                 isPicAPIHit = false;
                 try {
                     JSONObject jsonObject = new JSONObject(response.toString());
@@ -678,7 +678,7 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
                     e.printStackTrace();
                 }
                 break;
-            case Constants.FOR_UPLOAD_ARTIST_COVER_PIC:
+            case Constants.FOR_UPLOAD_COVER_PIC:
                 isPicAPIHit = false;
                 try {
                     JSONObject jsonObject1 = new JSONObject(response.toString());

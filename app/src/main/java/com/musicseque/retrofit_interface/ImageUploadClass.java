@@ -13,6 +13,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.musicseque.utilities.Constants.FOR_UPLOAD_EVENT_PROFILE_IMAGE;
+
 public class ImageUploadClass {
     static MyInterface commonInterface;
 
@@ -20,9 +22,9 @@ public class ImageUploadClass {
         commonInterface = myInterface;
         ImageUploadInterface api = RetrofitClientInstance.createService(ImageUploadInterface.class);
         Call<String> call = null;
-        if (TYPE == Constants.FOR_UPLOAD_ARTIST_COVER_PIC) {
+        if (TYPE == Constants.FOR_UPLOAD_COVER_PIC) {
             call = api.uploadBackgroundImage(fileToUpload, mUSerId);
-        } else if (TYPE == Constants.FOR_UPLOAD_ARTIST_PROFILE_IMAGE) {
+        } else if (TYPE == Constants.FOR_UPLOAD_PROFILE_IMAGE) {
             call = api.uploadProfilePic(fileToUpload, mUSerId);
         } else if (TYPE == Constants.FOR_REPORT_PROBLEM) {
             call = api.callReportMethod(fileToUpload, mUSerId, mMessage);
@@ -32,6 +34,9 @@ public class ImageUploadClass {
             call = api.uploadBandProfilePic(fileToUpload, mUSerId);
         } else if (TYPE == Constants.FOR_UPLOAD_BAND_BACKGROUND_IMAGE) {
             call = api.uploadBandCoverPic(fileToUpload, mUSerId);
+        }
+        else if (TYPE == FOR_UPLOAD_EVENT_PROFILE_IMAGE) {
+            call = api.uploadEventPic(fileToUpload, mUSerId);
         }
         callRetrofit(call, TYPE);
     }
@@ -55,12 +60,12 @@ public class ImageUploadClass {
         call.enqueue(new Callback<T>() {
             @Override
             public void onResponse(Call<T> call, Response<T> response) {
-                if (TYPE == Constants.FOR_UPLOAD_ARTIST_COVER_PIC) {
+                if (TYPE == Constants.FOR_UPLOAD_COVER_PIC) {
                     commonInterface.sendResponse(response.body(), TYPE);
                     Log.e("ARTIST_COVER_PIC", response.body().toString());
 
 
-                } else if (TYPE == Constants.FOR_UPLOAD_ARTIST_PROFILE_IMAGE) {
+                } else if (TYPE == Constants.FOR_UPLOAD_PROFILE_IMAGE) {
                     commonInterface.sendResponse(response.body(), TYPE);
                     Log.e("ARTIST_PROFILE_IMAGE", response.body().toString());
 
@@ -80,6 +85,11 @@ public class ImageUploadClass {
                 } else if (TYPE == Constants.FOR_UPLOAD_BAND_BACKGROUND_IMAGE) {
                     commonInterface.sendResponse(response.body(), TYPE);
                     Log.e("BAND_BACK_IMAGE", response.body().toString());
+                }
+                else if(TYPE==FOR_UPLOAD_EVENT_PROFILE_IMAGE)
+                {
+                    commonInterface.sendResponse(response.body(), TYPE);
+                    Log.e("EVENT_PROFILE_IMAGE", response.body().toString());
                 }
             }
 
