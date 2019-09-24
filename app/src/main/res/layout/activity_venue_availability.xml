@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_app_background"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_top" />
+
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_10sdp"
+        app:mcv_arrowColor="@color/color_white"
+        app:mcv_calendarMode="week"
+        app:mcv_dateTextAppearance="@style/CalenderViewWeekCustomText1"
+        app:mcv_headerTextAppearance="@style/CalenderViewWeekCustomText1"
+        app:mcv_leftArrowMask="@drawable/icon_left_arrow"
+        app:mcv_rightArrowMask="@drawable/icon_right_arrow"
+        app:mcv_selectionColor="@color/color_orange"
+        app:mcv_showOtherDates="all"
+        app:mcv_weekDayTextAppearance="@style/CalenderViewWeekCustomText1" />
+
+    <LinearLayout
+        android:id="@+id/llAvailability"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="25dp"
+            android:layout_height="@dimen/_25sdp"
+            android:background="@drawable/rect_time_available" />
+
+        <com.musicseque.Fonts.Noyhr
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:text="Available"
+            android:textColor="@color/color_white"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="25dp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/rectangle_time_not_available" />
+
+        <com.musicseque.Fonts.Noyhr
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:text="Not Available"
+            android:textColor="@color/color_white"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/tvBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:onClick="onClick"
+        android:layout_gravity="center"
+        android:paddingBottom="10dp"
+        android:background="@drawable/rectangle_orange"
+        android:paddingLeft="25dp"
+        android:paddingTop="10dp"
+        android:paddingRight="25dp"
+        android:text="Book"
+        android:textColor="@color/color_white"
+        android:textSize="20sp" />
+</LinearLayout>

@@ -52,7 +52,8 @@ class VenueProfileDetailFragment : KotlinBaseFragment(), View.OnClickListener, M
     private fun initOtherViews() {
         imgRight = activity?.findViewById<ImageView>(R.id.img_right_icon)
         tvHeading = activity?.findViewById<BoldNoyhr>(R.id.tvHeading)
-
+        val tvDone = (activity as MainActivity).findViewById<View>(R.id.tvDone) as TextView
+        tvDone.visibility = View.GONE
         imgRight?.setVisibility(View.VISIBLE)
         tvHeading?.setText("Profile")
     }

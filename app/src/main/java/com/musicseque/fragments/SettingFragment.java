@@ -91,7 +91,8 @@ public class SettingFragment extends Fragment implements View.OnClickListener, M
 
         img_right_icon = (ImageView) ((MainActivity) getActivity()).findViewById(R.id.img_right_icon);
         img_right_icon.setVisibility(View.GONE);
-
+        TextView tvDone = (TextView) ((MainActivity) getActivity()).findViewById(R.id.tvDone);
+        tvDone.setVisibility(View.GONE);
         retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getActivity())).build();
         sharedPreferences = retrofitComponent.getShared();
         editor = retrofitComponent.getEditor();

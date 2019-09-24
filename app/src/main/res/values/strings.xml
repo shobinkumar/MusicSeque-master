@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">Music Segue</string>
 
+
+    <!-- Google keys-->
+    <string name="api_key">"AIzaSyBrmyj3AzRx2gMPxnXuTWjTuG2lPOAJ5WA"</string>
+
+
     <!--Sign up screen-->
 
     <string name="first_name">First Name</string>
@@ -239,11 +244,12 @@
     <string name="err_to_time_before">To time after from time</string>
     <string name="err_event_type">Select event type</string>
     <string name="str_venue_name">Venue Name</string>
-    <string name="str_about_venue">About Venue</string>
+    <string name="str_about_venue">About Venue*</string>
     <string name="str_address">Address</string>
     <string name="str_venue_capacity">Capacity</string>
     <string name="txt_capacity">Capacity</string>
     <string name="err_current_date">From Date should not before current date</string>
     <string name="err_address">Please enter the address</string>
+    <string name="err_venue_bio">Please enter venue description</string>
 
 </resources>

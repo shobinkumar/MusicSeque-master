@@ -213,6 +213,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
                 android:src="@drawable/icon_green"
+                android:visibility="invisible"
                 app:layout_constraintStart_toEndOf="@+id/tvUserNameDetail"
                 app:layout_constraintTop_toTopOf="@+id/tvUserNameDetail" />
 
@@ -389,7 +390,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="16dp"
-                        android:text="About Me"
+                        android:text="About Venue"
                         android:textColor="@color/color_white"
                         android:textSize="@dimen/_16sdp" />
 

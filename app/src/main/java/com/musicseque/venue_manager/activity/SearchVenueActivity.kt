@@ -123,7 +123,7 @@ class SearchVenueActivity : BaseActivity(), View.OnClickListener, MyInterface {
                     alVenue = Gson().fromJson<ArrayList<VenueSearchModel>>(array.toString(), object : TypeToken<ArrayList<VenueSearchModel>>() {
 
                     }.type)
-                    rvVenue.adapter = SearchVenueAdapter(alVenue)
+                    rvVenue.adapter = SearchVenueAdapter(this,alVenue)
 
                 } else {
                     rvVenue.visibility = View.GONE

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="#FC7C44"
+    >
+
+    <ImageView
+        android:id="@+id/img_first_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:padding="@dimen/_10sdp"
+        android:src="@drawable/arrowleft"
+        android:visibility="visible" />
+
+    <com.musicseque.Fonts.BoldNoyhr
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_10sdp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="Header"
+        android:textStyle="bold"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/_22sdp" />
+
+    <ImageView
+        android:id="@+id/ivTick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/icon_edit"
+        android:padding="@dimen/_10sdp"
+
+        android:layout_centerVertical="true"
+        android:visibility="visible" />
+
+</RelativeLayout>

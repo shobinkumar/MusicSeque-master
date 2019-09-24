@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.Editable
+import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.*
@@ -33,6 +35,7 @@ import com.musicseque.R
 import com.musicseque.event_manager.model.EventModel
 import com.musicseque.fragments.HomeFragment
 import com.musicseque.retrofit_interface.ImageUploadClass
+import kotlinx.android.synthetic.main.row_event_list.view.*
 import kotlinx.android.synthetic.main.toolbar_top.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -43,6 +46,7 @@ import java.io.File
 class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, DateTimeInterface {
 
 
+     var uploadFile: MultipartBody.Part?=null
     private lateinit var eventsList: ArrayList<EventModel>
     private var mAttendenceCount: String? = null
     lateinit private var newList: ArrayList<CurrencyModel>
@@ -65,7 +69,6 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
     var mFromTime: String = ""
     var mToTime: String = ""
     var mEventTypeId: String = ""
-    //var mEventId:String=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,6 +92,7 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
         } catch (exp: Exception) {
             mEventId = ""
         }
+        seekBarPrice.setOnSeekbarChangeListener {  }
         seekBarPrice.setOnSeekbarChangeListener(OnSeekbarChangeListener { minValue -> tvBudgetPerGuest.setText(minValue.toString()) })
         rlAttendence.getViewTreeObserver().addOnGlobalLayoutListener(ViewTreeObserver.OnGlobalLayoutListener { mWidthCode = rlAttendence.getMeasuredWidth() })
 
@@ -105,7 +109,7 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
         rlEndDate.setOnClickListener(this)
         rlStartTime.setOnClickListener(this)
         rlEndTime.setOnClickListener(this)
-        rlAttendence.setOnClickListener(this)
+       // rlAttendence.setOnClickListener(this)
         rlBudgetGuestCurrency.setOnClickListener(this)
         tvSubmit.setOnClickListener(this)
     }
@@ -195,13 +199,13 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
             }
 
 
-            R.id.rlAttendence -> {
-
-                showDropdown(arrGuestCount, tvAttendence, SpinnerData { mData, mData1 ->
-                    mAttendenceCount = mData
-                    tvAttendence.text = mAttendenceCount
-                }, mWidthCode)
-            }
+//            R.id.rlAttendence -> {
+//
+//                showDropdown(arrGuestCount, Attendence, SpinnerData { mData, mData1 ->
+//                    mAttendenceCount = mData
+//                    Attendence.text = mAttendenceCount
+//                }, mWidthCode)
+//            }
             R.id.rlBudgetGuestCurrency -> {
                 var list = ArrayList<String>()
                 // var items: Array<String> = arrayOf()
@@ -219,6 +223,7 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                         tvCurrency.text = mCurrency
                     }, mWidthCode)
                 }
+
             }
             R.id.tvSubmit -> {
 
@@ -232,7 +237,7 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                 mFromTime = tvStartTime.text.toString()
                 mToTime = tvEndTime.text.toString()
 
-                val mAttendence = tvAttendence.text.toString()
+                val mAttendence = etAttendence.text.toString()
                 val mCurrency = tvCurrency.text.toString()
                 val mBudgetGuest = tvBudgetPerGuest.text.toString()
                 if (KotlinUtils.checkEmpty(mEventName)) {
@@ -375,10 +380,53 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                 val listType = object : TypeToken<ArrayList<CurrencyModel>>() {}.type
                 newList = gson.fromJson<ArrayList<CurrencyModel>>(jsonArray.toString(), listType)
 
-
+                if (!mEventId.equals(""))
+                    getAPI("event_detail", "");
             }
             FOR_EVENT_DETAIL -> {
+                val json = JSONObject(response.toString())
+                if (json.getString("Status").equals("Success", true)) {
+                    val array = json.getJSONArray("result")
+                    val jsonInner = array.getJSONObject(0)
+                    etEventName.setText(jsonInner.getString("EventTitle"))
+                    etEventDescription.setText(jsonInner.getString("EventDescription"))
+                    etAttendence.setText(jsonInner.getString("EventEstimatedGuest"))
 
+                    val (mFromDate, mToDate) = KotlinUtils.dateFormatToReceive(jsonInner.getString("EventDateFrom"), jsonInner.getString("EventDateTo"))
+
+                    tvStartDate.setText(mFromDate)
+                    tvEndDate.text=mToDate
+                    tvStartTime.setText(jsonInner.getString("EventTimeFrom"))
+                    tvEndTime.setText(jsonInner.getString("EventTimeTo"))
+                    tvBudgetPerGuest.setText(jsonInner.getString("EventBudget"))
+                    val budget=jsonInner.getString("EventBudget").toFloat()
+                    //seekBarPrice.setMinValue(budget)
+                    mCurrency =jsonInner.getString("EventChargesPayCurrency")
+                    mCurrencyId = jsonInner.getString("EventChargesPayCurrencyId")
+                    tvCurrency.setText(mCurrency)
+
+                    val arrayEvent=jsonInner.getString("EventTypeId").split(",")
+                    for(eventId in arrayEvent)
+                    {
+                       for(eventListAvailable in eventsList)
+                       {
+                           if(eventListAvailable.id.equals(eventId))
+                           {
+                               eventListAvailable.isSelected=true
+                               break
+                              // eventsList.add(eventListAvailable)
+                           }
+                       }
+                    }
+                    recyclerEvent.adapter = EventAdapter(this, eventsList)
+                    Log.e("","")
+                    if(!jsonInner.getString("EventPromotionImg").equals(""))
+                    {
+                        Glide.with(this).load(jsonInner.getString("EventPromotionImgPath")+jsonInner.getString("EventPromotionImg")).into(ivProfile)
+
+                    }
+
+                }
 
             }
             FOR_SAVE_UPDATE_EVENT_DETAIL -> {
@@ -388,6 +436,19 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                     Utils.showToast(this, json.getString("Message"))
                     mEventId = json.getString("EventId")
 
+                    if (Utils.isNetworkConnected(this)) {
+
+                        if(uploadFile!=null)
+                        {
+                            Utils.initializeAndShow(this)
+                            val mEventIds = RequestBody.create(MediaType.parse("text/plain"), mEventId)
+                            ImageUploadClass.imageUpload(uploadFile, mEventIds, null, FOR_UPLOAD_EVENT_PROFILE_IMAGE, this)
+
+                        }
+                           } else {
+                        Utils.showToast(this, resources.getString(R.string.err_no_internet))
+                    }
+
 
                 } else {
                     Utils.showToast(this, json.getString("Message"))
@@ -396,12 +457,10 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
 
 
             }
-            FOR_UPLOAD_EVENT_PROFILE_IMAGE->
-            {
-                val jsonObj=JSONObject(response.toString())
-                if(jsonObj.getString("Status").equals("Success",true))
-                {
-                    Utils.showToast(this,"Image uploaded successfully")
+            FOR_UPLOAD_EVENT_PROFILE_IMAGE -> {
+                val jsonObj = JSONObject(response.toString())
+                if (jsonObj.getString("Status").equals("Success", true)) {
+                    Utils.showToast(this, "Event Added successfully")
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()
@@ -423,7 +482,7 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
         listPopupWindow.setOnItemClickListener(AdapterView.OnItemClickListener { parent, view, position, id ->
             if (textView.id == com.musicseque.R.id.tvCurrency) {
                 spinnerData.getData(newList.get(position).currency, newList.get(position).id)
-            } else if (textView.id == com.musicseque.R.id.tvAttendence) {
+            } else if (textView.id == com.musicseque.R.id.etAttendence) {
                 spinnerData.getData(array[position], "")
 
             }
@@ -436,18 +495,13 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
 
     public fun getImage(file: File, fileToUpload: MultipartBody.Part, mUSerId: RequestBody, name: String) {
         Glide.with(this).load(file).into(ivProfile)
-        if (mEventId.equals("", true)) {
-            Utils.showToast(this, "First add the event details")
-        } else {
-            if (Utils.isNetworkConnected(this)) {
-
-                val mEventId = RequestBody.create(MediaType.parse("text/plain"), mEventId)
-                ImageUploadClass.imageUpload(fileToUpload, mEventId, null, FOR_UPLOAD_EVENT_PROFILE_IMAGE, this)
-            } else {
-                Utils.showToast(this, resources.getString(R.string.err_no_internet))
-            }
-
-        }
+        uploadFile = fileToUpload
+//        if (mEventId.equals("", true)) {
+//            Utils.showToast(this, "First add the event details")
+//        } else {
+//
+//
+//        }
 
 
     }

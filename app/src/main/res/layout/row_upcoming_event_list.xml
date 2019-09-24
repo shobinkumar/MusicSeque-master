@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_app_background">
+
+    <RelativeLayout
+        android:id="@+id/rlMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tvDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="0dp"
+            android:text="22"
+            android:textColor="@color/color_white"
+            android:textSize="20sp" />
+
+        <com.musicseque.Fonts.Noyhr
+            android:id="@+id/tvMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvDay"
+            android:includeFontPadding="false"
+            android:singleLine="true"
+            android:text="April"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/_16sdp" />
+
+        <com.musicseque.Fonts.Noyhr
+            android:id="@+id/tvEventName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@+id/tvMonth"
+            android:text="ABC"
+            android:textStyle="bold"
+            android:textColor="@color/color_orange"
+            android:textSize="20sp" />
+
+        <com.musicseque.Fonts.Noyhr
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvEventName"
+            android:layout_marginLeft="25dp"
+            android:layout_toRightOf="@+id/tvMonth"
+            android:text="ABC"
+            android:textColor="@color/color_white"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:id="@+id/llIcons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/ivEdit"
+                android:layout_width="23dp"
+                android:layout_height="22dp"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/icon_edit" />
+
+            <ImageView
+                android:id="@+id/ivDelete"
+                android:layout_width="23dp"
+                android:layout_height="22dp"
+                android:src="@drawable/icon_delete" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+
+        android:layout_below="@+id/rlMain"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_white" />
+</RelativeLayout>

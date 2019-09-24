@@ -225,7 +225,7 @@
 
         <LinearLayout
             android:id="@+id/llEvents"
-
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -278,7 +278,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <com.musicseque.Fonts.Noyhr
                     android:id="@+id/tvAddEvent"
@@ -314,6 +314,7 @@
         </LinearLayout>
 
         <View
+            android:id="@+id/ivEvents"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="5dp"

@@ -138,6 +138,11 @@ class KotlinUtils {
             val newDateFormat = SimpleDateFormat("MM-dd-yyyy");
             return Pair(newDateFormat.format(oldDateFormat.parse(mDate1)), newDateFormat.format(oldDateFormat.parse(mDate2)))
         }
+        fun dateFormatToReceive(mDate1: String, mDate2: String): Pair<String, String> {
+            val newDateFormat = SimpleDateFormat("dd/MMM/yyyy");
+            val oldDateFormat = SimpleDateFormat("MM-dd-yyyy");
+            return Pair(newDateFormat.format(oldDateFormat.parse(mDate1)), newDateFormat.format(oldDateFormat.parse(mDate2)))
+        }
         public  fun getViewWidth(textView: TextView):Int {
             var mWidth=0
 

@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.musicseque.MainActivity;
 import com.musicseque.R;
 import com.musicseque.artist.activity.other_artist_activity.SearchArtistActivity;
@@ -22,6 +31,8 @@ import com.musicseque.artist.activity.other_artist_activity.SearchBandActivity;
 import com.musicseque.service.LocationService;
 import com.musicseque.utilities.Utils;
 import com.musicseque.venue_manager.activity.SearchVenueActivity;
+
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,20 +64,71 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     View v;
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        String apiKey = getString(R.string.api_key);
+
+        /**
+         * Initialize Places. For simplicity, the API key is hard-coded. In a production
+         * environment we recommend using a secure mechanism to manage API keys.
+         */
+        if (!Places.isInitialized()) {
+            Places.initialize(getActivity(), apiKey);
+        }
+
+// Create a new Places client instance.
+        PlacesClient placesClient = Places.createClient(getActivity());
+
+
+        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment) getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+
+        // Specify the types of place data to return.
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME,Place.Field.ADDRESS,Place.Field.LAT_LNG));
+
+        // Set up a PlaceSelectionListener to handle the response.
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                // TODO: Get info about the selected place.
+
+                etLoc.setText(place.getAddress());
+                Log.e("TAG", "Place: " + place.getName() + ", " + place.getId()+","+place.getAddress()+","+place.getLatLng());
+            }
+
+            @Override
+            public void onError(Status status) {
+                // TODO: Handle the error.
+                Log.i("TAG", "An error occurred: " + status);
+            }
+        });
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         v = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, v);
         TextView tv_title = (TextView) ((MainActivity) getActivity()).findViewById(R.id.tvHeading);
+        TextView tvDone = (TextView) ((MainActivity) getActivity()).findViewById(R.id.tvDone);
+        tvDone.setVisibility(View.GONE);
         ImageView img_right_icon = (ImageView) ((MainActivity) getActivity()).findViewById(R.id.img_right_icon);
         img_right_icon.setVisibility(View.GONE);
         tv_title.setText("Home");
         initialize();
         clickListner();
 
+
+
+
+
         return v;
     }
+
+
+
+
+
 
     public void initialize() {
         img_gigs = (ImageView) v.findViewById(R.id.img_gigs);

@@ -15,11 +15,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "631151135806-em55bg3norsig0iv1t60vdci9oke45di.apps.googleusercontent.com",
+          "client_id": "631151135806-4g3d8fcretithqoctmvtirtcdps2f8d0.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.musicseque",
-            "certificate_hash": "5b47fe529036524177d1a4e25a23ac3416e7f05d"
+            "certificate_hash": "d564ec204562ffb5c5af1c71bb78b60c9616ff51"
+          }
+        },
+        {
+          "client_id": "631151135806-ruoi38mhngnuciop3u6bqbkdb0dc31r8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.musicseque",
+            "certificate_hash": "70cdfdbca673862a9704bb04c19dbee5b02796fe"
           }
         },
         {
@@ -31,11 +39,11 @@
           }
         },
         {
-          "client_id": "631151135806-ruoi38mhngnuciop3u6bqbkdb0dc31r8.apps.googleusercontent.com",
+          "client_id": "631151135806-em55bg3norsig0iv1t60vdci9oke45di.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.musicseque",
-            "certificate_hash": "70cdfdbca673862a9704bb04c19dbee5b02796fe"
+            "certificate_hash": "5b47fe529036524177d1a4e25a23ac3416e7f05d"
           }
         },
         {

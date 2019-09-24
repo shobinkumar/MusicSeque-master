@@ -336,7 +336,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
         RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), sharedPreferences.getString(Constants.USER_ID, ""));
         al.add(fileToUpload);
-        if (activityName.equalsIgnoreCase("report")) {
+        if (activityName.equalsIgnoreCase("report") || activityName.equalsIgnoreCase("event_image")) {
           forSingleImage(file,fileToUpload, mUSerId, file.getName());
         } else {
           callActivity(al, mUSerId);

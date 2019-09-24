@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -209,7 +210,8 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
         tv_title = (BoldNoyhr) ((MainActivity) getActivity()).findViewById(R.id.tvHeading);
         img_right_icon.setVisibility(View.VISIBLE);
         tv_title.setText("Profile");
-
+        TextView tvDone = (TextView) ((MainActivity) getActivity()).findViewById(R.id.tvDone);
+        tvDone.setVisibility(View.GONE);
 
 //        iv_home = (ImageView) view.findViewById(R.id.iv_home);
 //        iv_profile = (ImageView) view.findViewById(R.id.iv_profile);

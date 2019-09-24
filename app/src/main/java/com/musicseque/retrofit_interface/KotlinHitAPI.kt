@@ -33,10 +33,10 @@ class KotlinHitAPI {
                 calls=apis!!.methodForVenueList(params)
             }
 
-//            else if(TYPE== FOR_VENUE_PROFILE)
-//            {
-//                calls=apis!!.methodForVenueProfile(params)
-//            }
+            else if(TYPE== FOR_DELETE_EVENT)
+            {
+                calls=apis!!.methodForDeleteEvent(params)
+            }
             else if(TYPE== FOR_SHOW_EVENTS_LIST)
             {
                 calls=apis!!.getEventsListMethod(params)

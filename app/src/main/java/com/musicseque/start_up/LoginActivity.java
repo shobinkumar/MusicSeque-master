@@ -171,12 +171,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
         iv_fb = (ImageView) findViewById(R.id.iv_fb);
         ivGoogle = (ImageView) findViewById(R.id.ivGoogle);
 
-//        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-//            @Override
-//            public void onComplete(@NonNull Task<InstanceIdResult> task) {
-//                mToken = task.getResult().getToken();
-//            }
-//        });
+
 
 
     }
@@ -204,9 +199,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
     private void googleLoginInitialization() {
 
         googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                // .requestIdToken("631151135806-ruoi38mhngnuciop3u6bqbkdb0dc31r8.apps.googleusercontent.com")
-                // .requestIdToken("797258071407-u5o6ivco8p7qukqm8s6ovbnljns3djq4.apps.googleusercontent.com")
-                // .requestIdToken("631151135806-76c34v9bb1486bqb0itjui37iusr19kd.apps.googleusercontent.com")
+
 
                 .requestEmail()
                 .build();
@@ -216,10 +209,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
 
     }
 
-    private void checkAccountVerified() {
-
-
-    }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         initializeLoader();
@@ -361,17 +350,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
         }
     }
 
-//    @OnClick({R.id.cbRememberMe})
-//    public void click(View view)
-//    {
-//        switch (view.getId())
-//        {
-//            case R.id.cbRememberMe:
-//
-//
-//
-//        }
-//    }
+
 
     private void signInGoogle() {
         //  FirebaseAuth.getInstance().signOut();
@@ -386,22 +365,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                     }
                 });
 
-
-        //   mAuth.signOut();
-
-        // Google sign out
-//        googleSignInClient.signOut().addOnCompleteListener(this,
-//                new OnCompleteListener<Void>() {  //signout Google
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        //     FirebaseAuth.getInstance().signOut(); //signout firebase
-//
-//                    }
-//                });
-
-
-//        Intent signInIntent = googleSignInClient.getSignInIntent();
-//        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
 

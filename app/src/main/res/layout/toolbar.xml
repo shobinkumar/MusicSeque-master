@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rltoolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="#FC7C44"
-    android:id="@+id/rltoolbar">
+    android:background="#FC7C44">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:paddingLeft="10dp"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp">
 
         <ImageView
             android:id="@+id/ivDrawer"
@@ -27,18 +27,30 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text="Dashboard"
-        android:textStyle="bold"
         android:textColor="@color/color_white"
-        android:textSize="@dimen/_22sdp" />
+        android:textSize="@dimen/_22sdp"
+        android:textStyle="bold" />
+
     <ImageView
         android:id="@+id/img_right_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:src="@drawable/icon_edit"
         android:layout_centerVertical="true"
-        android:visibility="gone"
-        android:paddingRight="@dimen/_10sdp"/>
+        android:paddingRight="@dimen/_10sdp"
+        android:src="@drawable/icon_edit"
+        android:visibility="gone" />
 
+    <com.musicseque.Fonts.BoldNoyhr
+        android:id="@+id/tvDone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:paddingRight="@dimen/_10sdp"
+        android:text="Done"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/_22sdp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="24">
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvZero"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="00"
+        android:textColor="@color/color_white"
+        android:textSize="14sp" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvOne"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="01"
+        android:textColor="@color/color_white"
+
+        android:textSize="14sp" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvTwo"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="02"
+        android:textColor="@color/color_white"
+
+        android:textSize="14sp" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvThree"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="03"
+        android:textColor="@color/color_white"
+
+        android:textSize="14sp" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvFour"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="04"
+        android:textColor="@color/color_white"
+
+        android:textSize="14sp" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvFive"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="05"
+
+        android:textColor="@color/color_white"
+        android:textSize="14sp" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvSix"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="06"
+
+        android:textColor="@color/color_white"
+        android:textSize="14sp" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvSeven"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="07"
+
+        android:textColor="@color/color_white"
+        android:textSize="14sp" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvEight"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="08"
+
+        android:textColor="@color/color_white"
+        android:textSize="14sp" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvNine"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="09"
+
+        android:textColor="@color/color_white"
+        android:textSize="14sp" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvTen"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="10"
+
+        android:textColor="@color/color_white"
+        android:textSize="14sp" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvEleven"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="11"
+
+        android:textColor="@color/color_white"
+        android:textSize="14sp" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvTwelve"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="12"
+
+        android:textColor="@color/color_white"
+        android:textSize="14sp" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvThirteen"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="13"
+
+        android:textColor="@color/color_white"
+        android:textSize="14sp" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvFourteen"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="14"
+
+        android:textColor="@color/color_white"
+        android:textSize="14sp" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvFifteen"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="15"
+
+        android:textColor="@color/color_white"
+        android:textSize="14sp" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvSixteen"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="16"
+
+        android:textColor="@color/color_white"
+        android:textSize="14sp" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvSeventeen"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="17"
+
+        android:textColor="@color/color_white"
+        android:textSize="14sp" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvEighteen"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="18"
+
+        android:textColor="@color/color_white"
+        android:textSize="14sp" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvNineteen"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="19"
+
+        android:textColor="@color/color_white"
+        android:textSize="14sp" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvTwenty"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="20"
+
+        android:textColor="@color/color_white"
+        android:textSize="14sp" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvTwentyOne"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="21"
+
+        android:textColor="@color/color_white"
+        android:textSize="14sp" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvTwentyTwo"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="22"
+
+        android:textColor="@color/color_white"
+        android:textSize="14sp" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvTwentyThree"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="23"
+
+        android:textColor="@color/color_white"
+        android:textSize="14sp" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvTwentyFour"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="24"
+
+        android:textColor="@color/color_white"
+        android:textSize="14sp" />
+</LinearLayout>

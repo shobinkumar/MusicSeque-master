@@ -76,6 +76,7 @@ public class Constants {
     public static final String EVENT_SAVE_UPDATE_DETAIL_API="Service/EventBookingSaveUpdate";
     public static final String GET_EVENTS_LIST_API="Service/EventsListDisplay";
     public static final String UPLOAD_EVENT_IMAGE_API="Service/EventPromotionImageUpload";
+    public static final String DELETE_EVENT_API="Service/DeleteEvent";
 
     //Venue
     public static final String VENUE_LIST_API  ="Service/VenueListSearch";
@@ -165,5 +166,6 @@ public class Constants {
 
 
     public static final int FOR_UPLOAD_EVENT_PROFILE_IMAGE = 201;
+    public static final int FOR_DELETE_EVENT= 202;
 
 }

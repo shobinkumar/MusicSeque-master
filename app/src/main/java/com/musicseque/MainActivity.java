@@ -40,8 +40,10 @@ import com.musicseque.fragments.SettingFragment;
 import com.musicseque.service.LocationService;
 import com.musicseque.start_up.LoginActivity;
 import com.musicseque.utilities.Constants;
+import com.musicseque.venue_manager.activity.UploadVenueMediaActivity;
 import com.musicseque.venue_manager.fragment.CreateVenueFragment;
 import com.musicseque.venue_manager.fragment.VenueProfileDetailFragment;
+import com.musicseque.venue_manager.fragment.VenueTimmingsFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -115,6 +117,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView tvSchedule;
     @BindView(R.id.ivSchedule)
     ImageView ivSchedule;
+    @BindView(R.id.viewSchedule)
+    View viewSchedule;
+
+
+    @BindView(R.id.llTimmings)
+    LinearLayout llTimmings;
+    @BindView(R.id.tvTimmings)
+    TextView tvTimmings;
+    @BindView(R.id.ivTimmings)
+    ImageView ivTimmings;
+    @BindView(R.id.viewTimmings)
+    View viewTimmings;
+
 
     @BindView(R.id.llUpload)
     LinearLayout llUpload;
@@ -434,7 +449,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    @OnClick({R.id.ivDownArrowEvents, R.id.ivUpArrowEvents, R.id.tvAddEvent, R.id.tvPastEvents, R.id.tvUpcomingEvent, R.id.tvMyProfile, R.id.tvBandProfile, R.id.tvOtherBand, R.id.ivUpArrow, R.id.ivDownArrow, R.id.llActivity, R.id.llHome, R.id.llAlerts, R.id.llSchedule, R.id.llUpload, R.id.llBand, R.id.llSearch, R.id.llStats, R.id.llSettings, R.id.llLogout})
+    @OnClick({R.id.llTimmings,R.id.ivDownArrowEvents, R.id.ivUpArrowEvents, R.id.tvAddEvent, R.id.tvPastEvents, R.id.tvUpcomingEvent, R.id.tvMyProfile, R.id.tvBandProfile, R.id.tvOtherBand, R.id.ivUpArrow, R.id.ivDownArrow, R.id.llActivity, R.id.llHome, R.id.llAlerts, R.id.llSchedule, R.id.llUpload, R.id.llBand, R.id.llSearch, R.id.llStats, R.id.llSettings, R.id.llLogout})
     public void onClicks(View view) {
         switch (view.getId()) {
             case R.id.ivUpArrow:
@@ -498,8 +513,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.llSchedule:
                 break;
+
+
+            case R.id.llTimmings:
+                fragment = new VenueTimmingsFragment();
+                changeIconBottom(R.drawable.home3, R.drawable.profileactive3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment);
+                navDrawer.closeDrawers();
+                break;
+
             case R.id.llUpload:
-                startActivity(new Intent(this, UploadActivity.class));
+                if(sharedPreferences.getString(Constants.PROFILE_TYPE, "").equalsIgnoreCase("Artist"))
+                {
+                    startActivity(new Intent(this, UploadActivity.class));
+                }
+                else if(sharedPreferences.getString(PROFILE_TYPE, "").equalsIgnoreCase("VenueManager"))
+                {
+                    startActivity(new Intent(this, UploadVenueMediaActivity.class));
+                }
+
+
+
                 navDrawer.closeDrawers();
                 closeProfile();
 
@@ -541,15 +574,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.tvAddEvent:
                 startActivity(new Intent(this, CreateEventActivity.class));
-
+                navDrawer.closeDrawers();
 
                 break;
             case R.id.tvUpcomingEvent:
                 startActivity(new Intent(this, EventsListActivity.class).putExtra("type", 2));
+                navDrawer.closeDrawers();
                 break;
 
             case R.id.tvPastEvents:
                 startActivity(new Intent(this, EventsListActivity.class).putExtra("type", 1));
+                navDrawer.closeDrawers();
                 break;
 
 
@@ -617,6 +652,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             llAllProfile.setVisibility(View.GONE);
             ivUpArrow.setVisibility(View.GONE);
             ivDownArrow.setVisibility(View.GONE);
+            llTimmings.setVisibility(View.VISIBLE);
+            viewTimmings.setVisibility(View.VISIBLE);
+            llSchedule.setVisibility(View.GONE);
+            viewSchedule.setVisibility(View.GONE);
             tvProfile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -633,9 +672,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             });
         } else {
             tvAddEvent.setVisibility(View.VISIBLE);
-            llAllProfile.setVisibility(View.VISIBLE);
-            ivUpArrow.setVisibility(View.VISIBLE);
+            llAllProfile.setVisibility(View.GONE);
+            ivUpArrow.setVisibility(View.GONE);
             ivDownArrow.setVisibility(View.VISIBLE);
+            llTimmings.setVisibility(View.GONE);
+            viewTimmings.setVisibility(View.GONE);
+            llSchedule.setVisibility(View.VISIBLE);
+            viewSchedule.setVisibility(View.VISIBLE);
         }
 
 

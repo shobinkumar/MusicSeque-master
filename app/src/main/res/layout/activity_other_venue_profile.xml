@@ -6,16 +6,15 @@
     android:background="@color/color_background"
     android:orientation="vertical">
 
-    <!--<include-->
-    <!--android:id="@+id/toolbarTop"-->
-    <!--layout="@layout/toolbar_top"-->
-    <!--android:visibility="gone"/>-->
+    <include
+        android:id="@+id/toolbarTop"
+        layout="@layout/toolbar_top"
+        android:visibility="visible" />
 
     <ScrollView
         android:id="@+id/sv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/cLayout"
@@ -43,18 +42,18 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
+                android:visibility="visible"
                 app:layout_constraintBottom_toTopOf="@+id/ivProfilePic"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:visibility="visible"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:layout_width="150dp"
                 android:layout_height="150dp"
+                android:background="@drawable/circle_white_border"
                 app:layout_constraintBottom_toBottomOf="@+id/ivBackground"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:background="@drawable/circle_white_border"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ivBackground" />
 
@@ -70,15 +69,14 @@
                 app:layout_constraintBottom_toBottomOf="@+id/ivBackground"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ivBackground"  />
-
+                app:layout_constraintTop_toBottomOf="@+id/ivBackground" />
 
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:padding="1dp"
                 android:id="@+id/ivProfilePic"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
+                android:padding="1dp"
                 android:src="@color/color_orange"
                 app:layout_constraintBottom_toBottomOf="@+id/ivBackground"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -92,6 +90,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:src="@drawable/icon_backgound_pic_upload"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@+id/ivBackground"
                 app:layout_constraintEnd_toEndOf="parent" />
 
@@ -102,6 +101,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:src="@drawable/icon_pic_upload"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@+id/ivProfilePic"
                 app:layout_constraintEnd_toEndOf="@+id/ivProfilePic" />
 
@@ -216,18 +216,6 @@
                 app:layout_constraintStart_toEndOf="@+id/tvUserNameDetail"
                 app:layout_constraintTop_toTopOf="@+id/tvUserNameDetail" />
 
-            <com.musicseque.Fonts.BoldNoyhr
-                android:id="@+id/tvUserType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="8dp"
-                android:textColor="@color/color_white"
-                android:textSize="@dimen/_14sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvUserNameDetail" />
 
             <com.musicseque.Fonts.Noyhr
                 android:id="@+id/tvUserLocation"
@@ -238,11 +226,31 @@
                 android:layout_marginEnd="8dp"
                 android:drawableLeft="@drawable/icon_location"
                 android:drawablePadding="5dp"
+                android:text="Hello"
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/_14sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvUserType" />
+                app:layout_constraintTop_toBottomOf="@+id/tvUserNameDetail" />
+
+            <com.musicseque.Fonts.Noyhr
+                android:id="@+id/tvAvailability"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/rectangle_orange"
+                android:paddingLeft="15dp"
+                android:paddingTop="8dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="8dp"
+                android:text="Availability"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_14sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvUserLocation" />
 
             <View
                 android:id="@+id/view1"
@@ -252,21 +260,21 @@
                 android:background="@color/color_black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvUserLocation" />
+                app:layout_constraintTop_toBottomOf="@+id/tvAvailability" />
 
 
             <!--<ImageView-->
-                <!--android:id="@+id/iconGenre"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginStart="8dp"-->
-                <!--android:layout_marginTop="16dp"-->
-                <!--android:layout_marginEnd="8dp"-->
-                <!--android:src="@drawable/icon_genre"-->
-                <!--app:layout_constraintEnd_toEndOf="@+id/iconExperience"-->
-                <!--app:layout_constraintHorizontal_bias="0.046"-->
-                <!--app:layout_constraintStart_toStartOf="parent"-->
-                <!--app:layout_constraintTop_toTopOf="@+id/view1" />-->
+            <!--android:id="@+id/iconGenre"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="8dp"-->
+            <!--android:layout_marginTop="16dp"-->
+            <!--android:layout_marginEnd="8dp"-->
+            <!--android:src="@drawable/icon_genre"-->
+            <!--app:layout_constraintEnd_toEndOf="@+id/iconExperience"-->
+            <!--app:layout_constraintHorizontal_bias="0.046"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="@+id/view1" />-->
 
             <ImageView
                 android:id="@+id/iconExperience"
@@ -282,39 +290,39 @@
                 app:layout_constraintTop_toTopOf="@+id/view1" />
 
             <com.musicseque.Fonts.Noyhr
-                android:id="@+id/txtExperience"
+                android:id="@+id/txtCapacity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/txt_experience"
+                android:text="@string/txt_capacity"
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/_12sdp"
                 app:layout_constraintStart_toEndOf="@+id/iconExperience"
                 app:layout_constraintTop_toTopOf="@+id/view1" />
 
             <com.musicseque.Fonts.Noyhr
-                android:id="@+id/tvExperience"
+                android:id="@+id/tvCapacity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/_13sdp"
                 app:layout_constraintStart_toEndOf="@+id/iconExperience"
-                app:layout_constraintTop_toBottomOf="@+id/txtExperience" />
+                app:layout_constraintTop_toBottomOf="@+id/txtCapacity" />
 
             <com.musicseque.Fonts.Noyhr
                 android:id="@+id/tvMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
-                android:gravity="center"
-                android:layout_marginLeft="5dp"
                 android:drawableLeft="@drawable/icon_letschat"
                 android:drawablePadding="5dp"
+                android:gravity="center"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingBottom="8dp"
@@ -323,20 +331,20 @@
                 android:textSize="@dimen/_13sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.879"
-                app:layout_constraintStart_toEndOf="@+id/txtExperience"
+                app:layout_constraintStart_toEndOf="@+id/txtCapacity"
                 app:layout_constraintTop_toTopOf="@+id/view1" />
 
             <!--<com.musicseque.Fonts.Noyhr-->
-                <!--android:id="@+id/txtGenre"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginStart="8dp"-->
-                <!--android:layout_marginTop="16dp"-->
-                <!--android:text="@string/str_genre"-->
-                <!--android:textColor="@color/color_white"-->
-                <!--android:textSize="@dimen/_13sdp"-->
-                <!--app:layout_constraintStart_toEndOf="@+id/iconGenre"-->
-                <!--app:layout_constraintTop_toTopOf="@+id/view1" />-->
+            <!--android:id="@+id/txtGenre"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="8dp"-->
+            <!--android:layout_marginTop="16dp"-->
+            <!--android:text="@string/str_genre"-->
+            <!--android:textColor="@color/color_white"-->
+            <!--android:textSize="@dimen/_13sdp"-->
+            <!--app:layout_constraintStart_toEndOf="@+id/iconGenre"-->
+            <!--app:layout_constraintTop_toTopOf="@+id/view1" />-->
 
             <com.musicseque.Fonts.Noyhr
                 android:id="@+id/tvGenre"
@@ -368,7 +376,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvExperience" />
+                app:layout_constraintTop_toBottomOf="@+id/tvCapacity" />
 
             <LinearLayout
                 android:id="@+id/llBio"
@@ -442,13 +450,13 @@
                     android:padding="16dp"
                     android:textColor="@color/color_white"
                     android:textSize="@dimen/_16sdp"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvAboutUser" />
 
                 <include
                     android:id="@+id/bottom_layout"
-                    layout="@layout/bottom_bar"
+                    layout="@layout/bottom_bar_venues"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -466,15 +474,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/bottom_layout" />
 
             </LinearLayout>
-            <!--  -->
 
-            <!--<include-->
-            <!--layout="@layout/fragment_bottom_bar"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--app:layout_constraintEnd_toEndOf="parent"-->
-            <!--app:layout_constraintStart_toStartOf="parent"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/frameLayout" />-->
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 </LinearLayout>

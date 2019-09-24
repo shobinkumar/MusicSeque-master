@@ -145,7 +145,7 @@ public class ArtistBandDetailActivity extends BaseActivity implements MyInterfac
 
     @BindView(R.id.sv)
     ScrollView sv;
-        String mBandId,mBandManagerId;
+    String mBandId, mBandManagerId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -160,7 +160,7 @@ public class ArtistBandDetailActivity extends BaseActivity implements MyInterfac
     }
 
     private void initOtherViews() {
-        mBandId=getIntent().getStringExtra("band_id");
+        mBandId = getIntent().getStringExtra("band_id");
         tv_title.setText("Band");
         img_first_icon.setVisibility(View.VISIBLE);
         img_right_icon.setVisibility(View.GONE);
@@ -223,7 +223,7 @@ public class ArtistBandDetailActivity extends BaseActivity implements MyInterfac
                         tvBio.setText(obj.getString("Bio"));
                         String mProfilePic = "";
 
-        mBandManagerId=obj.getString("BandManagerId");
+                        mBandManagerId = obj.getString("BandManagerId");
                         mProfilePic = obj.getString("BandImg");
                         if (mProfilePic.equalsIgnoreCase("")) {
 
@@ -301,8 +301,7 @@ public class ArtistBandDetailActivity extends BaseActivity implements MyInterfac
     }
 
 
-
-    @OnClick({ R.id.llGigs, R.id.llMember})
+    @OnClick({R.id.llGigs, R.id.llMember,R.id.ivIconDrop,R.id.ivIconUp})
     public void setViewOnClickEvent(View view) {
         switch (view.getId()) {
 
@@ -317,6 +316,17 @@ public class ArtistBandDetailActivity extends BaseActivity implements MyInterfac
 
                 changeFragment(fragment);
 
+                break;
+
+            case R.id.ivIconDrop:
+                tvBio.setVisibility(View.VISIBLE);
+                ivIconDrop.setVisibility(View.GONE);
+                ivIconUp.setVisibility(View.VISIBLE);
+                break;
+            case R.id.ivIconUp:
+                tvBio.setVisibility(View.GONE);
+                ivIconDrop.setVisibility(View.VISIBLE);
+                ivIconUp.setVisibility(View.GONE);
                 break;
 
         }

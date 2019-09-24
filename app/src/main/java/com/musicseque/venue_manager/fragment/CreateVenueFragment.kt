@@ -89,7 +89,8 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
     private fun initViews() {
         imgRight = activity?.findViewById<ImageView>(R.id.img_right_icon)
         tvHeading = activity?.findViewById<BoldNoyhr>(R.id.tvHeading)
-
+        val tvDone = (activity as MainActivity).findViewById<View>(R.id.tvDone) as TextView
+        tvDone.visibility = View.GONE
         imgRight?.setVisibility(View.GONE)
         tvHeading?.setText("Profile")
     }
@@ -102,16 +103,7 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
 
     override fun onClick(view: View) {
         when (view.id) {
-
-
-
-
-//visible
-
-
-
-
-                R.id.ivVenueImage -> {
+            R.id.ivVenueImage -> {
                 checkPermissions("image", "com.musicseque.venue_manager.fragment.CreateVenueFragment",this)
             }
             R.id.tvCountryCode -> {
@@ -144,7 +136,7 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
                     Utils.showToast(activity, resources.getString(R.string.err_postcode))
 
                 } else if (mVenueBio.equals("", ignoreCase = true)) {
-                    Utils.showToast(activity, resources.getString(R.string.err_bio))
+                    Utils.showToast(activity, resources.getString(R.string.err_venue_bio))
 
                 } else if (mVenueCapacity.equals("", ignoreCase = true)) {
                     Utils.showToast(activity, resources.getString(R.string.err_capacity))
