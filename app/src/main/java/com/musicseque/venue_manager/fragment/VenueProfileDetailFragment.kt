@@ -1,6 +1,7 @@
 package com.musicseque.venue_manager.fragment
 
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.musicseque.Fonts.BoldNoyhr
 import com.musicseque.Fonts.Noyhr
 import com.musicseque.MainActivity
@@ -153,6 +158,7 @@ class VenueProfileDetailFragment : KotlinBaseFragment(), View.OnClickListener, M
                         tvBio.text = jsonObj.getString("Bio")
 
                         if (jsonObj.getString("ProfilePic").equals("", true)) {
+                            Glide.with(this).load(R.drawable.icon_img_dummy).into(ivProfilePic)
 
                         } else {
                             Glide.with(this).load(jsonObj.getString("ImgUrl") + jsonObj.getString("ProfilePic")).into(ivProfilePic)
@@ -176,7 +182,35 @@ class VenueProfileDetailFragment : KotlinBaseFragment(), View.OnClickListener, M
 
                 }
                 Constants.FOR_UPLOAD_PROFILE_IMAGE -> {
+                    val jsonObject = JSONObject(response.toString())
+                    if (jsonObject.getString("Status").equals("Success", ignoreCase = true)) {
+                        editor.putString(Constants.PROFILE_IMAGE, jsonObject.getString("imageurl") + jsonObject.getString("ImageName")).commit()
+                        Utils.showToast(activity, "Profile Pic uploaded successfully")
+                        //Glide.with(getActivity()).load(jsonObject.getString("imageurl") + jsonObject.getString("ImageName")).into(ivProfilePic);
 
+
+                        pBar.visibility = View.VISIBLE
+
+//                        Glide.with(this)
+//                                .load(jsonObject.getString("imageurl") + jsonObject.getString("ImageName"))
+//                                .listener(object : RequestListener<Drawable> {
+//                                    override fun onLoadFailed(e: GlideException?, model: Any, target: Target<Drawable>, isFirstResource: Boolean): Boolean {
+//                                        pBar.visibility = View.GONE
+//                                        return false
+//                                    }
+//
+//                                    override fun onResourceReady(resource: Drawable, model: Any, target: Target<Drawable>, dataSource: DataSource, isFirstResource: Boolean): Boolean {
+//                                        pBar.visibility = View.GONE
+//                                        return false
+//                                    }
+//                                })
+//                                .into(ivProfilePic)
+
+                        editor.putString(Constants.PROFILE_IMAGE, jsonObject.getString("imageurl") + jsonObject.getString("ImageName")).commit()
+
+                    } else {
+
+                    }
                 }
                 Constants.FOR_UPLOAD_COVER_PIC -> {
 

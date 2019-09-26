@@ -115,7 +115,7 @@ class EventManagerDetailFragment : BaseFragment(), MyInterface, View.OnClickList
                         mProfilePic = obj.getString("ProfilePic")
                         if (mProfilePic.equals("", ignoreCase = true)) {
 
-                            ivProfilePic.setImageDrawable(resources.getDrawable(R.drawable.icon_photo_upload_circle))
+                            ivProfilePic.setImageDrawable(resources.getDrawable(R.drawable.icon_img_dummy))
                             pBar.visibility = View.GONE
 
                         } else {

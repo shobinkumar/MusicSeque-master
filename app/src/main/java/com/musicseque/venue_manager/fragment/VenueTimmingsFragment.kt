@@ -710,7 +710,7 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
 
     private fun callMethodForHashmap(view: View, dateString: String, start_time: String, end_time: String) {
         val sdk = android.os.Build.VERSION.SDK_INT
-        val timeModalClass = TimeModalClass(start_time, end_time, "0", "1")
+        val timeModalClass = TimeModalClass(start_time, end_time)
 
         if (hashMap.containsKey(dateString)) {
             var isValue = false

@@ -33,7 +33,7 @@ class CheckVenueAvailabilityActivity : Activity(), View.OnClickListener {
 
     private fun initViews() {
         img_right_icon.visibility = View.GONE
-        tv_title.text = "AVAILABILITY"
+        tv_title.text = "Availability"
         val dimension = DisplayMetrics()
         getWindowManager()?.getDefaultDisplay()?.getMetrics(dimension)
         width = dimension.widthPixels

@@ -408,6 +408,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
             // jsonBody.put("email_id", mEmail);
             jsonBody.put("SocialType", accountType);
             jsonBody.put("PopToken", mToken);
+            jsonBody.put("SocialImageUrl",mImageURL);
             String requestBody = jsonBody.toString();
             RetrofitAPI.callAPI(requestBody, Constants.FOR_ACCOUNT_EXISTS, LoginActivity.this);
 
@@ -746,12 +747,34 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
         list.setAdapter(adapter);
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            private String profileType="";
+
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                pro_type.setText(pType[i]);
-                list.setVisibility(View.GONE);
-                btn_submit.setVisibility(View.VISIBLE);
-                btnCancel.setVisibility(View.VISIBLE);
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+
+                if(pType[pos].equals("Artist") || pType[pos].equals("Venue"))
+                {
+                    pro_type.setText(pType[pos]);
+                    list.setVisibility(View.GONE);
+                    btn_submit.setVisibility(View.VISIBLE);
+                    btnCancel.setVisibility(View.VISIBLE);
+                    if(pos==0)
+                    {
+                        profileType = String.valueOf((pos + 1));
+                    }
+
+                    else
+                    {
+                        profileType = String.valueOf((pos + 2));
+
+                    }
+                }
+                else
+                {
+                    Utils.showToast(LoginActivity.this,"You can select only artist and venue for now");
+                }
+
+
 
 
             }

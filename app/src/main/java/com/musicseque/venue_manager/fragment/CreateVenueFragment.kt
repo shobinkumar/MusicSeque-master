@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.*
 import com.bumptech.glide.Glide
 import com.musicseque.Fonts.BoldNoyhr
@@ -27,10 +28,12 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import com.musicseque.utilities.Constants.*
+import kotlinx.android.synthetic.main.toolbar.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
+import java.lang.Exception
 
 
 class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterface {
@@ -54,7 +57,7 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
     lateinit var mVenueCapacity: String
     lateinit var mVenueCountryId: String
     lateinit var mVenuePhoneNumber: String
-    var mVenueId=""
+    var mWidth = 0
 
     //var mVenueName
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -93,6 +96,20 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
         tvDone.visibility = View.GONE
         imgRight?.setVisibility(View.GONE)
         tvHeading?.setText("Profile")
+
+
+        tvCountryCode.getViewTreeObserver().addOnGlobalLayoutListener(ViewTreeObserver.OnGlobalLayoutListener
+        {
+            try {
+                mWidth = tvCountryCode.getMeasuredWidth()
+            } catch (e: Exception) {
+
+            }
+
+
+        }
+        )
+
     }
 
     private fun listeners() {
@@ -102,9 +119,13 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
     }
 
     override fun onClick(view: View) {
+
         when (view.id) {
+//            R.id.ivDrawer -> {
+//                onClick(ivDrawer)
+//            }
             R.id.ivVenueImage -> {
-                checkPermissions("image", "com.musicseque.venue_manager.fragment.CreateVenueFragment",this)
+                checkPermissions("image", "com.musicseque.venue_manager.fragment.CreateVenueFragment", this)
             }
             R.id.tvCountryCode -> {
                 showDropdown(SpinnerData { mData, mData1 ->
@@ -145,12 +166,6 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
                     try {
 
                         val jsonBody = JSONObject()
-
-
-
-
-
-
 
 
 //                        jsonBody.put("VenueId", getSharedPref().getString(USER_ID, ""))
@@ -245,12 +260,14 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
             FOR_USER_PROFILE -> {
                 try {
                     val obj = JSONObject(response.toString())
-                    if (obj.getString("Status").equals("Success",true)) {
+                    if (obj.getString("Status").equals("Success", true)) {
                         if (obj.getString("ProfilePic").equals("")) {
-                            pBar.visibility=View.GONE
+                            Glide.with(this).load(R.drawable.icon_img_dummy).into(ivVenueImage)
+
+                            pBar.visibility = View.GONE
                         } else {
                             Glide.with(this).load(obj.getString("ImgUrl") + obj.getString("ProfilePic")).into(ivVenueImage)
-                            pBar.visibility=View.GONE
+                            pBar.visibility = View.GONE
 
                         }
 
@@ -271,7 +288,7 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
             }
             FOR_UPDATE_PROFILE -> {
                 val obj = JSONObject(response.toString())
-                if (obj.getString("Status").equals("Success",true)) {
+                if (obj.getString("Status").equals("Success", true)) {
                     getEditor().putString(Constants.IS_FIRST_LOGIN, "N").commit()
                     Utils.showToast(requireContext(), obj.getString("Message"))
                     startActivity(Intent(activity, MainActivity::class.java))
@@ -282,10 +299,11 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
                 }
             }
             FOR_UPLOAD_PROFILE_IMAGE -> {
-                val obj=JSONObject(response.toString())
-                if(obj.getString("Status").equals("Success",true))
-                {
-                    Utils.showToast(requireContext(),"Image saved successfully")
+                val obj = JSONObject(response.toString())
+                if (obj.getString("Status").equals("Success", true)) {
+                    Utils.showToast(requireContext(), "Image saved successfully")
+                    editor.putString(Constants.PROFILE_IMAGE, obj.getString("imageurl") + obj.getString("ImageName")).commit()
+
                 }
 
             }
@@ -319,7 +337,7 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
                 R.layout.row_profile_spinner, arrCountryCode))
         listPopupWindow.setBackgroundDrawable(resources.getDrawable(R.drawable.rectangle_black))
         listPopupWindow.setAnchorView(tvCountryCode)
-        listPopupWindow.setWidth(KotlinUtils.getViewWidth(tvCountryCode))
+        listPopupWindow.setWidth(mWidth)
         listPopupWindow.setHeight(400)
         listPopupWindow.setModal(true)
         listPopupWindow.setOnItemClickListener(AdapterView.OnItemClickListener { parent, view, position, id ->

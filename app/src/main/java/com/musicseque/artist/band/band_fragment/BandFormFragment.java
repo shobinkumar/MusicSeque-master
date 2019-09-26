@@ -98,8 +98,8 @@ public class BandFormFragment extends Fragment implements View.OnClickListener, 
     @BindView(R.id.ivProfile)
     CircleImageView ivProfile;
 
-    @BindView(R.id.ivAddImage)
-    ImageView ivAddImage;
+//    @BindView(R.id.ivAddImage)
+//    ImageView ivAddImage;
     @BindView(R.id.ivStatus)
     ImageView ivStatus;
     @BindView(R.id.tvCountryCode)
@@ -257,7 +257,7 @@ public class BandFormFragment extends Fragment implements View.OnClickListener, 
     private void listeners() {
         btn_submit.setOnClickListener(this);
         ivCamera.setOnClickListener(this);
-        ivAddImage.setOnClickListener(this);
+       // ivAddImage.setOnClickListener(this);
        // ivStatus.setOnClickListener(this);
         tvCountryCode.setOnClickListener(this);
         tvExperience.setOnClickListener(this);
@@ -417,7 +417,9 @@ public class BandFormFragment extends Fragment implements View.OnClickListener, 
 
 
                         if (obj.getString("BandImg").equalsIgnoreCase("")) {
-
+                            Glide.with(BandFormFragment.this)
+                                    .load(R.drawable.icon_img_dummy)
+                                    .into(ivProfile);
                         } else {
                             Glide.with(BandFormFragment.this)
                                     .load(obj.getString("BandImgPath") + obj.getString("BandImg"))
@@ -506,20 +508,23 @@ public class BandFormFragment extends Fragment implements View.OnClickListener, 
         if (sharedPreferences.getString(Constants.LOGIN_TYPE, "Simple").equalsIgnoreCase("Simple")) {
             String mUrl = sharedPreferences.getString(Constants.PROFILE_IMAGE, "");
             if (mUrl.equalsIgnoreCase("")) {
-                ivProfile.setVisibility(View.GONE);
+                ivProfile.setVisibility(View.VISIBLE);
                 pBar.setVisibility(View.GONE);
-                ivCamera.setVisibility(View.GONE);
-                ivAddImage.setVisibility(View.VISIBLE);
-                ivAddImage.setImageDrawable(getResources().getDrawable(R.drawable.icon_photo_upload_circle));
-                ivAddImage.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        openDialog();
-                    }
-                });
+                ivCamera.setVisibility(View.VISIBLE);
+                Glide.with(BandFormFragment.this)
+                        .load(R.drawable.icon_img_dummy)
+                        .into(ivProfile);
+//                ivAddImage.setVisibility(View.VISIBLE);
+//                ivAddImage.setImageDrawable(getResources().getDrawable(R.drawable.icon_photo_upload_circle));
+//                ivAddImage.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        openDialog();
+//                    }
+//                });
             } else {
                 ivCamera.setVisibility(View.GONE);
-                ivAddImage.setVisibility(View.GONE);
+                //ivAddImage.setVisibility(View.GONE);
                 ivProfile.setVisibility(View.VISIBLE);
 
 
@@ -555,7 +560,7 @@ public class BandFormFragment extends Fragment implements View.OnClickListener, 
             String mUrl = sharedPreferences.getString(Constants.PROFILE_IMAGE, "");
 
             ivCamera.setVisibility(View.GONE);
-            ivAddImage.setVisibility(View.GONE);
+          //  ivAddImage.setVisibility(View.GONE);
 
             Glide.with(BandFormFragment.this)
                     .load(mUrl)
@@ -585,9 +590,9 @@ public class BandFormFragment extends Fragment implements View.OnClickListener, 
                 openDialog();
                 break;
 
-            case R.id.ivAddImage:
-                openDialog();
-                break;
+//            case R.id.ivAddImage:
+//                openDialog();
+//                break;
 
             case R.id.btn_submit:
                 apiUpdateProfile();
@@ -1022,7 +1027,7 @@ public class BandFormFragment extends Fragment implements View.OnClickListener, 
         ivProfile.setVisibility(View.VISIBLE);
         pBar.setVisibility(View.GONE);
         ivCamera.setVisibility(View.VISIBLE);
-        ivAddImage.setVisibility(View.GONE);
+       // ivAddImage.setVisibility(View.GONE);
         Glide.with(getActivity()).load(file).into(ivProfile);
 
     }

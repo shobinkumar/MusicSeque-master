@@ -45,22 +45,23 @@ class SearchVenueActivity : BaseActivity(), View.OnClickListener, MyInterface {
 
     private fun initViews() {
         rvVenue.layoutManager = LinearLayoutManager(this)
-        if (Utils.isNetworkConnected(this@SearchVenueActivity)) {
-            val jsonObject = JSONObject()
-            try {
-                jsonObject.put("LoggedInUserId", sharedPreferences.getString(Constants.USER_ID, ""))
-
-                jsonObject.put("SearchText", "")
-
-            } catch (e: JSONException) {
-                e.printStackTrace()
-            }
-
-            KotlinHitAPI.callAPI(jsonObject.toString(), Constants.FOR_SEARCH_VENUE_LIST, this@SearchVenueActivity)
-
-        } else {
-            Utils.showToast(this@SearchVenueActivity, R.string.err_no_internet.toString())
-        }
+        hitAPI("")
+//        if (Utils.isNetworkConnected(this@SearchVenueActivity)) {
+//            val jsonObject = JSONObject()
+//            try {
+//                jsonObject.put("LoggedInUserId", sharedPreferences.getString(Constants.USER_ID, ""))
+//
+//                jsonObject.put("SearchText", "")
+//
+//            } catch (e: JSONException) {
+//                e.printStackTrace()
+//            }
+//
+//            KotlinHitAPI.callAPI(jsonObject.toString(), Constants.FOR_SEARCH_VENUE_LIST, this@SearchVenueActivity)
+//
+//        } else {
+//            Utils.showToast(this@SearchVenueActivity, R.string.err_no_internet.toString())
+//        }
 
     }
 
@@ -70,22 +71,10 @@ class SearchVenueActivity : BaseActivity(), View.OnClickListener, MyInterface {
         etSearch.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(editable: Editable?) {
                 Handler().postDelayed({
-                    if (Utils.isNetworkConnected(this@SearchVenueActivity)) {
-                        val jsonObject = JSONObject()
-                        try {
-                            jsonObject.put("LoggedInUserId", sharedPreferences.getString(Constants.USER_ID, ""))
 
-                            jsonObject.put("SearchText", editable.toString())
+                    hitAPI(editable.toString())
 
-                        } catch (e: JSONException) {
-                            e.printStackTrace()
-                        }
 
-                        hitAPI(jsonObject.toString())
-
-                    } else {
-                        Utils.showToast(this@SearchVenueActivity, R.string.err_no_internet.toString())
-                    }
                 }, 1000)
             }
 
@@ -105,15 +94,32 @@ class SearchVenueActivity : BaseActivity(), View.OnClickListener, MyInterface {
             }
         }
     }
+
     fun hitAPI(params: String) {
-        if (KotlinUtils.isNetConnected(this))
-            KotlinHitAPI.callAPI(params, Constants.FOR_SEARCH_VENUE_LIST, this@SearchVenueActivity)
-        else
-            Utils.showToast(this, resources.getString(R.string.err_no_internet))
+        if (Utils.isNetworkConnected(this@SearchVenueActivity)) {
+            Utils.initializeAndShow(this)
+            val jsonObject = JSONObject()
+            try {
+                jsonObject.put("LoggedInUserId", sharedPreferences.getString(Constants.USER_ID, ""))
+
+                jsonObject.put("SearchText", params)
+                KotlinHitAPI.callAPI(jsonObject.toString(), Constants.FOR_SEARCH_VENUE_LIST, this@SearchVenueActivity)
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+
+
+        } else {
+            Utils.showToast(this@SearchVenueActivity, R.string.err_no_internet.toString())
+        }
+
+
     }
 
     override fun sendResponse(response: Any?, TYPE: Int) {
+        Utils.hideProgressDialog()
         when (TYPE) {
+
             Constants.FOR_SEARCH_VENUE_LIST -> {
                 val json = JSONObject(response.toString())
                 if (json.getString("Status").equals("Success")) {
@@ -123,7 +129,7 @@ class SearchVenueActivity : BaseActivity(), View.OnClickListener, MyInterface {
                     alVenue = Gson().fromJson<ArrayList<VenueSearchModel>>(array.toString(), object : TypeToken<ArrayList<VenueSearchModel>>() {
 
                     }.type)
-                    rvVenue.adapter = SearchVenueAdapter(this,alVenue)
+                    rvVenue.adapter = SearchVenueAdapter(this, alVenue)
 
                 } else {
                     rvVenue.visibility = View.GONE
@@ -132,8 +138,6 @@ class SearchVenueActivity : BaseActivity(), View.OnClickListener, MyInterface {
             }
         }
     }
-
-
 
 
 }

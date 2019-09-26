@@ -227,7 +227,7 @@ public class ArtistBandDetailActivity extends BaseActivity implements MyInterfac
                         mProfilePic = obj.getString("BandImg");
                         if (mProfilePic.equalsIgnoreCase("")) {
 
-                            ivProfilePic.setImageDrawable(getResources().getDrawable(R.drawable.icon_photo_upload_circle));
+                            ivProfilePic.setImageDrawable(getResources().getDrawable(R.drawable.icon_img_dummy));
                             pBar.setVisibility(View.GONE);
 
                         } else {
@@ -272,6 +272,8 @@ public class ArtistBandDetailActivity extends BaseActivity implements MyInterfac
                                     })
                                     .into(ivBackground);
                         } else {
+                            Glide.with(this)
+                                    .load(R.drawable.icon_img_dummy).into(ivBackground);
                             progressBar.setVisibility(View.GONE);
                         }
 
@@ -301,7 +303,7 @@ public class ArtistBandDetailActivity extends BaseActivity implements MyInterfac
     }
 
 
-    @OnClick({R.id.llGigs, R.id.llMember,R.id.ivIconDrop,R.id.ivIconUp})
+    @OnClick({R.id.llGigs, R.id.llMember, R.id.ivIconDrop, R.id.ivIconUp})
     public void setViewOnClickEvent(View view) {
         switch (view.getId()) {
 

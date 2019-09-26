@@ -147,7 +147,9 @@ class KotlinUtils {
             var mWidth=0
 
             textView.getViewTreeObserver().addOnGlobalLayoutListener(ViewTreeObserver.OnGlobalLayoutListener
-            { mWidth= textView.getMeasuredWidth() })
+            {
+                mWidth= textView.getMeasuredWidth() }
+            )
 
             return mWidth
         }

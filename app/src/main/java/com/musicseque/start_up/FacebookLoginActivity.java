@@ -33,7 +33,7 @@ import java.util.List;
 
 
 public class FacebookLoginActivity extends Activity {
-    private static final List<String> PERMISSIONS = Arrays.asList("email" );
+    private static final List<String> PERMISSIONS = Arrays.asList("email");
     CallbackManager callbackManager;
     private AccessTokenTracker accessTokenTracker;
     private AccessToken token;
@@ -43,7 +43,8 @@ public class FacebookLoginActivity extends Activity {
     private String socialemail = "";
     private String ImageUrl = "";
     private String name = "";
-    boolean isEmail=false;
+    boolean isEmail = false;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +54,6 @@ public class FacebookLoginActivity extends Activity {
         FacebookSdk.addLoggingBehavior(LoggingBehavior.REQUESTS);
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().logInWithReadPermissions(this, PERMISSIONS);
-
 
 
     }
@@ -69,11 +69,11 @@ public class FacebookLoginActivity extends Activity {
                     AccessToken currentAccessToken) {
                 // Set the access token using
                 // currentAccessToken when it's loaded or set.
-                if(currentAccessToken==null){
+                if (currentAccessToken == null) {
                     LoginManager.getInstance().logOut();
                     loginToFacebook();
-                }else{
-                    if(!currentAccessToken.isExpired()){
+                } else {
+                    if (!currentAccessToken.isExpired()) {
                         getFacebookResult(currentAccessToken);
                     }
                 }
@@ -105,7 +105,8 @@ public class FacebookLoginActivity extends Activity {
                     }
                 });
     }
-    public  void getFacebookResult(AccessToken accessToken){
+
+    public void getFacebookResult(AccessToken accessToken) {
 
         GraphRequest request = GraphRequest.newMeRequest(
                 accessToken,
@@ -115,6 +116,7 @@ public class FacebookLoginActivity extends Activity {
                             JSONObject object,
                             GraphResponse response) {
                         // Application code
+
                         try {
                             socialID = object.getString("id");
                         } catch (Exception e) {
@@ -126,7 +128,7 @@ public class FacebookLoginActivity extends Activity {
                             e.printStackTrace();
                         }
                         try {
-                             socialFirstName= object.getString("first_name");
+                            socialFirstName = object.getString("first_name");
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -136,15 +138,13 @@ public class FacebookLoginActivity extends Activity {
                             e.printStackTrace();
                         }
                         try {
-                            if(object.has("email")){
+                            if (object.has("email")) {
                                 socialemail = object.getString("email");
-                                isEmail=true;
+                                isEmail = true;
 
-                            }
-                            else
-                            {
-                                socialemail = socialID+"@gmail.com";
-                                isEmail=false;
+                            } else {
+                                socialemail = socialID + "@gmail.com";
+                                isEmail = false;
                             }
 
                         } catch (Exception e) {
@@ -168,15 +168,13 @@ public class FacebookLoginActivity extends Activity {
         request.setParameters(parameters);
         request.executeAsync();
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode==RESULT_OK)
-        {
+        if (resultCode == RESULT_OK) {
             super.onActivityResult(requestCode, resultCode, data);
             callbackManager.onActivityResult(requestCode, resultCode, data);
-        }
-        else if(resultCode==RESULT_CANCELED)
-        {
+        } else if (resultCode == RESULT_CANCELED) {
             Intent intent = new Intent();
             setResult(RESULT_CANCELED, intent);
             finish();
@@ -193,8 +191,7 @@ public class FacebookLoginActivity extends Activity {
     }
 
 
-
-        private void sendDataBackToLogin(boolean isSuccess) {
+    private void sendDataBackToLogin(boolean isSuccess) {
         Intent intent = new Intent();
 
         if (isSuccess) {
@@ -207,8 +204,7 @@ public class FacebookLoginActivity extends Activity {
             setResult(RESULT_OK, intent);
             finish();
 
-        } else
-        {
+        } else {
             setResult(RESULT_CANCELED, intent);
             finish();
 
@@ -217,8 +213,8 @@ public class FacebookLoginActivity extends Activity {
 
     }
 
-}
 
+}
 
 
 

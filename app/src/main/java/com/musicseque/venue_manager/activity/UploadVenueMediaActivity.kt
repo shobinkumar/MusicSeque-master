@@ -30,7 +30,7 @@ class UploadVenueMediaActivity : BaseActivity(), View.OnClickListener {
         initViews()
         listeners()
 
-        fragment = UploadPhotoFragment()
+        fragment = VenueImageUploadFragment()
         openFragment(fragment)
 
 
@@ -64,8 +64,8 @@ class UploadVenueMediaActivity : BaseActivity(), View.OnClickListener {
                 finish()
             }
             R.id.llPhotos -> {
-                val currentFragment = supportFragmentManager.findFragmentById(R.id.frameLayoutUpload)
-                if (currentFragment is UploadPhotoFragment)
+                val currentFragment = supportFragmentManager.findFragmentById(R.id.frameLayoutMediaUpload)
+                if (currentFragment is VenueImageUploadFragment)
                     Log.e("", "")
                 else {
                     fragment = VenueImageUploadFragment()
@@ -74,7 +74,7 @@ class UploadVenueMediaActivity : BaseActivity(), View.OnClickListener {
                 }
             }
             R.id.llVideos -> {
-                val currentFragment = supportFragmentManager.findFragmentById(R.id.frameLayoutUpload)
+                val currentFragment = supportFragmentManager.findFragmentById(R.id.frameLayoutMediaUpload)
                 if (currentFragment is UploadVideoFragment) {
 
                 } else {

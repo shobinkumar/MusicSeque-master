@@ -499,7 +499,7 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
                             mProfilePic = obj.getString("ProfilePic");
                             if (mProfilePic.equalsIgnoreCase("")) {
 
-                                ivProfilePic.setImageDrawable(getResources().getDrawable(R.drawable.icon_photo_upload_circle));
+                                ivProfilePic.setImageDrawable(getResources().getDrawable(R.drawable.icon_img_dummy));
                                 pBar.setVisibility(View.GONE);
 
                             } else {
@@ -523,22 +523,28 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
                             }
                         } else {
                             mProfilePic = obj.getString("SocialImageUrl");
-                            Glide.with(getActivity())
-                                    .load(mProfilePic)
-                                    .listener(new RequestListener<Drawable>() {
-                                        @Override
-                                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                                            pBar.setVisibility(View.GONE);
-                                            return false;
-                                        }
+                            if (mProfilePic.equalsIgnoreCase("")) {
+                                Glide.with(getActivity())
+                                        .load(R.drawable.icon_img_dummy).into(ivProfilePic);
+                            } else {
+                                Glide.with(getActivity())
+                                        .load(mProfilePic)
+                                        .listener(new RequestListener<Drawable>() {
+                                            @Override
+                                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                                pBar.setVisibility(View.GONE);
+                                                return false;
+                                            }
 
-                                        @Override
-                                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                                            pBar.setVisibility(View.GONE);
-                                            return false;
-                                        }
-                                    })
-                                    .into(ivProfilePic);
+                                            @Override
+                                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                                pBar.setVisibility(View.GONE);
+                                                return false;
+                                            }
+                                        })
+                                        .into(ivProfilePic);
+                            }
+
 
                         }
 
@@ -672,6 +678,8 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
                                     }
                                 })
                                 .into(ivProfilePic);
+
+                        getEditor().putString(Constants.PROFILE_IMAGE, jsonObject.getString("imageurl") + jsonObject.getString("ImageName")).commit();
 
                     } else {
 

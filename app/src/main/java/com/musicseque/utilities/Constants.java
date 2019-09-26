@@ -80,6 +80,10 @@ public class Constants {
 
     //Venue
     public static final String VENUE_LIST_API  ="Service/VenueListSearch";
+    public static final String VENUE_BOOK_API ="Service/VenueBooking";
+
+
+
    // public static final String VENUE_PROFILE_API="Service/VenueProfileDisplayViaId";
     public static final String VENUE_ADD_UPDATE_PROFILE_API="Service/VenueProfileSaveUpdate";
     public static final String USER_ID = "USER_ID";

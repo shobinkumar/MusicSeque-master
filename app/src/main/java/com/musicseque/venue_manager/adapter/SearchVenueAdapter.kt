@@ -43,7 +43,7 @@ class SearchVenueAdapter(val activity: Activity, val arrayList: ArrayList<VenueS
                         .into(itemView.ivVenueImage)
 
             }
-            itemView.tvVenueName.text = bandDataModel.venueName
+            itemView.tvVenueName.text = bandDataModel.venueManagerFullName
             itemView.tvVenueAddress.text = bandDataModel.venueAddress
             itemView.tvVenueCountry.text = bandDataModel.venueCity + "," + bandDataModel.venueCountry
             itemView.setOnClickListener {

@@ -362,7 +362,7 @@ public class OtherBandProfileDetailFragment extends BaseFragment implements View
                         mProfilePic = obj.getString("BandImg");
                         if (mProfilePic.equalsIgnoreCase("")) {
 
-                            ivProfilePic.setImageDrawable(getResources().getDrawable(R.drawable.icon_photo_upload_circle));
+                            ivProfilePic.setImageDrawable(getResources().getDrawable(R.drawable.icon_img_dummy));
                             pBar.setVisibility(View.GONE);
 
                         } else {

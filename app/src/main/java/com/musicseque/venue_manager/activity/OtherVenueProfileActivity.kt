@@ -122,9 +122,10 @@ class OtherVenueProfileActivity : BaseActivity(), MyInterface, View.OnClickListe
                         tvCapacity.text = jsonObj.getString("VenueCapacity")
                         tvFollowersCount.text = jsonObj.getString("Followers")
                         tvBio.text = jsonObj.getString("Bio")
+                        tvUserID.text=jsonObj.getString("UniqueCode")
 
                         if (jsonObj.getString("ProfilePic").equals("", true)) {
-
+                            Glide.with(this).load(R.drawable.icon_img_dummy).into(ivProfilePic)
                         } else {
                             Glide.with(this).load(jsonObj.getString("ImgUrl") + jsonObj.getString("ProfilePic")).into(ivProfilePic)
 
@@ -132,9 +133,12 @@ class OtherVenueProfileActivity : BaseActivity(), MyInterface, View.OnClickListe
 
                         if (jsonObj.getString("BackgroundImage").equals("", true)) {
                             progressBar.visibility = View.GONE
+                            Glide.with(this).load(jsonObj.getString("BackgroundImageUrl") + jsonObj.getString("BackgroundImage")).into(ivBackground)
+
+                            R.drawable.icon_img_dummy
 
                         } else {
-                            Glide.with(this).load(jsonObj.getString("BackgroundImageUrl") + jsonObj.getString("BackgroundImage")).into(ivBackground)
+                            Glide.with(this).load(R.drawable.icon_img_dummy).into(ivBackground)
                             progressBar.visibility = View.GONE
 
                         }

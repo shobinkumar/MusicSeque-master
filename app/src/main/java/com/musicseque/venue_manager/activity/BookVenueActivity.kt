@@ -30,7 +30,7 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.img_first_icon -> {
-
+            finish()
             }
         }
     }

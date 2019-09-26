@@ -36,7 +36,7 @@
                         android:id="@+id/ivProfile"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:src="@drawable/icon_photo_upload_circle" />
+                        android:src="@drawable/icon_img_dummy" />
 
                     <ProgressBar
                         android:id="@+id/pBar"
@@ -50,7 +50,6 @@
                         android:layout_width="100dp"
                         android:layout_height="100dp"
 
-                        android:src="@drawable/icon_photo_upload_circle"
                         android:visibility="gone" />
 
                     <ImageView

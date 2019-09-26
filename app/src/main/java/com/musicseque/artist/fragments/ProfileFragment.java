@@ -104,7 +104,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
 
     CircleImageView ivProfile;
     ImageView ivCamera;
-    ImageView ivAddImage;
+//    ImageView ivAddImage;
     ImageView ivStatus;
 
     TextView tvCountryCode, tvExperience, tvGenre, tvExpertise, tvCertification, tvGrade, tvCountry, tvCount;
@@ -206,7 +206,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
         pBar = (ProgressBar) v.findViewById(R.id.pBar);
         ivCamera = (ImageView) v.findViewById(R.id.ivCamera);
         ivProfile = (CircleImageView) v.findViewById(R.id.ivProfile);
-        ivAddImage = (ImageView) v.findViewById(R.id.ivAddImage);
+       // ivAddImage = (ImageView) v.findViewById(R.id.ivAddImage);
         ivStatus = (ImageView) v.findViewById(R.id.ivStatus);
 
         tvCountryCode = (TextView) v.findViewById(R.id.tvCountryCode);
@@ -262,7 +262,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
     private void listeners() {
         btn_submit.setOnClickListener(this);
         ivCamera.setOnClickListener(this);
-        ivAddImage.setOnClickListener(this);
+       // ivAddImage.setOnClickListener(this);
         ivStatus.setOnClickListener(this);
         tvCountryCode.setOnClickListener(this);
         tvExperience.setOnClickListener(this);
@@ -370,23 +370,28 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
         tvCountry.setText(mCountryName);
 
 
-        if (sharedPreferences.getString(Constants.LOGIN_TYPE, "Simple").equalsIgnoreCase("Simple")) {
+        if (sharedPreferences.getString(Constants.LOGIN_TYPE, "Simple").equalsIgnoreCase("Simple"))
+        {
             String mUrl = sharedPreferences.getString(Constants.PROFILE_IMAGE, "");
             if (mUrl.equalsIgnoreCase("")) {
-                ivProfile.setVisibility(View.GONE);
+                ivProfile.setVisibility(View.VISIBLE);
                 pBar.setVisibility(View.GONE);
                 ivCamera.setVisibility(View.GONE);
-                ivAddImage.setVisibility(View.VISIBLE);
-                ivAddImage.setImageDrawable(getResources().getDrawable(R.drawable.icon_photo_upload_circle));
-                ivAddImage.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        openDialog();
-                    }
-                });
+//                ivAddImage.setVisibility(View.VISIBLE);
+//                ivAddImage.setImageDrawable(getResources().getDrawable(R.drawable.icon_photo_upload_circle));
+//                ivAddImage.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        openDialog();
+//                    }
+//                });
+
+                Glide.with(ProfileFragment.this)
+                        .load(R.drawable.icon_img_dummy)
+                        .into(ivProfile);
             } else {
                 ivCamera.setVisibility(View.GONE);
-                ivAddImage.setVisibility(View.GONE);
+                //ivAddImage.setVisibility(View.GONE);
                 ivProfile.setVisibility(View.VISIBLE);
 
 
@@ -418,28 +423,45 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
 
 
             }
-        } else {
+        }
+        else {
             String mUrl = sharedPreferences.getString(Constants.PROFILE_IMAGE, "");
 
             ivCamera.setVisibility(View.GONE);
-            ivAddImage.setVisibility(View.GONE);
+          //  ivAddImage.setVisibility(View.GONE);
+            pBar.setVisibility(View.GONE);
+            if(mUrl.equalsIgnoreCase(""))
+            {
+                Glide.with(ProfileFragment.this)
+                        .load(R.drawable.icon_img_dummy)
+                        .into(ivProfile);
+            }
+            else
+            {
+                Glide.with(ProfileFragment.this)
+                        .asBitmap()
+                        .load(mUrl)
+                        .into(ivProfile);
 
-            Glide.with(ProfileFragment.this)
-                    .load(mUrl)
-                    .listener(new RequestListener<Drawable>() {
-                        @Override
-                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                            pBar.setVisibility(View.GONE);
-                            return false;
-                        }
 
-                        @Override
-                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                            pBar.setVisibility(View.GONE);
-                            return false;
-                        }
-                    })
-                    .into(ivProfile);
+//                Glide.with(ProfileFragment.this)
+//                        .load(mUrl)
+//                        .listener(new RequestListener<Drawable>() {
+//                            @Override
+//                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+//                                pBar.setVisibility(View.GONE);
+//                                return false;
+//                            }
+//
+//                            @Override
+//                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+//                                pBar.setVisibility(View.GONE);
+//                                return false;
+//                            }
+//                        })
+//                        .into(ivProfile);
+            }
+
         }
 
     }
@@ -452,9 +474,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
                 openDialog();
                 break;
 
-            case R.id.ivAddImage:
-                openDialog();
-                break;
+//            case R.id.ivAddImage:
+//                openDialog();
+//                break;
 
             case R.id.btn_submit:
                 apiUpdateProfile();
@@ -684,7 +706,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
             } else if (mBio.equalsIgnoreCase("")) {
                 Utils.showToast(getActivity(), getResources().getString(R.string.err_bio));
 
-            } else if (mCount < 275) {
+            } else if (mCount < 10) {
                 Utils.showToast(getActivity(), getResources().getString(R.string.err_bio_count));
 
             } else if (mGenre.equalsIgnoreCase("")) {
@@ -942,7 +964,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
         ivProfile.setVisibility(View.VISIBLE);
         pBar.setVisibility(View.GONE);
         ivCamera.setVisibility(View.VISIBLE);
-        ivAddImage.setVisibility(View.GONE);
+       // ivAddImage.setVisibility(View.GONE);
         Glide.with(getActivity()).load(file).into(ivProfile);
 
     }
@@ -1018,16 +1040,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
                     arrGenre = genreNameAL.toArray(new String[genreNameAL.size()]);
                     getUserProfile();
 
-//                    String[] arrCertification = {"ABSRM", "Trinity"};
-//                    ArrayAdapter<String> adapterCertification =
-//                            new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, arrCertification);
-//                    spinnerCertification.setAdapter(adapterCertification);
-//
-//                    String[] arrSkills = {"Singer", "Lyricst", "Guitar", "Bands", "Drum", "Piano", "Song Writer", "Music Teacher"};
-//                    ArrayAdapter<String> adapterSkills =
-//                            new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, arrSkills);
-//                    spinnerSkills.setAdapter(adapterSkills);
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -1036,19 +1048,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
                 try {
                     JSONObject obj = new JSONObject(response.toString());
                     if (obj.getString("Status").equalsIgnoreCase("Success")) {
-//                        editor.putString(Constants.USER_NAME, obj.getString("FirstName") + " " + obj.getString("LastName")).commit();
-//                        editor.putString(Constants.USER_ID, obj.getString("Id")).commit();
-//
-//
-//                        editor.putString(Constants.USER_ID, obj.getString("Id")).commit();
-//                        editor.putString(Constants.PROFILE_TYPE, obj.getString("ProfileTypeName")).commit();
-//                        editor.putString(Constants.PROFILE_ID, obj.getString("ProfileTypeId")).commit();
-//                        editor.putString(Constants.EMAIL_ID, obj.getString("Email")).commit();
-//                        editor.putString(Constants.PROFILE_IMAGE, obj.getString("SocialImageurl")).commit();
-//                        editor.putString(Constants.COUNTRY_CODE, obj.getString("CountryCode")).commit();
-//                        editor.putString(Constants.MOBILE_NUMBER, obj.getString("Phone")).commit();
-//                        editor.putString(Constants.COUNTRY_NAME, obj.getString("CountryName")).commit();
-//                        editor.putString(Constants.COUNTRY_ID, obj.getString("CountryId")).commit();
 
 
                         tvUserName.setText(obj.getString("FirstName") + " " + obj.getString("LastName"));

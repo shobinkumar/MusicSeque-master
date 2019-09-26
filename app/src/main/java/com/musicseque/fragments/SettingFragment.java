@@ -24,6 +24,7 @@ import com.musicseque.R;
 import com.musicseque.artist.activity.ChangePasswordActivity;
 import com.musicseque.artist.activity.PrivacyPolicyActivity;
 import com.musicseque.artist.activity.ReportProblemActivity;
+import com.musicseque.artist.fragments.ProfileFragment;
 import com.musicseque.artist.service.CommonService;
 import com.musicseque.dagger_data.DaggerRetrofitComponent;
 import com.musicseque.dagger_data.RetrofitComponent;
@@ -33,6 +34,7 @@ import com.musicseque.retrofit_interface.RetrofitAPI;
 import com.musicseque.start_up.LoginActivity;
 import com.musicseque.utilities.Constants;
 import com.musicseque.utilities.Utils;
+import com.musicseque.venue_manager.fragment.CreateVenueFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,7 +43,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-
+import static com.musicseque.utilities.Constants.PROFILE_TYPE;
 
 
 public class SettingFragment extends Fragment implements View.OnClickListener, MyInterface {
@@ -82,6 +84,13 @@ public class SettingFragment extends Fragment implements View.OnClickListener, M
             tvChangePassword.setVisibility(View.VISIBLE);
         } else {
             tvChangePassword.setVisibility(View.GONE);
+        }
+
+        if (sharedPreferences.getString(PROFILE_TYPE, "").equalsIgnoreCase("VenueManager")) {
+           tvStatus.setVisibility(View.GONE);
+        } else {
+            tvStatus.setVisibility(View.VISIBLE);
+
         }
 
         return v;

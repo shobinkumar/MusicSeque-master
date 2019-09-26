@@ -245,8 +245,8 @@
     <string name="err_event_type">Select event type</string>
     <string name="str_venue_name">Venue Name</string>
     <string name="str_about_venue">About Venue*</string>
-    <string name="str_address">Address</string>
-    <string name="str_venue_capacity">Capacity</string>
+    <string name="str_address">Address*</string>
+    <string name="str_venue_capacity">Capacity*</string>
     <string name="txt_capacity">Capacity</string>
     <string name="err_current_date">From Date should not before current date</string>
     <string name="err_address">Please enter the address</string>

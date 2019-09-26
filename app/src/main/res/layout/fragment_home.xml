@@ -175,7 +175,6 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:padding="@dimen/_5sdp"
-                android:text="Location : Camden Town. UK"
                 android:textColor="#ffffff"
 
                 android:textSize="@dimen/_15sdp" />

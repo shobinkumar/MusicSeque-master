@@ -31,7 +31,7 @@ class PastEventDetailActivity : BaseActivity(), View.OnClickListener, MyInterfac
 
 
     private fun initViews() {
-        tv_title.text = "Past Event Detail"
+        tv_title.text = "Past Event Details"
         img_right_icon.visibility = View.GONE
     }
 

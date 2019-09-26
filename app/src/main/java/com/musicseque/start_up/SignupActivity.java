@@ -202,12 +202,21 @@ public class   SignupActivity extends Activity implements View.OnClickListener, 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
 
-                pro_type.setText(userType[pos]);
-                list.setVisibility(View.GONE);
-                if(pos==0)
-                profileType = String.valueOf((pos + 1));
+
+                if(userType[pos].equals("Artist") || userType[pos].equals("Venue"))
+                {
+                    pro_type.setText(userType[pos]);
+                    list.setVisibility(View.GONE);
+                    if(pos==0)
+                        profileType = String.valueOf((pos + 1));
+                    else
+                        profileType = String.valueOf((pos + 2));
+                }
                 else
-                    profileType = String.valueOf((pos + 2));
+                {
+                    Utils.showToast(SignupActivity.this,"You can select only artist and venue for now");
+                }
+
 
 
             }

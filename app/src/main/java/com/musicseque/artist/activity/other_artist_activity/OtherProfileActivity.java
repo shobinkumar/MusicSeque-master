@@ -204,6 +204,7 @@ public class OtherProfileActivity extends BaseActivity implements MyInterface {
                         tvGenre.setText(obj.getString("GenreTypeName"));
                         tvExperience.setText(obj.getString("ExperienceYear"));
                         tvBio.setText(obj.getString("Bio"));
+                        tvUserID.setText(obj.getString("UniqueCode"));
 
                         if (obj.getString("NewStatus").equalsIgnoreCase("Available")) {
                             ivIndicator.setImageDrawable(getResources().getDrawable(R.drawable.icon_green));
@@ -229,11 +230,12 @@ public class OtherProfileActivity extends BaseActivity implements MyInterface {
                             mProfilePic = obj.getString("ProfilePic");
                             if (mProfilePic.equalsIgnoreCase("")) {
 
-                                ivProfilePic.setImageDrawable(getResources().getDrawable(R.drawable.icon_photo_upload_circle));
+                                ivProfilePic.setImageDrawable(getResources().getDrawable(R.drawable.icon_img_dummy));
                                 pBar.setVisibility(View.GONE);
 
                             } else {
                                 mProfilePic = obj.getString("ImgUrl") + obj.getString("ProfilePic");
+
                                 Glide.with(this)
                                         .load(mProfilePic)
                                         .listener(new RequestListener<Drawable>() {
@@ -294,6 +296,9 @@ public class OtherProfileActivity extends BaseActivity implements MyInterface {
                                     .into(ivBackground);
                         } else {
                             progressBar.setVisibility(View.GONE);
+                            Glide.with(this)
+                                    .load(R.drawable.icon_img_dummy)
+                                    .into(ivBackground);
                         }
                     }
 
@@ -402,7 +407,7 @@ public class OtherProfileActivity extends BaseActivity implements MyInterface {
                 finish();
                 break;
             case R.id.tvBand:
-                startActivity(new Intent(this, ArtistBandListActivity.class).putExtra("id",mUSerId));
+                startActivity(new Intent(this, ArtistBandListActivity.class).putExtra("id", mUSerId));
                 break;
             case R.id.btnFollow:
                 changeFollowStatus();

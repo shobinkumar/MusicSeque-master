@@ -479,7 +479,7 @@ public class BandProfileDetailFragment extends BaseFragment implements View.OnCl
                         mProfilePic = obj.getString("BandImg");
                         if (mProfilePic.equalsIgnoreCase("")) {
 
-                            ivProfilePic.setImageDrawable(getResources().getDrawable(R.drawable.icon_photo_upload_circle));
+                            ivProfilePic.setImageDrawable(getResources().getDrawable(R.drawable.icon_img_dummy));
                             pBar.setVisibility(View.GONE);
 
                         } else {
@@ -525,6 +525,9 @@ public class BandProfileDetailFragment extends BaseFragment implements View.OnCl
                                     .into(ivBackground);
                         } else {
                             progressBar.setVisibility(View.GONE);
+                            Glide.with(getActivity())
+                                    .load(R.drawable.icon_img_dummy)
+                                    .into(ivBackground);
                         }
 
 

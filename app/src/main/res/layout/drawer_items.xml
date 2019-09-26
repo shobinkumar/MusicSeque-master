@@ -384,7 +384,7 @@
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_gravity="center"
-                android:src="@drawable/schedule" />
+                android:src="@drawable/icon_navigation_clock" />
 
             <com.musicseque.Fonts.Noyhr
                 android:id="@+id/tvTimmings"
@@ -392,7 +392,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:text="Timmings"
+                android:text="Timings"
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/_15sdp" />
 

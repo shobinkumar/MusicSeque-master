@@ -164,7 +164,7 @@
                     android:textColor="@color/color_white"
 
                     android:textColorHint="@color/color_white"
-                    android:textSize="15sp" />
+                    android:textSize="18sp" />
 
                 <View
                     android:layout_width="match_parent"

@@ -77,7 +77,7 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:padding="1dp"
-                android:src="@color/color_orange"
+                android:src="@drawable/icon_img_dummy"
                 app:layout_constraintBottom_toBottomOf="@+id/ivBackground"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -213,6 +213,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
                 android:src="@drawable/icon_green"
+                android:visibility="invisible"
                 app:layout_constraintStart_toEndOf="@+id/tvUserNameDetail"
                 app:layout_constraintTop_toTopOf="@+id/tvUserNameDetail" />
 
@@ -226,7 +227,6 @@
                 android:layout_marginEnd="8dp"
                 android:drawableLeft="@drawable/icon_location"
                 android:drawablePadding="5dp"
-                android:text="Hello"
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/_14sdp"
                 app:layout_constraintEnd_toEndOf="parent"

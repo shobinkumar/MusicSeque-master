@@ -41,7 +41,7 @@
                         android:id="@+id/ivVenueImage"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:src="@drawable/icon_photo_upload_circle" />
+                        android:src="@drawable/icon_img_dummy" />
 
                     <ProgressBar
                         android:id="@+id/pBar"
@@ -54,7 +54,6 @@
                         android:layout_width="100dp"
                         android:layout_height="100dp"
 
-                        android:src="@drawable/icon_photo_upload_circle"
                         android:visibility="gone" />
 
                     <ImageView
@@ -472,7 +471,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight=".70"
                         android:background="#0C1C24"
-                        android:hint="Please enter the capacity of venue   "
+                        android:hint="Capacity of venue"
                         android:maxLength="12"
                         android:maxLines="1"
                         android:inputType="number"

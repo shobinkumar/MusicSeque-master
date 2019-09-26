@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +14,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -40,6 +42,7 @@ import com.musicseque.fragments.SettingFragment;
 import com.musicseque.service.LocationService;
 import com.musicseque.start_up.LoginActivity;
 import com.musicseque.utilities.Constants;
+import com.musicseque.utilities.Utils;
 import com.musicseque.venue_manager.activity.UploadVenueMediaActivity;
 import com.musicseque.venue_manager.fragment.CreateVenueFragment;
 import com.musicseque.venue_manager.fragment.VenueProfileDetailFragment;
@@ -55,7 +58,7 @@ import butterknife.OnClick;
 import static com.musicseque.utilities.Constants.PROFILE_TYPE;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener,DrawerLayout.DrawerListener{
 
     private ImageView iv_home, iv_profile, iv_feature, iv_chat, iv_settings;
 
@@ -201,6 +204,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @BindView(R.id.drawerLayout)
     DrawerLayout navDrawer;
     private Fragment fragment;
+    
+    
+    String mLoginType="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -225,6 +231,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sharedPreferences = retrofitComponent.getShared();
         editor = retrofitComponent.getEditor();
         editor.putBoolean(Constants.IS_LOGIN, true).commit();
+        mLoginType=sharedPreferences.getString(PROFILE_TYPE,"");
 
 
     }
@@ -247,6 +254,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         iv_chat.setOnClickListener(this);
         iv_settings.setOnClickListener(this);
         ivDrawer.setOnClickListener(this);
+        navDrawer.setDrawerListener(this);
 
     }
 
@@ -359,13 +367,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if (view == iv_profile) {
 
             if (sharedPreferences.getString(Constants.IS_FIRST_LOGIN, "").equalsIgnoreCase("Y")) {
-                if (sharedPreferences.getString(PROFILE_TYPE, "").equalsIgnoreCase("VenueManager")) {
+                if (mLoginType.equalsIgnoreCase("VenueManager")) {
                     fragment = new CreateVenueFragment();
                 } else {
                     fragment = new ProfileFragment();
                 }
             } else {
-                if (sharedPreferences.getString(PROFILE_TYPE, "").equalsIgnoreCase("VenueManager")) {
+                if (mLoginType.equalsIgnoreCase("VenueManager")) {
                     fragment = new VenueProfileDetailFragment();
                 } else {
                     fragment = new ProfileDetailFragment();
@@ -526,9 +534,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 {
                     startActivity(new Intent(this, UploadActivity.class));
                 }
-                else if(sharedPreferences.getString(PROFILE_TYPE, "").equalsIgnoreCase("VenueManager"))
+                else if(mLoginType.equalsIgnoreCase("VenueManager"))
                 {
-                    startActivity(new Intent(this, UploadVenueMediaActivity.class));
+                    Utils.showToast(MainActivity.this,"Currently working");
+                   // startActivity(new Intent(this, UploadVenueMediaActivity.class));
                 }
 
 
@@ -578,13 +587,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
             case R.id.tvUpcomingEvent:
-                startActivity(new Intent(this, EventsListActivity.class).putExtra("type", 2));
-                navDrawer.closeDrawers();
+                if(mLoginType.equalsIgnoreCase("VenueManager"))
+                {
+                    Utils.showToast(MainActivity.this,"Coming Soon");
+                }
+                else
+                {
+                    startActivity(new Intent(this, EventsListActivity.class).putExtra("type", 2));
+                    navDrawer.closeDrawers();
+                }
+                
+                
+
                 break;
 
             case R.id.tvPastEvents:
-                startActivity(new Intent(this, EventsListActivity.class).putExtra("type", 1));
-                navDrawer.closeDrawers();
+
+                if(mLoginType.equalsIgnoreCase("VenueManager"))
+                {
+                    Utils.showToast(MainActivity.this,"Coming Soon");
+                }
+                else
+                {
+                    startActivity(new Intent(this, EventsListActivity.class).putExtra("type", 1));
+                    navDrawer.closeDrawers();
+                }
+
+
+
                 break;
 
 
@@ -621,7 +651,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     void closeProfile() {
-       if(sharedPreferences.getString(PROFILE_TYPE, "").equalsIgnoreCase("VenueManager"))
+       if(mLoginType.equalsIgnoreCase("VenueManager"))
         {
 
         }
@@ -647,7 +677,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void showHideDrawerViews() {
-        if (sharedPreferences.getString(PROFILE_TYPE, "").equalsIgnoreCase("VenueManager")) {
+        if (mLoginType.equalsIgnoreCase("VenueManager")) {
             tvAddEvent.setVisibility(View.GONE);
             llAllProfile.setVisibility(View.GONE);
             ivUpArrow.setVisibility(View.GONE);
@@ -691,4 +721,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             tvNotificationCount.setText(intent.getStringExtra("notification_count"));
         }
     };
+
+    @Override
+    public void onDrawerSlide(@NonNull View view, float v) {
+        if (!navDrawer.isDrawerOpen(GravityCompat.START)) {
+            navDrawer.openDrawer(Gravity.START);
+            String mUrl = sharedPreferences.getString(Constants.PROFILE_IMAGE, "");
+            if (mUrl.equalsIgnoreCase("")) {
+                Glide.with(this)
+                        .load(R.drawable.icon_img_dummy)
+                        .into(ivProfile);
+            } else {
+                Glide.with(this)
+                        .load(mUrl)
+                        .into(ivProfile);
+            }
+        } else {
+            navDrawer.closeDrawers();
+        }
+
+
+    }
+
+    @Override
+    public void onDrawerOpened(@NonNull View view) {
+        Log.e("","");
+
+    }
+
+    @Override
+    public void onDrawerClosed(@NonNull View view) {
+        Log.e("","");
+
+    }
+
+    @Override
+    public void onDrawerStateChanged(int i) {
+
+    }
 }

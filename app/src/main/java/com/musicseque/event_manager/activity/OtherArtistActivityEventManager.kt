@@ -129,7 +129,7 @@ class OtherArtistActivityEventManager : BaseActivity(), MyInterface {
                         mProfilePic = obj.getString("ProfilePic")
                         if (mProfilePic.equals("", ignoreCase = true)) {
 
-                            ivProfilePic.setImageDrawable(resources.getDrawable(R.drawable.icon_photo_upload_circle))
+                            ivProfilePic.setImageDrawable(resources.getDrawable(R.drawable.icon_img_dummy))
                             pBar.setVisibility(View.GONE)
 
                         } else {
