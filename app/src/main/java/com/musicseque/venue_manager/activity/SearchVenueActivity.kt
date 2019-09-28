@@ -16,6 +16,7 @@ import com.musicseque.interfaces.MyInterface
 import com.musicseque.retrofit_interface.KotlinHitAPI
 import com.musicseque.utilities.Constants
 import com.musicseque.utilities.KotlinUtils
+import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils
 import com.musicseque.venue_manager.adapter.SearchVenueAdapter
 import com.musicseque.venue_manager.model.VenueSearchModel
@@ -49,7 +50,7 @@ class SearchVenueActivity : BaseActivity(), View.OnClickListener, MyInterface {
 //        if (Utils.isNetworkConnected(this@SearchVenueActivity)) {
 //            val jsonObject = JSONObject()
 //            try {
-//                jsonObject.put("LoggedInUserId", sharedPreferences.getString(Constants.USER_ID, ""))
+//                jsonObject.put("LoggedInUserId", SharedPref.getString(Constants.USER_ID, ""))
 //
 //                jsonObject.put("SearchText", "")
 //
@@ -100,7 +101,7 @@ class SearchVenueActivity : BaseActivity(), View.OnClickListener, MyInterface {
             Utils.initializeAndShow(this)
             val jsonObject = JSONObject()
             try {
-                jsonObject.put("LoggedInUserId", sharedPreferences.getString(Constants.USER_ID, ""))
+                jsonObject.put("LoggedInUserId", SharedPref.getString(Constants.USER_ID, ""))
 
                 jsonObject.put("SearchText", params)
                 KotlinHitAPI.callAPI(jsonObject.toString(), Constants.FOR_SEARCH_VENUE_LIST, this@SearchVenueActivity)

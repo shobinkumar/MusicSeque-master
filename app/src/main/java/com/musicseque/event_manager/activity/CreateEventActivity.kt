@@ -35,6 +35,7 @@ import com.musicseque.R
 import com.musicseque.event_manager.model.EventModel
 import com.musicseque.fragments.HomeFragment
 import com.musicseque.retrofit_interface.ImageUploadClass
+import com.musicseque.utilities.SharedPref
 import kotlinx.android.synthetic.main.row_event_list.view.*
 import kotlinx.android.synthetic.main.toolbar_top.*
 import okhttp3.MediaType
@@ -281,7 +282,7 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                     obj.put("EventGatheringCapacity", mAttendence)
                     obj.put("EventChargesPayCurrencyId", mCurrencyId)
                     obj.put("EventBudget", mBudgetGuest)
-                    obj.put("EventManagerId", sharedPreferences.getString(Constants.USER_ID, ""))
+                    obj.put("EventManagerId", SharedPref.getString(Constants.USER_ID, ""))
                     getAPI("submit", obj.toString())
 
                 }

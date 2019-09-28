@@ -17,13 +17,15 @@ import com.musicseque.interfaces.MyInterface
 import com.musicseque.interfaces.RemoveMemberInterface
 import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.Constants
+import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils
 import kotlinx.android.synthetic.main.fragment_band_members.*
 import kotlinx.android.synthetic.main.fragment_band_members.view.*
 import org.json.JSONException
 import org.json.JSONObject
 
-class BandMemberStatusFragment : BaseFragment(), MyInterface, View.OnClickListener, RemoveMemberInterface {
+class BandMemberStatusFragment : BaseFragment(), MyInterface, View.OnClickListener, RemoveMemberInterface
+{
 
 
     var alModel = ArrayList<BandMemberStatusModel>()
@@ -60,14 +62,15 @@ class BandMemberStatusFragment : BaseFragment(), MyInterface, View.OnClickListen
         mBandId = arguments!!.getString("band_id")
     }
 
-    private fun hitAPI(API_TYPE: Int, bandId: String) {
+    private fun hitAPI(API_TYPE: Int, bandId: String)
+    {
         Utils.initializeAndShow(activity)
         if (Utils.isNetworkConnected(activity)) {
 
 
             val obj = JSONObject();
             if (API_TYPE == GET_MEMBERS) {
-                obj.put("BandManagerId", sharedPref.getString(Constants.USER_ID, ""))
+                obj.put("BandManagerId", SharedPref.getString(Constants.USER_ID, ""))
                 obj.put("BandId", bandId)
 
                 RetrofitAPI.callAPI(obj.toString(), Constants.FOR_BAND_MEMBER_STATUS, this);
@@ -82,7 +85,8 @@ class BandMemberStatusFragment : BaseFragment(), MyInterface, View.OnClickListen
 
     }
 
-    override fun sendResponse(response: Any?, TYPE: Int) {
+    override fun sendResponse(response: Any?, TYPE: Int)
+    {
 
              Utils.hideProgressDialog()
         when (TYPE)
@@ -94,7 +98,7 @@ class BandMemberStatusFragment : BaseFragment(), MyInterface, View.OnClickListen
 
                     val data = obj.getJSONArray("result")
                    // tvAddBandMember.visibility = View.GONE
-                    recyclerBandMember.visibility = View.VISIBLE
+                      recyclerBandMember.visibility = View.VISIBLE
                     val gson = Gson()
                     val itemType = object : TypeToken<ArrayList<BandMemberStatusModel>>() {}.type
                     alModel = gson.fromJson<ArrayList<BandMemberStatusModel>>(data.toString(), itemType)
@@ -161,7 +165,7 @@ class BandMemberStatusFragment : BaseFragment(), MyInterface, View.OnClickListen
         val jsonObject = JSONObject()
         try {
             jsonObject.put("BandId", mBandId)
-            jsonObject.put("BandManagerId", sharedPref.getString(Constants.USER_ID, ""))
+            jsonObject.put("BandManagerId", SharedPref.getString(Constants.USER_ID, ""))
             jsonObject.put("BandMemberId", data.artistUserId)
 
         } catch (e: JSONException) {

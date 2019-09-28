@@ -17,6 +17,7 @@ import com.musicseque.interfaces.MyInterface;
 import com.musicseque.models.NotificationModel;
 import com.musicseque.retrofit_interface.RetrofitAPI;
 import com.musicseque.utilities.Constants;
+import com.musicseque.utilities.SharedPref;
 import com.musicseque.utilities.Utils;
 
 import org.json.JSONArray;
@@ -74,7 +75,7 @@ public class NotificationActivity extends BaseActivity implements MyInterface, C
             showDialog();
             try {
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("LoggedInArtistId", sharedPreferences.getString(Constants.USER_ID, ""));
+                jsonObject.put("LoggedInArtistId", SharedPref.getString(Constants.USER_ID, ""));
                 RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_NOTIFICATION, NotificationActivity.this);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -151,7 +152,7 @@ public class NotificationActivity extends BaseActivity implements MyInterface, C
 
             JSONObject object = new JSONObject();
             try {
-                object.put("LoggedInArtistId", sharedPreferences.getString(Constants.USER_ID, ""));
+                object.put("LoggedInArtistId", SharedPref.getString(Constants.USER_ID, ""));
                 object.put("BandId", model.getBandId());
                 object.put("BandManagerId", model.getBandManagerId());
                 object.put("RequestStatus", "Y");
@@ -166,7 +167,7 @@ public class NotificationActivity extends BaseActivity implements MyInterface, C
             JSONObject object = new JSONObject();
 
             try {
-                object.put("LoggedInArtistId", sharedPreferences.getString(Constants.USER_ID, ""));
+                object.put("LoggedInArtistId", SharedPref.getString(Constants.USER_ID, ""));
                 object.put("BandId", model.getBandId());
                 object.put("BandManagerId", model.getBandManagerId());
                 object.put("RequestStatus", "N");

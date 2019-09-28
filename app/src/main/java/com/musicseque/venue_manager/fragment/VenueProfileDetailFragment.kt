@@ -20,11 +20,10 @@ import com.musicseque.R
 import com.musicseque.interfaces.MyInterface
 import com.musicseque.retrofit_interface.ImageUploadClass
 import com.musicseque.retrofit_interface.RetrofitAPI
-import com.musicseque.utilities.Constants
-import com.musicseque.utilities.KotlinBaseFragment
-import com.musicseque.utilities.KotlinUtils
-import com.musicseque.utilities.Utils
+import com.musicseque.utilities.*
+import kotlinx.android.synthetic.main.fragment_create_venue.*
 import kotlinx.android.synthetic.main.fragment_venue_profile_detail.*
+import kotlinx.android.synthetic.main.fragment_venue_profile_detail.pBar
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -110,7 +109,7 @@ class VenueProfileDetailFragment : KotlinBaseFragment(), View.OnClickListener, M
             if (type.equals("profile")) {
                 try {
                     val jsonObject = JSONObject()
-                    jsonObject.put("UserId", getSharedPref().getString(Constants.USER_ID, ""))
+                    jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""))
                     RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_USER_PROFILE, this)
                 } catch (e: JSONException) {
                     e.printStackTrace()
@@ -126,7 +125,7 @@ class VenueProfileDetailFragment : KotlinBaseFragment(), View.OnClickListener, M
     public fun getImage(file: File) {
         val mFile = RequestBody.create(MediaType.parse("image/*"), file)
         val fileToUpload = MultipartBody.Part.createFormData("file", file.name, mFile)
-        val mUSerId = RequestBody.create(MediaType.parse("text/plain"), sharedPref.getString(Constants.USER_ID, "")!!)
+        val mUSerId = RequestBody.create(MediaType.parse("text/plain"), SharedPref.getString(Constants.USER_ID, "")!!)
 
         if (isProfilePIc) {
 
@@ -150,20 +149,40 @@ class VenueProfileDetailFragment : KotlinBaseFragment(), View.OnClickListener, M
                 Constants.FOR_USER_PROFILE -> {
                     try {
                         tvUserNameDetail.setText(jsonObj.getString("FirstName") + " " + jsonObj.getString("LastName"))
-                        tvUserID.text = sharedPref.getString(Constants.UNIQUE_CODE, "")
+                        tvUserID.text = SharedPref.getString(Constants.UNIQUE_CODE, "")
                         tvUserLocation.setText(jsonObj.getString("City") + ", " + jsonObj.getString("CountryName"))
                         tvReviews.text = "(" + jsonObj.getString("Reviews") + " reviews" + ")"
                         tvCapacity.text = jsonObj.getString("VenueCapacity")
                         tvFollowersCount.text = jsonObj.getString("Followers")
                         tvBio.text = jsonObj.getString("Bio")
 
-                        if (jsonObj.getString("ProfilePic").equals("", true)) {
-                            Glide.with(this).load(R.drawable.icon_img_dummy).into(ivProfilePic)
 
+
+
+                        if (jsonObj.getString("SocialId").equals("")) {
+                            ivCameraProfilePic.visibility = View.VISIBLE
+                            if (jsonObj.getString("ProfilePic").equals("")) {
+                                Glide.with(this).load(R.drawable.icon_img_dummy).into(ivProfilePic)
+
+                                pBar.visibility = View.GONE
+                            } else {
+                                Glide.with(this).load(jsonObj.getString("ImgUrl") + jsonObj.getString("ProfilePic")).into(ivProfilePic)
+                                pBar.visibility = View.GONE
+
+                            }
                         } else {
-                            Glide.with(this).load(jsonObj.getString("ImgUrl") + jsonObj.getString("ProfilePic")).into(ivProfilePic)
-
+                            ivCameraProfilePic.visibility = View.GONE
+                            val sUrl = jsonObj.getString("SocialImageUrl")
+                            if (sUrl.equals(""))
+                                Glide.with(this).load(R.drawable.icon_img_dummy).into(ivProfilePic)
+                            else
+                                Glide.with(this).load(sUrl).into(ivProfilePic)
+                            pBar.visibility = View.GONE
                         }
+
+
+
+
 
                         if (jsonObj.getString("BackgroundImage").equals("", true)) {
                             progressBar.visibility = View.GONE
@@ -184,7 +203,7 @@ class VenueProfileDetailFragment : KotlinBaseFragment(), View.OnClickListener, M
                 Constants.FOR_UPLOAD_PROFILE_IMAGE -> {
                     val jsonObject = JSONObject(response.toString())
                     if (jsonObject.getString("Status").equals("Success", ignoreCase = true)) {
-                        editor.putString(Constants.PROFILE_IMAGE, jsonObject.getString("imageurl") + jsonObject.getString("ImageName")).commit()
+                        SharedPref.putString(Constants.PROFILE_IMAGE, jsonObject.getString("imageurl") + jsonObject.getString("ImageName"))
                         Utils.showToast(activity, "Profile Pic uploaded successfully")
                         //Glide.with(getActivity()).load(jsonObject.getString("imageurl") + jsonObject.getString("ImageName")).into(ivProfilePic);
 
@@ -206,7 +225,7 @@ class VenueProfileDetailFragment : KotlinBaseFragment(), View.OnClickListener, M
 //                                })
 //                                .into(ivProfilePic)
 
-                        editor.putString(Constants.PROFILE_IMAGE, jsonObject.getString("imageurl") + jsonObject.getString("ImageName")).commit()
+                        SharedPref.putString(Constants.PROFILE_IMAGE, jsonObject.getString("imageurl") + jsonObject.getString("ImageName"))
 
                     } else {
 

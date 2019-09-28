@@ -19,6 +19,7 @@ import com.musicseque.fragments.SettingFragment
 import com.musicseque.service.LocationService
 import com.musicseque.start_up.LoginActivity
 import com.musicseque.utilities.Constants
+import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils
 import org.json.JSONException
 import org.json.JSONObject
@@ -48,7 +49,7 @@ class MainActivityEventManager : BaseActivity(), View.OnClickListener {
     private fun uploadLocation() {
         val jsonObject = JSONObject()
         try {
-            jsonObject.put("UserId", sharedPreferences.getString(Constants.USER_ID, ""))
+            jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""))
             jsonObject.put("Latitude", LocationService.mLatitude)
             jsonObject.put("Longitude", LocationService.mLongitude)
         } catch (e: JSONException) {
@@ -61,10 +62,10 @@ class MainActivityEventManager : BaseActivity(), View.OnClickListener {
     }
 
     private fun defaultValues() {
-        tvUserName.setText(sharedPreferences.getString(Constants.USER_NAME, ""))
-        tvType.setText(sharedPreferences.getString(Constants.PROFILE_TYPE, ""))
-        tvId.setText("ID : " + sharedPreferences.getString(Constants.UNIQUE_CODE, "")!!)
-        val mUrl = sharedPreferences.getString(Constants.PROFILE_IMAGE, "")
+        tvUserName.setText(SharedPref.getString(Constants.USER_NAME, ""))
+        tvType.setText(SharedPref.getString(Constants.PROFILE_TYPE, ""))
+        tvId.setText("ID : " + SharedPref.getString(Constants.UNIQUE_CODE, "")!!)
+        val mUrl = SharedPref.getString(Constants.PROFILE_IMAGE, "")
         if (mUrl!!.equals("", ignoreCase = true)) {
             Glide.with(this)
                     .load(R.drawable.icon_img_dummy)

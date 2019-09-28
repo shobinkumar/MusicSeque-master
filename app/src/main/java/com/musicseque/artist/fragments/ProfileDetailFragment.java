@@ -45,6 +45,7 @@ import com.musicseque.retrofit_interface.ImageUploadClass;
 import com.musicseque.retrofit_interface.RetrofitAPI;
 import com.musicseque.utilities.Constants;
 import com.musicseque.utilities.FileUtils;
+import com.musicseque.utilities.SharedPref;
 import com.musicseque.utilities.Utils;
 
 import org.json.JSONArray;
@@ -191,9 +192,9 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
     }
 
     private void showDefaultData() {
-        if (getSharedPref().getString(Constants.VISIBILITY_STATUS, "Available").equalsIgnoreCase("Available")) {
+        if (SharedPref.getString(Constants.VISIBILITY_STATUS, "Available").equalsIgnoreCase("Available")) {
             ivIndicator.setImageDrawable(getResources().getDrawable(R.drawable.icon_green));
-        } else if (getSharedPref().getString(Constants.VISIBILITY_STATUS, "Available").equalsIgnoreCase("Offline")) {
+        } else if (SharedPref.getString(Constants.VISIBILITY_STATUS, "Available").equalsIgnoreCase("Offline")) {
             ivIndicator.setImageDrawable(getResources().getDrawable(R.drawable.icon_invisible));
         } else {
             ivIndicator.setImageDrawable(getResources().getDrawable(R.drawable.icon_red));
@@ -355,7 +356,7 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
             initializeLoader();
             try {
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("UserId", getSharedPref().getString(Constants.USER_ID, ""));
+                jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""));
                 RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_USER_PROFILE, ProfileDetailFragment.this);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -423,7 +424,7 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
                     File file = new File(filePath);
                     RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
                     MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
-                    RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), getSharedPref().getString(Constants.USER_ID, ""));
+                    RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), SharedPref.getString(Constants.USER_ID, ""));
                     if (Utils.isNetworkConnected(getActivity())) {
                         initializeLoader();
                         isPicAPIHit = true;
@@ -448,7 +449,7 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
                 File file = new File(filePath);
                 RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
                 MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
-                RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), getSharedPref().getString(Constants.USER_ID, ""));
+                RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), SharedPref.getString(Constants.USER_ID, ""));
 
 
                 if (Utils.isNetworkConnected(getActivity())) {
@@ -483,7 +484,7 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
                         tvUserType.setText(obj.getString("Expertise"));
                         tvUserLocation.setText(obj.getString("City") + ", " + obj.getString("CountryName"));
                         tvFollowersCount.setText(obj.getString("Followers"));
-                        tvUserID.setText(getSharedPref().getString(Constants.UNIQUE_CODE, ""));
+                        tvUserID.setText(SharedPref.getString(Constants.UNIQUE_CODE, ""));
                         // rBar.setRating(Float.parseFloat(obj.getString("Rating")));
                         // rBar.setNumStars(5);
 //                        rBar.setIsIndicator(true);
@@ -496,6 +497,7 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
                         String mProfilePic = "";
 
                         if (obj.getString("SocialId").equalsIgnoreCase("")) {
+                            ivCameraProfilePic.setVisibility(View.VISIBLE);
                             mProfilePic = obj.getString("ProfilePic");
                             if (mProfilePic.equalsIgnoreCase("")) {
 
@@ -522,6 +524,7 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
                                         .into(ivProfilePic);
                             }
                         } else {
+                            ivCameraProfilePic.setVisibility(View.GONE);
                             mProfilePic = obj.getString("SocialImageUrl");
                             if (mProfilePic.equalsIgnoreCase("")) {
                                 Glide.with(getActivity())
@@ -549,12 +552,12 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
                         }
 
 
-                        if (getSharedPref().getString(Constants.LOGIN_TYPE, "Simple").equalsIgnoreCase("Simple")) {
-                            ivCameraProfilePic.setVisibility(View.VISIBLE);
-                        } else {
-                            ivCameraProfilePic.setVisibility(View.GONE);
-
-                        }
+//                        if (SharedPref.getString(Constants.LOGIN_TYPE, "Simple").equalsIgnoreCase("Simple")) {
+//                            ivCameraProfilePic.setVisibility(View.VISIBLE);
+//                        } else {
+//                            ivCameraProfilePic.setVisibility(View.GONE);
+//
+//                        }
 
 
                     }
@@ -655,7 +658,7 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
                 try {
                     JSONObject jsonObject = new JSONObject(response.toString());
                     if (jsonObject.getString("Status").equalsIgnoreCase("Success")) {
-                        getEditor().putString(Constants.PROFILE_IMAGE, jsonObject.getString("imageurl") + jsonObject.getString("ImageName")).commit();
+                       SharedPref.putString(Constants.PROFILE_IMAGE, jsonObject.getString("imageurl") + jsonObject.getString("ImageName"));
                         Utils.showToast(getActivity(), "Profile Pic uploaded successfully");
                         //Glide.with(getActivity()).load(jsonObject.getString("imageurl") + jsonObject.getString("ImageName")).into(ivProfilePic);
 
@@ -679,7 +682,7 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
                                 })
                                 .into(ivProfilePic);
 
-                        getEditor().putString(Constants.PROFILE_IMAGE, jsonObject.getString("imageurl") + jsonObject.getString("ImageName")).commit();
+                       SharedPref.putString(Constants.PROFILE_IMAGE, jsonObject.getString("imageurl") + jsonObject.getString("ImageName"));
 
                     } else {
 
@@ -693,7 +696,7 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
                 try {
                     JSONObject jsonObject1 = new JSONObject(response.toString());
                     if (jsonObject1.getString("Status").equalsIgnoreCase("Success")) {
-                        getEditor().putString(Constants.COVER_IMAGE, jsonObject1.getString("imageurl") + jsonObject1.getString("ImageName")).commit();
+                       SharedPref.putString(Constants.COVER_IMAGE, jsonObject1.getString("imageurl") + jsonObject1.getString("ImageName"));
                         progressBar.setVisibility(View.VISIBLE);
                         Utils.showToast(getActivity(), "Cover Pic uploaded successfully");
 
@@ -863,7 +866,7 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
                 initializeLoader();
                 JSONObject jsonObject = new JSONObject();
                 try {
-                    jsonObject.put("UserId", getSharedPref().getString(Constants.USER_ID, ""));
+                    jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -878,7 +881,7 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
                 JSONObject jsonObject = new JSONObject();
                 String requestBody = "";
                 try {
-                    jsonObject.put("UserId", getSharedPref().getString(Constants.USER_ID, ""));
+                    jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""));
                     jsonObject.put("FileType", "Audio");
 
                     requestBody = jsonObject.toString();

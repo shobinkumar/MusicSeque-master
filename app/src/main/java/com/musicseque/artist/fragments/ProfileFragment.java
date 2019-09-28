@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -57,9 +56,6 @@ import com.musicseque.MainActivity;
 import com.musicseque.R;
 import com.musicseque.artist.service.CommonService;
 
-import com.musicseque.dagger_data.DaggerRetrofitComponent;
-import com.musicseque.dagger_data.RetrofitComponent;
-import com.musicseque.dagger_data.SharedPrefDependency;
 import com.musicseque.interfaces.MyInterface;
 import com.musicseque.interfaces.SpinnerData;
 import com.musicseque.models.CountryModel;
@@ -68,6 +64,7 @@ import com.musicseque.retrofit_interface.ImageUploadInterface;
 import com.musicseque.retrofit_interface.RetrofitAPI;
 import com.musicseque.utilities.Constants;
 import com.musicseque.utilities.FileUtils;
+import com.musicseque.utilities.SharedPref;
 import com.musicseque.utilities.Utils;
 
 import org.json.JSONArray;
@@ -104,7 +101,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
 
     CircleImageView ivProfile;
     ImageView ivCamera;
-//    ImageView ivAddImage;
+    //    ImageView ivAddImage;
     ImageView ivStatus;
 
     TextView tvCountryCode, tvExperience, tvGenre, tvExpertise, tvCertification, tvGrade, tvCountry, tvCount;
@@ -115,9 +112,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
     String mGenreId = "", mCountryId = "";
 
 
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
-    private RetrofitComponent retrofitComponent;
+//    SharedPref SharedPref;
+//    SharedPref.SharedPref SharedPref;
+//    private RetrofitComponent retrofitComponent;
 
     private View v;
 
@@ -186,9 +183,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
         TextView tvDone = (TextView) ((MainActivity) getActivity()).findViewById(R.id.tvDone);
         tvDone.setVisibility(View.GONE);
 
-        retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getActivity())).build();
-        sharedPreferences = retrofitComponent.getShared();
-        editor = retrofitComponent.getEditor();
+//        retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getActivity())).build();
+//        SharedPref = retrofitComponent.getShared();
+//        SharedPref = retrofitComponent.getSharedPref();
         myDirectory = new File(Environment.getExternalStorageDirectory(), "MusicSegue");
         try {
             if (myDirectory.exists()) {
@@ -206,7 +203,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
         pBar = (ProgressBar) v.findViewById(R.id.pBar);
         ivCamera = (ImageView) v.findViewById(R.id.ivCamera);
         ivProfile = (CircleImageView) v.findViewById(R.id.ivProfile);
-       // ivAddImage = (ImageView) v.findViewById(R.id.ivAddImage);
+        // ivAddImage = (ImageView) v.findViewById(R.id.ivAddImage);
         ivStatus = (ImageView) v.findViewById(R.id.ivStatus);
 
         tvCountryCode = (TextView) v.findViewById(R.id.tvCountryCode);
@@ -262,7 +259,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
     private void listeners() {
         btn_submit.setOnClickListener(this);
         ivCamera.setOnClickListener(this);
-       // ivAddImage.setOnClickListener(this);
+        // ivAddImage.setOnClickListener(this);
         ivStatus.setOnClickListener(this);
         tvCountryCode.setOnClickListener(this);
         tvExperience.setOnClickListener(this);
@@ -350,119 +347,24 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
     }
 
     private void showDefaultData() {
-        et_email.setText(sharedPreferences.getString(Constants.EMAIL_ID, ""));
-        tvUserName.setText(sharedPreferences.getString(Constants.USER_NAME, ""));
-        tvProfileType.setText(sharedPreferences.getString(Constants.PROFILE_TYPE, ""));
-        if (sharedPreferences.getString(Constants.VISIBILITY_STATUS, STATUS_ACTIVE).equalsIgnoreCase(STATUS_ACTIVE)) {
+        et_email.setText(SharedPref.getString(Constants.EMAIL_ID, ""));
+        tvUserName.setText(SharedPref.getString(Constants.USER_NAME, ""));
+        tvProfileType.setText(SharedPref.getString(Constants.PROFILE_TYPE, ""));
+        if (SharedPref.getString(Constants.VISIBILITY_STATUS, STATUS_ACTIVE).equalsIgnoreCase(STATUS_ACTIVE)) {
             ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.circle_green));
-        } else if (sharedPreferences.getString(Constants.VISIBILITY_STATUS, STATUS_ACTIVE).equalsIgnoreCase(STATUS_INVISIBLE)) {
+        } else if (SharedPref.getString(Constants.VISIBILITY_STATUS, STATUS_ACTIVE).equalsIgnoreCase(STATUS_INVISIBLE)) {
             ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.circle_transparent));
         } else {
             ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.circle_red));
         }
 
-        mCountryCode = sharedPreferences.getString(Constants.COUNTRY_CODE, "");
-        mCountryId = sharedPreferences.getString(Constants.COUNTRY_ID, "");
-        mCountryName = sharedPreferences.getString(Constants.COUNTRY_NAME, "");
-        mMobileNumber = sharedPreferences.getString(Constants.MOBILE_NUMBER, "");
+        mCountryCode = SharedPref.getString(Constants.COUNTRY_CODE, "");
+        mCountryId = SharedPref.getString(Constants.COUNTRY_ID, "");
+        mCountryName = SharedPref.getString(Constants.COUNTRY_NAME, "");
+        mMobileNumber = SharedPref.getString(Constants.MOBILE_NUMBER, "");
         tvCountryCode.setText(mCountryCode);
         etMobileNumber.setText(mMobileNumber);
         tvCountry.setText(mCountryName);
-
-
-        if (sharedPreferences.getString(Constants.LOGIN_TYPE, "Simple").equalsIgnoreCase("Simple"))
-        {
-            String mUrl = sharedPreferences.getString(Constants.PROFILE_IMAGE, "");
-            if (mUrl.equalsIgnoreCase("")) {
-                ivProfile.setVisibility(View.VISIBLE);
-                pBar.setVisibility(View.GONE);
-                ivCamera.setVisibility(View.GONE);
-//                ivAddImage.setVisibility(View.VISIBLE);
-//                ivAddImage.setImageDrawable(getResources().getDrawable(R.drawable.icon_photo_upload_circle));
-//                ivAddImage.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        openDialog();
-//                    }
-//                });
-
-                Glide.with(ProfileFragment.this)
-                        .load(R.drawable.icon_img_dummy)
-                        .into(ivProfile);
-            } else {
-                ivCamera.setVisibility(View.GONE);
-                //ivAddImage.setVisibility(View.GONE);
-                ivProfile.setVisibility(View.VISIBLE);
-
-
-                Glide.with(ProfileFragment.this)
-                        .load(mUrl)
-                        .listener(new RequestListener<Drawable>() {
-                            @Override
-                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                                pBar.setVisibility(View.GONE);
-                                ivCamera.setVisibility(View.VISIBLE);
-                                return false;
-                            }
-
-                            @Override
-                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                                pBar.setVisibility(View.GONE);
-                                ivCamera.setVisibility(View.VISIBLE);
-                                return false;
-                            }
-                        })
-                        .into(ivProfile);
-
-                ivCamera.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        openDialog();
-                    }
-                });
-
-
-            }
-        }
-        else {
-            String mUrl = sharedPreferences.getString(Constants.PROFILE_IMAGE, "");
-
-            ivCamera.setVisibility(View.GONE);
-          //  ivAddImage.setVisibility(View.GONE);
-            pBar.setVisibility(View.GONE);
-            if(mUrl.equalsIgnoreCase(""))
-            {
-                Glide.with(ProfileFragment.this)
-                        .load(R.drawable.icon_img_dummy)
-                        .into(ivProfile);
-            }
-            else
-            {
-                Glide.with(ProfileFragment.this)
-                        .asBitmap()
-                        .load(mUrl)
-                        .into(ivProfile);
-
-
-//                Glide.with(ProfileFragment.this)
-//                        .load(mUrl)
-//                        .listener(new RequestListener<Drawable>() {
-//                            @Override
-//                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-//                                pBar.setVisibility(View.GONE);
-//                                return false;
-//                            }
-//
-//                            @Override
-//                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-//                                pBar.setVisibility(View.GONE);
-//                                return false;
-//                            }
-//                        })
-//                        .into(ivProfile);
-            }
-
-        }
 
     }
 
@@ -560,11 +462,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
                     @Override
                     public void onClick(View v) {
                         ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.circle_green));
-                        editor.putString(Constants.VISIBILITY_STATUS, STATUS_ACTIVE).commit();
+                        SharedPref.putString(Constants.VISIBILITY_STATUS, STATUS_ACTIVE);
 
                         JSONObject jsonObject = new JSONObject();
                         try {
-                            jsonObject.put("UserId", sharedPreferences.getString(Constants.USER_ID, ""));
+                            jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""));
                             jsonObject.put("NewStatus", "Available");
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -579,11 +481,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
                     @Override
                     public void onClick(View v) {
                         ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.circle_red));
-                        editor.putString(Constants.VISIBILITY_STATUS, STATUS_DO_NOT_DISTURB).commit();
+                        SharedPref.putString(Constants.VISIBILITY_STATUS, STATUS_DO_NOT_DISTURB);
                         popupWindow.dismiss();
                         JSONObject jsonObject = new JSONObject();
                         try {
-                            jsonObject.put("UserId", sharedPreferences.getString(Constants.USER_ID, ""));
+                            jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""));
                             jsonObject.put("NewStatus", "Do_not_disturb");
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -597,11 +499,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
                     @Override
                     public void onClick(View v) {
                         ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.circle_transparent));
-                        editor.putString(Constants.VISIBILITY_STATUS, STATUS_INVISIBLE).commit();
+                        SharedPref.putString(Constants.VISIBILITY_STATUS, STATUS_INVISIBLE);
                         popupWindow.dismiss();
                         JSONObject jsonObject = new JSONObject();
                         try {
-                            jsonObject.put("UserId", sharedPreferences.getString(Constants.USER_ID, ""));
+                            jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""));
                             jsonObject.put("NewStatus", "Offline");
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -647,7 +549,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
             initializeLoader();
             try {
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("UserId", sharedPreferences.getString(Constants.USER_ID, ""));
+                jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""));
                 RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_USER_PROFILE, ProfileFragment.this);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -720,12 +622,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
                 try {
 
 
-
-
-
-
-
-                    jsonBody.put("UserId", sharedPreferences.getString(Constants.USER_ID, ""));
+                    jsonBody.put("UserId", SharedPref.getString(Constants.USER_ID, ""));
                     jsonBody.put("DisplayName", "");
                     jsonBody.put("Email", mEmail);
                     jsonBody.put("CountryId", mCountryId);
@@ -937,7 +834,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
                     showImage(file);
                     RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
                     MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
-                    RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), sharedPreferences.getString(Constants.USER_ID, ""));
+                    RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), SharedPref.getString(Constants.USER_ID, ""));
                     uploadImages(fileToUpload, mUSerId);
 
                 } catch (Exception e) {
@@ -953,7 +850,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
                 showImage(file);
                 RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
                 MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
-                RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), sharedPreferences.getString(Constants.USER_ID, ""));
+                RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), SharedPref.getString(Constants.USER_ID, ""));
                 uploadImages(fileToUpload, mUSerId);
             }
 
@@ -964,7 +861,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
         ivProfile.setVisibility(View.VISIBLE);
         pBar.setVisibility(View.GONE);
         ivCamera.setVisibility(View.VISIBLE);
-       // ivAddImage.setVisibility(View.GONE);
+        // ivAddImage.setVisibility(View.GONE);
         Glide.with(getActivity()).load(file).into(ivProfile);
 
     }
@@ -979,7 +876,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
                 JSONObject jsonObject = null;
 
 
-                editor.putString(Constants.IS_FIRST_LOGIN, "N").commit();
+                SharedPref.putString(Constants.IS_FIRST_LOGIN, "N");
 
 
                 try {
@@ -1050,6 +947,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
                     if (obj.getString("Status").equalsIgnoreCase("Success")) {
 
 
+                        SharedPref.putString(Constants.COUNTRY_CODE, obj.getString("CountryId"));
+                        SharedPref.putString(Constants.MOBILE_NUMBER, obj.getString("ContactNo"));
+                        SharedPref.putString(Constants.COUNTRY_NAME, obj.getString("CountryName"));
+                        SharedPref.putString(Constants.COUNTRY_ID, obj.getString("CountryId"));
+
+
                         tvUserName.setText(obj.getString("FirstName") + " " + obj.getString("LastName"));
                         tvProfileType.setText(obj.getString("ProfileTypeName"));
 
@@ -1089,12 +992,34 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
                         mGenreId = obj.getString("Genre");
                         mCountryId = obj.getString("CountryId");
 
+
+                        if (obj.getString("SocialId").equals("")) {
+                            ivCamera.setVisibility(View.VISIBLE);
+                            if (obj.getString("ProfilePic").equals("")) {
+                                Glide.with(this).load(R.drawable.icon_img_dummy).into(ivProfile);
+
+                                pBar.setVisibility(View.GONE);
+                            } else {
+                                Glide.with(this).load(obj.getString("ImgUrl") + obj.getString("ProfilePic")).into(ivProfile);
+                                pBar.setVisibility(View.GONE);
+                            }
+                        } else {
+                            ivCamera.setVisibility(View.GONE);
+                            String sUrl = obj.getString("SocialImageUrl");
+                            if (sUrl.equals(""))
+                                Glide.with(this).load(R.drawable.icon_img_dummy).into(ivProfile);
+
+                            else
+                                Glide.with(this).load(obj.getString("SocialImageUrl")).into(ivProfile);
+                            pBar.setVisibility(View.GONE);
+                        }
+
+
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
 
 
                 break;
@@ -1125,7 +1050,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
                 try {
                     JSONObject jsonObject = new JSONObject(response.body().toString());
                     if (jsonObject.getString("Status").equalsIgnoreCase("Success")) {
-                        editor.putString(Constants.PROFILE_IMAGE, jsonObject.getString("imageurl") + jsonObject.getString("ImageName")).commit();
+                        SharedPref.putString(Constants.PROFILE_IMAGE, jsonObject.getString("imageurl") + jsonObject.getString("ImageName"));
                         Utils.showToast(getActivity(), "Profile Pic uploaded successfully");
                         // Utils.showToast(getActivity(), "Response " + response.raw().message());
 

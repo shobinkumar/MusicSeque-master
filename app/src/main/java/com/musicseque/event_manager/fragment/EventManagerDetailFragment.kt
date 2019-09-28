@@ -17,6 +17,7 @@ import com.musicseque.retrofit_interface.ImageUploadClass
 import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.Constants
 import com.musicseque.utilities.Constants.USER_ID
+import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils
 import kotlinx.android.synthetic.main.fragment_event_manager_detail.*
 import okhttp3.MediaType
@@ -75,7 +76,7 @@ class EventManagerDetailFragment : BaseFragment(), MyInterface, View.OnClickList
             {
                 try {
                     val jsonObject = JSONObject()
-                    jsonObject.put("UserId", sharedPref.getString(Constants.USER_ID, ""))
+                    jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""))
                     RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_EVENT_MANAGER_DETAIL, this)
                 } catch (e: JSONException) {
                     e.printStackTrace()
@@ -104,7 +105,7 @@ class EventManagerDetailFragment : BaseFragment(), MyInterface, View.OnClickList
                     tvUserType.text = obj.getString("Expertise")
                     tvUserLocation.text = obj.getString("City") + ", " + obj.getString("CountryName")
                     tvFollowersCount.text = obj.getString("Followers")
-                    tvUserID.text = sharedPref.getString(Constants.UNIQUE_CODE, "")
+                    tvUserID.text = SharedPref.getString(Constants.UNIQUE_CODE, "")
                     tvReviews.text = "(" + obj.getString("Reviews") + " reviews" + ")"
                     tvExperience.text = obj.getString("ExperienceYear")
                     tvBio.text = obj.getString("Bio")
@@ -155,7 +156,7 @@ class EventManagerDetailFragment : BaseFragment(), MyInterface, View.OnClickList
                     }
 
 
-                    if (sharedPref.getString(Constants.LOGIN_TYPE, "Simple")!!.equals("Simple", ignoreCase = true)) {
+                    if (SharedPref.getString(Constants.LOGIN_TYPE, "Simple")!!.equals("Simple", ignoreCase = true)) {
                         ivCameraProfilePic.visibility = View.VISIBLE
                     } else {
                         ivCameraProfilePic.visibility = View.GONE
@@ -238,7 +239,7 @@ class EventManagerDetailFragment : BaseFragment(), MyInterface, View.OnClickList
     public fun getImageFile(file: File) {
         val mFile = RequestBody.create(MediaType.parse("image/*"), file)
         val fileToUpload = MultipartBody.Part.createFormData("file", file.name, mFile)
-        val mUSerId = RequestBody.create(MediaType.parse("text/plain"), sharedPref.getString(USER_ID, ""))
+        val mUSerId = RequestBody.create(MediaType.parse("text/plain"), SharedPref.getString(USER_ID, ""))
         if (Utils.isNetworkConnected(activity!!)) {
             initializeLoader()
 

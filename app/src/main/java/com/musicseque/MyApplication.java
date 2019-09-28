@@ -3,13 +3,10 @@ package com.musicseque;
 import android.app.Activity;
 import android.app.Application;
 
-import com.musicseque.dagger_data.ApplicationComponent;
-
 
 public class MyApplication extends Application {
 
     private static MyApplication instance;
-    private ApplicationComponent appComponent;
     public  static Activity context;
 
 
@@ -26,10 +23,6 @@ public class MyApplication extends Application {
 
     }
 
-    public ApplicationComponent getAppComponent() {
-
-        return appComponent;
-    }
 
     public static MyApplication getInstance() {
         if (instance == null) {

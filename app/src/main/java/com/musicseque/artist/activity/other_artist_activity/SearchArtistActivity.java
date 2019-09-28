@@ -22,6 +22,7 @@ import com.musicseque.artist.artist_models.ArtistModel;
 import com.musicseque.interfaces.MyInterface;
 import com.musicseque.retrofit_interface.RetrofitAPI;
 import com.musicseque.utilities.Constants;
+import com.musicseque.utilities.SharedPref;
 import com.musicseque.utilities.Utils;
 
 import org.json.JSONArray;
@@ -88,7 +89,7 @@ public class SearchArtistActivity extends BaseActivity implements MyInterface {
             JSONObject jsonObject = new JSONObject();
             try {
                // jsonObject.put("ProfileTypeId", "1");
-                jsonObject.put("UserId",sharedPreferences.getString(Constants.USER_ID,""));
+                jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID,""));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -106,7 +107,7 @@ public class SearchArtistActivity extends BaseActivity implements MyInterface {
         Utils.hideProgressDialog();
         switch (TYPE) {
             case Constants.GET_ARTIST_LIST:
-//                searchArtistAdapter = new SearchArtistAdapter(SearchArtistActivityEventManager.this, arrayList,sharedPreferences.getString(Constants.USER_ID,""));
+//                searchArtistAdapter = new SearchArtistAdapter(SearchArtistActivityEventManager.this, arrayList,SharedPref.getString(Constants.USER_ID,""));
 //                recyclerArtist.setAdapter(searchArtistAdapter);
 
 
@@ -119,7 +120,7 @@ public class SearchArtistActivity extends BaseActivity implements MyInterface {
                             arrayList = new Gson().fromJson(jsonArray.toString(), new TypeToken<ArrayList<ArtistModel>>() {
                             }.getType());
 
-                            searchArtistAdapter = new SearchArtistAdapter(SearchArtistActivity.this, arrayList,sharedPreferences.getString(Constants.USER_ID,""));
+                            searchArtistAdapter = new SearchArtistAdapter(SearchArtistActivity.this, arrayList,SharedPref.getString(Constants.USER_ID,""));
                             recyclerArtist.setAdapter(searchArtistAdapter);
                         }
 
@@ -145,7 +146,7 @@ public class SearchArtistActivity extends BaseActivity implements MyInterface {
                         if (jsonArray.length() > 0) {
                             arrayList = new Gson().fromJson(jsonArray.toString(), new TypeToken<ArrayList<ArtistModel>>() {
                             }.getType());
-                            searchArtistAdapter = new SearchArtistAdapter(SearchArtistActivity.this, arrayList,sharedPreferences.getString(Constants.USER_ID,""));
+                            searchArtistAdapter = new SearchArtistAdapter(SearchArtistActivity.this, arrayList,SharedPref.getString(Constants.USER_ID,""));
                             recyclerArtist.setAdapter(searchArtistAdapter);
                         }
 
@@ -178,7 +179,7 @@ public class SearchArtistActivity extends BaseActivity implements MyInterface {
                     JSONObject jsonObject = new JSONObject();
                     try {
                         jsonObject.put("SearchTypeValue", editable.toString());
-                        jsonObject.put("UserId",sharedPreferences.getString(Constants.USER_ID,""));
+                        jsonObject.put("UserId",SharedPref.getString(Constants.USER_ID,""));
 
                     } catch (JSONException e) {
                         e.printStackTrace();

@@ -20,6 +20,7 @@ import com.musicseque.interfaces.MyInterface
 import com.musicseque.interfaces.RemoveMemberInterface
 import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.Constants
+import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils
 import kotlinx.android.synthetic.main.activity_search_artist.*
 import kotlinx.android.synthetic.main.toolbar_top.*
@@ -128,7 +129,7 @@ class SearchBandMemberActivity : BaseActivity(), MyInterface, RemoveMemberInterf
             val jsonObject = JSONObject()
             try {
                 jsonObject.put("SearchTypeValue", str)
-                jsonObject.put("BandManagerId", sharedPreferences.getString(Constants.USER_ID, ""))
+                jsonObject.put("BandManagerId", SharedPref.getString(Constants.USER_ID, ""))
                 jsonObject.put("ArtistProfileTypeId", "1")
                 jsonObject.put("BandId", mBandId)
                 RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_SEARCH_BAND_MEMBER, this@SearchBandMemberActivity)
@@ -159,7 +160,7 @@ class SearchBandMemberActivity : BaseActivity(), MyInterface, RemoveMemberInterf
                 val jsonObject = JSONObject()
                 try {
                     jsonObject.put("BandId", mBandId)
-                    jsonObject.put("BandManagerId", sharedPreferences.getString(Constants.USER_ID, ""))
+                    jsonObject.put("BandManagerId", SharedPref.getString(Constants.USER_ID, ""))
                     jsonObject.put("ArtistId", data.artistUserId)
 
                 } catch (e: JSONException) {
@@ -176,7 +177,7 @@ class SearchBandMemberActivity : BaseActivity(), MyInterface, RemoveMemberInterf
                 val jsonObject = JSONObject()
                 try {
                     jsonObject.put("BandId", mBandId)
-                    jsonObject.put("BandManagerId", sharedPreferences.getString(Constants.USER_ID, ""))
+                    jsonObject.put("BandManagerId", SharedPref.getString(Constants.USER_ID, ""))
                     jsonObject.put("BandMemberId", data.artistUserId)
 
                 } catch (e: JSONException) {

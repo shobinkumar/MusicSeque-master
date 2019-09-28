@@ -11,22 +11,17 @@ import com.google.gson.reflect.TypeToken
 import com.musicseque.R
 import com.musicseque.activities.BaseActivity
 import com.musicseque.artist.artist_adapters.SearchBandAdapter
-import com.musicseque.artist.artist_models.BandDataModel
 import com.musicseque.artist.artist_models.BandListModel
-import com.musicseque.event_manager.adapter.SearchArtistAdapterEventManager
 import com.musicseque.interfaces.MyInterface
 import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.Constants
+import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils
-import kotlinx.android.synthetic.main.activity_search_artist.*
 import kotlinx.android.synthetic.main.activity_search_band.*
-import kotlinx.android.synthetic.main.activity_search_band.etSearch
-import kotlinx.android.synthetic.main.activity_search_band.tvNoRecord
 import kotlinx.android.synthetic.main.toolbar_top.*
-import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
-import java.util.ArrayList
+import java.util.*
 
 class SearchBandActivity : BaseActivity(), View.OnClickListener, MyInterface {
 
@@ -51,7 +46,7 @@ class SearchBandActivity : BaseActivity(), View.OnClickListener, MyInterface {
         if (Utils.isNetworkConnected(this@SearchBandActivity)) {
             val jsonObject = JSONObject()
             try {
-                jsonObject.put("LoggedInUserId", sharedPreferences.getString(Constants.USER_ID, ""))
+                jsonObject.put("LoggedInUserId", SharedPref.getString(Constants.USER_ID, ""))
 
                 jsonObject.put("SearchText", "")
 
@@ -76,7 +71,7 @@ class SearchBandActivity : BaseActivity(), View.OnClickListener, MyInterface {
                     if (Utils.isNetworkConnected(this@SearchBandActivity)) {
                         val jsonObject = JSONObject()
                         try {
-                            jsonObject.put("LoggedInUserId", sharedPreferences.getString(Constants.USER_ID, ""))
+                            jsonObject.put("LoggedInUserId", SharedPref.getString(Constants.USER_ID, ""))
 
                             jsonObject.put("SearchText", editable.toString())
 

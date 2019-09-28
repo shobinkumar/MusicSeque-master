@@ -1,6 +1,5 @@
 package com.musicseque.artist.fragments;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -23,9 +22,7 @@ import com.musicseque.artist.activity.UploadActivity;
 
 
 import com.musicseque.artist.artist_adapters.UploadPhotosAdapter;
-import com.musicseque.dagger_data.DaggerRetrofitComponent;
-import com.musicseque.dagger_data.RetrofitComponent;
-import com.musicseque.dagger_data.SharedPrefDependency;
+
 import com.musicseque.interfaces.MyInterface;
 import com.musicseque.models.ImageModel;
 import com.musicseque.retrofit_interface.ImageUploadClass;
@@ -34,6 +31,7 @@ import com.musicseque.utilities.CommonMethods;
 import com.musicseque.utilities.Constants;
 import com.musicseque.utilities.RecyclerClick_Listener;
 import com.musicseque.utilities.RecyclerTouchListener;
+import com.musicseque.utilities.SharedPref;
 import com.musicseque.utilities.Toolbar_ActionMode_Callback;
 import com.musicseque.utilities.Utils;
 
@@ -65,9 +63,9 @@ public class UploadPhotoFragment extends Fragment implements MyInterface, Upload
     private String mImagesId = "";
     private String mPosition = "";
 
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
-    private RetrofitComponent retrofitComponent;
+//    SharedPref SharedPref;
+//    SharedPref.Editor editor;
+//    private RetrofitComponent retrofitComponent;
     ArrayList<ImageModel> arrayList = new ArrayList<>();
     UploadPhotosAdapter uploadPhotosAdapter;
     // private ActionModeCallback actionModeCallback;
@@ -87,9 +85,9 @@ public class UploadPhotoFragment extends Fragment implements MyInterface, Upload
 
 
     private void initOtherViews() {
-        retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getActivity())).build();
-        sharedPreferences = retrofitComponent.getShared();
-        editor = retrofitComponent.getEditor();
+//        retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getActivity())).build();
+//        SharedPref = retrofitComponent.getShared();
+//        editor = retrofitComponent.getEditor();
         //actionModeCallback = new ActionModeCallback();
     }
 
@@ -174,7 +172,7 @@ public class UploadPhotoFragment extends Fragment implements MyInterface, Upload
            showDialog();
             JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put("UserId",sharedPreferences.getString(Constants.USER_ID,""));
+                jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID,""));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -274,7 +272,7 @@ public class UploadPhotoFragment extends Fragment implements MyInterface, Upload
            showDialog();
             JSONObject jsonObject=new JSONObject();
             try {
-                jsonObject.put("UserId",sharedPreferences.getString(Constants.USER_ID,""));
+                jsonObject.put("UserId",SharedPref.getString(Constants.USER_ID,""));
                 jsonObject.put("Id",mImagesId);
             } catch (JSONException e) {
                 e.printStackTrace();

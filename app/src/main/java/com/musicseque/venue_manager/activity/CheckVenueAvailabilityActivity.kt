@@ -9,16 +9,22 @@ import android.view.View
 import android.widget.LinearLayout
 import com.musicseque.Fonts.Noyhr
 import com.musicseque.R
+import com.musicseque.interfaces.MyInterface
+import com.musicseque.retrofit_interface.KotlinHitAPI
+import com.musicseque.utilities.Constants.FOR_VENUE_TIMMINGS
 import com.musicseque.utilities.KotlinUtils
 import com.musicseque.utilities.Utils
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
 import kotlinx.android.synthetic.main.activity_venue_availability.*
 import kotlinx.android.synthetic.main.toolbar_top.*
+import org.json.JSONObject
 import java.util.*
 
-class CheckVenueAvailabilityActivity : Activity(), View.OnClickListener {
+class CheckVenueAvailabilityActivity : Activity(), View.OnClickListener, MyInterface {
 
 
+
+    private var mVenueId: String=""
     private var width: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +32,7 @@ class CheckVenueAvailabilityActivity : Activity(), View.OnClickListener {
         setContentView(R.layout.activity_venue_availability)
         initViews()
         listeners()
-        // hitAPI("get_timmings")
+        hitAPI("get_timmings")
         setSlotsMethod()
     }
 
@@ -37,7 +43,7 @@ class CheckVenueAvailabilityActivity : Activity(), View.OnClickListener {
         val dimension = DisplayMetrics()
         getWindowManager()?.getDefaultDisplay()?.getMetrics(dimension)
         width = dimension.widthPixels
-        val height = dimension.heightPixels
+        mVenueId=intent.getStringExtra("venue_id")
 
     }
 
@@ -67,12 +73,21 @@ class CheckVenueAvailabilityActivity : Activity(), View.OnClickListener {
 
     private fun hitAPI(sType: String) {
         if (KotlinUtils.isNetConnected(this)) {
+            Utils.initializeAndShow(this)
             if (sType.equals("get_timmings")) {
-
+                val json= JSONObject()
+                json.put("VenueId",mVenueId)
+                KotlinHitAPI.callAPI(json.toString(),FOR_VENUE_TIMMINGS,this)
             }
         } else {
             Utils.showToast(this, resources.getString(R.string.err_no_internet))
         }
+    }
+
+
+    override fun sendResponse(response: Any?, TYPE: Int) {
+        Utils.hideProgressDialog()
+
     }
 
     fun setSlotsMethod() {

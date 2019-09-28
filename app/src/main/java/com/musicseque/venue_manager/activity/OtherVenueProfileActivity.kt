@@ -12,6 +12,7 @@ import com.musicseque.retrofit_interface.KotlinHitAPI
 import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.Constants
 import com.musicseque.utilities.KotlinUtils
+import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils
 import kotlinx.android.synthetic.main.activity_other_venue_profile.*
 import kotlinx.android.synthetic.main.toolbar_top.*
@@ -41,7 +42,7 @@ class OtherVenueProfileActivity : BaseActivity(), MyInterface, View.OnClickListe
             }
             R.id.tvAvailability->
             {
-                val intent= Intent(this,CheckVenueAvailabilityActivity::class.java)
+                val intent= Intent(this,CheckVenueAvailabilityActivity::class.java).putExtra("venue_id",mVenueId)
                 startActivity(intent)
             }
         }
@@ -116,7 +117,7 @@ class OtherVenueProfileActivity : BaseActivity(), MyInterface, View.OnClickListe
                 Constants.FOR_USER_PROFILE -> {
                     try {
                         tvUserNameDetail.setText(jsonObj.getString("FirstName") + " " + jsonObj.getString("LastName"))
-                        tvUserID.text = sharedPreferences.getString(Constants.UNIQUE_CODE, "")
+                        tvUserID.text = SharedPref.getString(Constants.UNIQUE_CODE, "")
                         tvUserLocation.setText(jsonObj.getString("City") + ", " + jsonObj.getString("CountryName"))
                         tvReviews.text = "(" + jsonObj.getString("Reviews") + " reviews" + ")"
                         tvCapacity.text = jsonObj.getString("VenueCapacity")

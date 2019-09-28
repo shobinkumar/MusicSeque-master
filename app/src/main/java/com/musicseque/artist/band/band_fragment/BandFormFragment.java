@@ -52,9 +52,6 @@ import com.musicseque.BuildConfig;
 import com.musicseque.MainActivity;
 import com.musicseque.R;
 import com.musicseque.artist.service.CommonService;
-import com.musicseque.dagger_data.DaggerRetrofitComponent;
-import com.musicseque.dagger_data.RetrofitComponent;
-import com.musicseque.dagger_data.SharedPrefDependency;
 import com.musicseque.interfaces.MyInterface;
 import com.musicseque.interfaces.SpinnerData;
 import com.musicseque.models.CountryModel;
@@ -146,7 +143,6 @@ public class BandFormFragment extends Fragment implements View.OnClickListener, 
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    private RetrofitComponent retrofitComponent;
 
     private View v;
 
@@ -216,10 +212,10 @@ public class BandFormFragment extends Fragment implements View.OnClickListener, 
         img_right_icon.setVisibility(View.GONE);
         TextView tvDone = (TextView) ((MainActivity) getActivity()).findViewById(R.id.tvDone);
         tvDone.setVisibility(View.GONE);
-
-        retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getActivity())).build();
-        sharedPreferences = retrofitComponent.getShared();
-        editor = retrofitComponent.getEditor();
+//
+//        retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getActivity())).build();
+//        sharedPreferences = retrofitComponent.getShared();
+//        editor = retrofitComponent.getEditor();
         myDirectory = new File(Environment.getExternalStorageDirectory(), "MusicSegue");
         try {
             if (myDirectory.exists()) {

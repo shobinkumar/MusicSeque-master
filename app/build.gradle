@@ -87,6 +87,9 @@ dependencies {
     implementation 'com.github.prolificinteractive:material-calendarview:1.6.0'
     implementation 'com.google.android.libraries.places:places:1.1.0'
 
+    implementation 'com.wdullaer:materialdatetimepicker:3.4.0'
+
+
 }
 apply plugin: 'com.google.gms.google-services'
 com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true

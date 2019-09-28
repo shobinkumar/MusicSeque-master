@@ -33,6 +33,7 @@ import com.musicseque.interfaces.MyInterface;
 import com.musicseque.models.ImageModel;
 import com.musicseque.retrofit_interface.RetrofitAPI;
 import com.musicseque.utilities.Constants;
+import com.musicseque.utilities.SharedPref;
 import com.musicseque.utilities.Utils;
 
 import org.json.JSONArray;
@@ -168,7 +169,7 @@ public class OtherProfileActivity extends BaseActivity implements MyInterface {
             try {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("ArtistUserId", mUSerId);
-                jsonObject.put("LoginUserId", sharedPreferences.getString(Constants.USER_ID, ""));
+                jsonObject.put("LoginUserId", SharedPref.getString(Constants.USER_ID, ""));
                 RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_OTHER_PROFILE, this);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -198,7 +199,7 @@ public class OtherProfileActivity extends BaseActivity implements MyInterface {
                         tvFollowersCount.setText(obj.getString("Followers"));
                         int mCount = Integer.parseInt(obj.getString("Followers"));
                         mFollowerCount = mCount + "";
-                        tvUserID.setText(sharedPreferences.getString(Constants.UNIQUE_CODE, ""));
+                        tvUserID.setText(SharedPref.getString(Constants.UNIQUE_CODE, ""));
 
                         tvReviews.setText("(" + obj.getString("Reviews") + " reviews" + ")");
                         tvGenre.setText(obj.getString("GenreTypeName"));
@@ -416,7 +417,7 @@ public class OtherProfileActivity extends BaseActivity implements MyInterface {
                     JSONObject jsonObject = new JSONObject();
                     try {
                         jsonObject.put("ArtistId", mUSerId);
-                        jsonObject.put("FollowerId", sharedPreferences.getString(Constants.USER_ID, ""));
+                        jsonObject.put("FollowerId", SharedPref.getString(Constants.USER_ID, ""));
                         if (isFollow) {
                             jsonObject.put("Status", "Y");
                             jsonObject.put("FollowerRemarks", "F");

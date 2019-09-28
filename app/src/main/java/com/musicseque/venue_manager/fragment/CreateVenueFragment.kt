@@ -19,10 +19,7 @@ import com.musicseque.retrofit_interface.KotlinHitAPI
 import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.service.LocationService
 import com.musicseque.service.LocationService.mLatitude
-import com.musicseque.utilities.Constants
-import com.musicseque.utilities.KotlinBaseFragment
-import com.musicseque.utilities.KotlinUtils
-import com.musicseque.utilities.Utils
+import com.musicseque.utilities.*
 import kotlinx.android.synthetic.main.fragment_create_venue.*
 import org.json.JSONArray
 import org.json.JSONException
@@ -75,12 +72,12 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
     }
 
     private fun showDefaultData() {
-        mVenueName = getSharedPref().getString(USER_NAME, "")
-        mVenueEmail = getSharedPref().getString(EMAIL_ID, "")
-        mCountryCode = getSharedPref().getString(Constants.COUNTRY_CODE, "")
-        mVenueCountryId = getSharedPref().getString(Constants.COUNTRY_ID, "")
-        mVenueCountry = getSharedPref().getString(Constants.COUNTRY_NAME, "")
-        mVenuePhoneNumber = getSharedPref().getString(Constants.MOBILE_NUMBER, "")
+        mVenueName = SharedPref.getString(USER_NAME, "")
+        mVenueEmail = SharedPref.getString(EMAIL_ID, "")
+        mCountryCode = SharedPref.getString(Constants.COUNTRY_CODE, "")
+        mVenueCountryId = SharedPref.getString(Constants.COUNTRY_ID, "")
+        mVenueCountry = SharedPref.getString(Constants.COUNTRY_NAME, "")
+        mVenuePhoneNumber = SharedPref.getString(Constants.MOBILE_NUMBER, "")
         tvVenueEmail.text = mVenueEmail
         tvVenueName.text = mVenueName
         tvCountryCode.setText(mCountryCode)
@@ -168,7 +165,7 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
                         val jsonBody = JSONObject()
 
 
-//                        jsonBody.put("VenueId", getSharedPref().getString(USER_ID, ""))
+//                        jsonBody.put("VenueId", SharedPref.getString(USER_ID, ""))
 //                        jsonBody.put("VenueName", mVenueName)
                         jsonBody.put("Phone", mVenuePhoneNumber)
                         jsonBody.put("EmailId", mVenueEmail)
@@ -177,7 +174,7 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
                         jsonBody.put("PostCode", mVenuePinCode)
                         jsonBody.put("CountryId", mVenueCountryId)
                         jsonBody.put("Bio", mVenueBio)
-                        jsonBody.put("UserId", getSharedPref().getString(USER_ID, ""))
+                        jsonBody.put("UserId", SharedPref.getString(USER_ID, ""))
 //                        jsonBody.put("VenueTypeId", "")
                         jsonBody.put("VenueCapacity", mVenueCapacity)
 //                        jsonBody.put("ProfileTypeId", "")
@@ -213,7 +210,7 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
             } else if (type == "profile") {
                 try {
                     val jsonObject = JSONObject()
-                    jsonObject.put("UserId", getSharedPref().getString(Constants.USER_ID, ""))
+                    jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""))
                     RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_USER_PROFILE, this)
                 } catch (e: JSONException) {
                     e.printStackTrace()
@@ -261,23 +258,53 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
                 try {
                     val obj = JSONObject(response.toString())
                     if (obj.getString("Status").equals("Success", true)) {
-                        if (obj.getString("ProfilePic").equals("")) {
-                            Glide.with(this).load(R.drawable.icon_img_dummy).into(ivVenueImage)
-
-                            pBar.visibility = View.GONE
-                        } else {
-                            Glide.with(this).load(obj.getString("ImgUrl") + obj.getString("ProfilePic")).into(ivVenueImage)
-                            pBar.visibility = View.GONE
-
-                        }
 
 
+                        mCountryCode = obj.getString("CountryCode")
+                        mVenueCountryId = obj.getString("CountryId")
+                        mVenueCountry = obj.getString("CountryName")
+                        mVenuePhoneNumber = obj.getString("ContactNo")
+
+
+                        SharedPref.putString(Constants.COUNTRY_CODE, obj.getString("CountryCode"))
+                        SharedPref.putString(Constants.MOBILE_NUMBER, obj.getString("ContactNo"))
+                        SharedPref.putString(Constants.COUNTRY_NAME, obj.getString("CountryName"))
+                        SharedPref.putString(Constants.COUNTRY_ID, obj.getString("CountryId"))
+
+
+                        tvCountryCode.setText(obj.getString("CountryCode"));
+                        etMobileNumber.setText(obj.getString("ContactNo"))
+                        tvVenueCountry.setText(obj.getString("CountryName"))
 
                         etVenueAddress.setText(obj.getString("VenueAddress"))
                         etVenueCity.setText(obj.getString("City"))
                         etVenueDesc.setText(obj.getString("Bio"))
                         etVenueCapacity.setText(obj.getString("VenueCapacity"))
                         etVenuePinCode.setText(obj.getString("PostCode"))
+
+                        if (obj.getString("SocialId").equals("")) {
+                            ivCamera.visibility = View.VISIBLE
+                            if (obj.getString("ProfilePic").equals("")) {
+                                Glide.with(this).load(R.drawable.icon_img_dummy).into(ivVenueImage)
+
+                                pBar.visibility = View.GONE
+                            } else {
+                                Glide.with(this).load(obj.getString("ImgUrl") + obj.getString("ProfilePic")).into(ivVenueImage)
+                                pBar.visibility = View.GONE
+
+                            }
+                        } else {
+                            ivCamera.visibility = View.GONE
+                            val sUrl=obj.getString("SocialImageUrl")
+                            if(sUrl.equals(""))
+                                Glide.with(this).load(R.drawable.icon_img_dummy).into(ivVenueImage)
+
+                            else
+                            Glide.with(this).load(obj.getString("SocialImageUrl")).into(ivVenueImage)
+                            pBar.visibility = View.GONE
+                        }
+
+
                     }
 
                 } catch (e: JSONException) {
@@ -289,7 +316,7 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
             FOR_UPDATE_PROFILE -> {
                 val obj = JSONObject(response.toString())
                 if (obj.getString("Status").equals("Success", true)) {
-                    getEditor().putString(Constants.IS_FIRST_LOGIN, "N").commit()
+                    SharedPref.putString(Constants.IS_FIRST_LOGIN, "N")
                     Utils.showToast(requireContext(), obj.getString("Message"))
                     startActivity(Intent(activity, MainActivity::class.java))
 
@@ -302,7 +329,7 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
                 val obj = JSONObject(response.toString())
                 if (obj.getString("Status").equals("Success", true)) {
                     Utils.showToast(requireContext(), "Image saved successfully")
-                    editor.putString(Constants.PROFILE_IMAGE, obj.getString("imageurl") + obj.getString("ImageName")).commit()
+                    SharedPref.putString(Constants.PROFILE_IMAGE, obj.getString("imageurl") + obj.getString("ImageName"))
 
                 }
 
@@ -319,7 +346,7 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
         if (Utils.isNetworkConnected(activity?.applicationContext)) {
             val mFile = RequestBody.create(MediaType.parse("image/*"), file)
             val fileToUpload = MultipartBody.Part.createFormData("file", file.name, mFile)
-            val mUSerId = RequestBody.create(MediaType.parse("text/plain"), sharedPref.getString(Constants.USER_ID, "")!!)
+            val mUSerId = RequestBody.create(MediaType.parse("text/plain"), SharedPref.getString(Constants.USER_ID, "")!!)
             ImageUploadClass.imageUpload(fileToUpload, mUSerId, null, FOR_UPLOAD_PROFILE_IMAGE, this)
         } else {
             Utils.showToast(requireContext(), resources.getString(R.string.err_no_internet))

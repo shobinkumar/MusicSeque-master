@@ -23,6 +23,7 @@ import com.musicseque.interfaces.MyInterface
 import com.musicseque.models.ImageModel
 import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.Constants
+import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils
 import kotlinx.android.synthetic.main.toolbar_top.*
 import kotlinx.android.synthetic.main.activity_other_artist_event_manager.*
@@ -68,7 +69,7 @@ class OtherArtistActivityEventManager : BaseActivity(), MyInterface {
                 if (type.equals("profile")) {
                     val jsonObject = JSONObject()
                     jsonObject.put("ArtistUserId", mUSerId)
-                    jsonObject.put("LoginUserId", sharedPreferences.getString(Constants.USER_ID, ""))
+                    jsonObject.put("LoginUserId", SharedPref.getString(Constants.USER_ID, ""))
                     RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_OTHER_PROFILE, this)
                 }
 
@@ -98,7 +99,7 @@ class OtherArtistActivityEventManager : BaseActivity(), MyInterface {
                     tvFollowersCount.setText(obj.getString("Followers"))
                     val mCount = Integer.parseInt(obj.getString("Followers"))
                     mFollowerCount = mCount.toString() + ""
-                    tvUserID.setText(sharedPreferences.getString(Constants.UNIQUE_CODE, ""))
+                    tvUserID.setText(SharedPref.getString(Constants.UNIQUE_CODE, ""))
 
                     tvReviews.setText("(" + obj.getString("Reviews") + " reviews" + ")")
                     tvGenre.setText(obj.getString("GenreTypeName"))
@@ -289,7 +290,7 @@ class OtherArtistActivityEventManager : BaseActivity(), MyInterface {
                     val jsonObject = JSONObject()
                     try {
                         jsonObject.put("ArtistId", mUSerId)
-                        jsonObject.put("FollowerId", sharedPreferences.getString(Constants.USER_ID, ""))
+                        jsonObject.put("FollowerId", SharedPref.getString(Constants.USER_ID, ""))
                         if (isFollow) {
                             jsonObject.put("Status", "Y")
                             jsonObject.put("FollowerRemarks", "F")

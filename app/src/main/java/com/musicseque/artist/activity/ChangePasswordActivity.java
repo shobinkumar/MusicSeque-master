@@ -14,6 +14,7 @@ import com.musicseque.activities.BaseActivity;
 import com.musicseque.interfaces.MyInterface;
 import com.musicseque.retrofit_interface.RetrofitAPI;
 import com.musicseque.utilities.Constants;
+import com.musicseque.utilities.SharedPref;
 import com.musicseque.utilities.Utils;
 
 import org.json.JSONException;
@@ -73,7 +74,7 @@ public class ChangePasswordActivity extends BaseActivity implements MyInterface 
                 if (Utils.isNetworkConnected(this)) {
                     if (mCurrentPassword.equalsIgnoreCase("")) {
                         Utils.showToast(this, getString(R.string.err_current_password));
-                    } else if (!mCurrentPassword.equalsIgnoreCase(sharedPreferences.getString(Constants.PASSWORD, ""))) {
+                    } else if (!mCurrentPassword.equalsIgnoreCase(SharedPref.getString(Constants.PASSWORD, ""))) {
                         Utils.showToast(this, getString(R.string.err_current_password_not_correct));
                     } else if (mNewPassword.length() == 0) {
                         Utils.showToast(this, getResources().getString(R.string.err_password_empty));
@@ -88,7 +89,7 @@ public class ChangePasswordActivity extends BaseActivity implements MyInterface 
                         Utils.initializeAndShow(this);
                         JSONObject jsonObject = new JSONObject();
                         try {
-                            jsonObject.put("UserId", sharedPreferences.getString(Constants.USER_ID, ""));
+                            jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""));
                             jsonObject.put("Password", mNewPassword);
                         } catch (JSONException e) {
                             e.printStackTrace();

@@ -15,6 +15,7 @@ import com.musicseque.interfaces.MyInterface
 import com.musicseque.retrofit_interface.KotlinHitAPI
 import com.musicseque.utilities.Constants
 import com.musicseque.utilities.Constants.FOR_SHOW_EVENTS_LIST
+import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils
 import kotlinx.android.synthetic.main.activity_events_list.*
 import kotlinx.android.synthetic.main.toolbar_top.*
@@ -55,7 +56,7 @@ class EventsListActivity : BaseActivity(), MyInterface {
             if(type== FOR_SHOW_EVENTS_LIST)
             {
                 val obj = JSONObject()
-                obj.put("EventManagerId", sharedPreferences.getString(Constants.USER_ID, ""))
+                obj.put("EventManagerId", SharedPref.getString(Constants.USER_ID, ""))
                 obj.put("EventStatus", mType)
                 KotlinHitAPI.callAPI(obj.toString(), Constants.FOR_SHOW_EVENTS_LIST, this)
             }

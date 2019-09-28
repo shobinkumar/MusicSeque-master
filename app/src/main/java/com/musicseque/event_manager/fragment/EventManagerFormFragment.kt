@@ -24,6 +24,7 @@ import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.Constants
 import com.musicseque.utilities.Constants.FOR_UPDATE_PROFILE
 import com.musicseque.utilities.Constants.FOR_USER_PROFILE
+import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils
 import com.musicseque.utilities.Utils.initializeProgressDialog
 import org.json.JSONArray
@@ -214,7 +215,7 @@ class EventManagerFormFragment : BaseFragment(), MyInterface, View.OnClickListen
                     } else {
                         showDialog()
                         try {
-                            jsonBody.put("UserId", sharedPref.getString(Constants.USER_ID, ""))
+                            jsonBody.put("UserId", SharedPref.getString(Constants.USER_ID, ""))
                             jsonBody.put("DisplayName", "")
                             jsonBody.put("Email", mEmail)
                             jsonBody.put("CountryId", mCountryId)
@@ -266,7 +267,7 @@ class EventManagerFormFragment : BaseFragment(), MyInterface, View.OnClickListen
             showDialog()
             try {
                 val jsonObject = JSONObject()
-                jsonObject.put("UserId", sharedPref.getString(Constants.USER_ID, ""))
+                jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""))
                 RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_USER_PROFILE, this)
             } catch (e: JSONException) {
                 e.printStackTrace()

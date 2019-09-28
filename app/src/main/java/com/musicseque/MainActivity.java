@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -31,9 +30,7 @@ import com.musicseque.artist.fragments.ProfileDetailFragment;
 import com.musicseque.artist.fragments.ProfileFragment;
 import com.musicseque.artist.other_band.fragments.OtherBandListFragment;
 import com.musicseque.artist.service.CommonService;
-import com.musicseque.dagger_data.DaggerRetrofitComponent;
-import com.musicseque.dagger_data.RetrofitComponent;
-import com.musicseque.dagger_data.SharedPrefDependency;
+
 import com.musicseque.event_manager.activity.CreateEventActivity;
 import com.musicseque.event_manager.activity.EventsListActivity;
 import com.musicseque.firebase_notification.NotificationActivity;
@@ -42,6 +39,7 @@ import com.musicseque.fragments.SettingFragment;
 import com.musicseque.service.LocationService;
 import com.musicseque.start_up.LoginActivity;
 import com.musicseque.utilities.Constants;
+import com.musicseque.utilities.SharedPref;
 import com.musicseque.utilities.Utils;
 import com.musicseque.venue_manager.activity.UploadVenueMediaActivity;
 import com.musicseque.venue_manager.fragment.CreateVenueFragment;
@@ -63,9 +61,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView iv_home, iv_profile, iv_feature, iv_chat, iv_settings;
 
 
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
-    private RetrofitComponent retrofitComponent;
+//    SharedPref SharedPref;
+//    SharedPref.SharedPref SharedPref;
+//    private RetrofitComponent retrofitComponent;
     @BindView(R.id.tvAddEvent)
     TextView tvAddEvent;
 
@@ -227,11 +225,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initOtherViews() {
 
-        retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getApplicationContext())).build();
-        sharedPreferences = retrofitComponent.getShared();
-        editor = retrofitComponent.getEditor();
-        editor.putBoolean(Constants.IS_LOGIN, true).commit();
-        mLoginType=sharedPreferences.getString(PROFILE_TYPE,"");
+//        retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getApplicationContext())).build();
+//        SharedPref = retrofitComponent.getShared();
+//        SharedPref = retrofitComponent.getSharedPref();
+        SharedPref.putBoolean(Constants.IS_LOGIN, true);
+        mLoginType= SharedPref.getString(PROFILE_TYPE,"");
 
 
     }
@@ -261,7 +259,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void uploadLatLng() {
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("UserId", sharedPreferences.getString(Constants.USER_ID, ""));
+            jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""));
             jsonObject.put("Latitude", LocationService.mLatitude);
             jsonObject.put("Longitude", LocationService.mLongitude);
         } catch (JSONException e) {
@@ -273,10 +271,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void defaultValues() {
-        tvUserName.setText(sharedPreferences.getString(Constants.USER_NAME, ""));
-        tvType.setText(sharedPreferences.getString(Constants.PROFILE_TYPE, ""));
-        tvId.setText("ID : " + sharedPreferences.getString(Constants.UNIQUE_CODE, ""));
-        String mUrl = sharedPreferences.getString(Constants.PROFILE_IMAGE, "");
+        tvUserName.setText(SharedPref.getString(Constants.USER_NAME, ""));
+        tvType.setText(SharedPref.getString(Constants.PROFILE_TYPE, ""));
+        tvId.setText("ID : " + SharedPref.getString(Constants.UNIQUE_CODE, ""));
+        String mUrl = SharedPref.getString(Constants.PROFILE_IMAGE, "");
         if (mUrl.equalsIgnoreCase("")) {
             Glide.with(this)
                     .load(R.drawable.icon_img_dummy)
@@ -307,7 +305,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Boolean b = getIntent().getBooleanExtra("profileTemp", false);
 
                 if (b == null) {
-                    if (sharedPreferences.getString(Constants.IS_FIRST_LOGIN, "").equalsIgnoreCase("Y"))
+                    if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equalsIgnoreCase("Y"))
                         fragment = new ProfileFragment();
                     else
                         fragment = new ProfileDetailFragment();
@@ -324,7 +322,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Boolean b = getIntent().getBooleanExtra("profileTemp", false);
 
                 if (b == null) {
-                    if (sharedPreferences.getString(Constants.IS_FIRST_LOGIN, "").equalsIgnoreCase("Y"))
+                    if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equalsIgnoreCase("Y"))
                         fragment = new CreateVenueFragment();
                     else
                         fragment = new VenueProfileDetailFragment();
@@ -366,14 +364,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         } else if (view == iv_profile) {
 
-            if (sharedPreferences.getString(Constants.IS_FIRST_LOGIN, "").equalsIgnoreCase("Y")) {
-                if (mLoginType.equalsIgnoreCase("VenueManager")) {
+            if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equalsIgnoreCase("Y")) {
+                if (mLoginType.equalsIgnoreCase("Venue Manager")) {
                     fragment = new CreateVenueFragment();
                 } else {
                     fragment = new ProfileFragment();
                 }
             } else {
-                if (mLoginType.equalsIgnoreCase("VenueManager")) {
+                if (mLoginType.equalsIgnoreCase("Venue Manager")) {
                     fragment = new VenueProfileDetailFragment();
                 } else {
                     fragment = new ProfileDetailFragment();
@@ -407,7 +405,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // If navigation drawer is not open yet open it else close it.
             if (!navDrawer.isDrawerOpen(GravityCompat.START)) {
                 navDrawer.openDrawer(Gravity.START);
-                String mUrl = sharedPreferences.getString(Constants.PROFILE_IMAGE, "");
+                String mUrl = SharedPref.getString(Constants.PROFILE_IMAGE, "");
                 if (mUrl.equalsIgnoreCase("")) {
                     Glide.with(this)
                             .load(R.drawable.icon_img_dummy)
@@ -474,7 +472,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.tvMyProfile:
 
 
-                if (sharedPreferences.getString(Constants.IS_FIRST_LOGIN, "").equalsIgnoreCase("Y")) {
+                if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equalsIgnoreCase("Y")) {
                     fragment = new ProfileFragment();
                 } else {
                     fragment = new ProfileDetailFragment();
@@ -530,11 +528,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.llUpload:
-                if(sharedPreferences.getString(Constants.PROFILE_TYPE, "").equalsIgnoreCase("Artist"))
+                if(SharedPref.getString(Constants.PROFILE_TYPE, "").equalsIgnoreCase("Artist"))
                 {
                     startActivity(new Intent(this, UploadActivity.class));
                 }
-                else if(mLoginType.equalsIgnoreCase("VenueManager"))
+                else if(mLoginType.equalsIgnoreCase("Venue Manager"))
                 {
                     Utils.showToast(MainActivity.this,"Currently working");
                    // startActivity(new Intent(this, UploadVenueMediaActivity.class));
@@ -587,7 +585,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
             case R.id.tvUpcomingEvent:
-                if(mLoginType.equalsIgnoreCase("VenueManager"))
+                if(mLoginType.equalsIgnoreCase("Venue Manager"))
                 {
                     Utils.showToast(MainActivity.this,"Coming Soon");
                 }
@@ -603,7 +601,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.tvPastEvents:
 
-                if(mLoginType.equalsIgnoreCase("VenueManager"))
+                if(mLoginType.equalsIgnoreCase("Venue Manager"))
                 {
                     Utils.showToast(MainActivity.this,"Coming Soon");
                 }
@@ -624,23 +622,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     void clearLoginCredentials() {
         try {
-            editor.putBoolean(Constants.IS_LOGIN, false).commit();
-            editor.putString(Constants.COUNTRY_CODE, "").commit();
-            editor.putString(Constants.COUNTRY_ID, "").commit();
-            editor.putString(Constants.COUNTRY_NAME, "").commit();
-            editor.putString(Constants.MOBILE_NUMBER, "").commit();
-            editor.putString(Constants.PROFILE_IMAGE, "").commit();
-            editor.putString(Constants.USER_NAME, "").commit();
-            editor.putString(Constants.USER_ID, "").commit();
-            editor.putString(Constants.PROFILE_TYPE, "").commit();
-            editor.putString(Constants.PROFILE_ID, "").commit();
-            // editor.putString(Constants.EMAIL_ID, "").commit();
-            editor.putString(Constants.PROFILE_IMAGE, "").commit();
-            editor.putString(Constants.COUNTRY_NAME, "").commit();
-            editor.putString(Constants.LOGIN_TYPE, "").commit();
+            SharedPref.putBoolean(Constants.IS_LOGIN, false);
+            SharedPref.putString(Constants.COUNTRY_CODE, "");
+            SharedPref.putString(Constants.COUNTRY_ID, "");
+            SharedPref.putString(Constants.COUNTRY_NAME, "");
+            SharedPref.putString(Constants.MOBILE_NUMBER, "");
+            SharedPref.putString(Constants.PROFILE_IMAGE, "");
+            SharedPref.putString(Constants.USER_NAME, "");
+            SharedPref.putString(Constants.USER_ID, "");
+            SharedPref.putString(Constants.PROFILE_TYPE, "");
+            SharedPref.putString(Constants.PROFILE_ID, "");
+            // SharedPref.putString(Constants.EMAIL_ID, "").commit();
+            SharedPref.putString(Constants.PROFILE_IMAGE, "");
+            SharedPref.putString(Constants.COUNTRY_NAME, "");
+            SharedPref.putString(Constants.LOGIN_TYPE, "");
 
-            editor.putString(Constants.UNIQUE_CODE, "").commit();
-            editor.putString(Constants.IS_FIRST_LOGIN, "").commit();
+            SharedPref.putString(Constants.UNIQUE_CODE, "");
+            SharedPref.putString(Constants.IS_FIRST_LOGIN, "");
 
 
         } catch (Exception e) {
@@ -651,7 +649,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     void closeProfile() {
-       if(mLoginType.equalsIgnoreCase("VenueManager"))
+       if(mLoginType.equalsIgnoreCase("Venue Manager"))
         {
 
         }
@@ -677,7 +675,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void showHideDrawerViews() {
-        if (mLoginType.equalsIgnoreCase("VenueManager")) {
+        if (mLoginType.equalsIgnoreCase("Venue Manager")) {
             tvAddEvent.setVisibility(View.GONE);
             llAllProfile.setVisibility(View.GONE);
             ivUpArrow.setVisibility(View.GONE);
@@ -689,7 +687,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             tvProfile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (sharedPreferences.getString(Constants.IS_FIRST_LOGIN, "").equalsIgnoreCase("Y")) {
+                    if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equalsIgnoreCase("Y")) {
                         fragment = new CreateVenueFragment();
 
                     } else {
@@ -726,7 +724,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onDrawerSlide(@NonNull View view, float v) {
         if (!navDrawer.isDrawerOpen(GravityCompat.START)) {
             navDrawer.openDrawer(Gravity.START);
-            String mUrl = sharedPreferences.getString(Constants.PROFILE_IMAGE, "");
+            String mUrl = SharedPref.getString(Constants.PROFILE_IMAGE, "");
             if (mUrl.equalsIgnoreCase("")) {
                 Glide.with(this)
                         .load(R.drawable.icon_img_dummy)

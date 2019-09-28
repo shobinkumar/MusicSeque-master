@@ -45,5 +45,9 @@ public interface KotlinCommonInterface {
     @POST(Constants.DELETE_EVENT_API)
     abstract fun methodForDeleteEvent(params: String): Call<String>
 
+    @Headers("Content-Type: application/json")
+    @POST(Constants.GET_VENUE_TIMMINGS_API)
+    abstract fun methodForGetVenueTimmings(@Body params: String): Call<String>
+
 
 }

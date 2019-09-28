@@ -23,6 +23,7 @@ import com.musicseque.artist.fragments.BaseFragment;
 import com.musicseque.interfaces.MyInterface;
 import com.musicseque.retrofit_interface.RetrofitAPI;
 import com.musicseque.utilities.Constants;
+import com.musicseque.utilities.SharedPref;
 import com.musicseque.utilities.Utils;
 
 import org.json.JSONArray;
@@ -83,11 +84,11 @@ public class BandListFragment extends BaseFragment implements MyInterface {
 
                 if (type.equalsIgnoreCase("get_list")) {
                     JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("LoginUserId", getSharedPref().getString(Constants.USER_ID, ""));
+                    jsonObject.put("LoginUserId", SharedPref.getString(Constants.USER_ID, ""));
                     RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_BAND_LIST, BandListFragment.this);
                 } else if (type.equalsIgnoreCase("for_delete")) {
                     JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("BandManagerId", getSharedPref().getString(Constants.USER_ID, ""));
+                    jsonObject.put("BandManagerId", SharedPref.getString(Constants.USER_ID, ""));
                     jsonObject.put("BandId", "");
                     RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_DELETE_BAND, BandListFragment.this);
 

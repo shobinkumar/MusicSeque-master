@@ -31,13 +31,12 @@ import android.widget.Toast;
 
 import com.musicseque.Fonts.NoyhrEditText;
 import com.musicseque.R;
-import com.musicseque.dagger_data.DaggerRetrofitComponent;
-import com.musicseque.dagger_data.RetrofitComponent;
-import com.musicseque.dagger_data.SharedPrefDependency;
+
 import com.musicseque.interfaces.MyInterface;
 import com.musicseque.models.CountryModel;
 import com.musicseque.retrofit_interface.RetrofitAPI;
 import com.musicseque.utilities.Constants;
+import com.musicseque.utilities.SharedPref;
 import com.musicseque.utilities.Utils;
 
 import org.json.JSONArray;
@@ -65,9 +64,9 @@ public class   SignupActivity extends Activity implements View.OnClickListener, 
     String mCountryCode="";
 
 
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
-    private RetrofitComponent retrofitComponent;
+//    SharedPreferences sharedPreferences;
+//    SharedPreferences.Editor editor;
+//    private RetrofitComponent retrofitComponent;
     private Spinner  spinnerCountryCode;
     private ArrayList<String>  countryCodeAL=new ArrayList<>();
     private ArrayList<CountryModel> countryAL=new ArrayList<>();
@@ -89,9 +88,9 @@ public class   SignupActivity extends Activity implements View.OnClickListener, 
 
     private void initOtherViews() {
 
-        retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getApplicationContext())).build();
-        sharedPreferences = retrofitComponent.getShared();
-        editor = retrofitComponent.getEditor();
+//        retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getApplicationContext())).build();
+//        sharedPreferences = retrofitComponent.getShared();
+//        editor = retrofitComponent.getEditor();
     }
 
     private void initViews() {
@@ -332,7 +331,7 @@ public class   SignupActivity extends Activity implements View.OnClickListener, 
         if (Utils.isNetworkConnected(SignupActivity.this)) {
             initializeLoader();
             try {
-                editor.putString(Constants.EMAIL_ID, email).commit();
+                SharedPref.putString(Constants.EMAIL_ID, email);
                 JSONObject jsonBody = new JSONObject();
                 jsonBody.put("UserName",email);
                 jsonBody.put("Password",pasw);

@@ -3,7 +3,6 @@ package com.musicseque.artist.fragments;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -28,16 +27,13 @@ import com.musicseque.R;
 import com.musicseque.artist.artist_adapters.UploadAudioAdapter;
 import com.musicseque.artist.artist_models.UploadedMediaModel;
 import com.musicseque.artist.retrofit_upload.ProgressRequestBody;
-import com.musicseque.dagger_data.DaggerRetrofitComponent;
-import com.musicseque.dagger_data.RetrofitComponent;
-import com.musicseque.dagger_data.SharedPrefDependency;
 import com.musicseque.interfaces.MyInterface;
 import com.musicseque.retrofit_interface.ImageUploadInterface;
 import com.musicseque.retrofit_interface.RetrofitAPI;
-import com.musicseque.retrofit_interface.KotlinRetrofitClientInstance;
 import com.musicseque.retrofit_interface.RetrofitClientInstance;
 import com.musicseque.utilities.Constants;
 import com.musicseque.utilities.FileUtils;
+import com.musicseque.utilities.SharedPref;
 import com.musicseque.utilities.Utils;
 
 import org.json.JSONArray;
@@ -75,9 +71,9 @@ public class UploadMusicFragment extends BaseFragment implements MyInterface, Pr
     UploadAudioAdapter adapter;
 
 
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
-    private RetrofitComponent retrofitComponent;
+//    SharedPref SharedPref;
+//    SharedPref.Editor editor;
+//    private RetrofitComponent retrofitComponent;
     private ArrayList<UploadedMediaModel> uploadedAl = new ArrayList<>();
     private int mPercent = 0;
 
@@ -100,9 +96,9 @@ public class UploadMusicFragment extends BaseFragment implements MyInterface, Pr
     }
 
     private void initOtherViews() {
-        retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getActivity())).build();
-        sharedPreferences = retrofitComponent.getShared();
-        editor = retrofitComponent.getEditor();
+//        retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getActivity())).build();
+//        SharedPref = retrofitComponent.getShared();
+//        editor = retrofitComponent.getEditor();
     }
 
     private void initViews() {
@@ -121,7 +117,7 @@ public class UploadMusicFragment extends BaseFragment implements MyInterface, Pr
             String requestBody = "";
             JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put("UserId", sharedPreferences.getString(Constants.USER_ID, ""));
+                jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""));
                 jsonObject.put("FileType", "Audio");
 
                 requestBody = jsonObject.toString();
@@ -221,7 +217,7 @@ public class UploadMusicFragment extends BaseFragment implements MyInterface, Pr
     }
 
     private void uploadAudio(String mPath, UploadedMediaModel uploadedMediaModel) {
-        RequestBody mUserId = RequestBody.create(MultipartBody.FORM, sharedPreferences.getString(Constants.USER_ID, ""));
+        RequestBody mUserId = RequestBody.create(MultipartBody.FORM, SharedPref.getString(Constants.USER_ID, ""));
         RequestBody mTag = RequestBody.create(MultipartBody.FORM, "audio");
         File file = new File(mPath);
         ProgressRequestBody fileBody = new ProgressRequestBody(file, "", this);
@@ -328,7 +324,7 @@ public class UploadMusicFragment extends BaseFragment implements MyInterface, Pr
             uploadedMediaModels = uploadedMediaModel;
             JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put("UserId", sharedPreferences.getString(Constants.USER_ID, ""));
+                jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""));
                 jsonObject.put("Id", uploadedMediaModel.getId());
             } catch (JSONException e) {
                 e.printStackTrace();

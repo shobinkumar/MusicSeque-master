@@ -3,7 +3,6 @@ package com.musicseque.start_up;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 
 import android.location.LocationManager;
 import android.os.Build;
@@ -18,20 +17,20 @@ import com.musicseque.MainActivity;
 import com.musicseque.MyApplication;
 import com.musicseque.R;
 import com.musicseque.activities.BaseActivity;
-import com.musicseque.dagger_data.DaggerRetrofitComponent;
-import com.musicseque.dagger_data.RetrofitComponent;
-import com.musicseque.dagger_data.SharedPrefDependency;
+
 
 import com.musicseque.event_manager.activity.MainActivityEventManager;
 import com.musicseque.service.LocationService;
 import com.musicseque.utilities.Constants;
+import com.musicseque.utilities.SharedPref;
 
 
 public class SplashActivity extends BaseActivity {
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
-    private RetrofitComponent retrofitComponent;
+//    SharedPref SharedPref;
+//    SharedPref.Editor editor;
+//    private RetrofitComponent retrofitComponent;
     LocationManager locationManager;
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -39,6 +38,9 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         MyApplication.context = this;
+        SharedPref.init(getApplicationContext());
+
+
         initOtherViews();
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -67,9 +69,7 @@ public class SplashActivity extends BaseActivity {
 
 
     private void initOtherViews() {
-        retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getApplicationContext())).build();
-        sharedPreferences = retrofitComponent.getShared();
-        editor = retrofitComponent.getEditor();
+
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
     }
@@ -99,7 +99,7 @@ public class SplashActivity extends BaseActivity {
 //                @Override
 //                public void run() {
 //                    Intent intent = null;
-//                    if (sharedPreferences.getBoolean(Constants.IS_LOGIN, false)) {
+//                    if (SharedPref.getBoolean(Constants.IS_LOGIN, false)) {
 //                        intent = new Intent(SplashActivity.this, MainActivity.class);
 //                    } else {
 //                        intent = new Intent(SplashActivity.this, LoginActivity.class);
@@ -143,7 +143,9 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+//        retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getApplicationContext())).build();
+//        SharedPref = retrofitComponent.getShared();
+//        editor = retrofitComponent.getEditor();
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             if (!checkLocationPermission()) {
 
@@ -157,17 +159,14 @@ public class SplashActivity extends BaseActivity {
                         @Override
                         public void run() {
                             Intent intent = null;
-                            if (sharedPreferences.getBoolean(Constants.IS_LOGIN, false))
-                            {
-                                if (sharedPreferences.getString(Constants.PROFILE_TYPE, "").equalsIgnoreCase("Artist"))
+                            if (SharedPref.getBoolean(Constants.IS_LOGIN, false)) {
+                                if (SharedPref.getString(Constants.PROFILE_TYPE, "").equalsIgnoreCase("Artist"))
                                     intent = new Intent(SplashActivity.this, MainActivity.class);
-                                else if (sharedPreferences.getString(Constants.PROFILE_TYPE, "").equalsIgnoreCase("EventManager"))
+                                else if (SharedPref.getString(Constants.PROFILE_TYPE, "").equalsIgnoreCase("EventManager"))
                                     intent = new Intent(SplashActivity.this, MainActivityEventManager.class);
-                               else if (sharedPreferences.getString(Constants.PROFILE_TYPE, "").equalsIgnoreCase("VenueManager"))
+                                else if (SharedPref.getString(Constants.PROFILE_TYPE, "").equalsIgnoreCase("Venue Manager"))
                                     intent = new Intent(SplashActivity.this, MainActivity.class);
-                            }
-
-                            else {
+                            } else {
                                 intent = new Intent(SplashActivity.this, LoginActivity.class);
                                 intent.putExtra("isEmailVerified", true);
 
@@ -192,7 +191,7 @@ public class SplashActivity extends BaseActivity {
                     @Override
                     public void run() {
                         Intent intent = null;
-                        if (sharedPreferences.getBoolean(Constants.IS_LOGIN, false)) {
+                        if (SharedPref.getBoolean(Constants.IS_LOGIN, false)) {
                             intent = new Intent(SplashActivity.this, MainActivity.class);
                         } else {
                             intent = new Intent(SplashActivity.this, LoginActivity.class);

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -39,13 +38,11 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.musicseque.Fonts.NoyhrEditText;
 import com.musicseque.MainActivity;
 import com.musicseque.R;
-import com.musicseque.dagger_data.DaggerRetrofitComponent;
-import com.musicseque.dagger_data.RetrofitComponent;
-import com.musicseque.dagger_data.SharedPrefDependency;
 import com.musicseque.event_manager.activity.MainActivityEventManager;
 import com.musicseque.interfaces.MyInterface;
 import com.musicseque.retrofit_interface.RetrofitAPI;
 import com.musicseque.utilities.Constants;
+import com.musicseque.utilities.SharedPref;
 import com.musicseque.utilities.Utils;
 
 import org.json.JSONException;
@@ -82,9 +79,9 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
     GoogleSignInOptions googleSignInOptions;
     private GoogleSignInClient googleSignInClient;
 
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
-    private RetrofitComponent retrofitComponent;
+//    SharedPref SharedPref;
+//    SharedPref.SharedPref SharedPref;
+//    private RetrofitComponent retrofitComponent;
     private String mProfileType = "";
     private FirebaseAuth mAuth;
     private Dialog dialog, dialogUserType;
@@ -116,9 +113,9 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
         }
 
 
-        if (sharedPreferences.getBoolean(Constants.IS_REMEMBER, false)) {
-            et_username.setText(sharedPreferences.getString(Constants.EMAIL_ID, ""));
-            et_password.setText(sharedPreferences.getString(Constants.PASSWORD, ""));
+        if (SharedPref.getBoolean(Constants.IS_REMEMBER, false)) {
+            et_username.setText(SharedPref.getString(Constants.EMAIL_ID, ""));
+            et_password.setText(SharedPref.getString(Constants.PASSWORD, ""));
             cbRememberMe.setChecked(true);
         } else {
             et_username.setText("");
@@ -155,9 +152,9 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
 
     private void initOtherViews() {
         // Utils.initializeProgressDialog(this);
-        retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getApplicationContext())).build();
-        sharedPreferences = retrofitComponent.getShared();
-        editor = retrofitComponent.getEditor();
+//        retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getApplicationContext())).build();
+//        SharedPref = retrofitComponent.getShared();
+//        SharedPref = retrofitComponent.getSharedPref();
 
     }
 
@@ -186,9 +183,9 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
-                    editor.putBoolean(Constants.IS_REMEMBER, true).commit();
+                    SharedPref.putBoolean(Constants.IS_REMEMBER, true);
                 } else {
-                    editor.putBoolean(Constants.IS_REMEMBER, false).commit();
+                    SharedPref.putBoolean(Constants.IS_REMEMBER, false);
                 }
             }
         });
@@ -295,8 +292,8 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                         initializeLoader();
                         // showProgressDialog();
                         JSONObject jsonBody = new JSONObject();
-                        editor.putString(Constants.EMAIL_ID, userName).commit();
-                        editor.putString(Constants.PASSWORD, password).commit();
+                        SharedPref.putString(Constants.EMAIL_ID, userName);
+                        SharedPref.putString(Constants.PASSWORD, password);
                         try {
                             jsonBody.put("UserName", userName);
                             jsonBody.put("Password", password);
@@ -439,27 +436,27 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
 
                         String ProfileTypeName = obj.getString("ProfileTypeName");
                         String Id = obj.getString("Id");
-                        editor.putString(Constants.USER_NAME, obj.getString("FirstName") + " " + obj.getString("LastName")).commit();
-                        editor.putString(Constants.USER_ID, obj.getString("Id")).commit();
-                        editor.putString(Constants.PROFILE_TYPE, obj.getString("ProfileTypeName")).commit();
-                        //  editor.putString(Constants.PROFILE_ID, obj.getString("ProfileTypeId")).commit();
-                        editor.putString(Constants.EMAIL_ID, obj.getString("Email")).commit();
+                        SharedPref.putString(Constants.USER_NAME, obj.getString("FirstName") + " " + obj.getString("LastName"));
+                        SharedPref.putString(Constants.USER_ID, obj.getString("Id"));
+                        SharedPref.putString(Constants.PROFILE_TYPE, obj.getString("ProfileTypeName"));
+                        //  SharedPref.putString(Constants.PROFILE_ID, obj.getString("ProfileTypeId"));
+                        SharedPref.putString(Constants.EMAIL_ID, obj.getString("Email"));
 
                         if (obj.getString("ProfilePic").equalsIgnoreCase("")) {
-                            editor.putString(Constants.PROFILE_IMAGE, "").commit();
+                            SharedPref.putString(Constants.PROFILE_IMAGE, "");
                         } else {
-                            editor.putString(Constants.PROFILE_IMAGE, obj.getString("ImgUrl") + obj.getString("ProfilePic")).commit();
+                            SharedPref.putString(Constants.PROFILE_IMAGE, obj.getString("ImgUrl") + obj.getString("ProfilePic"));
                         }
-                        editor.putString(Constants.COUNTRY_CODE, obj.getString("CountryCode")).commit();
-                        editor.putString(Constants.MOBILE_NUMBER, obj.getString("Phone")).commit();
-                        editor.putString(Constants.COUNTRY_NAME, obj.getString("CountryName")).commit();
-                        editor.putString(Constants.COUNTRY_ID, obj.getString("CountryId")).commit();
-                        editor.putString(Constants.LOGIN_TYPE, "Simple").commit();
-                        editor.putString(Constants.IS_FIRST_LOGIN, obj.getString("IsFirstLogin")).commit();
-                        editor.putString(Constants.VISIBILITY_STATUS, obj.getString("NewStatus")).commit();
-                        editor.putBoolean(Constants.IS_REMEMBER, true).commit();
+                        SharedPref.putString(Constants.COUNTRY_CODE, obj.getString("CountryCode"));
+                        SharedPref.putString(Constants.MOBILE_NUMBER, obj.getString("Phone"));
+                        SharedPref.putString(Constants.COUNTRY_NAME, obj.getString("CountryName"));
+                        SharedPref.putString(Constants.COUNTRY_ID, obj.getString("CountryId"));
+                        SharedPref.putString(Constants.LOGIN_TYPE, "Simple");
+                        SharedPref.putString(Constants.IS_FIRST_LOGIN, obj.getString("IsFirstLogin"));
+                        SharedPref.putString(Constants.VISIBILITY_STATUS, obj.getString("NewStatus"));
+                        SharedPref.putBoolean(Constants.IS_REMEMBER, true);
                         try {
-                            editor.putString(Constants.UNIQUE_CODE, obj.getString("UniqueCode")).commit();
+                            SharedPref.putString(Constants.UNIQUE_CODE, obj.getString("UniqueCode"));
                         } catch (Exception e) {
 
                         }
@@ -484,7 +481,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                             startActivity(intent);
                             finish();
                         }
-                        else if(obj.getString("ProfileTypeName").equalsIgnoreCase("VenueManager"))
+                        else if(obj.getString("ProfileTypeName").equalsIgnoreCase("Venue Manager"))
                         {
                             Intent intent;
                             if (obj.getString("IsFirstLogin").equalsIgnoreCase("Y"))
@@ -550,7 +547,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                     JSONObject jsonObject = new JSONObject(response.toString());
                     if (jsonObject.getString("Status").equalsIgnoreCase("Success")) {
                         if (jsonObject.getString("ProfileTypeId").equalsIgnoreCase("0")) {
-                            editor.putString(Constants.USER_ID, jsonObject.getString("Id")).commit();
+                            SharedPref.putString(Constants.USER_ID, jsonObject.getString("Id"));
 
                             if (!isFacebookEmail) {
                                 Dialog dialogEmail = new Dialog(LoginActivity.this, android.R.style.Theme_Translucent_NoTitleBar);
@@ -571,7 +568,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
 
                                         } else {
                                             mEmail = email;
-                                            editor.putString(Constants.EMAIL_ID, mEmail).commit();
+                                            SharedPref.putString(Constants.EMAIL_ID, mEmail);
                                             dialogUserType();
                                             dialogEmail.dismiss();
                                         }
@@ -585,19 +582,19 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
 
                         } else {
 
-                            editor.putString(Constants.USER_NAME, jsonObject.getString("FirstName")).commit();
-                            editor.putString(Constants.USER_ID, jsonObject.getString("Id")).commit();
-                            //  editor.putString(Constants.PROFILE_TYPE, jsonObject.getString("ProfileTypeName")).commit();
-                            editor.putString(Constants.PROFILE_ID, jsonObject.getString("ProfileTypeId")).commit();
-                            editor.putString(Constants.EMAIL_ID, jsonObject.getString("UserName")).commit();
-                            editor.putString(Constants.PROFILE_IMAGE, jsonObject.getString("SocialImageUrl")).commit();
-                            editor.putString(Constants.PROFILE_TYPE, jsonObject.getString("ProfileTypeName")).commit();
-                            editor.putString(Constants.LOGIN_TYPE, "Social").commit();
-                            editor.putString(Constants.VISIBILITY_STATUS, jsonObject.getString("NewStatus")).commit();
-                            editor.putString(Constants.IS_FIRST_LOGIN, jsonObject.getString("IsFirstLogin")).commit();
-                            editor.putBoolean(Constants.IS_REMEMBER, false).commit();
+                            SharedPref.putString(Constants.USER_NAME, jsonObject.getString("FirstName"));
+                            SharedPref.putString(Constants.USER_ID, jsonObject.getString("Id"));
+                            //  SharedPref.putString(Constants.PROFILE_TYPE, jsonObject.getString("ProfileTypeName"));
+                            SharedPref.putString(Constants.PROFILE_ID, jsonObject.getString("ProfileTypeId"));
+                            SharedPref.putString(Constants.EMAIL_ID, jsonObject.getString("UserName"));
+                            SharedPref.putString(Constants.PROFILE_IMAGE, jsonObject.getString("SocialImageUrl"));
+                            SharedPref.putString(Constants.PROFILE_TYPE, jsonObject.getString("ProfileTypeName"));
+                            SharedPref.putString(Constants.LOGIN_TYPE, "Social");
+                            SharedPref.putString(Constants.VISIBILITY_STATUS, jsonObject.getString("NewStatus"));
+                            SharedPref.putString(Constants.IS_FIRST_LOGIN, jsonObject.getString("IsFirstLogin"));
+                            SharedPref.putBoolean(Constants.IS_REMEMBER, false);
                             try {
-                                editor.putString(Constants.UNIQUE_CODE, jsonObject.getString("UniqueCode")).commit();
+                                SharedPref.putString(Constants.UNIQUE_CODE, jsonObject.getString("UniqueCode"));
                             } catch (Exception e) {
 
                             }
@@ -624,24 +621,58 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                 try {
                     JSONObject jsonObject = new JSONObject(response.toString());
                     if (jsonObject.getString("Status").equalsIgnoreCase("Success")) {
-                        editor.putString(Constants.USER_ID, jsonObject.getString("Id")).commit();
-                        editor.putString(Constants.PROFILE_TYPE, jsonObject.getString("ProfileTypeName")).commit();
-                        editor.putString(Constants.PROFILE_ID, jsonObject.getString("ProfileTypeId")).commit();
-                        editor.putString(Constants.PROFILE_IMAGE, jsonObject.getString("SocialImageUrl")).commit();
-                        editor.putString(Constants.VISIBILITY_STATUS, jsonObject.getString("NewStatus")).commit();
-                        editor.putString(Constants.IS_FIRST_LOGIN, jsonObject.getString("IsFirstLogin")).commit();
-                        editor.putBoolean(Constants.IS_REMEMBER, false).commit();
+                        SharedPref.putString(Constants.USER_ID, jsonObject.getString("Id"));
+                        SharedPref.putString(Constants.PROFILE_TYPE, jsonObject.getString("ProfileTypeName"));
+                        SharedPref.putString(Constants.PROFILE_ID, jsonObject.getString("ProfileTypeId"));
+                        SharedPref.putString(Constants.PROFILE_IMAGE, jsonObject.getString("SocialImageUrl"));
+                        SharedPref.putString(Constants.VISIBILITY_STATUS, jsonObject.getString("NewStatus"));
+                        SharedPref.putString(Constants.IS_FIRST_LOGIN, jsonObject.getString("IsFirstLogin"));
+                        SharedPref.putBoolean(Constants.IS_REMEMBER, false);
                         try {
-                            editor.putString(Constants.UNIQUE_CODE, jsonObject.getString("UniqueCode")).commit();
+                            SharedPref.putString(Constants.UNIQUE_CODE, jsonObject.getString("UniqueCode"));
                         } catch (Exception e) {
 
                         }
-                        editor.putString(Constants.LOGIN_TYPE, "Social").commit();
+                        SharedPref.putString(Constants.LOGIN_TYPE, "Social");
 
                         dialogUserType.dismiss();
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class).putExtra("frag", "com.musicseque.artist.fragments.ProfileFragment");
-                        startActivity(intent);
-                        finish();
+
+                        if (jsonObject.getString("ProfileTypeName").equalsIgnoreCase("Artist")) {
+                            Intent intent;
+
+                            if (jsonObject.getString("IsFirstLogin").equalsIgnoreCase("Y"))
+                                intent = new Intent(LoginActivity.this, MainActivity.class).putExtra("frag", "com.musicseque.artist.fragments.ProfileFragment");
+                            else
+                                intent = new Intent(LoginActivity.this, MainActivity.class);
+
+                            startActivity(intent);
+                            finish();
+                        }
+                        else if(jsonObject.getString("ProfileTypeName").equalsIgnoreCase("Venue Manager"))
+                        {
+                            Intent intent;
+                            if (jsonObject.getString("IsFirstLogin").equalsIgnoreCase("Y"))
+                                intent = new Intent(LoginActivity.this, MainActivity.class).putExtra("frag", "com.musicseque.venue_manager.fragment.CreateVenueFragment");
+                            else
+                                intent = new Intent(LoginActivity.this, MainActivity.class);
+
+                            startActivity(intent);
+                            finish();
+                        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     } else {
                         Utils.showToast(LoginActivity.this, jsonObject.getString("Message"));
                         dialogUserType.dismiss();
@@ -674,7 +705,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                     JSONObject jsonObject = new JSONObject(response.toString());
                     if (jsonObject.getString("Status").equalsIgnoreCase("Success")) {
                         dialogVerifyAccount.dismiss();
-                        //editor.putBoolean(Constants.IS_ACCOUNT_VERIFIED,true).commit();
+                        //SharedPref.putBoolean(Constants.IS_ACCOUNT_VERIFIED,true);
                     } else {
 
                     }
@@ -698,11 +729,11 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
             String requestBody = "";
             try {
                 JSONObject jsonBody = new JSONObject();
-                jsonBody.put("UserId", sharedPreferences.getString(Constants.USER_ID, ""));
-                jsonBody.put("ProfileTypeId", sharedPreferences.getString(Constants.PROFILE_ID, ""));
-                jsonBody.put("FirstName", sharedPreferences.getString(Constants.USER_NAME, ""));
+                jsonBody.put("UserId", SharedPref.getString(Constants.USER_ID, ""));
+                jsonBody.put("ProfileTypeId", SharedPref.getString(Constants.PROFILE_ID, ""));
+                jsonBody.put("FirstName", SharedPref.getString(Constants.USER_NAME, ""));
                 jsonBody.put("LastName", "");
-                jsonBody.put("UserName", sharedPreferences.getString(Constants.EMAIL_ID, ""));
+                jsonBody.put("UserName", SharedPref.getString(Constants.EMAIL_ID, ""));
                 jsonBody.put("SocialImageUrl", mImageURL);
                 jsonBody.put("PopToken", mToken);
 
@@ -741,7 +772,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
         final String[] pType = {"Artist", "Talent Manager", "Event Manager", "Music Lover", "Venue", "Store"};
 
 
-        etEmail.setText(sharedPreferences.getString(Constants.EMAIL_ID, ""));
+        etEmail.setText(SharedPref.getString(Constants.EMAIL_ID, ""));
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, pType);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         list.setAdapter(adapter);
@@ -829,8 +860,8 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                     if (Utils.isNetworkConnected(LoginActivity.this)) {
                         try {
 
-                            editor.putString(Constants.EMAIL_ID, Utils.getEDitText(etEmail)).commit();
-                            editor.putString(Constants.PROFILE_ID, userTypeId(mProfileType)).commit();
+                            SharedPref.putString(Constants.EMAIL_ID, Utils.getEDitText(etEmail));
+                            SharedPref.putString(Constants.PROFILE_ID, userTypeId(mProfileType));
 
                             hitSignUpAPI();
 
@@ -893,7 +924,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                             jsonBody.put("Email", Utils.getEDitText(etEmail));
                             jsonBody.put("OTPType", "ForgetPassword");
 
-                            editor.putString(Constants.EMAIL_ID, Utils.getEDitText(etEmail)).commit();
+                            SharedPref.putString(Constants.EMAIL_ID, Utils.getEDitText(etEmail));
                             String requestBody = jsonBody.toString();
                             RetrofitAPI.callAPI(requestBody, Constants.FOR_FORGOT_PASSWORD, LoginActivity.this);
 
@@ -958,7 +989,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                             initializeLoader();
 
                             JSONObject jsonBody = new JSONObject();
-                            jsonBody.put("Email", sharedPreferences.getString(Constants.EMAIL_ID, ""));
+                            jsonBody.put("Email", SharedPref.getString(Constants.EMAIL_ID, ""));
                             jsonBody.put("OTP", mOTP);
                             jsonBody.put("Password", pasw);
                             jsonBody.put("OTPType", "PasswordReset");
@@ -1005,7 +1036,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
         Button btnVerifyAccount = (Button) dialogVerifyAccount.findViewById(R.id.btnVerifyAccount);
         Button btnCancel = (Button) dialogVerifyAccount.findViewById(R.id.btnCancel);
         TextView btnResendOTP = (TextView) dialogVerifyAccount.findViewById(R.id.btnResendOTP);
-        etEmail.setText(sharedPreferences.getString(Constants.EMAIL_ID, ""));
+        etEmail.setText(SharedPref.getString(Constants.EMAIL_ID, ""));
 
 
         btnResendOTP.setOnClickListener(new View.OnClickListener() {
@@ -1019,7 +1050,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                         jsonBody.put("Email", Utils.getEDitText(etEmail));
                         // jsonBody.put("OTPType", "Email verification");
 
-                        editor.putString(Constants.EMAIL_ID, Utils.getEDitText(etEmail)).commit();
+                        SharedPref.putString(Constants.EMAIL_ID, Utils.getEDitText(etEmail));
                         String requestBody = jsonBody.toString();
                         RetrofitAPI.callAPI(requestBody, Constants.FOR_RESEND_OTP, LoginActivity.this);
 
@@ -1066,7 +1097,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                         try {
                             initializeLoader();
 
-                            editor.putString(Constants.EMAIL_ID, Utils.getEDitText(etEmail)).commit();
+                            SharedPref.putString(Constants.EMAIL_ID, Utils.getEDitText(etEmail));
                             JSONObject jsonBody = new JSONObject();
                             jsonBody.put("Email", Utils.getEDitText(etEmail));
                             jsonBody.put("Otp", mOTP);
@@ -1104,8 +1135,8 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
     }
 
     void saveDataInSharedPref(String name, String email) {
-        editor.putString(Constants.USER_NAME, name).commit();
-        editor.putString(Constants.EMAIL_ID, email).commit();
+        SharedPref.putString(Constants.USER_NAME, name);
+        SharedPref.putString(Constants.EMAIL_ID, email);
 
     }
 

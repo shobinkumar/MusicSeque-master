@@ -17,6 +17,7 @@ import com.musicseque.event_manager.adapter.SearchArtistAdapterEventManager
 import com.musicseque.interfaces.MyInterface
 import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.Constants
+import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils
 import org.json.JSONException
 import org.json.JSONObject
@@ -69,7 +70,7 @@ class SearchArtistActivityEventManager : BaseActivity(), MyInterface {
                         val jsonObject = JSONObject()
                         try {
                             jsonObject.put("SearchTypeValue", editable.toString())
-                            jsonObject.put("UserId", sharedPreferences.getString(Constants.USER_ID, ""))
+                            jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""))
 
                         } catch (e: JSONException) {
                             e.printStackTrace()
@@ -93,7 +94,7 @@ class SearchArtistActivityEventManager : BaseActivity(), MyInterface {
             if (type.equals("get_list")) {
                 val jsonObject = JSONObject()
                 try {
-                    jsonObject.put("UserId", sharedPreferences.getString(Constants.USER_ID, ""))
+                    jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""))
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
@@ -116,7 +117,7 @@ class SearchArtistActivityEventManager : BaseActivity(), MyInterface {
         Utils.hideProgressDialog()
         when (TYPE) {
             Constants.GET_ARTIST_LIST ->
-                //                searchArtistAdapter = new SearchArtistAdapter(SearchArtistActivityEventManager.this, arrayList,sharedPreferences.getString(Constants.USER_ID,""));
+                //                searchArtistAdapter = new SearchArtistAdapter(SearchArtistActivityEventManager.this, arrayList,SharedPref.getString(Constants.USER_ID,""));
                 //                recyclerArtist.setAdapter(searchArtistAdapter);
 
 
@@ -130,7 +131,7 @@ class SearchArtistActivityEventManager : BaseActivity(), MyInterface {
 
                             }.type)
 
-                            recyclerArtist.adapter = SearchArtistAdapterEventManager(this, arrayList, sharedPreferences.getString(Constants.USER_ID, ""))
+                            recyclerArtist.adapter = SearchArtistAdapterEventManager(this, arrayList, SharedPref.getString(Constants.USER_ID, ""))
                         }
 
                     } else {
@@ -153,7 +154,7 @@ class SearchArtistActivityEventManager : BaseActivity(), MyInterface {
                         arrayList = Gson().fromJson<ArrayList<ArtistModel>>(jsonArray.toString(), object : TypeToken<ArrayList<ArtistModel>>() {
 
                         }.type)
-                        recyclerArtist.adapter = SearchArtistAdapterEventManager(this, arrayList, sharedPreferences.getString(Constants.USER_ID, ""))
+                        recyclerArtist.adapter = SearchArtistAdapterEventManager(this, arrayList, SharedPref.getString(Constants.USER_ID, ""))
 
                     }
 

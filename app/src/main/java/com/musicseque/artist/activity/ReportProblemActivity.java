@@ -16,6 +16,7 @@ import com.musicseque.interfaces.MyInterface;
 import com.musicseque.retrofit_interface.ImageUploadClass;
 import com.musicseque.start_up.LoginActivity;
 import com.musicseque.utilities.Constants;
+import com.musicseque.utilities.SharedPref;
 import com.musicseque.utilities.Utils;
 
 import org.json.JSONException;
@@ -63,7 +64,7 @@ public class ReportProblemActivity extends BaseActivity implements MyInterface {
         img_first_icon.setVisibility(View.VISIBLE);
         img_right_icon.setVisibility(View.GONE);
 
-        tvEmail.setText(sharedPreferences.getString(Constants.EMAIL_ID, ""));
+        tvEmail.setText(SharedPref.getString(Constants.EMAIL_ID, ""));
 
     }
 
@@ -101,7 +102,7 @@ public class ReportProblemActivity extends BaseActivity implements MyInterface {
     }
 
     private void hitAPI() {
-        RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), sharedPreferences.getString(Constants.USER_ID, ""));
+        RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), SharedPref.getString(Constants.USER_ID, ""));
         RequestBody message = RequestBody.create(MediaType.parse("text/plain"), mMessage);
         ImageUploadClass.imageUpload(fileUpload, mUSerId, message, Constants.FOR_REPORT_PROBLEM, ReportProblemActivity.this);
 

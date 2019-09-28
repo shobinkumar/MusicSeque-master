@@ -7,11 +7,7 @@ import android.view.ViewGroup
 import com.musicseque.R
 import com.musicseque.interfaces.MyInterface
 import com.musicseque.retrofit_interface.KotlinHitAPI
-import com.musicseque.utilities.Constants
 import com.musicseque.utilities.Constants.FOR_VENUE_TIMMINGS
-import com.musicseque.utilities.KotlinBaseFragment
-import com.musicseque.utilities.KotlinUtils
-import com.musicseque.utilities.Utils
 import kotlinx.android.synthetic.main.fragment_venue_timmings.*
 import android.util.DisplayMetrics
 import android.util.Log
@@ -21,6 +17,7 @@ import android.widget.Toast
 import com.google.gson.Gson
 import com.musicseque.Fonts.BoldNoyhr
 import com.musicseque.MainActivity
+import com.musicseque.utilities.*
 import com.musicseque.venue_manager.model.CalendarModal
 import com.musicseque.venue_manager.model.DateTimeModel
 import com.musicseque.venue_manager.model.TimeModalClass
@@ -1045,7 +1042,7 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
 
             R.id.tvDone -> {
                 val json = JSONObject()
-                json.put("id", sharedPref.getString(Constants.USER_ID, ""))
+                json.put("id", SharedPref.getString(Constants.USER_ID, ""))
 
                 for ((k, v) in hashMap) {
                     val sKey = k;

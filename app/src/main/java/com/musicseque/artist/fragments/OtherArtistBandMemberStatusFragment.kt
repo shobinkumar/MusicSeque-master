@@ -3,11 +3,13 @@ package com.musicseque.artist.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.musicseque.Fonts.Noyhr
 import com.musicseque.R
 import com.musicseque.artist.artist_adapters.OtherArtistBandMemberStatusAdapter
 import com.musicseque.artist.band.band_activity.SearchBandMemberActivity
@@ -16,15 +18,14 @@ import com.musicseque.interfaces.MyInterface
 import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.Constants
 import com.musicseque.utilities.Utils
-import kotlinx.android.synthetic.main.fragment_band_members.*
-import kotlinx.android.synthetic.main.fragment_band_members.recyclerBandMember
 import kotlinx.android.synthetic.main.fragment_band_members.view.*
-import kotlinx.android.synthetic.main.fragment_other_artist_band_members_status.*
 import org.json.JSONObject
 
 class OtherArtistBandMemberStatusFragment : BaseFragment(), MyInterface {
 
 
+    private var recyclerBandMember: RecyclerView?=null
+    var tvNoMember:Noyhr?=null
     var alModel = ArrayList<BandMemberStatusModel>()
     var mBandId: String = ""
     var mManagerId: String = ""
@@ -56,6 +57,8 @@ class OtherArtistBandMemberStatusFragment : BaseFragment(), MyInterface {
     }
 
     private fun initViews() {
+        tvNoMember=views.findViewById<Noyhr>(R.id.tvNoMember)
+        recyclerBandMember=views.findViewById<RecyclerView>(R.id.tvNoMember)
         views.recyclerBandMember.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         mBandId = arguments!!.getString("band_id")
         mManagerId=arguments!!.getString("manager_id")
@@ -94,18 +97,18 @@ class OtherArtistBandMemberStatusFragment : BaseFragment(), MyInterface {
                 if (obj.getString("Status").equals("Success")) {
 
                     val data = obj.getJSONArray("result")
-                     tvNoMember.visibility = View.GONE
-                    recyclerBandMember.visibility = View.VISIBLE
+                     tvNoMember?.visibility = View.GONE
+                    recyclerBandMember?.visibility = View.VISIBLE
                     val gson = Gson()
                     val itemType = object : TypeToken<ArrayList<BandMemberStatusModel>>() {}.type
                     alModel = gson.fromJson<ArrayList<BandMemberStatusModel>>(data.toString(), itemType)
 
 
                     val adapter =  OtherArtistBandMemberStatusAdapter(alModel, activity!!)
-                    recyclerBandMember.adapter = adapter
+                    recyclerBandMember?.adapter = adapter
                 } else {
-                    tvNoMember.visibility = View.VISIBLE
-                    recyclerBandMember.visibility = View.GONE
+                    tvNoMember?.visibility = View.VISIBLE
+                    recyclerBandMember?.visibility = View.GONE
 
                 }
 

@@ -3,7 +3,6 @@ package com.musicseque.fragments;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -26,13 +25,12 @@ import com.musicseque.artist.activity.PrivacyPolicyActivity;
 import com.musicseque.artist.activity.ReportProblemActivity;
 import com.musicseque.artist.fragments.ProfileFragment;
 import com.musicseque.artist.service.CommonService;
-import com.musicseque.dagger_data.DaggerRetrofitComponent;
-import com.musicseque.dagger_data.RetrofitComponent;
-import com.musicseque.dagger_data.SharedPrefDependency;
+
 import com.musicseque.interfaces.MyInterface;
 import com.musicseque.retrofit_interface.RetrofitAPI;
 import com.musicseque.start_up.LoginActivity;
 import com.musicseque.utilities.Constants;
+import com.musicseque.utilities.SharedPref;
 import com.musicseque.utilities.Utils;
 import com.musicseque.venue_manager.fragment.CreateVenueFragment;
 
@@ -51,9 +49,9 @@ public class SettingFragment extends Fragment implements View.OnClickListener, M
 
     ImageView img_right_icon;
     RelativeLayout rltoolbar;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
-    private RetrofitComponent retrofitComponent;
+//    SharedPref SharedPref;
+//    SharedPref.SharedPref SharedPref;
+//    private RetrofitComponent retrofitComponent;
     View v;
     @BindView(R.id.tvStatus)
     TextView tvStatus;
@@ -80,13 +78,13 @@ public class SettingFragment extends Fragment implements View.OnClickListener, M
         initOtherViews();
         initViews();
         listeners();
-        if (sharedPreferences.getString(Constants.LOGIN_TYPE, "Simple").equalsIgnoreCase("Simple")) {
+        if (SharedPref.getString(Constants.LOGIN_TYPE, "Simple").equalsIgnoreCase("Simple")) {
             tvChangePassword.setVisibility(View.VISIBLE);
         } else {
             tvChangePassword.setVisibility(View.GONE);
         }
 
-        if (sharedPreferences.getString(PROFILE_TYPE, "").equalsIgnoreCase("VenueManager")) {
+        if (SharedPref.getString(PROFILE_TYPE, "").equalsIgnoreCase("Venue Manager")) {
            tvStatus.setVisibility(View.GONE);
         } else {
             tvStatus.setVisibility(View.VISIBLE);
@@ -102,9 +100,9 @@ public class SettingFragment extends Fragment implements View.OnClickListener, M
         img_right_icon.setVisibility(View.GONE);
         TextView tvDone = (TextView) ((MainActivity) getActivity()).findViewById(R.id.tvDone);
         tvDone.setVisibility(View.GONE);
-        retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getActivity())).build();
-        sharedPreferences = retrofitComponent.getShared();
-        editor = retrofitComponent.getEditor();
+//        retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getActivity())).build();
+//        SharedPref = retrofitComponent.getShared();
+//        SharedPref = retrofitComponent.getSharedPref();
     }
 
     private void initViews() {
@@ -140,11 +138,11 @@ public class SettingFragment extends Fragment implements View.OnClickListener, M
                 tvAvailable.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        editor.putString(Constants.VISIBILITY_STATUS, "Available").commit();
+                        SharedPref.putString(Constants.VISIBILITY_STATUS, "Available");
 
                         JSONObject jsonObject = new JSONObject();
                         try {
-                            jsonObject.put("UserId", sharedPreferences.getString(Constants.USER_ID, ""));
+                            jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""));
                             jsonObject.put("NewStatus", "Available");
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -159,11 +157,11 @@ public class SettingFragment extends Fragment implements View.OnClickListener, M
                 tvDoNot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        editor.putString(Constants.VISIBILITY_STATUS, "Do_not_disturb").commit();
+                        SharedPref.putString(Constants.VISIBILITY_STATUS, "Do_not_disturb");
                         popupWindow.dismiss();
                         JSONObject jsonObject = new JSONObject();
                         try {
-                            jsonObject.put("UserId", sharedPreferences.getString(Constants.USER_ID, ""));
+                            jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""));
                             jsonObject.put("NewStatus", "Do_not_disturb");
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -177,11 +175,11 @@ public class SettingFragment extends Fragment implements View.OnClickListener, M
                 tvInvisible.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        editor.putString(Constants.VISIBILITY_STATUS, "Offline").commit();
+                        SharedPref.putString(Constants.VISIBILITY_STATUS, "Offline");
                         popupWindow.dismiss();
                         JSONObject jsonObject = new JSONObject();
                         try {
-                            jsonObject.put("UserId", sharedPreferences.getString(Constants.USER_ID, ""));
+                            jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""));
                             jsonObject.put("NewStatus", "Offline");
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -223,7 +221,7 @@ public class SettingFragment extends Fragment implements View.OnClickListener, M
 
                                     try {
                                         Utils.initializeAndShow(getActivity());
-                                        String str = new JSONObject().put("UserId", sharedPreferences.getString(Constants.USER_ID, "")).toString();
+                                        String str = new JSONObject().put("UserId", SharedPref.getString(Constants.USER_ID, "")).toString();
                                         RetrofitAPI.callAPI(str, Constants.FOR_DELETE_ACCOUNT, SettingFragment.this);
                                     } catch (JSONException e) {
                                         e.printStackTrace();
@@ -268,23 +266,23 @@ public class SettingFragment extends Fragment implements View.OnClickListener, M
 
     void clearLoginCredentials() {
         try {
-            editor.putBoolean(Constants.IS_LOGIN, false).commit();
-            editor.putString(Constants.COUNTRY_CODE, "").commit();
-            editor.putString(Constants.COUNTRY_ID, "").commit();
-            editor.putString(Constants.COUNTRY_NAME, "").commit();
-            editor.putString(Constants.MOBILE_NUMBER, "").commit();
-            editor.putString(Constants.PROFILE_IMAGE, "").commit();
-            editor.putString(Constants.USER_NAME, "").commit();
-            editor.putString(Constants.USER_ID, "").commit();
-            editor.putString(Constants.PROFILE_TYPE, "").commit();
-            editor.putString(Constants.PROFILE_ID, "").commit();
-            // editor.putString(Constants.EMAIL_ID, "").commit();
-            editor.putString(Constants.PROFILE_IMAGE, "").commit();
-            editor.putString(Constants.COUNTRY_NAME, "").commit();
-            editor.putString(Constants.LOGIN_TYPE, "").commit();
+            SharedPref.putBoolean(Constants.IS_LOGIN, false);
+            SharedPref.putString(Constants.COUNTRY_CODE, "");
+            SharedPref.putString(Constants.COUNTRY_ID, "");
+            SharedPref.putString(Constants.COUNTRY_NAME, "");
+            SharedPref.putString(Constants.MOBILE_NUMBER, "");
+            SharedPref.putString(Constants.PROFILE_IMAGE, "");
+            SharedPref.putString(Constants.USER_NAME, "");
+            SharedPref.putString(Constants.USER_ID, "");
+            SharedPref.putString(Constants.PROFILE_TYPE, "");
+            SharedPref.putString(Constants.PROFILE_ID, "");
+            // SharedPref.putString(Constants.EMAIL_ID, "");
+            SharedPref.putString(Constants.PROFILE_IMAGE, "");
+            SharedPref.putString(Constants.COUNTRY_NAME, "");
+            SharedPref.putString(Constants.LOGIN_TYPE, "");
 
-            editor.putString(Constants.UNIQUE_CODE, "").commit();
-            editor.putString(Constants.IS_FIRST_LOGIN, "").commit();
+            SharedPref.putString(Constants.UNIQUE_CODE, "");
+            SharedPref.putString(Constants.IS_FIRST_LOGIN, "");
 
 
         } catch (Exception e) {

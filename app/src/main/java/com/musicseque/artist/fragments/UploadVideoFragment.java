@@ -1,6 +1,5 @@
 package com.musicseque.artist.fragments;
 
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -20,15 +19,13 @@ import com.musicseque.R;
 import com.musicseque.artist.artist_adapters.UploadVideoAdapter;
 import com.musicseque.artist.artist_models.UploadedMediaModel;
 import com.musicseque.artist.retrofit_upload.ProgressRequestBody;
-import com.musicseque.dagger_data.DaggerRetrofitComponent;
-import com.musicseque.dagger_data.RetrofitComponent;
-import com.musicseque.dagger_data.SharedPrefDependency;
 import com.musicseque.interfaces.MyInterface;
 import com.musicseque.retrofit_interface.ImageUploadInterface;
 import com.musicseque.retrofit_interface.RetrofitAPI;
 import com.musicseque.retrofit_interface.KotlinRetrofitClientInstance;
 import com.musicseque.retrofit_interface.RetrofitClientInstance;
 import com.musicseque.utilities.Constants;
+import com.musicseque.utilities.SharedPref;
 import com.musicseque.utilities.Utils;
 
 import org.json.JSONArray;
@@ -61,9 +58,9 @@ public class UploadVideoFragment extends BaseFragment implements MyInterface, Pr
     UploadVideoAdapter adapter;
 
 
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
-    private RetrofitComponent retrofitComponent;
+//    SharedPref SharedPref;
+//    SharedPref.Editor editor;
+//    private RetrofitComponent retrofitComponent;
     private ArrayList<UploadedMediaModel> uploadedAl = new ArrayList<>();
 
     private int mPercent = 0;
@@ -82,9 +79,9 @@ public class UploadVideoFragment extends BaseFragment implements MyInterface, Pr
     }
 
     private void initOtherViews() {
-        retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getActivity())).build();
-        sharedPreferences = retrofitComponent.getShared();
-        editor = retrofitComponent.getEditor();
+//        retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getActivity())).build();
+//        SharedPref = retrofitComponent.getShared();
+//        editor = retrofitComponent.getEditor();
     }
 
     private void initViews() {
@@ -102,7 +99,7 @@ public class UploadVideoFragment extends BaseFragment implements MyInterface, Pr
             String requestBody = "";
             JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put("UserId", sharedPreferences.getString(Constants.USER_ID, ""));
+                jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""));
                 jsonObject.put("FileType", "video");
 
                 requestBody = jsonObject.toString();
@@ -202,7 +199,7 @@ public class UploadVideoFragment extends BaseFragment implements MyInterface, Pr
         adapter.notifyDataSetChanged();
 
 
-        RequestBody mUserId = RequestBody.create(MultipartBody.FORM, sharedPreferences.getString(Constants.USER_ID, ""));
+        RequestBody mUserId = RequestBody.create(MultipartBody.FORM, SharedPref.getString(Constants.USER_ID, ""));
         RequestBody mTag = RequestBody.create(MultipartBody.FORM, "video");
         File file = new File(mPath);
         ProgressRequestBody fileBody = new ProgressRequestBody(file, "", this);
@@ -252,7 +249,7 @@ public class UploadVideoFragment extends BaseFragment implements MyInterface, Pr
             uploadedMediaModels = uploadedMediaModel;
             JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put("UserId", sharedPreferences.getString(Constants.USER_ID, ""));
+                jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""));
                 jsonObject.put("Id", uploadedMediaModel.getId());
             } catch (JSONException e) {
                 e.printStackTrace();

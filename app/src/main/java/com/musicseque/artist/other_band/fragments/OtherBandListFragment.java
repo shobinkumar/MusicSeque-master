@@ -25,6 +25,7 @@ import com.musicseque.artist.other_band.adapters.OtherBandListAdapter;
 import com.musicseque.interfaces.MyInterface;
 import com.musicseque.retrofit_interface.RetrofitAPI;
 import com.musicseque.utilities.Constants;
+import com.musicseque.utilities.SharedPref;
 import com.musicseque.utilities.Utils;
 
 import org.json.JSONArray;
@@ -85,7 +86,7 @@ public class OtherBandListFragment extends BaseFragment implements MyInterface {
 
                 if (type.equalsIgnoreCase("get_list")) {
                     JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("LoggedInArtistId", getSharedPref().getString(Constants.USER_ID, ""));
+                    jsonObject.put("LoggedInArtistId", SharedPref.getString(Constants.USER_ID, ""));
                     RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_OTHER_BAND_LIST, OtherBandListFragment.this);
                 }
 

@@ -18,9 +18,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 
 import com.musicseque.BuildConfig;
-import com.musicseque.dagger_data.DaggerRetrofitComponent;
-import com.musicseque.dagger_data.RetrofitComponent;
-import com.musicseque.dagger_data.SharedPrefDependency;
 import com.musicseque.event_manager.fragment.EventManagerDetailFragment;
 import com.musicseque.utilities.FileUtils;
 import com.musicseque.utilities.Utils;
@@ -45,16 +42,16 @@ public class BaseFragment extends Fragment {
     Fragment commonFragment;
     private String selectedImagePath;
 
-    public SharedPreferences      getSharedPref() {
-        RetrofitComponent retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getActivity())).build();
-        return retrofitComponent.getShared();
-    }
-
-
-    public SharedPreferences.Editor getEditor() {
-        RetrofitComponent retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getActivity())).build();
-        return retrofitComponent.getEditor();
-    }
+//    public SharedPreferences      getSharedPref() {
+//        RetrofitComponent retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getActivity())).build();
+//        return retrofitComponent.getShared();
+//    }
+//
+//
+//    public SharedPreferences.Editor getEditor() {
+//        RetrofitComponent retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getActivity())).build();
+//        return retrofitComponent.getEditor();
+//    }
 
 
     public void openDialog(String type, Fragment fragment) {
