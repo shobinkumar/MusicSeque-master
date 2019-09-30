@@ -118,7 +118,9 @@ class KotlinUtils {
             val mSelectedDate = dateFormat.parse(date)
 
             val cDate = Calendar.getInstance()
-            if (mSelectedDate.before(cDate.time)) {
+            val mCurrentDate=dateFormat.parse(dateFormat.format(cDate.time))
+
+            if (mSelectedDate.before(mCurrentDate)) {
                 return false
             } else {
                 return true

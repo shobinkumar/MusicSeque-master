@@ -77,6 +77,7 @@ class CheckVenueAvailabilityActivity : Activity(), View.OnClickListener, MyInter
             if (sType.equals("get_timmings")) {
                 val json= JSONObject()
                 json.put("VenueId",mVenueId)
+
                 KotlinHitAPI.callAPI(json.toString(),FOR_VENUE_TIMMINGS,this)
             }
         } else {

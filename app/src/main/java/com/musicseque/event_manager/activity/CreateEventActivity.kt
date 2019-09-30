@@ -47,7 +47,7 @@ import java.io.File
 class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, DateTimeInterface {
 
 
-     var uploadFile: MultipartBody.Part?=null
+    var uploadFile: MultipartBody.Part? = null
     private lateinit var eventsList: ArrayList<EventModel>
     private var mAttendenceCount: String? = null
     lateinit private var newList: ArrayList<CurrencyModel>
@@ -93,7 +93,7 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
         } catch (exp: Exception) {
             mEventId = ""
         }
-        seekBarPrice.setOnSeekbarChangeListener {  }
+        seekBarPrice.setOnSeekbarChangeListener { }
         seekBarPrice.setOnSeekbarChangeListener(OnSeekbarChangeListener { minValue -> tvBudgetPerGuest.setText(minValue.toString()) })
         rlAttendence.getViewTreeObserver().addOnGlobalLayoutListener(ViewTreeObserver.OnGlobalLayoutListener { mWidthCode = rlAttendence.getMeasuredWidth() })
 
@@ -110,7 +110,7 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
         rlEndDate.setOnClickListener(this)
         rlStartTime.setOnClickListener(this)
         rlEndTime.setOnClickListener(this)
-       // rlAttendence.setOnClickListener(this)
+        // rlAttendence.setOnClickListener(this)
         rlBudgetGuestCurrency.setOnClickListener(this)
         tvSubmit.setOnClickListener(this)
     }
@@ -396,34 +396,30 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                     val (mFromDate, mToDate) = KotlinUtils.dateFormatToReceive(jsonInner.getString("EventDateFrom"), jsonInner.getString("EventDateTo"))
 
                     tvStartDate.setText(mFromDate)
-                    tvEndDate.text=mToDate
+                    tvEndDate.text = mToDate
                     tvStartTime.setText(jsonInner.getString("EventTimeFrom"))
                     tvEndTime.setText(jsonInner.getString("EventTimeTo"))
                     tvBudgetPerGuest.setText(jsonInner.getString("EventBudget"))
-                    val budget=jsonInner.getString("EventBudget").toFloat()
+                    val budget = jsonInner.getString("EventBudget").toFloat()
                     //seekBarPrice.setMinValue(budget)
-                    mCurrency =jsonInner.getString("EventChargesPayCurrency")
+                    mCurrency = jsonInner.getString("EventChargesPayCurrency")
                     mCurrencyId = jsonInner.getString("EventChargesPayCurrencyId")
                     tvCurrency.setText(mCurrency)
 
-                    val arrayEvent=jsonInner.getString("EventTypeId").split(",")
-                    for(eventId in arrayEvent)
-                    {
-                       for(eventListAvailable in eventsList)
-                       {
-                           if(eventListAvailable.id.equals(eventId))
-                           {
-                               eventListAvailable.isSelected=true
-                               break
-                              // eventsList.add(eventListAvailable)
-                           }
-                       }
+                    val arrayEvent = jsonInner.getString("EventTypeId").split(",")
+                    for (eventId in arrayEvent) {
+                        for (eventListAvailable in eventsList) {
+                            if (eventListAvailable.id.equals(eventId)) {
+                                eventListAvailable.isSelected = true
+                                break
+                                // eventsList.add(eventListAvailable)
+                            }
+                        }
                     }
                     recyclerEvent.adapter = EventAdapter(this, eventsList)
-                    Log.e("","")
-                    if(!jsonInner.getString("EventPromotionImg").equals(""))
-                    {
-                        Glide.with(this).load(jsonInner.getString("EventPromotionImgPath")+jsonInner.getString("EventPromotionImg")).into(ivProfile)
+                    Log.e("", "")
+                    if (!jsonInner.getString("EventPromotionImg").equals("")) {
+                        Glide.with(this).load(jsonInner.getString("EventPromotionImgPath") + jsonInner.getString("EventPromotionImg")).into(ivProfile)
 
                     }
 
@@ -434,19 +430,25 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                 val json = JSONObject(response.toString())
 
                 if (json.getString("Status").equals("Success")) {
-                    Utils.showToast(this, json.getString("Message"))
+
                     mEventId = json.getString("EventId")
 
                     if (Utils.isNetworkConnected(this)) {
 
-                        if(uploadFile!=null)
-                        {
+                        if (uploadFile != null) {
                             Utils.initializeAndShow(this)
                             val mEventIds = RequestBody.create(MediaType.parse("text/plain"), mEventId)
                             ImageUploadClass.imageUpload(uploadFile, mEventIds, null, FOR_UPLOAD_EVENT_PROFILE_IMAGE, this)
 
+                        } else {
+                            Utils.showToast(this, json.getString("Message"))
+                            val intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
+                            finish()
                         }
-                           } else {
+                    }
+
+                    else {
                         Utils.showToast(this, resources.getString(R.string.err_no_internet))
                     }
 

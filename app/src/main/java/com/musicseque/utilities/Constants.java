@@ -167,7 +167,7 @@ public class Constants {
 
     public static final int FOR_SHOW_EVENTS_LIST=158;
     public static final int FOR_VENUE_TIMMINGS=159;
-
+    public static final int FOR_VENUE_BOOK=160;
 
     public static final int FOR_UPLOAD_EVENT_PROFILE_IMAGE = 201;
     public static final int FOR_DELETE_EVENT= 202;

@@ -16,4 +16,7 @@
     <color name="grey_200">#EEEEEE</color>
     <color name="color_dim_line">#0C1C24</color>
     <color name="color_edit_text">#0C1C24</color>
+    <color name="line_color">#d3d3d3</color>
+    <color name="round_grey_color">#999999</color>
+
 </resources>

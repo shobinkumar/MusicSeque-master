@@ -54,9 +54,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     private static final int SELECT_FILE_SINGLE = 1001;
 
     // public SharedPreferences sharedPreferences;
-    SharedPreferences pref;
-
-    public SharedPreferences.Editor editor;
+//    SharedPreferences pref;
+//
+//    public SharedPreferences.Editor editor;
 
 
     private int IMAGE_FROM;
@@ -317,7 +317,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
                     RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
                     MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
-                    RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), pref.getString(Constants.USER_ID, ""));
+                    RequestBody mUSerId = RequestBody.create(MediaType.parse("text/plain"), SharedPref.getString(Constants.USER_ID, ""));
 
                     if (activityName.equalsIgnoreCase("report") || activityName.equalsIgnoreCase("event_image")) {
                         forSingleImage(file, fileToUpload, mUSerId, file.getName());

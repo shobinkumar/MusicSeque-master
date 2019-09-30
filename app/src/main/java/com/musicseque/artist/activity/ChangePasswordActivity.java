@@ -120,7 +120,7 @@ public class ChangePasswordActivity extends BaseActivity implements MyInterface 
             JSONObject jsonObject = new JSONObject(response.toString());
             if (jsonObject.getString("Status").equalsIgnoreCase("Success")) {
                 Utils.showToast(this, jsonObject.getString("Message"));
-                editor.putString(Constants.PASSWORD, mNewPassword).commit();
+                SharedPref.putString(Constants.PASSWORD, mNewPassword);
                 startActivity(new Intent(this, MainActivity.class));
                 finish();
             } else {

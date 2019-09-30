@@ -22,41 +22,23 @@ class KotlinHitAPI {
             val apis = KotlinRetrofitClientInstance.createService(KotlinCommonInterface::class.java)
             lateinit var calls: Call<String>
             if (TYPE == FOR_EVENT_DETAIL) {
-               calls = apis!!.methodEventDetail(params)
-            }
-           else if (TYPE == FOR_SAVE_UPDATE_EVENT_DETAIL) {
+                calls = apis!!.methodEventDetail(params)
+            } else if (TYPE == FOR_SAVE_UPDATE_EVENT_DETAIL) {
                 calls = apis!!.methodEventSaveUpdateDetail(params)
-            }
-
-            else if(TYPE== FOR_SEARCH_VENUE_LIST)
-            {
-                calls=apis!!.methodForVenueList(params)
-            }
-
-            else if(TYPE== FOR_VENUE_TIMMINGS)
-            {
-                calls=apis!!.methodForGetVenueTimmings(params)
-            }
-
-
-
-
-            else if(TYPE== FOR_DELETE_EVENT)
-            {
-                calls=apis!!.methodForDeleteEvent(params)
-            }
-            else if(TYPE== FOR_SHOW_EVENTS_LIST)
-            {
-                calls=apis!!.getEventsListMethod(params)
-            }
-
-            else if(TYPE== FOR_CREATE_UPDATE_VENUE_PROFILE)
-            {
-                calls=apis!!.methodForVenueProfileSaveUpdate(params)
-            }
-            else if(TYPE== FOR_CREATE_UPDATE_VENUE_PROFILE)
-            {
-                calls=apis!!.methodForVenueProfileSaveUpdate(params)
+            } else if (TYPE == FOR_SEARCH_VENUE_LIST) {
+                calls = apis!!.methodForVenueList(params)
+            } else if (TYPE == FOR_VENUE_TIMMINGS) {
+                calls = apis!!.methodForGetVenueTimmings(params)
+            } else if (TYPE == Constants.FOR_VENUE_BOOK) {
+                calls = apis!!.methodForVenueBook(params)
+            } else if (TYPE == FOR_DELETE_EVENT) {
+                calls = apis!!.methodForDeleteEvent(params)
+            } else if (TYPE == FOR_SHOW_EVENTS_LIST) {
+                calls = apis!!.getEventsListMethod(params)
+            } else if (TYPE == FOR_CREATE_UPDATE_VENUE_PROFILE) {
+                calls = apis!!.methodForVenueProfileSaveUpdate(params)
+            } else if (TYPE == FOR_CREATE_UPDATE_VENUE_PROFILE) {
+                calls = apis!!.methodForVenueProfileSaveUpdate(params)
             }
             callRetrofitKotlin(calls, TYPE)
 
@@ -97,35 +79,26 @@ fun <T> callRetrofitKotlin(call: Call<T>, TYPE: Int) {
             } else if (TYPE == FOR_EVENT_DETAIL) {
                 Log.e("FOR_EVENT_DETAIL", response.body()!!.toString())
                 myInterfaces.sendResponse(response.body(), TYPE)
-            }
-            else if(TYPE==FOR_SAVE_UPDATE_EVENT_DETAIL)
-            {
+            } else if (TYPE == FOR_SAVE_UPDATE_EVENT_DETAIL) {
                 Log.e("FOR_SAVE_UPDATE_EVENT", response.body()!!.toString())
                 myInterfaces.sendResponse(response.body(), TYPE)
-            }
-            else if(TYPE== FOR_SEARCH_VENUE_LIST)
-            {
+            } else if (TYPE == FOR_SEARCH_VENUE_LIST) {
                 Log.e("FOR_SEARCH_VENUE_LIST", response.body()!!.toString())
                 myInterfaces.sendResponse(response.body(), TYPE)
-            }
-            else if(TYPE== FOR_VENUE_PROFILE)
-            {
+            } else if (TYPE == FOR_VENUE_PROFILE) {
                 Log.e("FOR_VENUE_PROFILE", response.body()!!.toString())
                 myInterfaces.sendResponse(response.body(), TYPE)
-            }
-            else if(TYPE== FOR_SHOW_EVENTS_LIST)
-            {
+            } else if (TYPE == FOR_SHOW_EVENTS_LIST) {
                 Log.e("FOR_SHOW_EVENTS", response.body()!!.toString())
                 myInterfaces.sendResponse(response.body(), TYPE)
-            }
-            else if(TYPE==FOR_CREATE_UPDATE_VENUE_PROFILE)
-            {
+            } else if (TYPE == FOR_CREATE_UPDATE_VENUE_PROFILE) {
                 Log.e("FOR_SAVE_VENUE", response.body()!!.toString())
                 myInterfaces.sendResponse(response.body(), TYPE)
-            }
-            else if(TYPE==FOR_VENUE_TIMMINGS)
-            {
+            } else if (TYPE == FOR_VENUE_TIMMINGS) {
                 Log.e("FOR_VENUE_TIMMINGS", response.body()!!.toString())
+                myInterfaces.sendResponse(response.body(), TYPE)
+            } else if (TYPE == FOR_VENUE_BOOK) {
+                Log.e("FOR_VENUE_BOOK", response.body()!!.toString())
                 myInterfaces.sendResponse(response.body(), TYPE)
             }
         }

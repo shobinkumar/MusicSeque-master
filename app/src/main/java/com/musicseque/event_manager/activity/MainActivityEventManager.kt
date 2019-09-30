@@ -184,23 +184,23 @@ class MainActivityEventManager : BaseActivity(), View.OnClickListener {
 
     fun clearLoginCredentials() {
         try {
-            editor.putBoolean(Constants.IS_LOGIN, false).commit()
-            editor.putString(Constants.COUNTRY_CODE, "").commit()
-            editor.putString(Constants.COUNTRY_ID, "").commit()
-            editor.putString(Constants.COUNTRY_NAME, "").commit()
-            editor.putString(Constants.MOBILE_NUMBER, "").commit()
-            editor.putString(Constants.PROFILE_IMAGE, "").commit()
-            editor.putString(Constants.USER_NAME, "").commit()
-            editor.putString(Constants.USER_ID, "").commit()
-            editor.putString(Constants.PROFILE_TYPE, "").commit()
-            editor.putString(Constants.PROFILE_ID, "").commit()
-            // editor.putString(Constants.EMAIL_ID, "").commit();
-            editor.putString(Constants.PROFILE_IMAGE, "").commit()
-            editor.putString(Constants.COUNTRY_NAME, "").commit()
-            editor.putString(Constants.LOGIN_TYPE, "").commit()
+            SharedPref.putBoolean(Constants.IS_LOGIN, false)
+            SharedPref.putString(Constants.COUNTRY_CODE, "")
+            SharedPref.putString(Constants.COUNTRY_ID, "")
+            SharedPref.putString(Constants.COUNTRY_NAME, "")
+            SharedPref.putString(Constants.MOBILE_NUMBER, "")
+            SharedPref.putString(Constants.PROFILE_IMAGE, "")
+            SharedPref.putString(Constants.USER_NAME, "")
+            SharedPref.putString(Constants.USER_ID, "")
+            SharedPref.putString(Constants.PROFILE_TYPE, "")
+            SharedPref.putString(Constants.PROFILE_ID, "")
+            // SharedPref.putString(Constants.EMAIL_ID, "");
+            SharedPref.putString(Constants.PROFILE_IMAGE, "")
+            SharedPref.putString(Constants.COUNTRY_NAME, "")
+            SharedPref.putString(Constants.LOGIN_TYPE, "")
 
-            editor.putString(Constants.UNIQUE_CODE, "").commit()
-            editor.putString(Constants.IS_FIRST_LOGIN, "").commit()
+            SharedPref.putString(Constants.UNIQUE_CODE, "")
+            SharedPref.putString(Constants.IS_FIRST_LOGIN, "")
 
 
         } catch (e: Exception) {
