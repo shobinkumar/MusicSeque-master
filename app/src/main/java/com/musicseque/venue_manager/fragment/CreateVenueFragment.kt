@@ -15,17 +15,13 @@ import com.musicseque.interfaces.MyInterface
 import com.musicseque.interfaces.SpinnerData
 import com.musicseque.models.CountryModel
 import com.musicseque.retrofit_interface.ImageUploadClass
-import com.musicseque.retrofit_interface.KotlinHitAPI
 import com.musicseque.retrofit_interface.RetrofitAPI
-import com.musicseque.service.LocationService
-import com.musicseque.service.LocationService.mLatitude
 import com.musicseque.utilities.*
 import kotlinx.android.synthetic.main.fragment_create_venue.*
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import com.musicseque.utilities.Constants.*
-import kotlinx.android.synthetic.main.toolbar.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

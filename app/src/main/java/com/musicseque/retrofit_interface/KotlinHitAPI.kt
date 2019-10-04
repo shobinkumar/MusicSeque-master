@@ -40,6 +40,10 @@ class KotlinHitAPI {
             } else if (TYPE == FOR_CREATE_UPDATE_VENUE_PROFILE) {
                 calls = apis!!.methodForVenueProfileSaveUpdate(params)
             }
+            else if(TYPE==FOR_VENUE_TO_TIMMINGS)
+            {
+                calls = apis!!.methodForVenueToTimmings(params)
+            }
             callRetrofitKotlin(calls, TYPE)
 
         }

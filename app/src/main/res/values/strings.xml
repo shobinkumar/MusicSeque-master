@@ -253,7 +253,7 @@
     <string name="err_venue_bio">Please enter venue description</string>
 
 
-    <string-array name="my_array">
+    <string-array name="my_time_array">
         <item>00:00</item>
 
         <item>01:00</item>

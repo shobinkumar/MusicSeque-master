@@ -53,5 +53,9 @@ public interface KotlinCommonInterface {
     @POST(Constants.VENUE_BOOK_API)
     abstract fun methodForVenueBook(@Body params: String): Call<String>
 
+    @Headers("Content-Type: application/json")
+    @POST(Constants.VENUE_TO_TIMMINGS_API)
+    abstract fun methodForVenueToTimmings(@Body params: String): Call<String>
+
 
 }
