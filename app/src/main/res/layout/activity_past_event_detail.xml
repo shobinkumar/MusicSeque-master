@@ -7,151 +7,168 @@
 
     <include layout="@layout/toolbar_top" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:layout_height="match_parent">
 
-        <com.musicseque.Fonts.Noyhr
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Event Name"
-            android:textColor="@color/color_white"
-            android:textSize="18sp" />
-
-        <com.musicseque.Fonts.Noyhr
-            android:id="@+id/tvEventName"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Test Event"
-            android:textColor="@color/color_white"
-            android:textSize="18sp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/color_white" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ivProfile"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="10dp">
 
-        <com.musicseque.Fonts.Noyhr
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Event Description"
-            android:layout_marginTop="20dp"
-            android:textColor="@color/color_white"
-            android:textSize="18sp" />
+                <com.musicseque.Fonts.Noyhr
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Event Name"
+                    android:textColor="@color/color_white"
+                    android:textSize="18sp" />
 
-        <com.musicseque.Fonts.Noyhr
-            android:id="@+id/tvEventDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Test Event"
-            android:textColor="@color/color_white"
-            android:textSize="18sp" />
+                <com.musicseque.Fonts.Noyhr
+                    android:id="@+id/tvEventName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Test Event"
+                    android:textColor="@color/color_white"
+                    android:textSize="18sp" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/color_white" />
-
-
-
-        <com.musicseque.Fonts.Noyhr
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Event Start Date/Time"
-            android:textColor="@color/color_white"
-            android:textSize="18sp" />
-
-        <com.musicseque.Fonts.Noyhr
-            android:id="@+id/tvStartDateTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="12 Sept 2019 12:00:00"
-            android:textColor="@color/color_white"
-            android:textSize="18sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/color_white" />
-
-        <com.musicseque.Fonts.Noyhr
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Event End Date/Time"
-            android:textColor="@color/color_white"
-            android:textSize="18sp" />
-
-        <com.musicseque.Fonts.Noyhr
-            android:id="@+id/tvEndDateTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="15 Sept 2019 12:00:00"
-            android:textColor="@color/color_white"
-            android:textSize="18sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/color_white" />
-
-        <com.musicseque.Fonts.Noyhr
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Venue Name"
-            android:textColor="@color/color_white"
-            android:textSize="18sp" />
-
-        <com.musicseque.Fonts.Noyhr
-            android:id="@+id/tvVenueName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/color_white"
-            android:textSize="18sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/color_white" />
-
-        <com.musicseque.Fonts.Noyhr
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Gathering"
-            android:textColor="@color/color_white"
-            android:textSize="18sp" />
-
-        <com.musicseque.Fonts.Noyhr
-            android:id="@+id/tvCapacity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="100-200"
-            android:textColor="@color/color_white"
-            android:textSize="18sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/color_white" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/color_white" />
 
 
-    </LinearLayout>
+                <com.musicseque.Fonts.Noyhr
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Event Description"
+                    android:textColor="@color/color_white"
+                    android:textSize="18sp" />
+
+                <com.musicseque.Fonts.Noyhr
+                    android:id="@+id/tvEventDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Test Event"
+                    android:textColor="@color/color_white"
+                    android:textSize="18sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/color_white" />
+
+
+                <com.musicseque.Fonts.Noyhr
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Event Start Date/Time"
+                    android:textColor="@color/color_white"
+                    android:textSize="18sp" />
+
+                <com.musicseque.Fonts.Noyhr
+                    android:id="@+id/tvStartDateTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="12 Sept 2019 12:00:00"
+                    android:textColor="@color/color_white"
+                    android:textSize="18sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/color_white" />
+
+                <com.musicseque.Fonts.Noyhr
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Event End Date/Time"
+                    android:textColor="@color/color_white"
+                    android:textSize="18sp" />
+
+                <com.musicseque.Fonts.Noyhr
+                    android:id="@+id/tvEndDateTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="15 Sept 2019 12:00:00"
+                    android:textColor="@color/color_white"
+                    android:textSize="18sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/color_white" />
+
+                <com.musicseque.Fonts.Noyhr
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Venue Name"
+                    android:textColor="@color/color_white"
+                    android:textSize="18sp" />
+
+                <com.musicseque.Fonts.Noyhr
+                    android:id="@+id/tvVenueName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/color_white"
+                    android:textSize="18sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/color_white" />
+
+                <com.musicseque.Fonts.Noyhr
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Gathering"
+                    android:textColor="@color/color_white"
+                    android:textSize="18sp" />
+
+                <com.musicseque.Fonts.Noyhr
+                    android:id="@+id/tvCapacity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="100-200"
+                    android:textColor="@color/color_white"
+                    android:textSize="18sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/color_white" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

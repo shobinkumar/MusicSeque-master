@@ -138,7 +138,14 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
                 if (mVenuePhoneNumber.equals("", ignoreCase = true)) {
                     Utils.showToast(activity, resources.getString(R.string.err_phone_empty))
 
-                } else if (mVenuePhoneNumber.length < 10) {
+                }
+
+                else if(mCountryCode.equals("",true))
+                {
+                    Utils.showToast(activity, resources.getString(R.string.err_country_code))
+
+                }
+                else if (mVenuePhoneNumber.length < 10) {
                     Utils.showToast(activity, resources.getString(R.string.err_phone))
                 } else if (mVenueAddress.equals("", ignoreCase = true)) {
                     Utils.showToast(activity, resources.getString(R.string.err_address))

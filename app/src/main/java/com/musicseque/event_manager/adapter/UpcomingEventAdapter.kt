@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import com.musicseque.R
 import com.musicseque.event_manager.activity.CreateEventActivity
 import com.musicseque.event_manager.activity.EventsListActivity
+import com.musicseque.event_manager.activity.UpcomingEventDetailActivity
 import com.musicseque.event_manager.model.EventListModel
 import com.musicseque.utilities.KotlinUtils
 import kotlinx.android.synthetic.main.row_upcoming_event_list.view.*
@@ -56,6 +57,12 @@ class UpcomingEventAdapter(var al: ArrayList<EventListModel>, var type: Int, val
             }
             itemView.ivDelete.setOnClickListener {
                 eventsListActivity.deleteEvent(data.event_id)
+
+            }
+            itemView.setOnClickListener {
+
+                val intent = Intent(activitys, UpcomingEventDetailActivity::class.java).putExtra("event_id", data.event_id)
+                activitys.startActivity(intent)
 
             }
 

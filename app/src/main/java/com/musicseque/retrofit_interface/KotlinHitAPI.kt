@@ -105,6 +105,14 @@ fun <T> callRetrofitKotlin(call: Call<T>, TYPE: Int) {
                 Log.e("FOR_VENUE_BOOK", response.body()!!.toString())
                 myInterfaces.sendResponse(response.body(), TYPE)
             }
+            else if (TYPE == FOR_VENUE_TO_TIMMINGS) {
+                Log.e("VENUE_TO_TIMMINGS", response.body()!!.toString())
+                myInterfaces.sendResponse(response.body(), TYPE)
+            }
+            else if (TYPE == FOR_DELETE_EVENT) {
+                Log.e("FOR_DELETE_EVENT", response.body()!!.toString())
+                myInterfaces.sendResponse(response.body(), TYPE)
+            }
         }
 
         override fun onFailure(call: Call<T>, t: Throwable) {

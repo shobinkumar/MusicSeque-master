@@ -88,7 +88,7 @@ public class SearchArtistActivity extends BaseActivity implements MyInterface {
             Utils.initializeAndShow(SearchArtistActivity.this);
             JSONObject jsonObject = new JSONObject();
             try {
-               // jsonObject.put("ProfileTypeId", "1");
+               jsonObject.put("ProfileTypeId", "1");
                 jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID,""));
             } catch (JSONException e) {
                 e.printStackTrace();

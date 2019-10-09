@@ -422,6 +422,10 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                         Glide.with(this).load(jsonInner.getString("EventPromotionImgPath") + jsonInner.getString("EventPromotionImg")).into(ivProfile)
 
                     }
+                    else{
+                        Glide.with(this).load(R.drawable.icon_img_dummy).into(ivProfile)
+
+                    }
 
                 }
 
@@ -432,6 +436,7 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                 if (json.getString("Status").equals("Success")) {
 
                     mEventId = json.getString("EventId")
+                    Utils.showToast(this, "Event Added successfully")
 
                     if (Utils.isNetworkConnected(this)) {
 
@@ -463,7 +468,7 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
             FOR_UPLOAD_EVENT_PROFILE_IMAGE -> {
                 val jsonObj = JSONObject(response.toString())
                 if (jsonObj.getString("Status").equals("Success", true)) {
-                    Utils.showToast(this, "Event Added successfully")
+                    Utils.showToast(this, "Image uploaded successfully")
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()
@@ -499,12 +504,12 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
     public fun getImage(file: File, fileToUpload: MultipartBody.Part, mUSerId: RequestBody, name: String) {
         Glide.with(this).load(file).into(ivProfile)
         uploadFile = fileToUpload
-//        if (mEventId.equals("", true)) {
-//            Utils.showToast(this, "First add the event details")
-//        } else {
-//
-//
-//        }
+        if (!mEventId.equals("", true)) {
+            Utils.initializeAndShow(this)
+            val mEventIds = RequestBody.create(MediaType.parse("text/plain"), mEventId)
+            ImageUploadClass.imageUpload(uploadFile, mEventIds, null, FOR_UPLOAD_EVENT_PROFILE_IMAGE, this)
+            uploadFile=null
+        }
 
 
     }

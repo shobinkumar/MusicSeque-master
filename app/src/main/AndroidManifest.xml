@@ -74,6 +74,7 @@
         <activity
             android:name=".activities.CameraActvity"
             android:theme="@style/Theme.Transparent" />
+        <activity android:name=".event_manager.activity.UpcomingEventDetailActivity"/>
         <activity
             android:name=".artist.activity.UploadActivity"
             android:screenOrientation="portrait" />
