@@ -47,10 +47,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
+
 import com.musicseque.BuildConfig;
 import com.musicseque.MainActivity;
 import com.musicseque.R;
@@ -66,6 +63,7 @@ import com.musicseque.utilities.Constants;
 import com.musicseque.utilities.FileUtils;
 import com.musicseque.utilities.SharedPref;
 import com.musicseque.utilities.Utils;
+import com.wdullaer.materialdatetimepicker.time.Timepoint;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -85,6 +83,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
+
+import static com.musicseque.utilities.Constants.FOR_COUNTRIES_LIST;
+import static com.musicseque.utilities.Constants.FOR_GENRE_LIST;
+import static com.musicseque.utilities.Constants.FOR_USER_PROFILE;
 
 
 public class ProfileFragment extends Fragment implements View.OnClickListener, MyInterface {
@@ -111,10 +113,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
     ProgressBar pBar;
     String mGenreId = "", mCountryId = "";
 
-
-//    SharedPref SharedPref;
-//    SharedPref.SharedPref SharedPref;
-//    private RetrofitComponent retrofitComponent;
 
     private View v;
 
@@ -167,7 +165,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
         listeners();
         showDefaultData();
 
-        hitAPIs();
+        hitAPIs(FOR_GENRE_LIST);
         return v;
     }
 
@@ -183,9 +181,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
         TextView tvDone = (TextView) ((MainActivity) getActivity()).findViewById(R.id.tvDone);
         tvDone.setVisibility(View.GONE);
 
-//        retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getActivity())).build();
-//        SharedPref = retrofitComponent.getShared();
-//        SharedPref = retrofitComponent.getSharedPref();
         myDirectory = new File(Environment.getExternalStorageDirectory(), "MusicSegue");
         try {
             if (myDirectory.exists()) {
@@ -520,10 +515,24 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
 
     }
 
-    private void hitAPIs() {
+    private void hitAPIs(int type) {
+
         if (Utils.isNetworkConnected(getActivity())) {
             initializeLoader();
-            RetrofitAPI.callGetAPI(Constants.FOR_GENRE_LIST, ProfileFragment.this);
+            if (type == FOR_GENRE_LIST) {
+                RetrofitAPI.callGetAPI(FOR_GENRE_LIST, ProfileFragment.this);
+
+            } else if (type == FOR_COUNTRIES_LIST) {
+                RetrofitAPI.callGetAPI(FOR_COUNTRIES_LIST, ProfileFragment.this);
+            } else if (type == FOR_USER_PROFILE) {
+                try {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""));
+                    RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_USER_PROFILE, ProfileFragment.this);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
 
         } else {
             Utils.showToast(getActivity(), getResources().getString(R.string.err_no_internet));
@@ -535,7 +544,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
     private void getCountriesList() {
         if (Utils.isNetworkConnected(getActivity())) {
             initializeLoader();
-            RetrofitAPI.callGetAPI(Constants.FOR_COUNTRIES_LIST, ProfileFragment.this);
+
 
         } else {
             Utils.showToast(getActivity(), getResources().getString(R.string.err_no_internet));
@@ -580,6 +589,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
             mWebsite = et_website.getText().toString().trim();
             mExpertise = tvExpertise.getText().toString().trim();
             mExperience = tvExperience.getText().toString().trim();
+            mCountryCode = tvCountryCode.getText().toString();
+            mCountryName = tvCountry.getText().toString();
             //  mCertification = tvCertification.getText().toString().trim();
             mGrade = tvGrade.getText().toString().trim();
 
@@ -591,7 +602,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
 
             if (mEmail.equalsIgnoreCase("")) {
                 Utils.showToast(getActivity(), getResources().getString(R.string.err_email_id));
-            } else if (mCountryId.equalsIgnoreCase("")) {
+            } else if (mCountryCode.equalsIgnoreCase("")) {
                 Utils.showToast(getActivity(), getResources().getString(R.string.err_country_code));
 
             } else if (mMobileNumber.equalsIgnoreCase("")) {
@@ -897,7 +908,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
                 }
 
                 break;
-            case Constants.FOR_GENRE_LIST:
+            case FOR_GENRE_LIST:
                 try {
                     JSONArray jsonArray = new JSONArray(response.toString());
                     for (int i = 0; i < jsonArray.length(); i++) {
@@ -910,14 +921,15 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
                     }
 
 
-                    getCountriesList();
+                    hitAPIs(FOR_COUNTRIES_LIST);
+                    //getCountriesList();
 
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 break;
-            case Constants.FOR_COUNTRIES_LIST:
+            case FOR_COUNTRIES_LIST:
                 try {
                     JSONArray jsonArray = new JSONArray(response.toString());
                     for (int i = 0; i < jsonArray.length(); i++) {
@@ -935,7 +947,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
 
                     arrCountryCode = countryCodeAL.toArray(new String[countryCodeAL.size()]);
                     arrGenre = genreNameAL.toArray(new String[genreNameAL.size()]);
-                    getUserProfile();
+                    hitAPIs(FOR_USER_PROFILE);
+                    // getUserProfile();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -947,10 +960,15 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
                     if (obj.getString("Status").equalsIgnoreCase("Success")) {
 
 
-                        SharedPref.putString(Constants.COUNTRY_CODE, obj.getString("CountryId"));
+                        SharedPref.putString(Constants.COUNTRY_CODE, obj.getString("CountryCode"));
                         SharedPref.putString(Constants.MOBILE_NUMBER, obj.getString("ContactNo"));
                         SharedPref.putString(Constants.COUNTRY_NAME, obj.getString("CountryName"));
                         SharedPref.putString(Constants.COUNTRY_ID, obj.getString("CountryId"));
+
+                        mCountryCode=obj.getString("CountryCode");
+                        mMobileNumber=obj.getString("ContactNo");
+                        mCountryName= obj.getString("CountryName");
+                        mCountryId=obj.getString("CountryId");
 
 
                         tvUserName.setText(obj.getString("FirstName") + " " + obj.getString("LastName"));

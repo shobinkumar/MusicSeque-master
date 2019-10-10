@@ -223,7 +223,7 @@
                         android:background="@android:color/transparent">
 
                         <com.musicseque.Fonts.Noyhr
-                            android:id="@+id/tvCountryCode"
+                            android:id="@+id/tvVenueCountryCode"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="#0C1C24"

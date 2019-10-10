@@ -1,11 +1,14 @@
 package com.musicseque.venue_manager.activity
 
+import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.musicseque.MainActivity
 import com.musicseque.R
 import com.musicseque.activities.BaseActivity
 import com.musicseque.event_manager.model.EventListModel
@@ -26,7 +29,6 @@ import kotlinx.android.synthetic.main.activity_book_venue.tvEndDate
 import kotlinx.android.synthetic.main.activity_book_venue.tvEndTime
 import kotlinx.android.synthetic.main.activity_book_venue.tvStartDate
 import kotlinx.android.synthetic.main.activity_book_venue.tvStartTime
-import kotlinx.android.synthetic.main.frag_profile_other.*
 import kotlinx.android.synthetic.main.toolbar_top.*
 import org.json.JSONObject
 import java.text.DateFormat
@@ -39,6 +41,7 @@ import kotlin.collections.HashMap
 class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, DatePickerDialog.OnDateSetListener {
 
 
+    lateinit var dialog: Dialog
     private var timeAL = ArrayList<String>()
     private lateinit var timeFormat: SimpleDateFormat
     private var dpd: DatePickerDialog? = null
@@ -50,8 +53,9 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
     val FOR_START_TIME = 1
     val FOR_END_TIME = 2
 
-    lateinit private var alBookings: java.util.ArrayList<MySelectedTimeModel>
-    lateinit private var alBookingsEnd: java.util.ArrayList<MySelectedTimeModel>
+    private var alBookings = ArrayList<MySelectedTimeModel>()
+    private var alBookingsEnd = java.util.ArrayList<MySelectedTimeModel>()
+    private var eventsList = ArrayList<EventListModel>()
 
     val hashMap = HashMap<String, ArrayList<String>>()
 
@@ -62,11 +66,11 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
 
 
     var FOR_START_DATE = false;
-    val monthOldFormat = SimpleDateFormat("dd-MMM-yyyy")
-    val monthNewFormat = SimpleDateFormat("dd-MM-yyyy")
+    val oldFormat = SimpleDateFormat("dd-MM-yyyy")
+    val newFormat = SimpleDateFormat("MM-dd-yyyy")
 
+    val dateTimeFormat = SimpleDateFormat("dd-MM-yyyy HH:mm")
 
-    private lateinit var eventsList: ArrayList<EventListModel>
     var mStartDate = ""
     var mStartTime = ""
     var mEndDate = ""
@@ -89,7 +93,8 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
         initViews()
         listeners()
         getSixMonthDate()
-        hitAPI("get_events_list")
+
+        hitAPI(FOR_SHOW_EVENTS_LIST, "")
     }
 
     private fun getSixMonthDate() {
@@ -120,6 +125,7 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
         tvEndDate.setOnClickListener(this)
         tvEndTime.setOnClickListener(this)
         tvSendRequest.setOnClickListener(this)
+        eventArrow.setOnClickListener(this)
     }
 
     override fun onClick(view: View) {
@@ -128,7 +134,7 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
                 finish()
             }
             R.id.tvSendRequest -> {
-
+                getDateTimeDetails()
                 if (mEventName.equals("")) {
                     Utils.showToast(this, resources.getString(R.string.err_event_name))
                 } else if (mStartDate.equals("")) {
@@ -141,36 +147,67 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
                     Utils.showToast(this, resources.getString(R.string.err_event_end_time))
 
                 } else {
+                    mStartDate = newFormat.format(oldFormat.parse(mStartDate))
+                    mEndDate = newFormat.format(oldFormat.parse(mEndDate))
                     val json = JSONObject()
-                    json.put("VenueId", "2596")
-                    json.put("EventId", "9")
+                    json.put("VenueId", mVenueId)
+                    json.put("EventId", mEventId)
                     json.put("ArtistId", SharedPref.getString(Constants.USER_ID, ""))
-                    json.put("VenueBookingFrom", "10-10-2019")
-                    json.put("VenueBookingTo", "10-12-2019")
-                    json.put("VenueBookingFromTime", "10:00:00")
-                    json.put("VenueBookingToTime", "12:00:00")
+                    json.put("VenueBookingFrom", mStartDate)
+                    json.put("VenueBookingTo", mEndDate)
+                    json.put("VenueBookingFromTime", mStartTime)
+                    json.put("VenueBookingToTime", mEndTime)
                     json.put("BookingType", "0")
                     json.put("BookingStatus", "P")
-                    KotlinHitAPI.callAPI(json.toString(), FOR_VENUE_BOOK, this)
+                    hitAPI(FOR_VENUE_BOOK, json.toString())
+                    //KotlinHitAPI.callAPI(json.toString(), FOR_VENUE_BOOK, this)
                 }
 
 
             }
             R.id.tvEventName -> {
                 var list = ArrayList<String>()
+                if (eventsList.size > 0) {
+                    for ((index, value) in eventsList.withIndex()) {
+                        list.add(eventsList.get(index).event_title)
+                    }
+                    val eventArray = arrayOfNulls<String>(list.size)
+                    list.toArray(eventArray)
 
-                for ((index, value) in eventsList.withIndex()) {
-                    list.add(eventsList.get(index).event_title)
+                    if (eventArray != null) {
+                        showDropdown(eventArray, tvEventName, SpinnerData { mData, mData1 ->
+                            mEventName = mData
+                            mEventId = mData1
+                            tvEventName.text = mEventName
+                        }, mWidthCode)
+                    }
+
+                } else {
+                    Utils.showToast(this, "You don't have event. Please create event.")
                 }
-                val eventArray = arrayOfNulls<String>(list.size)
-                list.toArray(eventArray)
 
-                if (eventArray != null) {
-                    showDropdown(eventArray, tvEventName, SpinnerData { mData, mData1 ->
-                        mEventName = mData
-                        mEventId = mData1
-                        tvEventName.text = mEventName
-                    }, mWidthCode)
+
+            }
+            R.id.eventArrow -> {
+                var list = ArrayList<String>()
+
+                if (eventsList.size > 0) {
+                    for ((index, value) in eventsList.withIndex()) {
+                        list.add(eventsList.get(index).event_title)
+                    }
+                    val eventArray = arrayOfNulls<String>(list.size)
+                    list.toArray(eventArray)
+
+                    if (eventArray != null) {
+                        showDropdown(eventArray, tvEventName, SpinnerData { mData, mData1 ->
+                            mEventName = mData
+                            mEventId = mData1
+                            tvEventName.text = mEventName
+                        }, mWidthCode)
+                    }
+
+                } else {
+                    Utils.showToast(this, "You don't have event. Please create event.")
                 }
 
             }
@@ -215,19 +252,6 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
 
                     dpd?.show(fragmentManager, "Datepickerdialog")
 
-                    val al = java.util.ArrayList<Calendar>()
-//                    for (i in checkDatesAL.indices) {
-//                        val calendar = Calendar.getInstance()
-//                        calendar.set(Calendar.YEAR, Integer.parseInt(getYear(checkDatesAL.get(i))))
-//                        calendar.set(Calendar.MONTH, Integer.parseInt(getMonth(checkDatesAL.get(i))) - 1)
-//                        calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(getDay(checkDatesAL.get(i))))
-//                        al.add(calendar)
-//                    }
-//                    var days = arrayOfNulls<Calendar>(al.size)
-//                    days = al.toTypedArray<Calendar>()
-//
-//                    dpd?.selectableDays = days
-
 
                 }
 
@@ -238,17 +262,37 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
                 if (mStartDate.equals(""))
                     Utils.showToast(this, resources.getString(R.string.err_event_start_date))
                 else {
+
+                   val currentDateTime=getCurrentDateTime()
+
+
+
                     if (timeAL.size > 0) {
                         val timeDialog = DialogTime(this, FOR_START_TIME, timeAL, object : TimeInterface {
                             override fun getTime(time_str: String) {
-                                tvStartTime.setText(time_str)
+                                var selectedDate = mStartDate + " " + time_str
+
+                                val selectedDateTime=getSelectedDateTime(selectedDate)
+                                if (selectedDateTime.before(currentDateTime)) {
+                                    Utils.showToast(this@BookVenueActivity, "Time must be after current time")
+                                } else {
+                                    tvStartTime.setText(time_str)
+                                }
+
                             }
                         })
                         timeDialog?.show()
                     } else {
                         val timeDialog = DialogTime(this, FOR_START_TIME, hashMap.get(tvStartDate.text.toString()), object : TimeInterface {
                             override fun getTime(time_str: String) {
-                                tvStartTime.setText(time_str)
+                                var strDate = mStartDate + " " + time_str
+                                val selectedDateTime=getSelectedDateTime(strDate)
+                                if (selectedDateTime.before(currentDateTime)) {
+                                    Utils.showToast(this@BookVenueActivity, "Time must be after current time")
+                                } else {
+                                    tvStartTime.setText(time_str)
+                                }
+
                             }
                         })
                         timeDialog?.show()
@@ -277,7 +321,7 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
                 else {
                     hashMapSorted.clear()
                     listEndDate.clear()
-                    hitAPI("to_time")
+                    hitAPI(FOR_VENUE_TO_TIMMINGS, "")
 
 
                 }
@@ -305,6 +349,18 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
 
             }
         }
+    }
+
+    private fun getSelectedDateTime(selectedDate: String): Date {
+        val date=dateTimeFormat.parse(selectedDate)
+        return date
+
+    }
+
+    private fun getCurrentDateTime():Date {
+        var currentDate = Calendar.getInstance().time
+        currentDate = dateTimeFormat.parse(dateTimeFormat.format(currentDate))
+        return currentDate
     }
 
     private fun getDisabledDays() {
@@ -363,20 +419,21 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
 
     }
 
-    private fun hitAPI(type: String) {
+    private fun hitAPI(type: Int, str: String) {
         if (Utils.isNetworkConnected(this)) {
-            if (type.equals("get_events_list")) {
+            Utils.initializeAndShow(this)
+            if (type == FOR_SHOW_EVENTS_LIST) {
                 val obj = JSONObject()
                 obj.put("EventManagerId", SharedPref.getString(Constants.USER_ID, ""))
                 obj.put("EventStatus", "2")
                 KotlinHitAPI.callAPI(obj.toString(), Constants.FOR_SHOW_EVENTS_LIST, this)
 
-            } else if (type.equals("get_timmings")) {
+            } else if (type == FOR_VENUE_FROM_TIMMINGS) {
                 val json = JSONObject()
                 json.put("VenueId", mVenueId)
-                json.put("BookingAsOnDate", "01-01-1900")
-                KotlinHitAPI.callAPI(json.toString(), Constants.FOR_VENUE_TIMMINGS, this)
-            } else if (type.equals("to_time")) {
+                // json.put("BookingAsOnDate", "01-01-1900")
+                KotlinHitAPI.callAPI(json.toString(), Constants.FOR_VENUE_FROM_TIMMINGS, this)
+            } else if (type == FOR_VENUE_TO_TIMMINGS) {
                 val json = JSONObject()
                 json.put("VenueId", mVenueId)
                 json.put("FromDate", mStartDate)
@@ -384,6 +441,8 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
 
                 KotlinHitAPI.callAPI(json.toString(), Constants.FOR_VENUE_TO_TIMMINGS, this)
 
+            } else if (type == FOR_VENUE_BOOK) {
+                KotlinHitAPI.callAPI(str, FOR_VENUE_BOOK, this)
             }
         } else {
             Utils.showToast(this, resources.getString(R.string.err_no_internet))
@@ -402,18 +461,21 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
                 val listType = object : TypeToken<ArrayList<EventListModel>>() {}.type
                 eventsList = Gson().fromJson<ArrayList<EventListModel>>(arr.toString(), listType)
             }
-            hitAPI("get_timmings")
-        } else if (TYPE == FOR_VENUE_TIMMINGS) {
-            val obj = JSONObject(response.toString())
-            if (obj.getString("Status").equals("Success", false)) {
-                val jsonArray = obj.getJSONArray("result")
-                alBookings = Gson().fromJson<java.util.ArrayList<MySelectedTimeModel>>(jsonArray.toString(), object : TypeToken<java.util.ArrayList<MySelectedTimeModel>>() {}.type)
+            hitAPI(FOR_VENUE_FROM_TIMMINGS, "")
+        }
+//        else if (TYPE == FOR_VENUE_TIMMINGS) {
+//            val obj = JSONObject(response.toString())
+//            if (obj.getString("Status").equals("Success", false)) {
+//                val jsonArray = obj.getJSONArray("result")
+//                alBookings = Gson().fromJson<java.util.ArrayList<MySelectedTimeModel>>(jsonArray.toString(), object : TypeToken<java.util.ArrayList<MySelectedTimeModel>>() {}.type)
+//
+//                getTimmingsHashMap(alBookings, hashMap)
+//
+//
+//            }
+//        }
 
-                getTimmingsHashMap(alBookings, hashMap)
-
-
-            }
-        } else if (TYPE == FOR_VENUE_TO_TIMMINGS) {
+        else if (TYPE == FOR_VENUE_TO_TIMMINGS) {
             val obj = JSONObject(response.toString())
             if (obj.getString("Status").equals("Success", false)) {
                 val jsonArray = obj.getJSONArray("result")
@@ -441,13 +503,34 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
                     days = alDate.toTypedArray<Calendar?>()
 
                     dpd!!.selectableDays = days
-                    dpd!!.show(fragmentManager, "Datepickerdialog")
+
 
                 }
-
+                dpd!!.show(fragmentManager, "Datepickerdialog")
 
             } else {
                 Utils.showToast(this, "Please change your Start Date/Time")
+            }
+
+        } else if (TYPE == FOR_VENUE_FROM_TIMMINGS) {
+            val obj = JSONObject(response.toString())
+            if (obj.getString("Status").equals("Success", false)) {
+                val jsonArray = obj.getJSONArray("result")
+                alBookings = Gson().fromJson<java.util.ArrayList<MySelectedTimeModel>>(jsonArray.toString(), object : TypeToken<java.util.ArrayList<MySelectedTimeModel>>() {}.type)
+
+                getTimmingsHashMap(alBookings, hashMap)
+
+
+            }
+
+        } else if (TYPE == FOR_VENUE_BOOK) {
+            val obj = JSONObject(response.toString())
+            if (obj.getString("Status").equals("Success", false)) {
+                dialogRequest()
+//                Utils.showToast(this, obj.getString("Message"))
+//                startActivity(Intent(this, MainActivity::class.java))
+            } else {
+
             }
         }
     }
@@ -487,19 +570,19 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
 
     private fun getTimmingsHashMap(arraylist: java.util.ArrayList<MySelectedTimeModel>, hashmap: HashMap<String, java.util.ArrayList<String>>) {
         for ((index, value) in arraylist.withIndex()) {
-            if (hashmap.containsKey(value.venue_booking_date)) {
+            if (hashmap.containsKey(value.availability_date)) {
 
                 var al = ArrayList<String>()
 
-                al = hashmap.get(value.venue_booking_date)!!
-                al.add(value.booking_time)
+                al = hashmap.get(value.availability_date)!!
+                al.add(value.availability_from_time)
                 hashmap.put(value.venue_booking_date, al)
 
 
             } else {
                 val al = ArrayList<String>()
-                al.add(value.booking_time)
-                hashmap.put(value.venue_booking_date, al)
+                al.add(value.availability_from_time)
+                hashmap.put(value.availability_date, al)
             }
 
         }
@@ -519,7 +602,15 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
 
             } else {
                 val al = ArrayList<String>()
-                al.add(value.availability_to_time)
+                if(value.availability_from_time.equals("00:00"))
+                {
+                    al.add(value.availability_from_time)
+                }
+                else
+                {
+                    al.add(value.availability_to_time)
+                }
+
                 hashmap.put(value.availability_date, al)
             }
 
@@ -528,8 +619,20 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
 
     }
 
+    fun dialogRequest() {
+        dialog = Dialog(this@BookVenueActivity, android.R.style.Theme_Translucent_NoTitleBar)
+        dialog.setContentView(R.layout.dialog_book_request)
+        dialog.setCancelable(false)
+        val btnClose = dialog.findViewById(R.id.btnClose) as Button
+        btnClose.setOnClickListener {
+            dialog.dismiss()
+            startActivity(Intent(this, MainActivity::class.java))
+        }
 
-//        val hashMapSorted = hashMap.toList().sortedBy { (key, _) -> key }.toMap()
+
+
+        dialog.show()
+    }
 
 
 }

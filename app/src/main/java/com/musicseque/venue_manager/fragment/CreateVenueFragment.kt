@@ -76,7 +76,7 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
         mVenuePhoneNumber = SharedPref.getString(Constants.MOBILE_NUMBER, "")
         tvVenueEmail.text = mVenueEmail
         tvVenueName.text = mVenueName
-        tvCountryCode.setText(mCountryCode)
+        tvVenueCountryCode.setText(mCountryCode)
         etMobileNumber.setText(mVenuePhoneNumber)
         tvVenueCountry.setText(mVenueCountry)
     }
@@ -91,10 +91,10 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
         tvHeading?.setText("Profile")
 
 
-        tvCountryCode.getViewTreeObserver().addOnGlobalLayoutListener(ViewTreeObserver.OnGlobalLayoutListener
+        tvVenueCountryCode.getViewTreeObserver().addOnGlobalLayoutListener(ViewTreeObserver.OnGlobalLayoutListener
         {
             try {
-                mWidth = tvCountryCode.getMeasuredWidth()
+                mWidth = tvVenueCountryCode.getMeasuredWidth()
             } catch (e: Exception) {
 
             }
@@ -108,7 +108,7 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
     private fun listeners() {
         ivVenueImage.setOnClickListener(this)
         btnSubmit.setOnClickListener(this)
-        tvCountryCode.setOnClickListener(this)
+        tvVenueCountryCode.setOnClickListener(this)
     }
 
     override fun onClick(view: View) {
@@ -120,7 +120,7 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
             R.id.ivVenueImage -> {
                 checkPermissions("image", "com.musicseque.venue_manager.fragment.CreateVenueFragment", this)
             }
-            R.id.tvCountryCode -> {
+            R.id.tvVenueCountryCode -> {
                 showDropdown(SpinnerData { mData, mData1 ->
                     mVenueCountryId = mData
                     mVenueCountry = mData1
@@ -134,13 +134,12 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
                 mVenueBio = etVenueDesc.text.toString()
                 mVenueCapacity = etVenueCapacity.text.toString()
                 mVenueAddress = etVenueAddress.text.toString()
+                mCountryCode=tvVenueCountryCode.text.toString()
+                mVenueCountry=tvVenueCountry.text.toString()
 
-                if (mVenuePhoneNumber.equals("", ignoreCase = true)) {
-                    Utils.showToast(activity, resources.getString(R.string.err_phone_empty))
 
-                }
 
-                else if(mCountryCode.equals("",true))
+                 if(mCountryCode.equals("",true))
                 {
                     Utils.showToast(activity, resources.getString(R.string.err_country_code))
 
@@ -148,7 +147,7 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
                 else if (mVenuePhoneNumber.length < 10) {
                     Utils.showToast(activity, resources.getString(R.string.err_phone))
                 } else if (mVenueAddress.equals("", ignoreCase = true)) {
-                    Utils.showToast(activity, resources.getString(R.string.err_address))
+                    Utils.showToast(activity,  resources.getString(R.string.err_address))
 
                 } else if (mVenueCity.equals("", ignoreCase = true)) {
                     Utils.showToast(activity, resources.getString(R.string.err_city))
@@ -275,7 +274,7 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
                         SharedPref.putString(Constants.COUNTRY_ID, obj.getString("CountryId"))
 
 
-                        tvCountryCode.setText(obj.getString("CountryCode"));
+                        tvVenueCountryCode.setText(obj.getString("CountryCode"));
                         etMobileNumber.setText(obj.getString("ContactNo"))
                         tvVenueCountry.setText(obj.getString("CountryName"))
 
@@ -366,7 +365,7 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
                 activity,
                 R.layout.row_profile_spinner, arrCountryCode))
         listPopupWindow.setBackgroundDrawable(resources.getDrawable(R.drawable.rectangle_black))
-        listPopupWindow.setAnchorView(tvCountryCode)
+        listPopupWindow.setAnchorView(tvVenueCountryCode)
         listPopupWindow.setWidth(mWidth)
         listPopupWindow.setHeight(400)
         listPopupWindow.setModal(true)
@@ -374,7 +373,7 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
 
             spinnerData.getData(countryAL[position].countryId, countryAL[position].countryName)
 
-            tvCountryCode.text = arrCountryCode[position]
+            tvVenueCountryCode.text = arrCountryCode[position]
 
             listPopupWindow.dismiss()
         })

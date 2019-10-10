@@ -28,7 +28,10 @@ import com.musicseque.MainActivity;
 import com.musicseque.R;
 import com.musicseque.artist.activity.other_artist_activity.SearchArtistActivity;
 import com.musicseque.artist.activity.other_artist_activity.SearchBandActivity;
+import com.musicseque.artist.fragments.BaseFragment;
 import com.musicseque.service.LocationService;
+import com.musicseque.utilities.Constants;
+import com.musicseque.utilities.SharedPref;
 import com.musicseque.utilities.Utils;
 import com.musicseque.venue_manager.activity.SearchVenueActivity;
 
@@ -39,9 +42,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-
-
-public class HomeFragment extends Fragment implements View.OnClickListener {
+public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private ImageView img_gigs, img_venue, img_event_manger, img_talent_manager, iv_featured, ivDrawer;
     private Context context;
     private LinearLayout line_settings;
@@ -83,7 +84,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment) getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
 
         // Specify the types of place data to return.
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME,Place.Field.ADDRESS,Place.Field.LAT_LNG));
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG));
 
         // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
@@ -92,7 +93,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 // TODO: Get info about the selected place.
 
                 etLoc.setText(place.getAddress());
-                Log.e("TAG", "Place: " + place.getName() + ", " + place.getId()+","+place.getAddress()+","+place.getLatLng());
+                Log.e("TAG", "Place: " + place.getName() + ", " + place.getId() + "," + place.getAddress() + "," + place.getLatLng());
             }
 
             @Override
@@ -119,15 +120,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         clickListner();
 
 
-
-
-
         return v;
     }
-
-
-
-
 
 
     public void initialize() {
@@ -138,16 +132,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         img_event_manger = (ImageView) v.findViewById(R.id.img_event_manger);
         img_talent_manager = (ImageView) v.findViewById(R.id.img_talent_manager);
         et_explore = (TextView) v.findViewById(R.id.et_explore);
-        try
-        {
+        try {
             Address address = Utils.getCompleteAddressString(Double.parseDouble(LocationService.mLatitude), Double.parseDouble(LocationService.mLongitude), getActivity());
             etLoc.setText(address.getAddressLine(0));
-        }
-        catch(Exception e)
-        {      
+        } catch (Exception e) {
 
         }
-        
+
     }
 
     public void clickListner() {
@@ -175,7 +166,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 //        });
 
 
-
     }
 
 
@@ -185,7 +175,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             Toast.makeText(getActivity(), "Disabled", Toast.LENGTH_SHORT).show();
 
         } else if (view == img_venue) {
-            startActivity(new Intent(getActivity(), SearchVenueActivity.class));
+
+                startActivity(new Intent(getActivity(), SearchVenueActivity.class));
+
+           
+
+
         } else if (view == img_event_manger) {
             Toast.makeText(getActivity(), "Disabled", Toast.LENGTH_SHORT).show();
 
@@ -198,24 +193,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    @OnClick({R.id.ivArtist, R.id.rlSearch,R.id.ivSearch,R.id.ivEditLoc,R.id.ivBand})
+    @OnClick({R.id.ivArtist, R.id.rlSearch, R.id.ivSearch, R.id.ivEditLoc, R.id.ivBand})
     public void click(View view) {
         if (view.getId() == R.id.ivArtist) {
             startActivity(new Intent(getActivity(), SearchArtistActivity.class));
         } else if (view.getId() == R.id.rlSearch) {
             startActivity(new Intent(getActivity(), SearchArtistActivity.class));
-        }
-        else if (view.getId() == R.id.ivSearch) {
+        } else if (view.getId() == R.id.ivSearch) {
             startActivity(new Intent(getActivity(), SearchArtistActivity.class));
-        }
-        else if(view.getId()==R.id.ivEditLoc)
-        {
+        } else if (view.getId() == R.id.ivEditLoc) {
             etLoc.setCursorVisible(true);
             etLoc.setFocusable(true);
-        }
-        else if(view.getId()==R.id.ivBand)
-        {
-           startActivity(new Intent(getActivity(), SearchBandActivity.class));
+        } else if (view.getId() == R.id.ivBand) {
+            startActivity(new Intent(getActivity(), SearchBandActivity.class));
         }
 
     }

@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import com.musicseque.R
 import com.musicseque.interfaces.MyInterface
 import com.musicseque.retrofit_interface.KotlinHitAPI
-import com.musicseque.utilities.Constants.FOR_VENUE_TIMMINGS
 import kotlinx.android.synthetic.main.fragment_venue_timmings.*
 import android.util.DisplayMetrics
 import android.util.Log
@@ -15,13 +14,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.musicseque.Fonts.BoldNoyhr
 import com.musicseque.MainActivity
 import com.musicseque.utilities.*
-import com.musicseque.venue_manager.model.CalendarModal
-import com.musicseque.venue_manager.model.DateTimeModel
-import com.musicseque.venue_manager.model.TimeModalClass
-import com.musicseque.venue_manager.model.TimmingsListModel
+import com.musicseque.utilities.Constants.*
+import com.musicseque.venue_manager.model.*
 import org.json.JSONObject
 import java.text.DateFormat
 import java.text.ParseException
@@ -39,7 +37,11 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
     lateinit var calendar: Calendar
     lateinit var c: Calendar
     var alTime: ArrayList<String> = ArrayList()
-    var dayTimeAL: ArrayList<DateTimeModel> = ArrayList()
+    var dayTimeAL: ArrayList<TimeModalClass> = ArrayList()
+    var bookedTimmingsAL: ArrayList<MySelectedTimeModel> = ArrayList()
+
+    internal var hashMapCopy = HashMap<String, java.util.ArrayList<TimeModalClass>>()
+
 
     //Toolbar
     private var imgRight: ImageView? = null
@@ -58,6 +60,9 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
 
 
     var hashMap: HashMap<String, ArrayList<TimeModalClass>> = HashMap()
+
+    var hashMapOld: HashMap<String, ArrayList<MySelectedTimeModel>> = HashMap()
+
     lateinit var gson: Gson
     var sdf = SimpleDateFormat("EEEE MMM d, yyyy")
 
@@ -89,6 +94,7 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
         super.onActivityCreated(savedInstanceState)
         initOtherViews()
         listeners()
+        hitAPI(FOR_VENUE_FROM_TIMMINGS, "")
 
         val dimension = DisplayMetrics()
         activity?.getWindowManager()?.getDefaultDisplay()?.getMetrics(dimension)
@@ -149,12 +155,17 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
     }
 
 
-    private fun hitAPI(sType: String, sTimmings: String) {
+    private fun hitAPI(sType: Int, sTimmings: String) {
         if (KotlinUtils.isNetConnected(requireContext())) {
             Utils.initializeAndShow(requireContext())
-            if (sType.equals("forTimmings")) {
-                KotlinHitAPI.callAPI("", Constants.FOR_VENUE_TIMMINGS, this)
-            } else if (sTimmings.equals("Send_timmings")) {
+            if (sType == FOR_VENUE_FROM_TIMMINGS) {
+                val json = JSONObject()
+                json.put("VenueId", SharedPref.getString(Constants.USER_ID, ""))
+                // json.put("BookingAsOnDate", "01-01-1900")
+                KotlinHitAPI.callAPI(json.toString(), Constants.FOR_VENUE_FROM_TIMMINGS, this)
+
+
+            } else if (sType == FOR_SUBMIT_TIMMINGS) {
 
             }
 
@@ -168,11 +179,16 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
     override fun sendResponse(response: Any?, TYPE: Int) {
         Utils.hideProgressDialog()
         when (TYPE) {
-            FOR_VENUE_TIMMINGS -> {
+            FOR_VENUE_FROM_TIMMINGS -> {
+                val obj = JSONObject(response.toString())
+                if (obj.getString("Status").equals("Success", false)) {
+                    val jsonArray = obj.getJSONArray("result")
+                    bookedTimmingsAL = Gson().fromJson<java.util.ArrayList<MySelectedTimeModel>>(jsonArray.toString(), object : TypeToken<java.util.ArrayList<MySelectedTimeModel>>() {}.type)
 
-
-//                recyclerTimmings.layoutManager=LinearLayoutManager(requireContext(),LinearLayout.VERTICAL,false)
-//                val adapter= VenueTimmingsAdapter(width)
+                    getTimmingsHashMap()
+                }
+            }
+            FOR_SUBMIT_TIMMINGS -> {
 
             }
         }
@@ -707,7 +723,7 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
 
     private fun callMethodForHashmap(view: View, dateString: String, start_time: String, end_time: String) {
         val sdk = android.os.Build.VERSION.SDK_INT
-        val timeModalClass = TimeModalClass(start_time, end_time)
+        val timeModalClass = TimeModalClass(dateString, start_time, end_time, "")
 
         if (hashMap.containsKey(dateString)) {
             var isValue = false
@@ -1047,13 +1063,21 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
                 for ((k, v) in hashMap) {
                     val sKey = k;
                     val sValue = v
-                    val mVal = DateTimeModel(sKey, sValue)
-                    dayTimeAL.add(mVal)
+                    for (i in sValue) {
+                        val vals = i
+                        dayTimeAL.add(vals)
+                    }
+
+
                 }
-                TimmingsListModel(dayTimeAL)
-                json.put("timmings", Gson().toJson( TimmingsListModel(dayTimeAL)))
-               // hitAPI("send_timmings", json.toString())
-                Log.e("",json.toString())
+
+                val jsonObject = JSONObject()
+                jsonObject.put("VenueId", SharedPref.getString(Constants.USER_ID, ""))
+                jsonObject.put("Timmings", Gson().toJson(dayTimeAL))
+
+                hitAPI(Constants.FOR_SUBMIT_TIMMINGS, jsonObject.toString())
+
+                Log.e("", json.toString())
 
             }
 
@@ -1062,7 +1086,7 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
                 var alTime: ArrayList<DateTimeModel> = ArrayList()
 
                 for ((k, v) in hashMap.entries) {
-                    alTime.add(DateTimeModel(k, v))
+                    alTime.add(DateTimeModel(v))
                 }
 
                 Log.e("Hainji", "")
@@ -1157,4 +1181,29 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
         }
     }
 
+    private fun getTimmingsHashMap() {
+        for ((index, value) in bookedTimmingsAL.withIndex()) {
+            if (hashMap.containsKey(value.availability_date)) {
+
+                var al = ArrayList<TimeModalClass>()
+
+
+                al = hashMap.get(value.availability_date)!!
+                al.add(TimeModalClass(value.availability_date, value.availability_from_time, value.availability_to_time, value.venue_status))
+
+
+                // hashMap.put(value.venue_booking_date, al)
+
+
+            } else {
+                val al = ArrayList<TimeModalClass>()
+
+                al.add(TimeModalClass(value.availability_date, value.availability_from_time, value.availability_to_time, value.venue_status))
+                hashMap.put(value.availability_date, al)
+            }
+
+        }
+
+
+    }
 }
