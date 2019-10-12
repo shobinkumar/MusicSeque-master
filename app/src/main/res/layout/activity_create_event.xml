@@ -343,6 +343,7 @@
                     android:paddingTop="@dimen/_5sdp"
                     android:paddingRight="@dimen/_5sdp"
                     android:paddingBottom="@dimen/_5sdp"
+                    android:inputType="number"
                     android:textColor="@color/color_white"
                     android:textColorHint="@color/color_white_hint"
                     android:textSize="@dimen/_15sdp" />

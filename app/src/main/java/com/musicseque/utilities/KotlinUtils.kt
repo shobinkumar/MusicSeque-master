@@ -56,15 +56,14 @@ class KotlinUtils {
             val hour = c.get(Calendar.HOUR_OF_DAY)
             val minute = c.get(Calendar.MINUTE)
 
-            val tpd = TimePickerDialog(con, TimePickerDialog.OnTimeSetListener(function = { view, h, m ->
+            var tpd = TimePickerDialog(con, TimePickerDialog.OnTimeSetListener(function = { view, h, m ->
                 val dateFormat = SimpleDateFormat("HH:mm")
                 val mTime = dateFormat.format(dateFormat.parseObject(h.toString() + ":" + m))
-
-
-
                 intrface.returnDateTime(mTime)
 
             }), hour, minute, false)
+
+
 
 
             tpd.show()

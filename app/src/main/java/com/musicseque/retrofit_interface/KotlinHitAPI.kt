@@ -54,6 +54,10 @@ class KotlinHitAPI {
             {
                 calls = apis!!.methodForVenueFromTimmings(params)
             }
+            else if(TYPE==FOR_VENUE_SHOW_BOOKED_PENDING_TIMMINGS)
+            {
+                calls = apis!!.methodForVenueBookedPendingTimmings(params)
+            }
             callRetrofitKotlin(calls, TYPE)
 
         }
@@ -124,6 +128,10 @@ fun <T> callRetrofitKotlin(call: Call<T>, TYPE: Int) {
                 myInterfaces.sendResponse(response.body(), TYPE)
             }
             else if (TYPE == FOR_DELETE_EVENT) {
+                Log.e("FOR_DELETE_EVENT", response.body()!!.toString())
+                myInterfaces.sendResponse(response.body(), TYPE)
+            }
+            else if (TYPE == FOR_VENUE_SHOW_BOOKED_PENDING_TIMMINGS) {
                 Log.e("FOR_DELETE_EVENT", response.body()!!.toString())
                 myInterfaces.sendResponse(response.body(), TYPE)
             }

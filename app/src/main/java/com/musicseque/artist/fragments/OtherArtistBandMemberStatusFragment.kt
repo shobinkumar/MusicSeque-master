@@ -58,7 +58,7 @@ class OtherArtistBandMemberStatusFragment : BaseFragment(), MyInterface {
 
     private fun initViews() {
         tvNoMember=views.findViewById<Noyhr>(R.id.tvNoMember)
-        recyclerBandMember=views.findViewById<RecyclerView>(R.id.tvNoMember)
+        recyclerBandMember=views.findViewById<RecyclerView>(R.id.recyclerBandMember)
         views.recyclerBandMember.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         mBandId = arguments!!.getString("band_id")
         mManagerId=arguments!!.getString("manager_id")

@@ -21,6 +21,12 @@ data class EventListModel(
         @SerializedName("EventEstimatedGuest") val event_estimated_guest: String,
         @SerializedName("EventPromotionImg") val event_promotion_image: String,
         @SerializedName("EventPromotionImgPath") val event_promotion_path: String,
-        @SerializedName("EventStatus") val event_status: String
+        @SerializedName("EventStatus") val event_status: String,
+
+        @SerializedName("VenueName") val venue_name: String,
+        @SerializedName("VenueBookedFromDate") val venue_from_date: String,
+        @SerializedName("VenueBookedToDate") val venue_to_date: String,
+        @SerializedName("VenueBookingFromTime") val venue_from_time: String,
+        @SerializedName("VenueBookingToTime") val venue_to_time: String
 
         )

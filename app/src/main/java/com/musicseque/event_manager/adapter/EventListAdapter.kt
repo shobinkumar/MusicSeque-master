@@ -22,7 +22,8 @@ import java.text.SimpleDateFormat
 
 class EventListAdapter(var al: ArrayList<EventListModel>, var type: Int,val activitys: Context) : RecyclerView.Adapter<EventListAdapter.MyHolder>() {
 
-
+    val newFormat = SimpleDateFormat("dd/MM/yyyy")
+    val oldFormat = SimpleDateFormat("MM-dd-yyyy")
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): EventListAdapter.MyHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.row_event_list, parent, false)
         return MyHolder(v)    }
@@ -43,15 +44,38 @@ class EventListAdapter(var al: ArrayList<EventListModel>, var type: Int,val acti
         fun bindItems(data: EventListModel, pos: Int, activitys: Context) {
             itemView.tvEventName.text = data.event_title
             itemView.tvTime.text = data.event_time_from + " - " + data.event_time_to
-            val newFormat = SimpleDateFormat("dd/MM/yyyy")
-            val oldFormat = SimpleDateFormat("MM-dd-yyyy")
 
-            val dateOldF = oldFormat.parse(data.event_from_date)
 
-            val dateNewF = newFormat.format(dateOldF)
-            val mNewType = KotlinUtils.monthToReadFormat(dateNewF)
-            itemView.tvDay.text = mNewType.split("/")[0]
-            itemView.tvMonth.text = mNewType.split("/")[1]
+            if(data.venue_name.equals(""))
+            {
+                itemView.tvTime.text = data.event_time_from + " - " + data.event_time_to
+
+
+                val dateOldF = oldFormat.parse(data.event_from_date)
+
+                val dateNewF = newFormat.format(dateOldF)
+                val mNewType = KotlinUtils.monthToReadFormat(dateNewF)
+                itemView.tvDay.text = mNewType.split("/")[0]
+                itemView.tvMonth.text = mNewType.split("/")[1]
+            }
+            else
+            {
+                itemView.tvTime.text = data.venue_from_time + " - " + data.venue_to_time
+
+
+                val dateOldF = oldFormat.parse(data.venue_from_date)
+
+                val dateNewF = newFormat.format(dateOldF)
+                val mNewType = KotlinUtils.monthToReadFormat(dateNewF)
+                itemView.tvDay.text = mNewType.split("/")[0]
+                itemView.tvMonth.text = mNewType.split("/")[1]
+            }
+
+
+
+
+
+
             itemView.setOnClickListener { val intent= Intent(activitys,PastEventDetailActivity::class.java).putExtra("event_id",data.event_id)
                 activitys.startActivity(intent)
             }

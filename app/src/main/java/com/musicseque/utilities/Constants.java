@@ -85,7 +85,7 @@ public class Constants {
     public static final String VENUE_TO_TIMMINGS_API  ="Service/VenueBookingsDisplayAvailability";
     public static final String VENUE_FROM_TIMMINGS_API  ="Service/VenueBookingsUnAvailabilityDisplay";
     public static final String VENUE_SUBMIT_TIMMINGS_API  ="Service/VenueUnavailabiltyStatusSave";
-
+    public static final String VENUE_BOOKED_PENDING_TIMMINGS_API  ="Service/VenuePendingBookingsDisplay";
 
    // public static final String VENUE_PROFILE_API="Service/VenueProfileDisplayViaId";
     public static final String VENUE_ADD_UPDATE_PROFILE_API="Service/VenueProfileSaveUpdate";
@@ -174,8 +174,14 @@ public class Constants {
     public static final int FOR_VENUE_TO_TIMMINGS=161;
     public static final int FOR_VENUE_FROM_TIMMINGS=162;
     public static final int FOR_SUBMIT_TIMMINGS=163;
+    public static final int FOR_VENUE_SHOW_BOOKED_PENDING_TIMMINGS=164;
+
+    public static final int FOR_VENUE_EVENTS_LIST=165;
+
+
 
     public static final int FOR_UPLOAD_EVENT_PROFILE_IMAGE = 201;
     public static final int FOR_DELETE_EVENT= 202;
+
 
 }

@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
@@ -60,6 +59,7 @@ import com.musicseque.retrofit_interface.ImageUploadInterface;
 import com.musicseque.retrofit_interface.RetrofitAPI;
 import com.musicseque.utilities.Constants;
 import com.musicseque.utilities.FileUtils;
+import com.musicseque.utilities.SharedPref;
 import com.musicseque.utilities.Utils;
 
 import org.json.JSONArray;
@@ -136,13 +136,10 @@ public class BandFormFragment extends Fragment implements View.OnClickListener, 
     private TextView tv_title;
 
 
-    Dialog dialog;
 
     String mGenreId = "", mCountryId = "";
 
 
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
 
     private View v;
 
@@ -214,7 +211,7 @@ public class BandFormFragment extends Fragment implements View.OnClickListener, 
         tvDone.setVisibility(View.GONE);
 //
 //        retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getActivity())).build();
-//        sharedPreferences = retrofitComponent.getShared();
+//        SharedPref = retrofitComponent.getShared();
 //        editor = retrofitComponent.getEditor();
         myDirectory = new File(Environment.getExternalStorageDirectory(), "MusicSegue");
         try {
@@ -247,7 +244,7 @@ public class BandFormFragment extends Fragment implements View.OnClickListener, 
         tv_title = (TextView) ((MainActivity) getActivity()).findViewById(R.id.tvHeading);
         tv_title.setText("Band Profile");
         et_desc.setMovementMethod(ScrollingMovementMethod.getInstance());
-        et_email.setText(sharedPreferences.getString(Constants.EMAIL_ID, ""));
+        et_email.setText(SharedPref.getString(Constants.EMAIL_ID, ""));
     }
 
     private void listeners() {
@@ -480,29 +477,29 @@ public class BandFormFragment extends Fragment implements View.OnClickListener, 
     }
 
     private void showDefaultData() {
-        et_email.setText(sharedPreferences.getString(Constants.EMAIL_ID, ""));
-//        tvUserName.setText(sharedPreferences.getString(Constants.USER_NAME, ""));
-//        tvProfileType.setText(sharedPreferences.getString(Constants.PROFILE_TYPE, ""));
-        if (sharedPreferences.getString(Constants.VISIBILITY_STATUS, STATUS_ACTIVE).equalsIgnoreCase(STATUS_ACTIVE)) {
+        et_email.setText(SharedPref.getString(Constants.EMAIL_ID, ""));
+//        tvUserName.setText(SharedPref.getString(Constants.USER_NAME, ""));
+//        tvProfileType.setText(SharedPref.getString(Constants.PROFILE_TYPE, ""));
+        if (SharedPref.getString(Constants.VISIBILITY_STATUS, STATUS_ACTIVE).equalsIgnoreCase(STATUS_ACTIVE)) {
             ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.circle_green));
-        } else if (sharedPreferences.getString(Constants.VISIBILITY_STATUS, STATUS_ACTIVE).equalsIgnoreCase(STATUS_INVISIBLE)) {
+        } else if (SharedPref.getString(Constants.VISIBILITY_STATUS, STATUS_ACTIVE).equalsIgnoreCase(STATUS_INVISIBLE)) {
             ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.circle_transparent));
         } else {
             ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.circle_red));
         }
 
 
-        mCountryCode = sharedPreferences.getString(Constants.COUNTRY_CODE, "");
-        mCountryId = sharedPreferences.getString(Constants.COUNTRY_ID, "");
-        mCountryName = sharedPreferences.getString(Constants.COUNTRY_NAME, "");
-        mMobileNumber = sharedPreferences.getString(Constants.MOBILE_NUMBER, "");
+        mCountryCode = SharedPref.getString(Constants.COUNTRY_CODE, "");
+        mCountryId = SharedPref.getString(Constants.COUNTRY_ID, "");
+        mCountryName = SharedPref.getString(Constants.COUNTRY_NAME, "");
+        mMobileNumber = SharedPref.getString(Constants.MOBILE_NUMBER, "");
         tvCountryCode.setText(mCountryCode);
         etMobileNumber.setText(mMobileNumber);
         tvCountry.setText(mCountryName);
 
 
-        if (sharedPreferences.getString(Constants.LOGIN_TYPE, "Simple").equalsIgnoreCase("Simple")) {
-            String mUrl = sharedPreferences.getString(Constants.PROFILE_IMAGE, "");
+        if (SharedPref.getString(Constants.LOGIN_TYPE, "Simple").equalsIgnoreCase("Simple")) {
+            String mUrl = SharedPref.getString(Constants.PROFILE_IMAGE, "");
             if (mUrl.equalsIgnoreCase("")) {
                 ivProfile.setVisibility(View.VISIBLE);
                 pBar.setVisibility(View.GONE);
@@ -553,7 +550,7 @@ public class BandFormFragment extends Fragment implements View.OnClickListener, 
 
             }
         } else {
-            String mUrl = sharedPreferences.getString(Constants.PROFILE_IMAGE, "");
+            String mUrl = SharedPref.getString(Constants.PROFILE_IMAGE, "");
 
             ivCamera.setVisibility(View.GONE);
           //  ivAddImage.setVisibility(View.GONE);
@@ -807,7 +804,7 @@ public class BandFormFragment extends Fragment implements View.OnClickListener, 
                     jsonBody.put("Bio", mBio);
                     jsonBody.put("BandGenreId", mGenreId);
                     jsonBody.put("ExperienceId", mExperienceId);
-                    jsonBody.put("BandManagerId", sharedPreferences.getString(Constants.USER_ID, ""));
+                    jsonBody.put("BandManagerId", SharedPref.getString(Constants.USER_ID, ""));
                     jsonBody.put("ProfileTypeId", "2");
                     jsonBody.put("BandId", mBandId);
                     requestBody = jsonBody.toString();

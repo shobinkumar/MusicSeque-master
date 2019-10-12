@@ -3,6 +3,7 @@ package com.musicseque.venue_manager.activity
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.*
@@ -321,6 +322,7 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
                 else {
                     hashMapSorted.clear()
                     listEndDate.clear()
+                    alBookingsEnd.clear()
                     hitAPI(FOR_VENUE_TO_TIMMINGS, "")
 
 
@@ -481,6 +483,7 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
                 val jsonArray = obj.getJSONArray("result")
                 alBookingsEnd = Gson().fromJson<java.util.ArrayList<MySelectedTimeModel>>(jsonArray.toString(), object : TypeToken<java.util.ArrayList<MySelectedTimeModel>>() {}.type)
                 getEndTimmingsHashMap(alBookingsEnd, endHashMap)
+                Log.e("","")
 
 
 
@@ -519,6 +522,7 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
                 alBookings = Gson().fromJson<java.util.ArrayList<MySelectedTimeModel>>(jsonArray.toString(), object : TypeToken<java.util.ArrayList<MySelectedTimeModel>>() {}.type)
 
                 getTimmingsHashMap(alBookings, hashMap)
+                Log.e("","")
 
 
             }
@@ -561,7 +565,7 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
         listPopupWindow.setModal(true)
         listPopupWindow.setOnItemClickListener(AdapterView.OnItemClickListener { parent, view, position, id ->
 
-            spinnerData.getData(array[position], position.toString())
+            spinnerData.getData(array[position], eventsList.get(position).event_id)
             listPopupWindow.dismiss()
         })
         listPopupWindow.show()
@@ -576,7 +580,7 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
 
                 al = hashmap.get(value.availability_date)!!
                 al.add(value.availability_from_time)
-                hashmap.put(value.venue_booking_date, al)
+                hashmap.put(value.availability_date, al)
 
 
             } else {
@@ -602,14 +606,13 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
 
             } else {
                 val al = ArrayList<String>()
-                if(value.availability_from_time.equals("00:00"))
+                if(index!=0 && value.availability_from_time.equals("00:00"))
                 {
                     al.add(value.availability_from_time)
                 }
-                else
-                {
+
                     al.add(value.availability_to_time)
-                }
+
 
                 hashmap.put(value.availability_date, al)
             }

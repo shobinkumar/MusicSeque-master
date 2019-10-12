@@ -94,7 +94,7 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
         super.onActivityCreated(savedInstanceState)
         initOtherViews()
         listeners()
-        hitAPI(FOR_VENUE_FROM_TIMMINGS, "")
+        hitAPI(FOR_VENUE_SHOW_BOOKED_PENDING_TIMMINGS, "")
 
         val dimension = DisplayMetrics()
         activity?.getWindowManager()?.getDefaultDisplay()?.getMetrics(dimension)
@@ -158,11 +158,11 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
     private fun hitAPI(sType: Int, sTimmings: String) {
         if (KotlinUtils.isNetConnected(requireContext())) {
             Utils.initializeAndShow(requireContext())
-            if (sType == FOR_VENUE_FROM_TIMMINGS) {
+            if (sType == Constants.FOR_VENUE_SHOW_BOOKED_PENDING_TIMMINGS) {
                 val json = JSONObject()
                 json.put("VenueId", SharedPref.getString(Constants.USER_ID, ""))
                 // json.put("BookingAsOnDate", "01-01-1900")
-                KotlinHitAPI.callAPI(json.toString(), Constants.FOR_VENUE_FROM_TIMMINGS, this)
+                KotlinHitAPI.callAPI(json.toString(), Constants.FOR_VENUE_SHOW_BOOKED_PENDING_TIMMINGS, this)
 
 
             } else if (sType == FOR_SUBMIT_TIMMINGS) {
@@ -179,13 +179,14 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
     override fun sendResponse(response: Any?, TYPE: Int) {
         Utils.hideProgressDialog()
         when (TYPE) {
-            FOR_VENUE_FROM_TIMMINGS -> {
+            FOR_VENUE_SHOW_BOOKED_PENDING_TIMMINGS -> {
                 val obj = JSONObject(response.toString())
                 if (obj.getString("Status").equals("Success", false)) {
                     val jsonArray = obj.getJSONArray("result")
                     bookedTimmingsAL = Gson().fromJson<java.util.ArrayList<MySelectedTimeModel>>(jsonArray.toString(), object : TypeToken<java.util.ArrayList<MySelectedTimeModel>>() {}.type)
 
                     getTimmingsHashMap()
+                    Log.e("","")
                 }
             }
             FOR_SUBMIT_TIMMINGS -> {
@@ -299,7 +300,12 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
                 } else if (clickedDate.equals(currentDate) && !currentTime!!.after(selectedTime) && !alTime[i].equals("23:00")) {
                     callMethodForHashmap(one_view, alNext[0].dateString, time_tv.getText().toString().trim(), alTime[i + 1])
 
-                } else if (alTime[i].equals("23:00")) {
+                } else if (!canEdit(alNext[0].dateString, time_tv.text.toString().trim())) run {
+                    Toast.makeText(requireContext(), "You can't edit booked slot", Toast.LENGTH_SHORT).show()
+
+
+                }
+                else if (alTime[i].equals("23:00")) {
                     callMethodForHashmap(one_view, alNext[0].dateString, time_tv.getText().toString().trim(), "23:59")
 
                 } else {
@@ -333,7 +339,14 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
                 } else if (clickedDate.equals(currentDate) && !currentTime!!.after(selectedTime) && !alTime[i].equals("23:00")) {
                     callMethodForHashmap(two_view, alNext[1].dateString, time_tv.getText().toString().trim(), alTime[i + 1])
 
-                } else if (alTime[i].equals("23:00", true)) {
+                }
+
+                else if (!canEdit(alNext[1].dateString, time_tv.text.toString().trim())) run {
+                    Toast.makeText(requireContext(), "You can't edit booked slot", Toast.LENGTH_SHORT).show()
+
+
+                }
+                else if (alTime[i].equals("23:00", true)) {
                     callMethodForHashmap(two_view, alNext[1].dateString, time_tv.getText().toString().trim(), "23:59")
                 } else {
                     callMethodForHashmap(two_view, alNext[1].dateString, time_tv.getText().toString().trim(), alTime[i + 1])
@@ -364,7 +377,14 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
                 } else if (clickedDate.equals(currentDate) && !currentTime!!.after(selectedTime) && !alTime[i].equals("23:00")) {
                     callMethodForHashmap(three_view, alNext[2].dateString, time_tv.getText().toString().trim(), alTime[i + 1])
 
-                } else if (alTime[i].equals("23:00")) {
+                }
+
+                else if (!canEdit(alNext[2].dateString, time_tv.text.toString().trim())) run {
+                    Toast.makeText(requireContext(), "You can't edit booked slot", Toast.LENGTH_SHORT).show()
+
+
+                }
+                else if (alTime[i].equals("23:00")) {
                     callMethodForHashmap(three_view, alNext[2].dateString, time_tv.getText().toString().trim(), "23:59")
                 } else {
                     callMethodForHashmap(three_view, alNext[2].dateString, time_tv.getText().toString().trim(), alTime[i + 1])
@@ -393,7 +413,15 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
                 } else if (clickedDate.equals(currentDate) && !currentTime!!.after(selectedTime) && !alTime[i].equals("23:00")) {
                     callMethodForHashmap(four_view, alNext[3].dateString, time_tv.getText().toString().trim(), alTime[i + 1])
 
-                } else if (alTime[i].equals("23:00")) {
+                }
+
+                else if (!canEdit(alNext[3].dateString, time_tv.text.toString().trim())) run {
+                    Toast.makeText(requireContext(), "You can't edit booked slot", Toast.LENGTH_SHORT).show()
+
+
+                }
+                
+                else if (alTime[i].equals("23:00")) {
                     callMethodForHashmap(four_view, alNext[3].dateString, time_tv.getText().toString().trim(), "23:59")
                 } else {
                     callMethodForHashmap(four_view, alNext[3].dateString, time_tv.getText().toString().trim(), alTime[i + 1])
@@ -420,7 +448,14 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
                 } else if (clickedDate.equals(currentDate) && !currentTime!!.after(selectedTime) && !alTime[i].equals("23:00")) {
                     callMethodForHashmap(five_view, alNext[4].dateString, time_tv.getText().toString().trim(), alTime[i + 1])
 
-                } else if (alTime[i].equals("23:00")) {
+                }
+                else if (!canEdit(alNext[4].dateString, time_tv.text.toString().trim())) run {
+                    Toast.makeText(requireContext(), "You can't edit booked slot", Toast.LENGTH_SHORT).show()
+
+
+                }
+
+                else if (alTime[i].equals("23:00")) {
                     callMethodForHashmap(five_view, alNext[4].dateString, time_tv.getText().toString().trim(), "23:59")
                 } else {
                     callMethodForHashmap(five_view, alNext[4].dateString, time_tv.getText().toString().trim(), alTime[i + 1])
@@ -450,7 +485,14 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
                 } else if (clickedDate.equals(currentDate) && !currentTime!!.after(selectedTime) && !alTime[i].equals("23:00")) {
                     callMethodForHashmap(six_view, alNext[5].dateString, time_tv.getText().toString().trim(), alTime[i + 1])
 
-                } else if (alTime[i].equals("23:00")) {
+                }
+                else if (!canEdit(alNext[5].dateString, time_tv.text.toString().trim())) run {
+                    Toast.makeText(requireContext(), "You can't edit booked slot", Toast.LENGTH_SHORT).show()
+
+
+                }
+
+                else if (alTime[i].equals("23:00")) {
                     callMethodForHashmap(six_view, alNext[5].dateString, time_tv.getText().toString().trim(), "23:59")
                 } else {
                     callMethodForHashmap(six_view, alNext[5].dateString, time_tv.getText().toString().trim(), alTime[i + 1])
@@ -477,7 +519,14 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
                 } else if (clickedDate.equals(currentDate) && !currentTime!!.after(selectedTime) && !alTime[i].equals("23:00")) {
                     callMethodForHashmap(seven_view, alNext[6].dateString, time_tv.getText().toString().trim(), alTime[i + 1])
 
-                } else if (alTime[i].equals("23:00")) {
+                }
+                else if (!canEdit(alNext[6].dateString, time_tv.text.toString().trim())) run {
+                    Toast.makeText(requireContext(), "You can't edit booked slot", Toast.LENGTH_SHORT).show()
+
+
+                }
+
+                else if (alTime[i].equals("23:00")) {
                     callMethodForHashmap(seven_view, alNext[6].dateString, time_tv.getText().toString().trim(), "23:59")
                 } else {
                     callMethodForHashmap(seven_view, alNext[6].dateString, time_tv.getText().toString().trim(), alTime[i + 1])
@@ -1189,7 +1238,7 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
 
 
                 al = hashMap.get(value.availability_date)!!
-                al.add(TimeModalClass(value.availability_date, value.availability_from_time, value.availability_to_time, value.venue_status))
+                al.add(TimeModalClass(value.availability_date, value.availability_from_time, value.availability_to_time, value.booking_status))
 
 
                 // hashMap.put(value.venue_booking_date, al)
@@ -1198,12 +1247,33 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
             } else {
                 val al = ArrayList<TimeModalClass>()
 
-                al.add(TimeModalClass(value.availability_date, value.availability_from_time, value.availability_to_time, value.venue_status))
+                al.add(TimeModalClass(value.availability_date, value.availability_from_time, value.availability_to_time, value.booking_status))
                 hashMap.put(value.availability_date, al)
             }
 
         }
 
 
+    }
+    private fun canEdit(dateString: String, start_time: String): Boolean {
+        var value = true
+
+        if (hashMap.containsKey(dateString)) {
+            val al = hashMap[dateString]
+            for (i in al!!.indices) {
+                if (al[i].start_time.equals(start_time)) {
+                    if (al[i].slot_status.equals("B",true)) {
+                        value = false
+                        break
+                    }
+
+                }
+            }
+
+        } else {
+            value = true
+
+        }
+        return value
     }
 }

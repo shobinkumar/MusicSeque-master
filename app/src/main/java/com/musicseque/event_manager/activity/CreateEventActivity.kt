@@ -70,6 +70,7 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
     var mFromTime: String = ""
     var mToTime: String = ""
     var mEventTypeId: String = ""
+    var isEdit=false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,6 +91,9 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
         recyclerEvent?.layoutManager = GridLayoutManager(this, 2) as RecyclerView.LayoutManager?
         try {
             mEventId = intent.getStringExtra("event_id")
+            isEdit=intent.getBooleanExtra("isEdit",false)
+            if(isEdit)
+                tv_title.text = "Edit Event"
         } catch (exp: Exception) {
             mEventId = ""
         }
@@ -338,8 +342,6 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
 
         } else if (DATE_TIME_FROM == TO_TIME) {
             mFromTime = tvStartTime.text.toString()
-
-
             mFromDate = tvStartDate.text.toString()
             mToDate = tvEndDate.text.toString()
             val newFormat = SimpleDateFormat("dd/MM/yyyy")
@@ -392,13 +394,25 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                     etEventName.setText(jsonInner.getString("EventTitle"))
                     etEventDescription.setText(jsonInner.getString("EventDescription"))
                     etAttendence.setText(jsonInner.getString("EventEstimatedGuest"))
+                    if(jsonInner.getString("VenueName").equals(""))
+                    {
+                        val (mFromDate, mToDate) = KotlinUtils.dateFormatToReceive(jsonInner.getString("EventDateFrom"), jsonInner.getString("EventDateTo"))
 
-                    val (mFromDate, mToDate) = KotlinUtils.dateFormatToReceive(jsonInner.getString("EventDateFrom"), jsonInner.getString("EventDateTo"))
+                        tvStartDate.setText(mFromDate)
+                        tvEndDate.text = mToDate
+                        tvStartTime.setText(jsonInner.getString("EventTimeFrom"))
+                        tvEndTime.setText(jsonInner.getString("EventTimeTo"))
+                    }
+                    else
+                    {
+                        val (mFromDate, mToDate) = KotlinUtils.dateFormatToReceive(jsonInner.getString("VenueBookedFromDate"), jsonInner.getString("VenueBookedToDate"))
 
-                    tvStartDate.setText(mFromDate)
-                    tvEndDate.text = mToDate
-                    tvStartTime.setText(jsonInner.getString("EventTimeFrom"))
-                    tvEndTime.setText(jsonInner.getString("EventTimeTo"))
+                        tvStartDate.setText(mFromDate)
+                        tvEndDate.text = mToDate
+                        tvStartTime.setText(jsonInner.getString("VenueBookingFromTime"))
+                        tvEndTime.setText(jsonInner.getString("VenueBookingToTime"))
+                    }
+
                     tvBudgetPerGuest.setText(jsonInner.getString("EventBudget"))
                     val budget = jsonInner.getString("EventBudget").toFloat()
                     //seekBarPrice.setMinValue(budget)
