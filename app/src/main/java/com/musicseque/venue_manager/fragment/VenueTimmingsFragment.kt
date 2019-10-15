@@ -40,7 +40,6 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
     var dayTimeAL: ArrayList<TimeModalClass> = ArrayList()
     var bookedTimmingsAL: ArrayList<MySelectedTimeModel> = ArrayList()
 
-    internal var hashMapCopy = HashMap<String, java.util.ArrayList<TimeModalClass>>()
 
 
     //Toolbar
@@ -166,6 +165,13 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
 
 
             } else if (sType == FOR_SUBMIT_TIMMINGS) {
+                val json = JSONObject()
+                json.put("VenueId", SharedPref.getString(Constants.USER_ID, ""))
+                json.put("Timmings", sTimmings)
+
+                // json.put("BookingAsOnDate", "01-01-1900")
+                KotlinHitAPI.callAPI(json.toString(), Constants.FOR_SUBMIT_TIMMINGS, this)
+
 
             }
 
@@ -190,6 +196,7 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
                 }
             }
             FOR_SUBMIT_TIMMINGS -> {
+                Log.e("","")
 
             }
         }
@@ -1131,15 +1138,15 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
             }
 
 
-            R.id.ivTick -> {
-                var alTime: ArrayList<DateTimeModel> = ArrayList()
-
-                for ((k, v) in hashMap.entries) {
-                    alTime.add(DateTimeModel(v))
-                }
-
-                Log.e("Hainji", "")
-            }
+//            R.id.ivTick -> {
+//                var alTime: ArrayList<DateTimeModel> = ArrayList()
+//
+//                for ((k, v) in hashMap.entries) {
+//                    alTime.add(DateTimeModel(v))
+//                }
+//
+//                Log.e("Hainji", "")
+//            }
             R.id.previous_iv -> {
                 if (alNext.size > 0) {
                     for (i in 0 until alNext.size) {

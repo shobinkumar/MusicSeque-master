@@ -70,11 +70,23 @@ class PastEventDetailActivity : BaseActivity(), View.OnClickListener, MyInterfac
                 tvEventDescription.setText(jsonInner.getString("EventDescription"))
                 tvCapacity.setText(jsonInner.getString("EventEstimatedGuest"))
 
-                val (mFromDate, mToDate) = KotlinUtils.dateFormatToReceive(jsonInner.getString("EventDateFrom"), jsonInner.getString("EventDateTo"))
+                if (jsonInner.getString("VenueName").equals("", true)) {
+                    val (mFromDate, mToDate) = KotlinUtils.dateFormatToReceive(jsonInner.getString("EventDateFrom"), jsonInner.getString("EventDateTo"))
 
-                tvStartDateTime.setText(mFromDate+" "+jsonInner.getString("EventTimeFrom"))
+                    tvStartDateTime.setText(mFromDate + " " + jsonInner.getString("EventTimeFrom"))
 
-                tvStartDateTime.setText(mToDate+" "+jsonInner.getString("EventTimeTo"))
+                    tvEndDateTime.setText(mToDate + " " + jsonInner.getString("EventTimeTo"))
+                } else {
+                    tvVenueName.setText(jsonInner.getString("VenueName"))
+
+                    val (mFromDate, mToDate) = KotlinUtils.dateFormatToReceive(jsonInner.getString("VenueBookedFromDate"), jsonInner.getString("VenueBookedToDate"))
+
+                    tvStartDateTime.setText(mFromDate + " " + jsonInner.getString("VenueBookingFromTime"))
+
+                    tvEndDateTime.setText(mToDate + " " + jsonInner.getString("VenueBookingToTime"))
+
+
+                }
 
 
 

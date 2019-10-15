@@ -250,6 +250,7 @@
     <string name="err_current_date">From Date should not before current date</string>
     <string name="err_address">Please enter the address</string>
     <string name="err_venue_bio">Please enter venue description</string>
+    <string name="txt_booking_status">Booking Status</string>
 
 
     <string-array name="my_time_array">

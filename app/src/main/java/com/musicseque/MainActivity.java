@@ -41,7 +41,7 @@ import com.musicseque.start_up.LoginActivity;
 import com.musicseque.utilities.Constants;
 import com.musicseque.utilities.SharedPref;
 import com.musicseque.utilities.Utils;
-import com.musicseque.venue_manager.activity.UploadVenueMediaActivity;
+import com.musicseque.venue_manager.fragment.VenueBookingStatusFragment;
 import com.musicseque.venue_manager.fragment.CreateVenueFragment;
 import com.musicseque.venue_manager.fragment.VenueProfileDetailFragment;
 import com.musicseque.venue_manager.fragment.VenueTimmingsFragment;
@@ -111,6 +111,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     RelativeLayout rlNotificationCount;
     @BindView(R.id.tvNotificationCount)
     TextView tvNotificationCount;
+
+
+    @BindView(R.id.llBookingStatus)
+    LinearLayout llBookingStatus;
+    @BindView(R.id.tvBookingStatus)
+    TextView tvBookingStatus;
+    @BindView(R.id.ivBookingStatus)
+    ImageView ivBookingStatus;
+    @BindView(R.id.viewBookingStatus)
+    View viewBookingStatus;
+
 
     @BindView(R.id.llSchedule)
     LinearLayout llSchedule;
@@ -455,7 +466,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    @OnClick({R.id.llTimmings,R.id.ivDownArrowEvents, R.id.ivUpArrowEvents, R.id.tvAddEvent, R.id.tvPastEvents, R.id.tvUpcomingEvent, R.id.tvMyProfile, R.id.tvBandProfile, R.id.tvOtherBand, R.id.ivUpArrow, R.id.ivDownArrow, R.id.llActivity, R.id.llHome, R.id.llAlerts, R.id.llSchedule, R.id.llUpload, R.id.llBand, R.id.llSearch, R.id.llStats, R.id.llSettings, R.id.llLogout})
+    @OnClick({R.id.llBookingStatus,R.id.llTimmings,R.id.ivDownArrowEvents, R.id.ivUpArrowEvents, R.id.tvAddEvent, R.id.tvPastEvents, R.id.tvUpcomingEvent, R.id.tvMyProfile, R.id.tvBandProfile, R.id.tvOtherBand, R.id.ivUpArrow, R.id.ivDownArrow, R.id.llActivity, R.id.llHome, R.id.llAlerts, R.id.llSchedule, R.id.llUpload, R.id.llBand, R.id.llSearch, R.id.llStats, R.id.llSettings, R.id.llLogout})
     public void onClicks(View view) {
         switch (view.getId()) {
             case R.id.ivUpArrow:
@@ -502,6 +513,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 ivDownArrow.setVisibility(View.VISIBLE);
                 break;
             case R.id.llActivity:
+                break;
+            case R.id.llBookingStatus:
+                fragment = new VenueBookingStatusFragment();
+                changeIconBottom(R.drawable.home3, R.drawable.profileactive3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment);
+                navDrawer.closeDrawers();
                 break;
             case R.id.llHome:
 
@@ -684,6 +700,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             viewTimmings.setVisibility(View.VISIBLE);
             llSchedule.setVisibility(View.GONE);
             viewSchedule.setVisibility(View.GONE);
+            llBookingStatus.setVisibility(View.VISIBLE);
             tvProfile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -707,6 +724,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             viewTimmings.setVisibility(View.GONE);
             llSchedule.setVisibility(View.VISIBLE);
             viewSchedule.setVisibility(View.VISIBLE);
+            llBookingStatus.setVisibility(View.GONE);
+
         }
 
 

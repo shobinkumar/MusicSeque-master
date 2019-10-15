@@ -66,29 +66,30 @@ public class Constants {
     public static final String NOTIFICATION_API = "Service/ArtistsRequestsDisplay";
     public static final String ACCEPT_REJECT_BAND_REQUEST_API = "Service/ArtistRequestsStatus";
     public static final String OTHER_BAND_LIST_API = "Service/ArtistsBandListDisplay";
-    public static final String SEARCH_BAND_LIST_API="Service/BandListSearch";
+    public static final String SEARCH_BAND_LIST_API = "Service/BandListSearch";
 
     //Event Manager
 
-    public static final String EVENT_TYPE_LIST_API  ="Service/EventTypeList";
-    public static final String CURRENCY_LIST_API  ="Service/CurrencyTypeList";
-    public static final String EVENT_DETAIL_API  ="Service/EventDetailsViaEventId";
-    public static final String EVENT_SAVE_UPDATE_DETAIL_API="Service/EventBookingSaveUpdate";
-    public static final String GET_EVENTS_LIST_API="Service/EventsListDisplay";
-    public static final String UPLOAD_EVENT_IMAGE_API="Service/EventPromotionImageUpload";
-    public static final String DELETE_EVENT_API="Service/EventDelete";
+    public static final String EVENT_TYPE_LIST_API = "Service/EventTypeList";
+    public static final String CURRENCY_LIST_API = "Service/CurrencyTypeList";
+    public static final String EVENT_DETAIL_API = "Service/EventDetailsViaEventId";
+    public static final String EVENT_SAVE_UPDATE_DETAIL_API = "Service/EventBookingSaveUpdate";
+    public static final String GET_EVENTS_LIST_API = "Service/EventsListDisplay";
+    public static final String UPLOAD_EVENT_IMAGE_API = "Service/EventPromotionImageUpload";
+    public static final String DELETE_EVENT_API = "Service/EventDelete";
 
     //Venue
-    public static final String VENUE_LIST_API  ="Service/VenueListSearch";
-    public static final String VENUE_BOOK_API ="Service/VenueBooking";
-    public static final String GET_VENUE_TIMMINGS_API="Service/VenueBookingsDisplayViaVId";
-    public static final String VENUE_TO_TIMMINGS_API  ="Service/VenueBookingsDisplayAvailability";
-    public static final String VENUE_FROM_TIMMINGS_API  ="Service/VenueBookingsUnAvailabilityDisplay";
-    public static final String VENUE_SUBMIT_TIMMINGS_API  ="Service/VenueUnavailabiltyStatusSave";
-    public static final String VENUE_BOOKED_PENDING_TIMMINGS_API  ="Service/VenuePendingBookingsDisplay";
+    public static final String VENUE_LIST_API = "Service/VenueListSearch";
+    public static final String VENUE_BOOK_API = "Service/VenueBooking";
+    public static final String GET_VENUE_TIMMINGS_API = "Service/VenueBookingsDisplayViaVId";
+    public static final String VENUE_TO_TIMMINGS_API = "Service/VenueBookingsDisplayAvailability";
+    public static final String VENUE_FROM_TIMMINGS_API = "Service/VenueBookingsUnAvailabilityDisplay";
+    public static final String VENUE_SUBMIT_TIMMINGS_API = "Service/VenueUnAvailabilityAdd";
+    public static final String VENUE_BOOKED_PENDING_TIMMINGS_API = "Service/VenuePendingBookingsDisplay";
+    // public static final String SEND_VENUE_TIMMINGS_API="Service/VenueUnAvailabilityAdd";
 
-   // public static final String VENUE_PROFILE_API="Service/VenueProfileDisplayViaId";
-    public static final String VENUE_ADD_UPDATE_PROFILE_API="Service/VenueProfileSaveUpdate";
+    // public static final String VENUE_PROFILE_API="Service/VenueProfileDisplayViaId";
+    public static final String VENUE_ADD_UPDATE_PROFILE_API = "Service/VenueProfileSaveUpdate";
     public static final String USER_ID = "USER_ID";
     public static final String PROFILE_ID = "PROFILE_ID";
     public static final String PROFILE_TYPE = "PROFILE_TYPE";
@@ -155,33 +156,36 @@ public class Constants {
     public static final int FOR_REMOVE_BAND_MEMBER = 143;
     public static final int FOR_ADD_BAND_MEMBER = 144;
     public static final int FOR_NOTIFICATION = 145;
-    public static final int FOR_ACCEPT_BAND_REQUEST =146 ;
-    public static final int FOR_REJECT_BAND_REQUEST =147 ;
-    public static final int FOR_OTHER_BAND_LIST=148;
-    public static final int FOR_EVENT_MANAGER_DETAIL=149;
-    public static final int FOR_EVENT_TYPE_LIST=150;
-    public static final int FOR_CURRENCY_LIST=151;
-    public static final int FOR_EVENT_DETAIL=152;
-    public static final int FOR_SAVE_UPDATE_EVENT_DETAIL=153;
-    public static final int FOR_SEARCH_BAND_LIST=154;
-    public static final int FOR_SEARCH_VENUE_LIST=155;
-    public static final int FOR_VENUE_PROFILE=156;
-    public static final int FOR_CREATE_UPDATE_VENUE_PROFILE=157;
+    public static final int FOR_ACCEPT_BAND_REQUEST = 146;
+    public static final int FOR_REJECT_BAND_REQUEST = 147;
+    public static final int FOR_OTHER_BAND_LIST = 148;
+    public static final int FOR_EVENT_MANAGER_DETAIL = 149;
+    public static final int FOR_EVENT_TYPE_LIST = 150;
+    public static final int FOR_CURRENCY_LIST = 151;
+    public static final int FOR_EVENT_DETAIL = 152;
+    public static final int FOR_SAVE_UPDATE_EVENT_DETAIL = 153;
+    public static final int FOR_SEARCH_BAND_LIST = 154;
+    public static final int FOR_SEARCH_VENUE_LIST = 155;
+    public static final int FOR_VENUE_PROFILE = 156;
+    public static final int FOR_CREATE_UPDATE_VENUE_PROFILE = 157;
 
-    public static final int FOR_SHOW_EVENTS_LIST=158;
-    public static final int FOR_VENUE_TIMMINGS=159;
-    public static final int FOR_VENUE_BOOK=160;
-    public static final int FOR_VENUE_TO_TIMMINGS=161;
-    public static final int FOR_VENUE_FROM_TIMMINGS=162;
-    public static final int FOR_SUBMIT_TIMMINGS=163;
-    public static final int FOR_VENUE_SHOW_BOOKED_PENDING_TIMMINGS=164;
+    public static final int FOR_SHOW_EVENTS_LIST = 158;
+    public static final int FOR_VENUE_TIMMINGS = 159;
+    public static final int FOR_VENUE_BOOK = 160;
+    public static final int FOR_VENUE_TO_TIMMINGS = 161;
+    public static final int FOR_VENUE_FROM_TIMMINGS = 162;
+    public static final int FOR_SUBMIT_TIMMINGS = 163;
+    public static final int FOR_VENUE_SHOW_BOOKED_PENDING_TIMMINGS = 164;
 
-    public static final int FOR_VENUE_EVENTS_LIST=165;
+    public static final int FOR_ACCEPTED_REQ = 165;
+    public static final int FOR_PENDING_REQ = 166;
+    public static final int FOR_REJECTED_REQ = 167;
+
 
 
 
     public static final int FOR_UPLOAD_EVENT_PROFILE_IMAGE = 201;
-    public static final int FOR_DELETE_EVENT= 202;
+    public static final int FOR_DELETE_EVENT = 202;
 
 
 }

@@ -275,6 +275,52 @@
             android:layout_height="1dp"
             android:layout_marginTop="5dp"
             android:background="@color/color_white" />
+
+
+        <LinearLayout
+
+            android:id="@+id/llBookingStatus"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            android:padding="12dp">
+
+
+            <ImageView
+                android:id="@+id/ivBookingStatus"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_booking_status" />
+
+
+            <com.musicseque.Fonts.Noyhr
+                android:id="@+id/tvBookingStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="@string/txt_booking_status"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_15sdp" />
+
+
+
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/viewBookingStatus"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/color_white" />
+
+
+
+
         <LinearLayout
             android:id="@+id/llEvents"
 
