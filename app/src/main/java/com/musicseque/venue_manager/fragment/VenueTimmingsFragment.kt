@@ -1,5 +1,6 @@
 package com.musicseque.venue_manager.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -165,14 +166,11 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
 
 
             } else if (sType == FOR_SUBMIT_TIMMINGS) {
-                val json = JSONObject()
-                json.put("VenueId", SharedPref.getString(Constants.USER_ID, ""))
-                json.put("Timmings", sTimmings)
 
                 // json.put("BookingAsOnDate", "01-01-1900")
-                KotlinHitAPI.callAPI(json.toString(), Constants.FOR_SUBMIT_TIMMINGS, this)
+                KotlinHitAPI.callAPI(sTimmings, Constants.FOR_SUBMIT_TIMMINGS, this)
 
-
+                       // .replace("\\", "")
             }
 
         } else {
@@ -197,6 +195,17 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
             }
             FOR_SUBMIT_TIMMINGS -> {
                 Log.e("","")
+                val json=JSONObject(response.toString())
+                if(json.getString("Status").equals("Success",true))
+                {
+                    Utils.showToast(requireContext(),json.getString("Message"))
+                    val intent = Intent(requireContext(), MainActivity::class.java)
+                    startActivity(intent)
+                }
+                else
+                {
+                    Utils.showToast(requireContext(),json.getString("Message"))
+                }
 
             }
         }
@@ -779,7 +788,7 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
 
     private fun callMethodForHashmap(view: View, dateString: String, start_time: String, end_time: String) {
         val sdk = android.os.Build.VERSION.SDK_INT
-        val timeModalClass = TimeModalClass(dateString, start_time, end_time, "")
+        val timeModalClass = TimeModalClass(dateString, start_time, end_time, "U")
 
         if (hashMap.containsKey(dateString)) {
             var isValue = false
@@ -1269,7 +1278,7 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
             val al = hashMap[dateString]
             for (i in al!!.indices) {
                 if (al[i].start_time.equals(start_time)) {
-                    if (al[i].slot_status.equals("B",true)) {
+                    if (al[i].slot_status.equals("B",true) || al[i].slot_status.equals("p",true)) {
                         value = false
                         break
                     }

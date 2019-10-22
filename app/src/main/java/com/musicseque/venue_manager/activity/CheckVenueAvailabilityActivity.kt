@@ -11,8 +11,10 @@ import com.google.gson.reflect.TypeToken
 import com.musicseque.R
 import com.musicseque.interfaces.MyInterface
 import com.musicseque.retrofit_interface.KotlinHitAPI
+import com.musicseque.utilities.Constants
 import com.musicseque.utilities.Constants.FOR_VENUE_TIMMINGS
 import com.musicseque.utilities.KotlinUtils
+import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils
 import com.musicseque.venue_manager.model.MySelectedTimeModel
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
@@ -74,8 +76,17 @@ class CheckVenueAvailabilityActivity : Activity(), View.OnClickListener, MyInter
             }
             R.id.tvBook -> {
                 Log.e("", "")
-                val intent = Intent(this, BookVenueActivity::class.java).putExtra("venue_id", mVenueId)
-                startActivity(intent)
+
+                if(SharedPref.getString(Constants.PROFILE_TYPE,"").equals("Venue Manager"))
+                {
+                    Utils.showToast(this,"You can't book venue")
+                }
+                else
+                {
+                    val intent = Intent(this, BookVenueActivity::class.java).putExtra("venue_id", mVenueId)
+                    startActivity(intent)
+                }
+
             }
 
         }

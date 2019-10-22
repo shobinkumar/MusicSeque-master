@@ -29,13 +29,9 @@ class KotlinHitAPI {
                 calls = apis!!.methodForVenueList(params)
             } else if (TYPE == FOR_VENUE_TIMMINGS) {
                 calls = apis!!.methodForGetVenueTimmings(params)
-            }
-            else if (TYPE == FOR_SUBMIT_TIMMINGS) {
+            } else if (TYPE == FOR_SUBMIT_TIMMINGS) {
                 calls = apis!!.methodForSubmitVenueTimmings(params)
-            }
-
-
-            else if (TYPE == Constants.FOR_VENUE_BOOK) {
+            } else if (TYPE == Constants.FOR_VENUE_BOOK) {
                 calls = apis!!.methodForVenueBook(params)
             } else if (TYPE == FOR_DELETE_EVENT) {
                 calls = apis!!.methodForDeleteEvent(params)
@@ -45,20 +41,29 @@ class KotlinHitAPI {
                 calls = apis!!.methodForVenueProfileSaveUpdate(params)
             } else if (TYPE == FOR_CREATE_UPDATE_VENUE_PROFILE) {
                 calls = apis!!.methodForVenueProfileSaveUpdate(params)
-            }
-            else if(TYPE==FOR_VENUE_TO_TIMMINGS)
-            {
+            } else if (TYPE == FOR_VENUE_TO_TIMMINGS) {
                 calls = apis!!.methodForVenueToTimmings(params)
-            }
-            else if(TYPE==FOR_VENUE_FROM_TIMMINGS)
-            {
+            } else if (TYPE == FOR_VENUE_FROM_TIMMINGS) {
                 calls = apis!!.methodForVenueFromTimmings(params)
-            }
-            else if(TYPE==FOR_VENUE_SHOW_BOOKED_PENDING_TIMMINGS)
-            {
+            } else if (TYPE == FOR_VENUE_SHOW_BOOKED_PENDING_TIMMINGS) {
                 calls = apis!!.methodForVenueBookedPendingTimmings(params)
+            } else if (TYPE == FOR_ACCEPT_EVENT_REQ) {
+                calls = apis!!.methodAcceptRejectRequest(params)
+            } else if (TYPE == FOR_REJECT_EVENT_REQ) {
+                calls = apis!!.methodAcceptRejectRequest(params)
             }
 
+
+            else if (TYPE == FOR_PENDING_REQ) {
+                calls = apis!!.methodEventStatus(params)
+            }
+            else if (TYPE == FOR_ACCEPTED_REQ) {
+                calls = apis!!.methodEventStatus(params)
+            }
+
+            else if (TYPE == FOR_REJECTED_REQ) {
+                calls = apis!!.methodEventStatus(params)
+            }
             callRetrofitKotlin(calls, TYPE)
 
         }
@@ -119,25 +124,40 @@ fun <T> callRetrofitKotlin(call: Call<T>, TYPE: Int) {
             } else if (TYPE == FOR_VENUE_BOOK) {
                 Log.e("FOR_VENUE_BOOK", response.body()!!.toString())
                 myInterfaces.sendResponse(response.body(), TYPE)
-            }
-            else if (TYPE == FOR_VENUE_FROM_TIMMINGS) {
+            } else if (TYPE == FOR_VENUE_FROM_TIMMINGS) {
                 Log.e("VENUE_TO_TIMMINGS", response.body()!!.toString())
                 myInterfaces.sendResponse(response.body(), TYPE)
-            }
-            else if (TYPE == FOR_VENUE_TO_TIMMINGS) {
+            } else if (TYPE == FOR_VENUE_TO_TIMMINGS) {
                 Log.e("VENUE_TO_TIMMINGS", response.body()!!.toString())
                 myInterfaces.sendResponse(response.body(), TYPE)
-            }
-            else if (TYPE == FOR_DELETE_EVENT) {
+            } else if (TYPE == FOR_DELETE_EVENT) {
                 Log.e("FOR_DELETE_EVENT", response.body()!!.toString())
                 myInterfaces.sendResponse(response.body(), TYPE)
-            }
-            else if (TYPE == FOR_VENUE_SHOW_BOOKED_PENDING_TIMMINGS) {
+            } else if (TYPE == FOR_VENUE_SHOW_BOOKED_PENDING_TIMMINGS) {
                 Log.e("FOR_DELETE_EVENT", response.body()!!.toString())
                 myInterfaces.sendResponse(response.body(), TYPE)
-            }
-            else if (TYPE == FOR_SUBMIT_TIMMINGS) {
+            } else if (TYPE == FOR_SUBMIT_TIMMINGS) {
                 Log.e("FOR_SEND_VENUE_TIMMINGS", response.body()!!.toString())
+                myInterfaces.sendResponse(response.body(), TYPE)
+            } else if (TYPE == FOR_ACCEPT_EVENT_REQ) {
+                Log.e("FOR_ACCEPT_EVENT_REQ", response.body()!!.toString())
+                myInterfaces.sendResponse(response.body(), TYPE)
+            } else if (TYPE == FOR_REJECT_EVENT_REQ) {
+                Log.e("FOR_REJECT_EVENT_REQ", response.body()!!.toString())
+                myInterfaces.sendResponse(response.body(), TYPE)
+            }
+
+
+
+            else if (TYPE == FOR_PENDING_REQ) {
+                Log.e("FOR_PENDING_REQ", response.body()!!.toString())
+                myInterfaces.sendResponse(response.body(), TYPE)
+            } else if (TYPE == FOR_ACCEPTED_REQ) {
+                Log.e("FOR_ACCEPTED_REQ", response.body()!!.toString())
+                myInterfaces.sendResponse(response.body(), TYPE)
+            }
+            else if (TYPE == FOR_REJECTED_REQ) {
+                Log.e("FOR_REJECTED_REQ", response.body()!!.toString())
                 myInterfaces.sendResponse(response.body(), TYPE)
             }
         }

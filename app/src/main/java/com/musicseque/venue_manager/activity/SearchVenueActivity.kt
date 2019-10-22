@@ -40,7 +40,7 @@ class SearchVenueActivity : BaseActivity(), View.OnClickListener, MyInterface {
     }
 
     private fun initOtherViews() {
-        tv_title.text = "Venue"
+        tv_title.text = "Venues"
         img_right_icon.visibility = View.GONE
     }
 

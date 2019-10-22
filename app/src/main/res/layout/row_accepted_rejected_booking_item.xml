@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_app_background"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivEventManagerImage"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:src="@drawable/icon_img_dummy" />
+
+    <RelativeLayout
+        android:id="@+id/rlOutside"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/ivEventManagerImage">
+
+        <com.musicseque.Fonts.Noyhr
+            android:id="@+id/tvArtistName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="AArti"
+            android:textColor="@color/color_white"
+            android:textSize="18sp" />
+
+        <com.musicseque.Fonts.Noyhr
+            android:id="@+id/tvRequestSentTimmings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvArtistName"
+            android:layout_marginTop="5dp"
+            android:text="5 mins ago 15:30 hrs GMT"
+            android:textColor="@color/color_white"
+            android:textSize="18sp" />
+
+        <com.musicseque.Fonts.Noyhr
+            android:id="@+id/tvArtistNameRequest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvRequestSentTimmings"
+            android:layout_marginTop="10dp"
+            android:text="Arti has sent you a venue booking request"
+            android:textColor="@color/color_white"
+            android:textSize="18sp" />
+
+        <com.musicseque.Fonts.Noyhr
+            android:id="@+id/tvEventDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvArtistNameRequest"
+            android:layout_marginTop="5dp"
+            android:text="Date : 20 Oct 2019 to 21 Oct 2019"
+            android:textColor="@color/color_white"
+            android:textSize="18sp" />
+
+        <com.musicseque.Fonts.Noyhr
+            android:id="@+id/tvEventTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvEventDate"
+            android:layout_marginTop="5dp"
+            android:text="Time : 21:30 to 22:30"
+            android:textColor="@color/color_white"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/rlOutside"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_white" />
+
+</RelativeLayout>

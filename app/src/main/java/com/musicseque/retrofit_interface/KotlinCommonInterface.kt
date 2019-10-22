@@ -71,7 +71,13 @@ public interface KotlinCommonInterface {
     @POST(Constants.VENUE_BOOKED_PENDING_TIMMINGS_API)
     abstract fun methodForVenueBookedPendingTimmings(@Body params: String): Call<String>
 
+    @Headers("Content-Type: application/json")
+    @POST(Constants.VENUE_ACCEPT_REJECT_API)
+    abstract fun methodAcceptRejectRequest(@Body params: String): Call<String>
 
+    @Headers("Content-Type: application/json")
+    @POST(Constants.EVENT_STATUS_API)
+    abstract fun methodEventStatus(@Body params: String): Call<String>
 
 
 }

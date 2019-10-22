@@ -10,7 +10,6 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -63,7 +62,6 @@ import com.musicseque.utilities.Constants;
 import com.musicseque.utilities.FileUtils;
 import com.musicseque.utilities.SharedPref;
 import com.musicseque.utilities.Utils;
-import com.wdullaer.materialdatetimepicker.time.Timepoint;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -894,6 +892,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
                     jsonObject = new JSONObject(response.toString());
                     String tracking = jsonObject.getString("Status");
                     String Message = jsonObject.getString("Message");
+                    Utils.showToast(requireContext(),Message);
                     Log.e("tag", "status is " + tracking);
                     if (tracking.equalsIgnoreCase("Success")) {
                         startActivity(new Intent(getActivity(), MainActivity.class));

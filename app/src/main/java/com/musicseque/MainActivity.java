@@ -701,6 +701,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             llSchedule.setVisibility(View.GONE);
             viewSchedule.setVisibility(View.GONE);
             llBookingStatus.setVisibility(View.VISIBLE);
+            viewBookingStatus.setVisibility(View.VISIBLE);
             tvProfile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -725,6 +726,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             llSchedule.setVisibility(View.VISIBLE);
             viewSchedule.setVisibility(View.VISIBLE);
             llBookingStatus.setVisibility(View.GONE);
+            viewBookingStatus.setVisibility(View.GONE);
 
         }
 

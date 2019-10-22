@@ -93,7 +93,21 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
             mEventId = intent.getStringExtra("event_id")
             isEdit=intent.getBooleanExtra("isEdit",false)
             if(isEdit)
+            {
                 tv_title.text = "Edit Event"
+//                rlStartDate.isEnabled=false
+//                rlStartTime.isEnabled=false
+//                rlEndDate.isEnabled=false
+//                rlEndTime.isEnabled=false
+            }
+            else
+            {
+                rlStartDate.isEnabled=true
+                rlStartTime.isEnabled=true
+                rlEndDate.isEnabled=true
+                rlEndTime.isEnabled=true
+            }
+
         } catch (exp: Exception) {
             mEventId = ""
         }
@@ -163,42 +177,76 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
 
 
             R.id.rlStartDate -> {
-                DATE_TIME_FROM = FROM_DATE
-                KotlinUtils.setDate(this, this)
-
-            }
-            R.id.rlEndDate -> {
-                mFromDate = tvStartDate.text.toString()
-                DATE_TIME_FROM = TO_DATE
-                if (mFromDate.equals("") || mFromDate == null) {
-
-                    showToast(resources.getString(R.string.err_event_start_date))
-                } else {
+                if(isEdit)
+                {
+                  Utils.showToast(this,"Can't edit date")
+                }
+                else
+                {
+                    DATE_TIME_FROM = FROM_DATE
                     KotlinUtils.setDate(this, this)
                 }
 
 
             }
+            R.id.rlEndDate -> {
+
+
+                if(isEdit)
+                {
+                    Utils.showToast(this,"Can't edit date")
+                }
+                else
+                {
+                    mFromDate = tvStartDate.text.toString()
+                    DATE_TIME_FROM = TO_DATE
+                    if (mFromDate.equals("") || mFromDate == null) {
+
+                        showToast(resources.getString(R.string.err_event_start_date))
+                    } else {
+                        KotlinUtils.setDate(this, this)
+                    }
+                }
+
+
+
+            }
             R.id.rlStartTime -> {
-                DATE_TIME_FROM = FROM_TIME
-                mFromDate = tvStartDate.text.toString()
-                if (mFromDate.equals("") || mFromDate == null) {
-                    showToast(resources.getString(R.string.err_event_start_date))
-                } else {
-                    KotlinUtils.setTime(this, this)
+                if(isEdit)
+                {
+                    Utils.showToast(this,"Can't edit time")
+                }
+                else
+                {
+                    DATE_TIME_FROM = FROM_TIME
+                    mFromDate = tvStartDate.text.toString()
+                    if (mFromDate.equals("") || mFromDate == null) {
+                        showToast(resources.getString(R.string.err_event_start_date))
+                    } else {
+                        KotlinUtils.setTime(this, this)
+                    }
+
                 }
 
 
             }
             R.id.rlEndTime -> {
-                DATE_TIME_FROM = TO_TIME
-
-                mToDate = tvEndDate.text.toString()
-                if (mToDate.equals("") || mToDate == null) {
-                    showToast(resources.getString(R.string.err_event_end_time))
-                } else {
-                    KotlinUtils.setTime(this, this)
+                if(isEdit)
+                {
+                    Utils.showToast(this,"Can't edit time")
                 }
+                else
+                {
+                    DATE_TIME_FROM = TO_TIME
+
+                    mToDate = tvEndDate.text.toString()
+                    if (mToDate.equals("") || mToDate == null) {
+                        showToast(resources.getString(R.string.err_event_end_time))
+                    } else {
+                        KotlinUtils.setTime(this, this)
+                    }
+                }
+
 
 
             }

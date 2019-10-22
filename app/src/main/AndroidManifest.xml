@@ -115,6 +115,7 @@
         <activity android:name=".venue_manager.activity.BookVenueActivity" />
         <activity android:name=".event_manager.activity.PastEventDetailActivity" />
         <activity android:name=".venue_manager.activity.UploadVenueMediaActivity" />
+        <activity android:name=".event_manager.activity.EventDetailVenueActivity"/>
         <activity
             android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
             android:screenOrientation="portrait"
