@@ -49,7 +49,7 @@ public class SettingFragment extends Fragment implements View.OnClickListener, M
 
     ImageView img_right_icon;
     RelativeLayout rltoolbar;
-//    SharedPref SharedPref;
+    //    SharedPref SharedPref;
 //    SharedPref.SharedPref SharedPref;
 //    private RetrofitComponent retrofitComponent;
     View v;
@@ -85,7 +85,7 @@ public class SettingFragment extends Fragment implements View.OnClickListener, M
         }
 
         if (SharedPref.getString(PROFILE_TYPE, "").equalsIgnoreCase("Venue Manager")) {
-           tvStatus.setVisibility(View.GONE);
+            tvStatus.setVisibility(View.GONE);
         } else {
             tvStatus.setVisibility(View.VISIBLE);
 
@@ -116,7 +116,7 @@ public class SettingFragment extends Fragment implements View.OnClickListener, M
     }
 
 
-    @OnClick({R.id.tvStatus, R.id.tvChangePassword, R.id.tvPrivacyPolicy, R.id.tvReportProblem, R.id.tvTermsService,R.id.tvDeleteAccount})
+    @OnClick({R.id.tvStatus, R.id.tvChangePassword, R.id.tvPrivacyPolicy, R.id.tvReportProblem, R.id.tvTermsService, R.id.tvDeleteAccount})
     public void click(View view) {
 
         switch (view.getId()) {
@@ -254,10 +254,22 @@ public class SettingFragment extends Fragment implements View.OnClickListener, M
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_logout:
-                clearLoginCredentials();
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
-                getActivity().finish();
+
+                if (Utils.isNetworkConnected(getActivity())) {
+                    Utils.initializeAndShow(getActivity());
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""));
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_LOGOUT, SettingFragment.this);
+                    clearLoginCredentials();
+                } else {
+                    Utils.showToast(getActivity(), getResources().getString(R.string.err_no_internet));
+                }
                 break;
 
         }
@@ -316,11 +328,10 @@ public class SettingFragment extends Fragment implements View.OnClickListener, M
         switch (TYPE) {
             case Constants.FOR_DELETE_ACCOUNT:
                 try {
-                    JSONObject jsonObject=new JSONObject(response.toString());
-                    if(jsonObject.getString("Status").equalsIgnoreCase("Success"))
-                    {
+                    JSONObject jsonObject = new JSONObject(response.toString());
+                    if (jsonObject.getString("Status").equalsIgnoreCase("Success")) {
                         clearLoginCredentials();
-                        Utils.showToast(getActivity(),jsonObject.getString("Message"));
+                        Utils.showToast(getActivity(), jsonObject.getString("Message"));
                         Intent intent = new Intent(getActivity(), LoginActivity.class);
                         startActivity(intent);
                         getActivity().finish();
@@ -329,7 +340,14 @@ public class SettingFragment extends Fragment implements View.OnClickListener, M
                     e.printStackTrace();
                 }
 
-                   break;
+                break;
+
+            case Constants.FOR_LOGOUT:
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+
+                break;
         }
     }
 }

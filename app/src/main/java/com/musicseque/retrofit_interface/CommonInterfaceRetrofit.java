@@ -186,5 +186,8 @@ public interface CommonInterfaceRetrofit {
     Call<String> methodBandListSearch(@Body String params);
 
 
+    @Headers("Content-Type: application/json")
+    @POST(Constants.LOGOUT_API)
+    Call<String> methodForLogout(@Body String params);
 
 }

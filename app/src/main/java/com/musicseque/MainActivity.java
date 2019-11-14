@@ -28,6 +28,7 @@ import com.musicseque.artist.band.band_fragment.BandFormFragment;
 import com.musicseque.artist.band.band_fragment.BandListFragment;
 import com.musicseque.artist.fragments.ProfileDetailFragment;
 import com.musicseque.artist.fragments.ProfileFragment;
+import com.musicseque.artist.fragments.UploadPhotoFragment;
 import com.musicseque.artist.other_band.fragments.OtherBandListFragment;
 import com.musicseque.artist.service.CommonService;
 
@@ -36,6 +37,8 @@ import com.musicseque.event_manager.activity.EventsListActivity;
 import com.musicseque.firebase_notification.NotificationActivity;
 import com.musicseque.fragments.HomeFragment;
 import com.musicseque.fragments.SettingFragment;
+import com.musicseque.interfaces.MyInterface;
+import com.musicseque.retrofit_interface.RetrofitAPI;
 import com.musicseque.service.LocationService;
 import com.musicseque.start_up.LoginActivity;
 import com.musicseque.utilities.Constants;
@@ -53,15 +56,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.musicseque.utilities.Constants.FOR_LOGOUT;
 import static com.musicseque.utilities.Constants.PROFILE_TYPE;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener,DrawerLayout.DrawerListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, DrawerLayout.DrawerListener, MyInterface {
 
     private ImageView iv_home, iv_profile, iv_feature, iv_chat, iv_settings;
 
 
-//    SharedPref SharedPref;
+    //    SharedPref SharedPref;
 //    SharedPref.SharedPref SharedPref;
 //    private RetrofitComponent retrofitComponent;
     @BindView(R.id.tvAddEvent)
@@ -213,9 +217,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @BindView(R.id.drawerLayout)
     DrawerLayout navDrawer;
     private Fragment fragment;
-    
-    
-    String mLoginType="";
+
+
+    String mLoginType = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -240,7 +244,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        SharedPref = retrofitComponent.getShared();
 //        SharedPref = retrofitComponent.getSharedPref();
         SharedPref.putBoolean(Constants.IS_LOGIN, true);
-        mLoginType= SharedPref.getString(PROFILE_TYPE,"");
+        mLoginType = SharedPref.getString(PROFILE_TYPE, "");
 
 
     }
@@ -466,7 +470,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    @OnClick({R.id.llBookingStatus,R.id.llTimmings,R.id.ivDownArrowEvents, R.id.ivUpArrowEvents, R.id.tvAddEvent, R.id.tvPastEvents, R.id.tvUpcomingEvent, R.id.tvMyProfile, R.id.tvBandProfile, R.id.tvOtherBand, R.id.ivUpArrow, R.id.ivDownArrow, R.id.llActivity, R.id.llHome, R.id.llAlerts, R.id.llSchedule, R.id.llUpload, R.id.llBand, R.id.llSearch, R.id.llStats, R.id.llSettings, R.id.llLogout})
+    @OnClick({R.id.llBookingStatus, R.id.llTimmings, R.id.ivDownArrowEvents, R.id.ivUpArrowEvents, R.id.tvAddEvent, R.id.tvPastEvents, R.id.tvUpcomingEvent, R.id.tvMyProfile, R.id.tvBandProfile, R.id.tvOtherBand, R.id.ivUpArrow, R.id.ivDownArrow, R.id.llActivity, R.id.llHome, R.id.llAlerts, R.id.llSchedule, R.id.llUpload, R.id.llBand, R.id.llSearch, R.id.llStats, R.id.llSettings, R.id.llLogout})
     public void onClicks(View view) {
         switch (view.getId()) {
             case R.id.ivUpArrow:
@@ -544,16 +548,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.llUpload:
-                if(SharedPref.getString(Constants.PROFILE_TYPE, "").equalsIgnoreCase("Artist"))
-                {
+                if (SharedPref.getString(Constants.PROFILE_TYPE, "").equalsIgnoreCase("Artist")) {
                     startActivity(new Intent(this, UploadActivity.class));
+                } else if (mLoginType.equalsIgnoreCase("Venue Manager")) {
+                    Utils.showToast(MainActivity.this, "Currently working");
+                    // startActivity(new Intent(this, UploadVenueMediaActivity.class));
                 }
-                else if(mLoginType.equalsIgnoreCase("Venue Manager"))
-                {
-                    Utils.showToast(MainActivity.this,"Currently working");
-                   // startActivity(new Intent(this, UploadVenueMediaActivity.class));
-                }
-
 
 
                 navDrawer.closeDrawers();
@@ -576,10 +576,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 closeProfile();
                 break;
             case R.id.llLogout:
-                clearLoginCredentials();
-                Intent intent = new Intent(this, LoginActivity.class);
-                startActivity(intent);
-                finish();
+
+                if (Utils.isNetworkConnected(this)) {
+                    Utils.initializeAndShow(this);
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""));
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_LOGOUT, MainActivity.this);
+                    clearLoginCredentials();
+                } else {
+                    Utils.showToast(this, getResources().getString(R.string.err_no_internet));
+                }
+
+
                 break;
             case R.id.ivDownArrowEvents:
                 llAllEvents.setVisibility(View.VISIBLE);
@@ -601,32 +615,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
             case R.id.tvUpcomingEvent:
-                if(mLoginType.equalsIgnoreCase("Venue Manager"))
-                {
-                    Utils.showToast(MainActivity.this,"Coming Soon");
-                }
-                else
-                {
+                if (mLoginType.equalsIgnoreCase("Venue Manager")) {
+                    Utils.showToast(MainActivity.this, "Coming Soon");
+                } else {
                     startActivity(new Intent(this, EventsListActivity.class).putExtra("type", 2));
                     navDrawer.closeDrawers();
                 }
-                
-                
+
 
                 break;
 
             case R.id.tvPastEvents:
 
-                if(mLoginType.equalsIgnoreCase("Venue Manager"))
-                {
-                    Utils.showToast(MainActivity.this,"Coming Soon");
-                }
-                else
-                {
+                if (mLoginType.equalsIgnoreCase("Venue Manager")) {
+                    Utils.showToast(MainActivity.this, "Coming Soon");
+                } else {
                     startActivity(new Intent(this, EventsListActivity.class).putExtra("type", 1));
                     navDrawer.closeDrawers();
                 }
-
 
 
                 break;
@@ -665,17 +671,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     void closeProfile() {
-       if(mLoginType.equalsIgnoreCase("Venue Manager"))
-        {
+        if (mLoginType.equalsIgnoreCase("Venue Manager")) {
 
-        }
-        else
-        {
+        } else {
             llAllProfile.setVisibility(View.GONE);
             ivUpArrow.setVisibility(View.GONE);
             ivDownArrow.setVisibility(View.VISIBLE);
         }
-      ;
+        ;
     }
 
     @Override
@@ -764,18 +767,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onDrawerOpened(@NonNull View view) {
-        Log.e("","");
+        Log.e("", "");
 
     }
 
     @Override
     public void onDrawerClosed(@NonNull View view) {
-        Log.e("","");
+        Log.e("", "");
 
     }
 
     @Override
     public void onDrawerStateChanged(int i) {
+
+    }
+
+    @Override
+    public void sendResponse(Object response, int TYPE) {
+        Utils.hideProgressDialog();
+        if (TYPE == FOR_LOGOUT) {
+
+
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+
+        }
 
     }
 }

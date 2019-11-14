@@ -70,6 +70,10 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
     lateinit var currentDate: Date
     lateinit var clickedDate: Date
 
+
+
+
+
     private val currentTime: Date?
         get() {
             calendar = Calendar.getInstance()
@@ -99,7 +103,14 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
         val dimension = DisplayMetrics()
         activity?.getWindowManager()?.getDefaultDisplay()?.getMetrics(dimension)
         WIDTH = dimension.widthPixels
-        val height = dimension.heightPixels
+
+
+
+
+
+
+
+
 
 
         // hitAPI("forTimmings")
@@ -148,7 +159,7 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
         textsunday_tv.post {
             WIDTH = textsunday_tv.width
 
-            getWeekDayPrev()
+           // getWeekDayPrev()
         }
 
 
@@ -167,8 +178,10 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
 
             } else if (sType == FOR_SUBMIT_TIMMINGS) {
 
-                // json.put("BookingAsOnDate", "01-01-1900")
-                KotlinHitAPI.callAPI(sTimmings, Constants.FOR_SUBMIT_TIMMINGS, this)
+              val sTimming=sTimmings.replace("\"[","[",true).replace("]\"","]",true).replace("\\", "")
+
+
+                KotlinHitAPI.callAPI(sTimming, Constants.FOR_SUBMIT_TIMMINGS, this)
 
                        // .replace("\\", "")
             }
@@ -192,6 +205,7 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
                     getTimmingsHashMap()
                     Log.e("","")
                 }
+                getWeekDayPrev()
             }
             FOR_SUBMIT_TIMMINGS -> {
                 Log.e("","")

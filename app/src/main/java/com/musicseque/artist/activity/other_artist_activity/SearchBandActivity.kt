@@ -57,7 +57,7 @@ class SearchBandActivity : BaseActivity(), View.OnClickListener, MyInterface {
             RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_SEARCH_BAND_LIST, this@SearchBandActivity)
 
         } else {
-            Utils.showToast(this@SearchBandActivity, R.string.err_no_internet.toString())
+            Utils.showToast(this@SearchBandActivity, resources.getString(R.string.err_no_internet))
         }
 
     }

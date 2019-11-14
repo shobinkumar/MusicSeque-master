@@ -35,12 +35,14 @@ import org.json.JSONObject
 import java.text.DateFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, DatePickerDialog.OnDateSetListener {
 
+    var alTime: ArrayList<String> = ArrayList()
 
     lateinit var dialog: Dialog
     private var timeAL = ArrayList<String>()
@@ -70,6 +72,10 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
     val oldFormat = SimpleDateFormat("dd-MM-yyyy")
     val newFormat = SimpleDateFormat("MM-dd-yyyy")
 
+
+    val hourFormat = SimpleDateFormat("HH:mm")
+
+
     val dateTimeFormat = SimpleDateFormat("dd-MM-yyyy HH:mm")
 
     var mStartDate = ""
@@ -94,7 +100,7 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
         initViews()
         listeners()
         getSixMonthDate()
-
+        addTimeMethod()
         hitAPI(FOR_SHOW_EVENTS_LIST, "")
     }
 
@@ -148,8 +154,8 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
                     Utils.showToast(this, resources.getString(R.string.err_event_end_time))
 
                 } else {
-                    mStartDate = newFormat.format(oldFormat.parse(mStartDate))
-                    mEndDate = newFormat.format(oldFormat.parse(mEndDate))
+//                    mStartDate = newFormat.format(oldFormat.parse(mStartDate))
+//                    mEndDate = newFormat.format(oldFormat.parse(mEndDate))
                     val json = JSONObject()
                     json.put("VenueId", mVenueId)
                     json.put("EventId", mEventId)
@@ -170,18 +176,28 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
                 var list = ArrayList<String>()
                 if (eventsList.size > 0) {
                     for ((index, value) in eventsList.withIndex()) {
+                        if(!eventsList.get(index).booking_status.equals("B",true))
                         list.add(eventsList.get(index).event_title)
                     }
-                    val eventArray = arrayOfNulls<String>(list.size)
-                    list.toArray(eventArray)
 
-                    if (eventArray != null) {
-                        showDropdown(eventArray, tvEventName, SpinnerData { mData, mData1 ->
-                            mEventName = mData
-                            mEventId = mData1
-                            tvEventName.text = mEventName
-                        }, mWidthCode)
+                    if(list.size>0)
+                    {
+                        val eventArray = arrayOfNulls<String>(list.size)
+                        list.toArray(eventArray)
+
+                        if (eventArray != null) {
+                            showDropdown(eventArray, tvEventName, SpinnerData { mData, mData1 ->
+                                mEventName = mData
+                                mEventId = mData1
+                                tvEventName.text = mEventName
+                            }, mWidthCode)
+                        }
                     }
+                    else
+                    {
+                        Utils.showToast(this, "You don't have event. Please create event.")
+                    }
+
 
                 } else {
                     Utils.showToast(this, "You don't have event. Please create event.")
@@ -191,25 +207,35 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
             }
             R.id.eventArrow -> {
                 var list = ArrayList<String>()
-
                 if (eventsList.size > 0) {
                     for ((index, value) in eventsList.withIndex()) {
-                        list.add(eventsList.get(index).event_title)
+                        if(!eventsList.get(index).booking_status.equals("B",true))
+                            list.add(eventsList.get(index).event_title)
                     }
-                    val eventArray = arrayOfNulls<String>(list.size)
-                    list.toArray(eventArray)
 
-                    if (eventArray != null) {
-                        showDropdown(eventArray, tvEventName, SpinnerData { mData, mData1 ->
-                            mEventName = mData
-                            mEventId = mData1
-                            tvEventName.text = mEventName
-                        }, mWidthCode)
+                    if(list.size>0)
+                    {
+                        val eventArray = arrayOfNulls<String>(list.size)
+                        list.toArray(eventArray)
+
+                        if (eventArray != null) {
+                            showDropdown(eventArray, tvEventName, SpinnerData { mData, mData1 ->
+                                mEventName = mData
+                                mEventId = mData1
+                                tvEventName.text = mEventName
+                            }, mWidthCode)
+                        }
                     }
+                    else
+                    {
+                        Utils.showToast(this, "You don't have event. Please create event.")
+                    }
+
 
                 } else {
                     Utils.showToast(this, "You don't have event. Please create event.")
                 }
+
 
             }
             R.id.tvStartDate -> {
@@ -264,40 +290,104 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
                     Utils.showToast(this, resources.getString(R.string.err_event_start_date))
                 else {
 
-                   val currentDateTime=getCurrentDateTime()
+                    val currentDateTime = getCurrentDateTime()
+                    val dStartDate = oldFormat.parse(mStartDate)
+                    val mCurrentDate = oldFormat.format(Calendar.getInstance().time)
+                    val dCurrentDate = oldFormat.parse(mCurrentDate)
+                    val mCurrentTime = hourFormat.format(Calendar.getInstance().time)
+                    val dCurrentTime = hourFormat.parse(mCurrentTime)
+
+                    if (dStartDate.equals(dCurrentDate)) {
 
 
+                        if (timeAL.size > 0) {
+                            val timeDialog = DialogTime(this, FOR_START_TIME, timeAL, object : TimeInterface {
+                                override fun getTime(time_str: String) {
+                                    var selectedDate = mStartDate + " " + time_str
 
-                    if (timeAL.size > 0) {
-                        val timeDialog = DialogTime(this, FOR_START_TIME, timeAL, object : TimeInterface {
-                            override fun getTime(time_str: String) {
-                                var selectedDate = mStartDate + " " + time_str
+                                    val selectedDateTime = getSelectedDateTime(selectedDate)
+                                    if (selectedDateTime.before(currentDateTime)) {
+                                        Utils.showToast(this@BookVenueActivity, "Time must be after current time")
+                                    } else {
+                                        tvStartTime.setText(time_str)
+                                    }
 
-                                val selectedDateTime=getSelectedDateTime(selectedDate)
-                                if (selectedDateTime.before(currentDateTime)) {
-                                    Utils.showToast(this@BookVenueActivity, "Time must be after current time")
-                                } else {
-                                    tvStartTime.setText(time_str)
+                                }
+                            })
+                            timeDialog?.show()
+                        } else {
+
+
+                            val al = hashMap.get(tvStartDate.text.toString())
+
+
+                            for (time in alTime) {
+                                val dTimeList = hourFormat.parse(time)
+
+                                if (dTimeList.before(dCurrentTime)) {
+
+                                    if (al!!.contains(time)) {
+
+                                    } else {
+                                        al.add(time)
+                                    }
+                                }
+                                else
+                                {
+                                    break
                                 }
 
+
                             }
-                        })
-                        timeDialog?.show()
+
+
+                            val timeDialog = DialogTime(this, FOR_START_TIME,al, object : TimeInterface {
+                                override fun getTime(time_str: String) {
+                                    var strDate = mStartDate + " " + time_str
+                                    val selectedDateTime = getSelectedDateTime(strDate)
+                                    if (selectedDateTime.before(currentDateTime)) {
+                                        Utils.showToast(this@BookVenueActivity, "Time must be after current time")
+                                    } else {
+                                        tvStartTime.setText(time_str)
+                                    }
+
+                                }
+                            })
+                            timeDialog?.show()
+                        }
                     } else {
-                        val timeDialog = DialogTime(this, FOR_START_TIME, hashMap.get(tvStartDate.text.toString()), object : TimeInterface {
-                            override fun getTime(time_str: String) {
-                                var strDate = mStartDate + " " + time_str
-                                val selectedDateTime=getSelectedDateTime(strDate)
-                                if (selectedDateTime.before(currentDateTime)) {
-                                    Utils.showToast(this@BookVenueActivity, "Time must be after current time")
-                                } else {
-                                    tvStartTime.setText(time_str)
-                                }
+                        if (timeAL.size > 0) {
+                            val timeDialog = DialogTime(this, FOR_START_TIME, timeAL, object : TimeInterface {
+                                override fun getTime(time_str: String) {
+                                    var selectedDate = mStartDate + " " + time_str
 
-                            }
-                        })
-                        timeDialog?.show()
+                                    val selectedDateTime = getSelectedDateTime(selectedDate)
+                                    if (selectedDateTime.before(currentDateTime)) {
+                                        Utils.showToast(this@BookVenueActivity, "Time must be after current time")
+                                    } else {
+                                        tvStartTime.setText(time_str)
+                                    }
+
+                                }
+                            })
+                            timeDialog?.show()
+                        } else {
+                            val timeDialog = DialogTime(this, FOR_START_TIME, hashMap.get(tvStartDate.text.toString()), object : TimeInterface {
+                                override fun getTime(time_str: String) {
+                                    var strDate = mStartDate + " " + time_str
+                                    val selectedDateTime = getSelectedDateTime(strDate)
+                                    if (selectedDateTime.before(currentDateTime)) {
+                                        Utils.showToast(this@BookVenueActivity, "Time must be after current time")
+                                    } else {
+                                        tvStartTime.setText(time_str)
+                                    }
+
+                                }
+                            })
+                            timeDialog?.show()
+                        }
                     }
+
 
                 }
 
@@ -354,12 +444,12 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
     }
 
     private fun getSelectedDateTime(selectedDate: String): Date {
-        val date=dateTimeFormat.parse(selectedDate)
+        val date = dateTimeFormat.parse(selectedDate)
         return date
 
     }
 
-    private fun getCurrentDateTime():Date {
+    private fun getCurrentDateTime(): Date {
         var currentDate = Calendar.getInstance().time
         currentDate = dateTimeFormat.parse(dateTimeFormat.format(currentDate))
         return currentDate
@@ -483,7 +573,7 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
                 val jsonArray = obj.getJSONArray("result")
                 alBookingsEnd = Gson().fromJson<java.util.ArrayList<MySelectedTimeModel>>(jsonArray.toString(), object : TypeToken<java.util.ArrayList<MySelectedTimeModel>>() {}.type)
                 getEndTimmingsHashMap(alBookingsEnd, endHashMap)
-                Log.e("","")
+                Log.e("", "")
 
 
 
@@ -522,7 +612,7 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
                 alBookings = Gson().fromJson<java.util.ArrayList<MySelectedTimeModel>>(jsonArray.toString(), object : TypeToken<java.util.ArrayList<MySelectedTimeModel>>() {}.type)
 
                 getTimmingsHashMap(alBookings, hashMap)
-                Log.e("","")
+                Log.e("", "")
 
 
             }
@@ -606,12 +696,11 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
 
             } else {
                 val al = ArrayList<String>()
-                if(index!=0 && value.availability_from_time.equals("00:00"))
-                {
+                if (index != 0 && value.availability_from_time.equals("00:00")) {
                     al.add(value.availability_from_time)
                 }
 
-                    al.add(value.availability_to_time)
+                al.add(value.availability_to_time)
 
 
                 hashmap.put(value.availability_date, al)
@@ -637,6 +726,33 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
         dialog.show()
     }
 
+    private fun addTimeMethod() {
+        alTime.add("00:00")
+        alTime.add("01:00")
+        alTime.add("02:00")
+        alTime.add("03:00")
+        alTime.add("04:00")
+        alTime.add("05:00")
+        alTime.add("06:00")
+        alTime.add("07:00")
+        alTime.add("08:00")
+        alTime.add("09:00")
+        alTime.add("10:00")
+        alTime.add("11:00")
+        alTime.add("12:00")
+        alTime.add("13:00")
+        alTime.add("14:00")
+        alTime.add("15:00")
+        alTime.add("16:00")
+        alTime.add("17:00")
+        alTime.add("18:00")
+        alTime.add("19:00")
+        alTime.add("20:00")
+        alTime.add("21:00")
+        alTime.add("22:00")
+        alTime.add("23:00")
 
+
+    }
 }
 

@@ -123,6 +123,16 @@ public class RetrofitAPI {
             call = api.methodBandListSearch(params);
 
         }
+
+
+        else if (TYPE == Constants.FOR_LOGOUT) {
+            call = api.methodForLogout(params);
+
+        }
+
+
+
+
         callRetrofit(call, TYPE);
 
 
@@ -311,6 +321,11 @@ public class RetrofitAPI {
                 }
                 else if (TYPE == Constants.FOR_SEARCH_BAND_LIST) {
                     Log.e("FOR_SEARCH_BAND_LIST", response.body().toString());
+                    commonInterface.sendResponse(response.body(), TYPE);
+
+                }
+                else if (TYPE == Constants.FOR_LOGOUT) {
+                    Log.e("FOR_LOGOUT", response.body().toString());
                     commonInterface.sendResponse(response.body(), TYPE);
 
                 }

@@ -27,6 +27,8 @@ data class EventListModel(
         @SerializedName("VenueBookedFromDate") val venue_from_date: String,
         @SerializedName("VenueBookedToDate") val venue_to_date: String,
         @SerializedName("VenueBookingFromTime") val venue_from_time: String,
-        @SerializedName("VenueBookingToTime") val venue_to_time: String
+        @SerializedName("VenueBookingToTime") val venue_to_time: String,
+        @SerializedName("BookingStatus") val booking_status: String
+
 
         )

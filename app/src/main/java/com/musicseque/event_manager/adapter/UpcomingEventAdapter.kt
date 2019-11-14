@@ -7,6 +7,8 @@ import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import com.musicseque.R
 import com.musicseque.event_manager.activity.CreateEventActivity
@@ -68,14 +70,33 @@ class UpcomingEventAdapter(var al: ArrayList<EventListModel>, var type: Int, val
                 itemView.tvMonth.text = mNewType.split("/")[1]
             }
 
-            itemView.ivEdit.setOnClickListener {
-                val intent = Intent(activitys, CreateEventActivity::class.java).putExtra("event_id", data.event_id).putExtra("isEdit",true)
-                activitys.startActivity(intent)
-            }
-            itemView.ivDelete.setOnClickListener {
-                eventsListActivity.deleteEvent(data.event_id)
 
+
+
+            if(data.booking_status.equals("B",true))
+            {
+                itemView.ivEdit.visibility=GONE
+                itemView.ivDelete.visibility=GONE
             }
+            else
+            {
+
+
+                itemView.ivEdit.visibility= VISIBLE
+                itemView.ivDelete.visibility=VISIBLE
+
+
+
+                itemView.ivEdit.setOnClickListener {
+                    val intent = Intent(activitys, CreateEventActivity::class.java).putExtra("event_id", data.event_id).putExtra("isEdit",true)
+                    activitys.startActivity(intent)
+                }
+                itemView.ivDelete.setOnClickListener {
+                    eventsListActivity.deleteEvent(data.event_id)
+
+                }
+            }
+
             itemView.setOnClickListener {
 
                 val intent = Intent(activitys, UpcomingEventDetailActivity::class.java).putExtra("event_id", data.event_id)

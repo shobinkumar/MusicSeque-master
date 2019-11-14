@@ -3,8 +3,6 @@ package com.musicseque.activities;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -24,8 +22,6 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.ViewGroup;
 
 import com.musicseque.BuildConfig;
 import com.musicseque.artist.activity.ReportProblemActivity;

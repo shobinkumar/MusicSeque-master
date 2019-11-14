@@ -111,7 +111,7 @@ class SearchVenueActivity : BaseActivity(), View.OnClickListener, MyInterface {
 
 
         } else {
-            Utils.showToast(this@SearchVenueActivity, R.string.err_no_internet.toString())
+            Utils.showToast(this@SearchVenueActivity, resources.getString(R.string.err_no_internet))
         }
 
 

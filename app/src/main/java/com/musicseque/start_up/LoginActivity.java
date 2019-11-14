@@ -8,6 +8,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Base64;
@@ -93,6 +94,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
 
     String mToken = "";
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -167,6 +169,23 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
         btn_signup = (Button) findViewById(R.id.btn_signup);
         iv_fb = (ImageView) findViewById(R.id.iv_fb);
         ivGoogle = (ImageView) findViewById(R.id.ivGoogle);
+        FirebaseApp.initializeApp(this);
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                           // Log.w(TAG, "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                         mToken = task.getResult().getToken();
+
+                        // Log and toast
+
+                    }
+                });
 
 
 
@@ -295,9 +314,10 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                         SharedPref.putString(Constants.EMAIL_ID, userName);
                         SharedPref.putString(Constants.PASSWORD, password);
                         try {
+
                             jsonBody.put("UserName", userName);
                             jsonBody.put("Password", password);
-                            jsonBody.put("PopToken", mToken);
+                            jsonBody.put("PopToken", FirebaseInstanceId.getInstance().getToken());
 
 
                         } catch (JSONException e) {
@@ -404,7 +424,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
             jsonBody.put("SocialId", mSocialId);
             // jsonBody.put("email_id", mEmail);
             jsonBody.put("SocialType", accountType);
-            jsonBody.put("PopToken", mToken);
+            jsonBody.put("PopToken", FirebaseInstanceId.getInstance().getToken());
             jsonBody.put("SocialImageUrl",mImageURL);
             String requestBody = jsonBody.toString();
             RetrofitAPI.callAPI(requestBody, Constants.FOR_ACCOUNT_EXISTS, LoginActivity.this);
@@ -735,7 +755,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                 jsonBody.put("LastName", "");
                 jsonBody.put("UserName", SharedPref.getString(Constants.EMAIL_ID, ""));
                 jsonBody.put("SocialImageUrl", mImageURL);
-                jsonBody.put("PopToken", mToken);
+                jsonBody.put("PopToken", FirebaseInstanceId.getInstance().getToken());
 
                 requestBody = jsonBody.toString();
 

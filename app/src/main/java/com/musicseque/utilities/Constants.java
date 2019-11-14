@@ -87,8 +87,12 @@ public class Constants {
     public static final String VENUE_FROM_TIMMINGS_API = "Service/VenueBookingsUnAvailabilityDisplay";
     public static final String VENUE_SUBMIT_TIMMINGS_API = "Service/VenueUnAvailabilityAdd";
     public static final String VENUE_BOOKED_PENDING_TIMMINGS_API = "Service/VenuePendingBookingsDisplay";
-    public static final String VENUE_ACCEPT_REJECT_API="Service/VenueBookingAccept";
-    public static final String EVENT_STATUS_API="Service/VenueBookingsList_ViaBookingStatus";
+    public static final String VENUE_ACCEPT_REJECT_API = "Service/VenueBookingAccept";
+    public static final String EVENT_STATUS_API = "Service/VenueBookingsList_ViaBookingStatus";
+
+
+    public static final String LOGOUT_API = "Service/UserLogOut";
+
     // public static final String SEND_VENUE_TIMMINGS_API="Service/VenueUnAvailabilityAdd";
 
     // public static final String VENUE_PROFILE_API="Service/VenueProfileDisplayViaId";
@@ -183,16 +187,18 @@ public class Constants {
     public static final int FOR_ACCEPTED_REQ = 165;
     public static final int FOR_PENDING_REQ = 166;
     public static final int FOR_REJECTED_REQ = 167;
-   // public static final int EVENT_DETAIL_VENUE_MANAGER=168;
+    // public static final int EVENT_DETAIL_VENUE_MANAGER=168;
 
 
     public static final int FOR_ACCEPT_EVENT_REQ = 169;
     public static final int FOR_REJECT_EVENT_REQ = 170;
 
 
-
     public static final int FOR_UPLOAD_EVENT_PROFILE_IMAGE = 201;
     public static final int FOR_DELETE_EVENT = 202;
+
+
+    public static final int FOR_LOGOUT = 1001;
 
 
 }
