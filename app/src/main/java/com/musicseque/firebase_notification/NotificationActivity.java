@@ -75,7 +75,7 @@ public class NotificationActivity extends BaseActivity implements MyInterface, C
             showDialog();
             try {
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("LoggedInArtistId", SharedPref.getString(Constants.USER_ID, ""));
+                jsonObject.put("LoggedInUserId", SharedPref.getString(Constants.USER_ID, ""));
                 RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_NOTIFICATION, NotificationActivity.this);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -153,8 +153,8 @@ public class NotificationActivity extends BaseActivity implements MyInterface, C
             JSONObject object = new JSONObject();
             try {
                 object.put("LoggedInArtistId", SharedPref.getString(Constants.USER_ID, ""));
-                object.put("BandId", model.getBandId());
-                object.put("BandManagerId", model.getBandManagerId());
+                object.put("BandId", model.getVenue_band_id());
+                object.put("BandManagerId", model.getArtist_id());
                 object.put("RequestStatus", "Y");
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -168,8 +168,8 @@ public class NotificationActivity extends BaseActivity implements MyInterface, C
 
             try {
                 object.put("LoggedInArtistId", SharedPref.getString(Constants.USER_ID, ""));
-                object.put("BandId", model.getBandId());
-                object.put("BandManagerId", model.getBandManagerId());
+                object.put("BandId", model.getVenue_band_id());
+                object.put("BandManagerId", model.getArtist_id());
                 object.put("RequestStatus", "N");
             } catch (JSONException e) {
                 e.printStackTrace();

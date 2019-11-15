@@ -4,9 +4,22 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class NotificationModel {
-    @SerializedName("LoggedInArtistId")
+    @SerializedName("LoggedInUserId")
     @Expose
-    private Integer loggedInArtistId;
+    private Integer loggedInUserId;
+
+    @SerializedName("ArtistId")
+    @Expose
+    private Integer artist_id;
+
+
+    @SerializedName("EventId")
+    @Expose
+    private Integer event_id;
+
+    @SerializedName("Venue_BandId")
+    @Expose
+    private String venue_band_id;
 
 
     @SerializedName("ArtistFullName")
@@ -14,142 +27,57 @@ public class NotificationModel {
     private String artistFullName;
 
 
-
-
-
-    @SerializedName("BandId")
+    @SerializedName("Venue_BandName")
     @Expose
-    private Integer bandId;
-    @SerializedName("BandName")
+    private String venue_band_name;
+
+    @SerializedName("EventTitle")
     @Expose
-    private String bandName;
-    @SerializedName("BandManagerId")
+    private Integer event_title;
+
+    @SerializedName("Sender")
     @Expose
-    private Integer bandManagerId;
-    @SerializedName("BandManagerUserName")
+    private String sender;
+
+    @SerializedName("IsRequestStatus")
     @Expose
-    private String bandManagerUserName;
-    @SerializedName("BandManagerFirstName")
+    private String isRequestStatus;
+
+    @SerializedName("CreatedDate")
     @Expose
-    private String bandManagerFirstName;
-    @SerializedName("BandManagerLastName")
-    @Expose
-    private String bandManagerLastName;
-    @SerializedName("BandManagerEmailId")
-    @Expose
-    private String bandManagerEmailId;
-    @SerializedName("BandManagerCity")
-    @Expose
-    private String bandManagerCity;
-    @SerializedName("BandManagerPostcode")
-    @Expose
-    private String bandManagerPostcode;
-    @SerializedName("RequestStatus")
-    @Expose
-    private String requestStatus;
-    @SerializedName("LoggedInUserType")
-    @Expose
-    private String loggedInUserType;
-
-    @SerializedName("RequestSentDate")
-    @Expose
-    private String requestSentDate;
+    private String created_date;
 
 
-    public Integer getLoggedInArtistId() {
-        return loggedInArtistId;
+    public Integer getLoggedInUserId() {
+        return loggedInUserId;
     }
 
-    public void setLoggedInArtistId(Integer loggedInArtistId) {
-        this.loggedInArtistId = loggedInArtistId;
+    public void setLoggedInUserId(Integer loggedInUserId) {
+        this.loggedInUserId = loggedInUserId;
     }
 
-    public Integer getBandId() {
-        return bandId;
+    public Integer getArtist_id() {
+        return artist_id;
     }
 
-    public void setBandId(Integer bandId) {
-        this.bandId = bandId;
+    public void setArtist_id(Integer artist_id) {
+        this.artist_id = artist_id;
     }
 
-    public String getBandName() {
-        return bandName;
+    public Integer getEvent_id() {
+        return event_id;
     }
 
-    public void setBandName(String bandName) {
-        this.bandName = bandName;
+    public void setEvent_id(Integer event_id) {
+        this.event_id = event_id;
     }
 
-    public Integer getBandManagerId() {
-        return bandManagerId;
+    public String getVenue_band_id() {
+        return venue_band_id;
     }
 
-    public void setBandManagerId(Integer bandManagerId) {
-        this.bandManagerId = bandManagerId;
-    }
-
-    public String getBandManagerUserName() {
-        return bandManagerUserName;
-    }
-
-    public void setBandManagerUserName(String bandManagerUserName) {
-        this.bandManagerUserName = bandManagerUserName;
-    }
-
-    public String getBandManagerFirstName() {
-        return bandManagerFirstName;
-    }
-
-    public void setBandManagerFirstName(String bandManagerFirstName) {
-        this.bandManagerFirstName = bandManagerFirstName;
-    }
-
-    public String getBandManagerLastName() {
-        return bandManagerLastName;
-    }
-
-    public void setBandManagerLastName(String bandManagerLastName) {
-        this.bandManagerLastName = bandManagerLastName;
-    }
-
-    public String getBandManagerEmailId() {
-        return bandManagerEmailId;
-    }
-
-    public void setBandManagerEmailId(String bandManagerEmailId) {
-        this.bandManagerEmailId = bandManagerEmailId;
-    }
-
-    public String getBandManagerCity() {
-        return bandManagerCity;
-    }
-
-    public void setBandManagerCity(String bandManagerCity) {
-        this.bandManagerCity = bandManagerCity;
-    }
-
-    public String getBandManagerPostcode() {
-        return bandManagerPostcode;
-    }
-
-    public void setBandManagerPostcode(String bandManagerPostcode) {
-        this.bandManagerPostcode = bandManagerPostcode;
-    }
-
-    public String getRequestStatus() {
-        return requestStatus;
-    }
-
-    public void setRequestStatus(String requestStatus) {
-        this.requestStatus = requestStatus;
-    }
-
-    public String getLoggedInUserType() {
-        return loggedInUserType;
-    }
-
-    public void setLoggedInUserType(String loggedInUserType) {
-        this.loggedInUserType = loggedInUserType;
+    public void setVenue_band_id(String venue_band_id) {
+        this.venue_band_id = venue_band_id;
     }
 
     public String getArtistFullName() {
@@ -160,11 +88,43 @@ public class NotificationModel {
         this.artistFullName = artistFullName;
     }
 
-    public String getRequestSentDate() {
-        return requestSentDate;
+    public String getVenue_band_name() {
+        return venue_band_name;
     }
 
-    public void setRequestSentDate(String requestSentDate) {
-        this.requestSentDate = requestSentDate;
+    public void setVenue_band_name(String venue_band_name) {
+        this.venue_band_name = venue_band_name;
+    }
+
+    public Integer getEvent_title() {
+        return event_title;
+    }
+
+    public void setEvent_title(Integer event_title) {
+        this.event_title = event_title;
+    }
+
+    public String getSender() {
+        return sender;
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
+
+    public String getIsRequestStatus() {
+        return isRequestStatus;
+    }
+
+    public void setIsRequestStatus(String isRequestStatus) {
+        this.isRequestStatus = isRequestStatus;
+    }
+
+    public String getCreated_date() {
+        return created_date;
+    }
+
+    public void setCreated_date(String created_date) {
+        this.created_date = created_date;
     }
 }
