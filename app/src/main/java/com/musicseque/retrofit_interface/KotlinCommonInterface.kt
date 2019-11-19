@@ -80,4 +80,9 @@ public interface KotlinCommonInterface {
     abstract fun methodEventStatus(@Body params: String): Call<String>
 
 
+ @Headers("Content-Type: application/json")
+ @POST(Constants.TEST_API)
+ abstract fun methodTest(@Body params: String): Call<String>
+
+
 }

@@ -12,6 +12,7 @@ import com.google.gson.reflect.TypeToken;
 import com.musicseque.R;
 import com.musicseque.activities.BaseActivity;
 import com.musicseque.adapters.NotificationAdapter;
+import com.musicseque.artist.artist_models.BandDataModel;
 import com.musicseque.interfaces.CommonInterface;
 import com.musicseque.interfaces.MyInterface;
 import com.musicseque.models.NotificationModel;
@@ -96,53 +97,85 @@ public class NotificationActivity extends BaseActivity implements MyInterface, C
         Utils.hideProgressDialog();
         if (TYPE == Constants.FOR_NOTIFICATION) {
             try {
+                arrayList.clear();
                 JSONObject object = new JSONObject(response.toString());
                 if (object.getString("Status").equalsIgnoreCase("Success")) {
                     recyclerNotification.setVisibility(View.VISIBLE);
                     tvNoNotification.setVisibility(View.GONE);
                     JSONArray jsonArray = object.getJSONArray("result");
-                    arrayList = new Gson().fromJson(jsonArray.toString(), new TypeToken<ArrayList<NotificationModel>>() {
-                    }.getType());
-                    notificationAdapter = new NotificationAdapter(NotificationActivity.this, arrayList, NotificationActivity.this);
-                    recyclerNotification.setAdapter(notificationAdapter);
-                } else {
-                    recyclerNotification.setVisibility(View.GONE);
-                    tvNoNotification.setVisibility(View.VISIBLE);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+                    for (int i = 0; i < jsonArray.length(); i++) {
 
-        } else if (TYPE == Constants.FOR_ACCEPT_BAND_REQUEST) {
 
-            try {
-                JSONObject object = new JSONObject(response.toString());
-                if (object.getString("Status").equalsIgnoreCase("Success")) {
-                    Utils.showToast(NotificationActivity.this, object.getString("MesOutput"));
-                    hitAPI();
-                } else {
-                    Utils.showToast(NotificationActivity.this, object.getString("MesOutput"));
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
 
-        } else if (TYPE == Constants.FOR_REJECT_BAND_REQUEST) {
-            try {
-                JSONObject object = new JSONObject(response.toString());
-                if (object.getString("Status").equalsIgnoreCase("Success")) {
-                    Utils.showToast(NotificationActivity.this, object.getString("MesOutput"));
-                    hitAPI();
-                } else {
-                    Utils.showToast(NotificationActivity.this, object.getString("MesOutput"));
+
+
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    NotificationModel notificationModel = new NotificationModel();
+                    try {
+                        notificationModel.setLoggedInUserId(jsonObject.getInt("LoggedInUserId"));
+                        notificationModel.setArtist_id(jsonObject.getInt("ArtistId"));
+                        notificationModel.setEvent_id(jsonObject.getInt("EventId"));
+                        notificationModel.setVenue_band_id(jsonObject.getInt("Venue_BandId"));
+                        notificationModel.setArtistFullName(jsonObject.getString("ArtistFullName"));
+                        notificationModel.setVenue_band_name(jsonObject.getString("Venue_BandName"));
+                        notificationModel.setEvent_title(jsonObject.getString("EventTitle"));
+                        notificationModel.setSender(jsonObject.getInt("Sender"));
+                        notificationModel.setIsRequestStatus(jsonObject.getInt("IsRequestStatus"));
+                        notificationModel.setCreated_date(jsonObject.getString("CreatedDate"));
+                        arrayList.add(notificationModel);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
+//                arrayList = new Gson().fromJson(jsonArray.toString(), new TypeToken<ArrayList<NotificationModel>>() {
+//                }.getType());
+
+
+                notificationAdapter = new NotificationAdapter(NotificationActivity.this, arrayList, NotificationActivity.this);
+                recyclerNotification.setAdapter(notificationAdapter);
+            } else{
+                recyclerNotification.setVisibility(View.GONE);
+                tvNoNotification.setVisibility(View.VISIBLE);
             }
+        } catch(JSONException e){
+            e.printStackTrace();
         }
 
+    } else if(TYPE ==Constants.FOR_ACCEPT_BAND_REQUEST)
 
+    {
+
+        try {
+            JSONObject object = new JSONObject(response.toString());
+            if (object.getString("Status").equalsIgnoreCase("Success")) {
+                Utils.showToast(NotificationActivity.this, object.getString("MesOutput"));
+                hitAPI();
+            } else {
+                Utils.showToast(NotificationActivity.this, object.getString("MesOutput"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    } else if(TYPE ==Constants.FOR_REJECT_BAND_REQUEST)
+
+    {
+        try {
+            JSONObject object = new JSONObject(response.toString());
+            if (object.getString("Status").equalsIgnoreCase("Success")) {
+                Utils.showToast(NotificationActivity.this, object.getString("MesOutput"));
+                hitAPI();
+            } else {
+                Utils.showToast(NotificationActivity.this, object.getString("MesOutput"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
+
+
+}
 
     @Override
     public void commonMethod(Object obj, String status) {

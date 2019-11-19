@@ -6,20 +6,20 @@ import com.google.gson.annotations.SerializedName;
 public class NotificationModel {
     @SerializedName("LoggedInUserId")
     @Expose
-    private Integer loggedInUserId;
+    private int loggedInUserId;
 
     @SerializedName("ArtistId")
     @Expose
-    private Integer artist_id;
+    private int artist_id;
 
 
     @SerializedName("EventId")
     @Expose
-    private Integer event_id;
+    private int event_id;
 
     @SerializedName("Venue_BandId")
     @Expose
-    private String venue_band_id;
+    private int venue_band_id;
 
 
     @SerializedName("ArtistFullName")
@@ -33,50 +33,50 @@ public class NotificationModel {
 
     @SerializedName("EventTitle")
     @Expose
-    private Integer event_title;
+    private String event_title;
 
     @SerializedName("Sender")
     @Expose
-    private String sender;
+    private int sender;
 
     @SerializedName("IsRequestStatus")
     @Expose
-    private String isRequestStatus;
+    private int isRequestStatus;
 
     @SerializedName("CreatedDate")
     @Expose
     private String created_date;
 
 
-    public Integer getLoggedInUserId() {
+    public int getLoggedInUserId() {
         return loggedInUserId;
     }
 
-    public void setLoggedInUserId(Integer loggedInUserId) {
+    public void setLoggedInUserId(int loggedInUserId) {
         this.loggedInUserId = loggedInUserId;
     }
 
-    public Integer getArtist_id() {
+    public int getArtist_id() {
         return artist_id;
     }
 
-    public void setArtist_id(Integer artist_id) {
+    public void setArtist_id(int artist_id) {
         this.artist_id = artist_id;
     }
 
-    public Integer getEvent_id() {
+    public int getEvent_id() {
         return event_id;
     }
 
-    public void setEvent_id(Integer event_id) {
+    public void setEvent_id(int event_id) {
         this.event_id = event_id;
     }
 
-    public String getVenue_band_id() {
+    public int getVenue_band_id() {
         return venue_band_id;
     }
 
-    public void setVenue_band_id(String venue_band_id) {
+    public void setVenue_band_id(int venue_band_id) {
         this.venue_band_id = venue_band_id;
     }
 
@@ -96,27 +96,27 @@ public class NotificationModel {
         this.venue_band_name = venue_band_name;
     }
 
-    public Integer getEvent_title() {
+    public String getEvent_title() {
         return event_title;
     }
 
-    public void setEvent_title(Integer event_title) {
+    public void setEvent_title(String event_title) {
         this.event_title = event_title;
     }
 
-    public String getSender() {
+    public int getSender() {
         return sender;
     }
 
-    public void setSender(String sender) {
+    public void setSender(int sender) {
         this.sender = sender;
     }
 
-    public String getIsRequestStatus() {
+    public int getIsRequestStatus() {
         return isRequestStatus;
     }
 
-    public void setIsRequestStatus(String isRequestStatus) {
+    public void setIsRequestStatus(int isRequestStatus) {
         this.isRequestStatus = isRequestStatus;
     }
 

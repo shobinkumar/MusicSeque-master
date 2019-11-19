@@ -93,6 +93,9 @@ public class Constants {
 
     public static final String LOGOUT_API = "Service/UserLogOut";
 
+
+    public static final String  TEST_API="Login/StudentLogin";
+
     // public static final String SEND_VENUE_TIMMINGS_API="Service/VenueUnAvailabilityAdd";
 
     // public static final String VENUE_PROFILE_API="Service/VenueProfileDisplayViaId";
@@ -201,4 +204,5 @@ public class Constants {
     public static final int FOR_LOGOUT = 1001;
 
 
+    public static final int FOR_TEST=2001;
 }

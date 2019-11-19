@@ -176,12 +176,11 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
                 var list = ArrayList<String>()
                 if (eventsList.size > 0) {
                     for ((index, value) in eventsList.withIndex()) {
-                        if(!eventsList.get(index).booking_status.equals("B",true))
-                        list.add(eventsList.get(index).event_title)
+                        if (!eventsList.get(index).booking_status.equals("B", true))
+                            list.add(eventsList.get(index).event_title)
                     }
 
-                    if(list.size>0)
-                    {
+                    if (list.size > 0) {
                         val eventArray = arrayOfNulls<String>(list.size)
                         list.toArray(eventArray)
 
@@ -192,9 +191,7 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
                                 tvEventName.text = mEventName
                             }, mWidthCode)
                         }
-                    }
-                    else
-                    {
+                    } else {
                         Utils.showToast(this, "You don't have event. Please create event.")
                     }
 
@@ -209,12 +206,11 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
                 var list = ArrayList<String>()
                 if (eventsList.size > 0) {
                     for ((index, value) in eventsList.withIndex()) {
-                        if(!eventsList.get(index).booking_status.equals("B",true))
+                        if (!eventsList.get(index).booking_status.equals("B", true))
                             list.add(eventsList.get(index).event_title)
                     }
 
-                    if(list.size>0)
-                    {
+                    if (list.size > 0) {
                         val eventArray = arrayOfNulls<String>(list.size)
                         list.toArray(eventArray)
 
@@ -225,9 +221,7 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
                                 tvEventName.text = mEventName
                             }, mWidthCode)
                         }
-                    }
-                    else
-                    {
+                    } else {
                         Utils.showToast(this, "You don't have event. Please create event.")
                     }
 
@@ -318,30 +312,54 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
                         } else {
 
 
-                            val al = hashMap.get(tvStartDate.text.toString())
+                            var al = ArrayList<String>()
+
+                            if (hashMap.containsKey(tvStartDate.text.toString())) {
+                                al = hashMap.get(tvStartDate.text.toString())!!
+                                if (al != null && al.size > 0) {
+                                    for (time in alTime) {
+                                        val dTimeList = hourFormat.parse(time)
+
+                                        if (dTimeList.before(dCurrentTime)) {
+
+                                            if (al!!.contains(time)) {
+
+                                            } else {
+                                                al.add(time)
+                                            }
+                                        } else {
+                                            break
+                                        }
 
 
-                            for (time in alTime) {
-                                val dTimeList = hourFormat.parse(time)
-
-                                if (dTimeList.before(dCurrentTime)) {
-
-                                    if (al!!.contains(time)) {
-
-                                    } else {
-                                        al.add(time)
                                     }
+
+                                } else {
+
+
                                 }
-                                else
-                                {
-                                    break
+
+                            } else {
+
+                                for (time in alTime) {
+                                    val dTimeList = hourFormat.parse(time)
+
+                                    if (dTimeList.before(dCurrentTime)) {
+
+
+                                        al.add(time)
+
+                                    }
+
+
                                 }
 
 
                             }
 
 
-                            val timeDialog = DialogTime(this, FOR_START_TIME,al, object : TimeInterface {
+
+                            val timeDialog = DialogTime(this, FOR_START_TIME, al, object : TimeInterface {
                                 override fun getTime(time_str: String) {
                                     var strDate = mStartDate + " " + time_str
                                     val selectedDateTime = getSelectedDateTime(strDate)

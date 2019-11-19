@@ -64,6 +64,12 @@ class KotlinHitAPI {
             else if (TYPE == FOR_REJECTED_REQ) {
                 calls = apis!!.methodEventStatus(params)
             }
+
+            else if (TYPE == FOR_TEST) {
+                calls = apis!!.methodTest(params)
+            }
+
+
             callRetrofitKotlin(calls, TYPE)
 
         }
@@ -158,6 +164,10 @@ fun <T> callRetrofitKotlin(call: Call<T>, TYPE: Int) {
             }
             else if (TYPE == FOR_REJECTED_REQ) {
                 Log.e("FOR_REJECTED_REQ", response.body()!!.toString())
+                myInterfaces.sendResponse(response.body(), TYPE)
+            }
+            else if (TYPE == FOR_TEST) {
+                Log.e("FOR_TEST", response.body()!!.toString())
                 myInterfaces.sendResponse(response.body(), TYPE)
             }
         }

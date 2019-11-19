@@ -20,7 +20,7 @@
             android:id="@+id/txtGig"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select Gigs Name"
+            android:text="Select Event Name"
             android:textColor="@color/color_white"
             android:textSize="16sp" />
 
