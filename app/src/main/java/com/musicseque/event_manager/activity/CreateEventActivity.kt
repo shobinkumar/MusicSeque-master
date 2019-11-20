@@ -1,6 +1,8 @@
 package com.musicseque.event_manager.activity
 
+import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -9,6 +11,7 @@ import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.*
+import android.widget.TimePicker.OnTimeChangedListener
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -36,12 +39,14 @@ import com.musicseque.event_manager.model.EventModel
 import com.musicseque.fragments.HomeFragment
 import com.musicseque.retrofit_interface.ImageUploadClass
 import com.musicseque.utilities.SharedPref
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog
 import kotlinx.android.synthetic.main.row_event_list.view.*
 import kotlinx.android.synthetic.main.toolbar_top.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
+import java.util.*
 
 
 class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, DateTimeInterface {
@@ -70,7 +75,7 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
     var mFromTime: String = ""
     var mToTime: String = ""
     var mEventTypeId: String = ""
-    var isEdit=false
+    var isEdit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,21 +96,18 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
         recyclerEvent?.layoutManager = GridLayoutManager(this, 2) as RecyclerView.LayoutManager?
         try {
             mEventId = intent.getStringExtra("event_id")
-            isEdit=intent.getBooleanExtra("isEdit",false)
-            if(isEdit)
-            {
+            isEdit = intent.getBooleanExtra("isEdit", false)
+            if (isEdit) {
                 tv_title.text = "Edit Event"
 //                rlStartDate.isEnabled=false
 //                rlStartTime.isEnabled=false
 //                rlEndDate.isEnabled=false
 //                rlEndTime.isEnabled=false
-            }
-            else
-            {
-                rlStartDate.isEnabled=true
-                rlStartTime.isEnabled=true
-                rlEndDate.isEnabled=true
-                rlEndTime.isEnabled=true
+            } else {
+                rlStartDate.isEnabled = true
+                rlStartTime.isEnabled = true
+                rlEndDate.isEnabled = true
+                rlEndTime.isEnabled = true
             }
 
         } catch (exp: Exception) {
@@ -119,6 +121,7 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
 
 
     private fun listeners() {
+
 
         img_first_icon.setOnClickListener(this)
         ivAddImage.setOnClickListener(this)
@@ -177,12 +180,9 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
 
 
             R.id.rlStartDate -> {
-                if(isEdit)
-                {
-                  Utils.showToast(this,"Can't edit date")
-                }
-                else
-                {
+                if (isEdit) {
+                    Utils.showToast(this, "Can't edit date")
+                } else {
                     DATE_TIME_FROM = FROM_DATE
                     KotlinUtils.setDate(this, this)
                 }
@@ -192,12 +192,9 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
             R.id.rlEndDate -> {
 
 
-                if(isEdit)
-                {
-                    Utils.showToast(this,"Can't edit date")
-                }
-                else
-                {
+                if (isEdit) {
+                    Utils.showToast(this, "Can't edit date")
+                } else {
                     mFromDate = tvStartDate.text.toString()
                     DATE_TIME_FROM = TO_DATE
                     if (mFromDate.equals("") || mFromDate == null) {
@@ -209,21 +206,43 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                 }
 
 
-
             }
             R.id.rlStartTime -> {
-                if(isEdit)
-                {
-                    Utils.showToast(this,"Can't edit time")
-                }
-                else
-                {
+                if (isEdit) {
+                    Utils.showToast(this, "Can't edit time")
+                } else {
                     DATE_TIME_FROM = FROM_TIME
                     mFromDate = tvStartDate.text.toString()
                     if (mFromDate.equals("") || mFromDate == null) {
                         showToast(resources.getString(R.string.err_event_start_date))
                     } else {
-                        KotlinUtils.setTime(this, this)
+                        //  KotlinUtils.setTime(this, this)
+
+
+                        val mStartTimeChangedListener = TimePickerDialog.OnTimeSetListener() { view: TimePickerDialog?, hourOfDay: Int, minute: Int, second: Int ->
+                            val dateFormat = SimpleDateFormat("HH:mm")
+                            val mTime = dateFormat.format(dateFormat.parseObject(hourOfDay.toString() + ":" + minute))
+                            tvStartTime.text = mTime
+
+                        };
+
+                        val timePickerDialog = TimePickerDialog.newInstance(mStartTimeChangedListener,
+                                1,
+                                0,
+                                true
+                        );
+                        timePickerDialog.setThemeDark(false);
+                        timePickerDialog.setTitle("TimePicker Title");
+                        timePickerDialog.setTimeInterval(1,60)
+                       // timePickerDialog.setTimeInterval(1, 60, 0); // 15 Minutes Interval
+                        timePickerDialog.setAccentColor(resources.getColor(R.color.color_orange));
+
+//                        timePickerDialog.setOnCancelListener(DialogInterface.OnCancelListener() {
+//                            Utils.showToast(this, "TEst")
+//                        });
+                        timePickerDialog.show(fragmentManager, "Timepickerdialog");
+
+
                     }
 
                 }
@@ -231,22 +250,55 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
 
             }
             R.id.rlEndTime -> {
-                if(isEdit)
-                {
-                    Utils.showToast(this,"Can't edit time")
-                }
-                else
-                {
+                if (isEdit) {
+                    Utils.showToast(this, "Can't edit time")
+                } else {
                     DATE_TIME_FROM = TO_TIME
 
                     mToDate = tvEndDate.text.toString()
                     if (mToDate.equals("") || mToDate == null) {
                         showToast(resources.getString(R.string.err_event_end_time))
                     } else {
-                        KotlinUtils.setTime(this, this)
+                        val mStartTimeChangedListener = TimePickerDialog.OnTimeSetListener() { view: TimePickerDialog?, hourOfDay: Int, minute: Int, second: Int ->
+                            val dateFormat = SimpleDateFormat("HH:mm")
+                            val mDateTime = dateFormat.format(dateFormat.parseObject(hourOfDay.toString() + ":" + minute))
+                            mFromTime = tvStartTime.text.toString()
+                            mFromDate = tvStartDate.text.toString()
+                            mToDate = tvEndDate.text.toString()
+                            val newFormat = SimpleDateFormat("dd/MM/yyyy")
+                            val oldFormat = SimpleDateFormat("dd/MMM/yyyy")
+                            val isDateEqual = KotlinUtils.isDateEqual(newFormat.format(oldFormat.parse(mFromDate)), newFormat.format(oldFormat.parse(mToDate)))
+
+                            if (isDateEqual) {
+                                val isOK = KotlinUtils.compareTimes(mFromTime, mDateTime)
+                                if (isOK) {
+                                    tvEndTime.text = mDateTime
+                                } else {
+                                    showToast(resources.getString(R.string.err_to_time_before))
+                                }
+                            } else {
+                                tvEndTime.text = mDateTime
+                            }
+
+                        };
+
+                        val timePickerDialog = TimePickerDialog.newInstance(mStartTimeChangedListener,
+                                1,
+                                0,
+                                true
+                        );
+                        timePickerDialog.setThemeDark(false);
+                        timePickerDialog.setTitle("TimePicker Title");
+                        timePickerDialog.setTimeInterval(1,60)
+                        // timePickerDialog.setTimeInterval(1, 60, 0); // 15 Minutes Interval
+                        timePickerDialog.setAccentColor(resources.getColor(R.color.color_orange));
+
+//                        timePickerDialog.setOnCancelListener(DialogInterface.OnCancelListener() {
+//                            Utils.showToast(this, "TEst")
+//                        });
+                        timePickerDialog.show(fragmentManager, "Timepickerdialog");
                     }
                 }
-
 
 
             }
@@ -442,17 +494,14 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                     etEventName.setText(jsonInner.getString("EventTitle"))
                     etEventDescription.setText(jsonInner.getString("EventDescription"))
                     etAttendence.setText(jsonInner.getString("EventEstimatedGuest"))
-                    if(jsonInner.getString("VenueName").equals(""))
-                    {
+                    if (jsonInner.getString("VenueName").equals("")) {
                         val (mFromDate, mToDate) = KotlinUtils.dateFormatToReceive(jsonInner.getString("EventDateFrom"), jsonInner.getString("EventDateTo"))
 
                         tvStartDate.setText(mFromDate)
                         tvEndDate.text = mToDate
                         tvStartTime.setText(jsonInner.getString("EventTimeFrom"))
                         tvEndTime.setText(jsonInner.getString("EventTimeTo"))
-                    }
-                    else
-                    {
+                    } else {
                         val (mFromDate, mToDate) = KotlinUtils.dateFormatToReceive(jsonInner.getString("VenueBookedFromDate"), jsonInner.getString("VenueBookedToDate"))
 
                         tvStartDate.setText(mFromDate)
@@ -483,8 +532,7 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                     if (!jsonInner.getString("EventPromotionImg").equals("")) {
                         Glide.with(this).load(jsonInner.getString("EventPromotionImgPath") + jsonInner.getString("EventPromotionImg")).into(ivProfile)
 
-                    }
-                    else{
+                    } else {
                         Glide.with(this).load(R.drawable.icon_img_dummy).into(ivProfile)
 
                     }
@@ -513,9 +561,7 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                             startActivity(intent)
                             finish()
                         }
-                    }
-
-                    else {
+                    } else {
                         Utils.showToast(this, resources.getString(R.string.err_no_internet))
                     }
 
@@ -570,7 +616,7 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
             Utils.initializeAndShow(this)
             val mEventIds = RequestBody.create(MediaType.parse("text/plain"), mEventId)
             ImageUploadClass.imageUpload(uploadFile, mEventIds, null, FOR_UPLOAD_EVENT_PROFILE_IMAGE, this)
-            uploadFile=null
+            uploadFile = null
         }
 
 

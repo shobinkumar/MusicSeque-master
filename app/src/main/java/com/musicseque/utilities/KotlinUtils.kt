@@ -47,6 +47,7 @@ class KotlinUtils {
                             mMonth = iMonth.toString()
                         intrface.returnDateTime(dayOfMonth.toString() + "/" + mMonth + "/" + year.toString())
                     }, mYear, mMonth, mDay)
+
             datePickerDialog.show()
         }
 
@@ -96,7 +97,7 @@ class KotlinUtils {
             val dateFormat = SimpleDateFormat("HH:mm")
             val timeFrom = dateFormat.parse(mFromTime)
             val timeTo = dateFormat.parse(mToTime)
-            if (timeFrom.after(timeTo))
+            if (timeFrom.after(timeTo) || timeFrom.equals(timeTo))
                 return false
             else
                 return true
