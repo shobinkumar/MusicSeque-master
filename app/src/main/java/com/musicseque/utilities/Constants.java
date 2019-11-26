@@ -91,6 +91,11 @@ public class Constants {
     public static final String EVENT_STATUS_API = "Service/VenueBookingsList_ViaBookingStatus";
 
 
+
+    //Artist
+    public static final String GIGS_ARTIST_API ="Service/EventDetailsViaLoggedInUserId";
+    public static final String GIGS_VENUE_API ="Service/EventDetailsViaLoggedInUserId";
+
     public static final String LOGOUT_API = "Service/UserLogOut";
 
 
@@ -205,4 +210,13 @@ public class Constants {
 
 
     public static final int FOR_TEST=2001;
+
+
+
+    //For Venues
+    public static final int FOR_VENUE_GIGS=3001;
+
+    //FOr Artist
+    public static final int FOR_ARTIST_GIGS=4001;
+
 }

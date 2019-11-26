@@ -167,7 +167,27 @@
                     android:layout_marginTop="5dp"
                     android:background="@color/color_white" />
 
+                <com.musicseque.Fonts.Noyhr
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Budget Per Guest"
+                    android:textColor="@color/color_white"
+                    android:textSize="18sp" />
 
+                <com.musicseque.Fonts.Noyhr
+                    android:id="@+id/tvBudget"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/color_white"
+                    android:textSize="18sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/color_white" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

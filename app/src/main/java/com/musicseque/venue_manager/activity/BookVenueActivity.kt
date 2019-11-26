@@ -117,7 +117,7 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
         tv_title.text = "Book Venue"
         img_right_icon.visibility = View.GONE
 
-        rl.getViewTreeObserver().addOnGlobalLayoutListener(ViewTreeObserver.OnGlobalLayoutListener { mWidthCode = rl.getMeasuredWidth() })
+        rlStartTime.getViewTreeObserver().addOnGlobalLayoutListener(ViewTreeObserver.OnGlobalLayoutListener { mWidthCode = rlStartTime.getMeasuredWidth() })
         dateFormat = SimpleDateFormat("dd-MM-yyyy")
         timeFormat = SimpleDateFormat("HH:mm")
 
@@ -126,13 +126,13 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
 
     private fun listeners() {
         img_first_icon.setOnClickListener(this)
-        tvEventName.setOnClickListener(this)
+       // tvEventName.setOnClickListener(this)
         tvStartDate.setOnClickListener(this)
         tvStartTime.setOnClickListener(this)
         tvEndDate.setOnClickListener(this)
         tvEndTime.setOnClickListener(this)
         tvSendRequest.setOnClickListener(this)
-        eventArrow.setOnClickListener(this)
+       // eventArrow.setOnClickListener(this)
     }
 
     override fun onClick(view: View) {
@@ -172,66 +172,66 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
 
 
             }
-            R.id.tvEventName -> {
-                var list = ArrayList<String>()
-                if (eventsList.size > 0) {
-                    for ((index, value) in eventsList.withIndex()) {
-                        if (!eventsList.get(index).booking_status.equals("B", true))
-                            list.add(eventsList.get(index).event_title)
-                    }
-
-                    if (list.size > 0) {
-                        val eventArray = arrayOfNulls<String>(list.size)
-                        list.toArray(eventArray)
-
-                        if (eventArray != null) {
-                            showDropdown(eventArray, tvEventName, SpinnerData { mData, mData1 ->
-                                mEventName = mData
-                                mEventId = mData1
-                                tvEventName.text = mEventName
-                            }, mWidthCode)
-                        }
-                    } else {
-                        Utils.showToast(this, "You don't have event. Please create event.")
-                    }
-
-
-                } else {
-                    Utils.showToast(this, "You don't have event. Please create event.")
-                }
-
-
-            }
-            R.id.eventArrow -> {
-                var list = ArrayList<String>()
-                if (eventsList.size > 0) {
-                    for ((index, value) in eventsList.withIndex()) {
-                        if (!eventsList.get(index).booking_status.equals("B", true))
-                            list.add(eventsList.get(index).event_title)
-                    }
-
-                    if (list.size > 0) {
-                        val eventArray = arrayOfNulls<String>(list.size)
-                        list.toArray(eventArray)
-
-                        if (eventArray != null) {
-                            showDropdown(eventArray, tvEventName, SpinnerData { mData, mData1 ->
-                                mEventName = mData
-                                mEventId = mData1
-                                tvEventName.text = mEventName
-                            }, mWidthCode)
-                        }
-                    } else {
-                        Utils.showToast(this, "You don't have event. Please create event.")
-                    }
-
-
-                } else {
-                    Utils.showToast(this, "You don't have event. Please create event.")
-                }
-
-
-            }
+//            R.id.tvEventName -> {
+//                var list = ArrayList<String>()
+//                if (eventsList.size > 0) {
+//                    for ((index, value) in eventsList.withIndex()) {
+//                        if (!eventsList.get(index).booking_status.equals("B", true))
+//                            list.add(eventsList.get(index).event_title)
+//                    }
+//
+//                    if (list.size > 0) {
+//                        val eventArray = arrayOfNulls<String>(list.size)
+//                        list.toArray(eventArray)
+//
+//                        if (eventArray != null) {
+//                            showDropdown(eventArray, tvEventName, SpinnerData { mData, mData1 ->
+//                                mEventName = mData
+//                                mEventId = mData1
+//                                tvEventName.text = mEventName
+//                            }, mWidthCode)
+//                        }
+//                    } else {
+//                        Utils.showToast(this, "You don't have event. Please create event.")
+//                    }
+//
+//
+//                } else {
+//                    Utils.showToast(this, "You don't have event. Please create event.")
+//                }
+//
+//
+//            }
+//            R.id.eventArrow -> {
+//                var list = ArrayList<String>()
+//                if (eventsList.size > 0) {
+//                    for ((index, value) in eventsList.withIndex()) {
+//                        if (!eventsList.get(index).booking_status.equals("B", true))
+//                            list.add(eventsList.get(index).event_title)
+//                    }
+//
+//                    if (list.size > 0) {
+//                        val eventArray = arrayOfNulls<String>(list.size)
+//                        list.toArray(eventArray)
+//
+//                        if (eventArray != null) {
+//                            showDropdown(eventArray, tvEventName, SpinnerData { mData, mData1 ->
+//                                mEventName = mData
+//                                mEventId = mData1
+//                                tvEventName.text = mEventName
+//                            }, mWidthCode)
+//                        }
+//                    } else {
+//                        Utils.showToast(this, "You don't have event. Please create event.")
+//                    }
+//
+//
+//                } else {
+//                    Utils.showToast(this, "You don't have event. Please create event.")
+//                }
+//
+//
+//            }
             R.id.tvStartDate -> {
                 if (mEventName.equals("")) {
                     Utils.showToast(this, "Please select Event name")
@@ -673,8 +673,16 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
         listPopupWindow.setModal(true)
         listPopupWindow.setOnItemClickListener(AdapterView.OnItemClickListener { parent, view, position, id ->
 
-            spinnerData.getData(array[position], eventsList.get(position).event_id)
-            listPopupWindow.dismiss()
+          for(item in eventsList)
+          {
+              if(item.event_title.equals(array[position]))
+              {
+                  spinnerData.getData(array[position], item.event_id)
+                  listPopupWindow.dismiss()
+                  break;
+              }
+          }
+
         })
         listPopupWindow.show()
     }

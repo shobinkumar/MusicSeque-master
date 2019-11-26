@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_edit_text"
+        android:padding="10dp"
+        android:text="TextView"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/_16sdp" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvEventName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/_16sdp" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvVenueName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/_16sdp" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvVenueTimmings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/_16sdp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/line_color" />
+</LinearLayout>

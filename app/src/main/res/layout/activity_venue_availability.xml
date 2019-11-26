@@ -39,7 +39,7 @@
         <View
             android:layout_width="25dp"
             android:layout_height="@dimen/_25sdp"
-            android:background="@drawable/rect_time_available" />
+            android:background="@drawable/rectangle_time_not_available" />
 
         <com.musicseque.Fonts.Noyhr
             android:layout_width="wrap_content"
@@ -54,7 +54,7 @@
             android:layout_width="25dp"
             android:layout_height="@dimen/_25sdp"
             android:layout_marginLeft="20dp"
-            android:background="@drawable/rectangle_time_not_available" />
+            android:background="@drawable/rect_time_available" />
 
         <com.musicseque.Fonts.Noyhr
             android:layout_width="wrap_content"

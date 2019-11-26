@@ -68,7 +68,9 @@ class KotlinHitAPI {
             else if (TYPE == FOR_TEST) {
                 calls = apis!!.methodTest(params)
             }
-
+            else if (TYPE == FOR_ARTIST_GIGS) {
+                calls = apis!!.methodArtistGigs(params)
+            }
 
             callRetrofitKotlin(calls, TYPE)
 
@@ -168,6 +170,10 @@ fun <T> callRetrofitKotlin(call: Call<T>, TYPE: Int) {
             }
             else if (TYPE == FOR_TEST) {
                 Log.e("FOR_TEST", response.body()!!.toString())
+                myInterfaces.sendResponse(response.body(), TYPE)
+            }
+            else if (TYPE == FOR_ARTIST_GIGS) {
+                Log.e("FOR_ARTIST_GIGS", response.body()!!.toString())
                 myInterfaces.sendResponse(response.body(), TYPE)
             }
         }

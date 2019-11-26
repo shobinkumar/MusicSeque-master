@@ -79,6 +79,11 @@ public interface KotlinCommonInterface {
     @POST(Constants.EVENT_STATUS_API)
     abstract fun methodEventStatus(@Body params: String): Call<String>
 
+ @Headers("Content-Type: application/json")
+ @POST(Constants.GIGS_ARTIST_API)
+ abstract fun methodArtistGigs(@Body params: String): Call<String>
+
+
 
  @Headers("Content-Type: application/json")
  @POST(Constants.TEST_API)

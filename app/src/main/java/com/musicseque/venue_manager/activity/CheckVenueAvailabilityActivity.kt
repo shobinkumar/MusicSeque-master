@@ -168,100 +168,100 @@ class CheckVenueAvailabilityActivity : Activity(), View.OnClickListener, MyInter
 
 
         if (arrayList_details.contains("01:00")) {
-            view2.setBackgroundResource(R.drawable.rectangle_time_not_available)
+            view2.setBackgroundResource(R.drawable.rect_time_available)
 
         }
         if (arrayList_details.contains("02:00")) {
-            view3.setBackgroundResource(R.drawable.rectangle_time_not_available)
+            view3.setBackgroundResource(R.drawable.rect_time_available)
 
         }
         if (arrayList_details.contains("03:00")) {
-            view4.setBackgroundResource(R.drawable.rectangle_time_not_available)
+            view4.setBackgroundResource(R.drawable.rect_time_available)
 
         }
         if (arrayList_details.contains("04:00")) {
-            view5.setBackgroundResource(R.drawable.rectangle_time_not_available)
+            view5.setBackgroundResource(R.drawable.rect_time_available)
 
         }
         if (arrayList_details.contains("05:00")) {
-            view6.setBackgroundResource(R.drawable.rectangle_time_not_available)
+            view6.setBackgroundResource(R.drawable.rect_time_available)
 
         }
         if (arrayList_details.contains("06:00")) {
-            view7.setBackgroundResource(R.drawable.rectangle_time_not_available)
+            view7.setBackgroundResource(R.drawable.rect_time_available)
 
         }
         if (arrayList_details.contains("07:00")) {
-            view8.setBackgroundResource(R.drawable.rectangle_time_not_available)
+            view8.setBackgroundResource(R.drawable.rect_time_available)
 
         }
         if (arrayList_details.contains("08:00")) {
-            view9.setBackgroundResource(R.drawable.rectangle_time_not_available)
+            view9.setBackgroundResource(R.drawable.rect_time_available)
 
         }
         if (arrayList_details.contains("09:00")) {
-            view10.setBackgroundResource(R.drawable.rectangle_time_not_available)
+            view10.setBackgroundResource(R.drawable.rect_time_available)
 
         }
         if (arrayList_details.contains("10:00")) {
-            view11.setBackgroundResource(R.drawable.rectangle_time_not_available)
+            view11.setBackgroundResource(R.drawable.rect_time_available)
 
         }
         if (arrayList_details.contains("11:00")) {
-            view12.setBackgroundResource(R.drawable.rectangle_time_not_available)
+            view12.setBackgroundResource(R.drawable.rect_time_available)
 
         }
         if (arrayList_details.contains("12:00")) {
-            view13.setBackgroundResource(R.drawable.rectangle_time_not_available)
+            view13.setBackgroundResource(R.drawable.rect_time_available)
 
         }
         if (arrayList_details.contains("13:00")) {
-            view14.setBackgroundResource(R.drawable.rectangle_time_not_available)
+            view14.setBackgroundResource(R.drawable.rect_time_available)
 
         }
         if (arrayList_details.contains("14:00")) {
-            view15.setBackgroundResource(R.drawable.rectangle_time_not_available)
+            view15.setBackgroundResource(R.drawable.rect_time_available)
 
         }
         if (arrayList_details.contains("15:00")) {
-            view16.setBackgroundResource(R.drawable.rectangle_time_not_available)
+            view16.setBackgroundResource(R.drawable.rect_time_available)
 
         }
         if (arrayList_details.contains("16:00")) {
-            view17.setBackgroundResource(R.drawable.rectangle_time_not_available)
+            view17.setBackgroundResource(R.drawable.rect_time_available)
 
         }
         if (arrayList_details.contains("17:00")) {
-            view18.setBackgroundResource(R.drawable.rectangle_time_not_available)
+            view18.setBackgroundResource(R.drawable.rect_time_available)
 
         }
         if (arrayList_details.contains("18:00")) {
-            view19.setBackgroundResource(R.drawable.rectangle_time_not_available)
+            view19.setBackgroundResource(R.drawable.rect_time_available)
 
         }
         if (arrayList_details.contains("19:00")) {
-            view20.setBackgroundResource(R.drawable.rectangle_time_not_available)
+            view20.setBackgroundResource(R.drawable.rect_time_available)
 
         }
         if (arrayList_details.contains("20:00")) {
-            view21.setBackgroundResource(R.drawable.rectangle_time_not_available)
+            view21.setBackgroundResource(R.drawable.rect_time_available)
 
         }
         if (arrayList_details.contains("21:00")) {
-            view22.setBackgroundResource(R.drawable.rectangle_time_not_available)
+            view22.setBackgroundResource(R.drawable.rect_time_available)
 
         }
         if (arrayList_details.contains("22:00")) {
-            view23.setBackgroundResource(R.drawable.rectangle_time_not_available)
+            view23.setBackgroundResource(R.drawable.rect_time_available)
 
         }
 
         if (arrayList_details.contains("23:00")) {
-            view24.setBackgroundResource(R.drawable.rectangle_time_not_available)
+            view24.setBackgroundResource(R.drawable.rect_time_available)
 
         }
         if (arrayList_details.contains("00:00")) {
-            view1.setBackgroundResource(R.drawable.rectangle_time_not_available)
+            view1.setBackgroundResource(R.drawable.rect_time_available)
 
         }
 

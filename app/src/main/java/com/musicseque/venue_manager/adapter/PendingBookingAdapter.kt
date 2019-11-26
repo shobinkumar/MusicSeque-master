@@ -35,13 +35,16 @@ class PendingBookingAdapter(val activity: Activity, val arrayList: ArrayList<Boo
         fun bind(model: BookingStatusModel, activity: Activity, intfc: BookingAcceptReject) {
 
 
-            val textShow= "<b>" + model.ArtistName + "</b> " + " "+"has sent you venue booking request"
+            val textShow= "<b>" + model.ArtistName + "</b> " + " "+"has sent you venue booking request for"
 
             itemView.tvArtistName.text =  Html.fromHtml(textShow)
+            itemView.tvEventName.text="Event Name-"+model.EventName
             itemView.tvRequestSentTimmings.text = model.BookedOn + " " + model.BookingTime
 
-            itemView.tvAcceptRequest.setOnClickListener { intfc.details(model.VenueId.toString(), model.VenueBookingId.toString(), "B") }
-            itemView.tvRejectRequest.setOnClickListener { intfc.details(model.VenueId.toString(), model.VenueBookingId.toString(), "R") }
+            itemView.tvAcceptRequest.setOnClickListener {
+                intfc.details(model.VenueId.toString(), model.VenueBookingId.toString(), "B") }
+            itemView.tvRejectRequest.setOnClickListener {
+                intfc.details(model.VenueId.toString(), model.VenueBookingId.toString(), "R") }
 
             if(model.ArtistImg.equals("",true))
             {
@@ -56,6 +59,12 @@ class PendingBookingAdapter(val activity: Activity, val arrayList: ArrayList<Boo
                         .into(itemView.ivEventManagerImage)
             }
 
+
+            itemView.tvEventName.setOnClickListener {
+                val intent= Intent(activity, EventDetailVenueActivity::class.java).putExtra("event_id",model.EventId.toString()).putExtra("event_type",FOR_PENDING_REQ)
+                activity.startActivity(intent)
+
+            }
 
             itemView.setOnClickListener {
 

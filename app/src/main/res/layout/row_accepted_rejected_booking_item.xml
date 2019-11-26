@@ -48,11 +48,23 @@
             android:textColor="@color/color_white"
             android:textSize="18sp" />
 
+
+        <com.musicseque.Fonts.BoldNoyhr
+            android:id="@+id/tvEventName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvArtistNameRequest"
+            android:layout_marginTop="5dp"
+            android:text="Date : 20 Oct 2019 to 21 Oct 2019"
+            android:textColor="@color/color_white"
+            android:textSize="18sp" />
+
+
         <com.musicseque.Fonts.Noyhr
             android:id="@+id/tvEventDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvArtistNameRequest"
+            android:layout_below="@+id/tvEventName"
             android:layout_marginTop="5dp"
             android:text="Date : 20 Oct 2019 to 21 Oct 2019"
             android:textColor="@color/color_white"

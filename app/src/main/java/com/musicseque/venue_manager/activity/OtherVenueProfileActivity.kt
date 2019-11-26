@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.toolbar_top.*
 import org.json.JSONException
 import org.json.JSONObject
 
-class OtherVenueProfileActivity : BaseActivity(), MyInterface, View.OnClickListener {
+class  OtherVenueProfileActivity : BaseActivity(), MyInterface, View.OnClickListener {
     override fun onClick(view: View) {
         when (view.id) {
 
