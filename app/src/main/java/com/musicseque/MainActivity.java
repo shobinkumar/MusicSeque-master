@@ -609,11 +609,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
 
-            case R.id.tvAddEvent:
-                startActivity(new Intent(this, CreateEventActivity.class));
-                navDrawer.closeDrawers();
-
-                break;
+//            case R.id.tvAddEvent:
+//                startActivity(new Intent(this, CreateEventActivity.class));
+//                navDrawer.closeDrawers();
+//
+//                break;
             case R.id.tvUpcomingEvent:
                 if (mLoginType.equalsIgnoreCase("Venue Manager")) {
                     Utils.showToast(MainActivity.this, "Coming Soon");
@@ -695,7 +695,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void showHideDrawerViews() {
         if (mLoginType.equalsIgnoreCase("Venue Manager")) {
-            tvAddEvent.setVisibility(View.GONE);
+           // tvAddEvent.setVisibility(View.GONE);
             llAllProfile.setVisibility(View.GONE);
             ivUpArrow.setVisibility(View.GONE);
             ivDownArrow.setVisibility(View.GONE);
@@ -720,7 +720,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
         } else {
-            tvAddEvent.setVisibility(View.VISIBLE);
+           // tvAddEvent.setVisibility(View.VISIBLE);
             llAllProfile.setVisibility(View.GONE);
             ivUpArrow.setVisibility(View.GONE);
             ivDownArrow.setVisibility(View.VISIBLE);

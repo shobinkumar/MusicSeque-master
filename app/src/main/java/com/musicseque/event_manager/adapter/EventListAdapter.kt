@@ -46,21 +46,26 @@ class EventListAdapter(var al: ArrayList<EventListModel>, var type: Int,val acti
             itemView.tvTime.text = data.event_time_from + " - " + data.event_time_to
 
 
-            if(data.venue_name.equals(""))
-            {
-                itemView.tvTime.text = data.event_time_from + " - " + data.event_time_to
+//            if(data.venue_name.equals(""))
+//            {
+//                itemView.tvTime.text = data.event_time_from + " - " + data.event_time_to
+//
+//
+//                val dateOldF = oldFormat.parse(data.event_from_date)
+//
+//                val dateNewF = newFormat.format(dateOldF)
+//                val mNewType = KotlinUtils.monthToReadFormat(dateNewF)
+//                itemView.tvDay.text = mNewType.split("/")[0]
+//                itemView.tvMonth.text = mNewType.split("/")[1]
+//            }
+//            else
+//            {
 
+                val (mFromDate, mToDate) = KotlinUtils.dateFormatToReceive(data.venue_from_date, data.venue_to_date)
 
-                val dateOldF = oldFormat.parse(data.event_from_date)
+                itemView.tvTime.text =mFromDate+" "+ data.venue_from_time + " - " + mToDate+" "+data.venue_to_time
 
-                val dateNewF = newFormat.format(dateOldF)
-                val mNewType = KotlinUtils.monthToReadFormat(dateNewF)
-                itemView.tvDay.text = mNewType.split("/")[0]
-                itemView.tvMonth.text = mNewType.split("/")[1]
-            }
-            else
-            {
-                itemView.tvTime.text = data.venue_from_time + " - " + data.venue_to_time
+               // itemView.tvTime.text = data.venue_from_time + " - " + data.venue_to_time
 
 
                 val dateOldF = oldFormat.parse(data.venue_from_date)
@@ -69,7 +74,7 @@ class EventListAdapter(var al: ArrayList<EventListModel>, var type: Int,val acti
                 val mNewType = KotlinUtils.monthToReadFormat(dateNewF)
                 itemView.tvDay.text = mNewType.split("/")[0]
                 itemView.tvMonth.text = mNewType.split("/")[1]
-            }
+           // }
 
 
 

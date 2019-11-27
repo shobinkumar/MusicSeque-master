@@ -82,7 +82,7 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
         setContentView(R.layout.activity_create_event)
         initViews()
         listeners()
-        getAPI("events", "")
+        getAPI(FOR_EVENT_TYPE_LIST, "")
     }
 
     private fun initViews() {
@@ -136,17 +136,17 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
         tvSubmit.setOnClickListener(this)
     }
 
-    private fun getAPI(value: String, args: String) {
+    private fun getAPI(value: Int, args: String) {
 
         if (Utils.isNetworkConnected(this)) {
             Utils.initializeAndShow(this)
-            if (value.equals("events")) {
+            if (value==FOR_EVENT_TYPE_LIST) {
                 KotlinHitAPI.callGetAPI(FOR_EVENT_TYPE_LIST, this)
-            } else if (value.equals("currency")) {
+            } else if (value==FOR_CURRENCY_LIST) {
                 KotlinHitAPI.callGetAPI(FOR_CURRENCY_LIST, this)
-            } else if (value.equals("submit")) {
+            } else if (value==FOR_SAVE_UPDATE_EVENT_DETAIL) {
                 KotlinHitAPI.callAPI(args, FOR_SAVE_UPDATE_EVENT_DETAIL, this)
-            } else if (value.equals("event_detail")) {
+            } else if (value==FOR_EVENT_DETAIL) {
                 val obj = JSONObject()
                 obj.put("EventId", mEventId)
                 KotlinHitAPI.callAPI(obj.toString(), FOR_EVENT_DETAIL, this)
@@ -387,7 +387,7 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                     obj.put("EventChargesPayCurrencyId", mCurrencyId)
                     obj.put("EventBudget", mBudgetGuest)
                     obj.put("EventManagerId", SharedPref.getString(Constants.USER_ID, ""))
-                    getAPI("submit", obj.toString())
+                    getAPI(FOR_SAVE_UPDATE_EVENT_DETAIL, obj.toString())
 
                 }
             }
@@ -475,7 +475,7 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                 val listType = object : TypeToken<ArrayList<EventModel>>() {}.type
                 eventsList = gson.fromJson<ArrayList<EventModel>>(jsonArray.toString(), listType)
                 recyclerEvent.adapter = EventAdapter(this, eventsList)
-                getAPI("currency", "")
+                getAPI(FOR_CURRENCY_LIST, "")
             }
             FOR_CURRENCY_LIST -> {
                 val jsonArray = JSONArray(response.toString())
@@ -484,7 +484,7 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                 newList = gson.fromJson<ArrayList<CurrencyModel>>(jsonArray.toString(), listType)
 
                 if (!mEventId.equals(""))
-                    getAPI("event_detail", "");
+                    getAPI(FOR_EVENT_DETAIL, "");
             }
             FOR_EVENT_DETAIL -> {
                 val json = JSONObject(response.toString())

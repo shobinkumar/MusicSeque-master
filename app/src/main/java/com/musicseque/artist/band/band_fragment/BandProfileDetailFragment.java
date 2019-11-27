@@ -39,7 +39,6 @@ import com.musicseque.Fonts.Noyhr;
 import com.musicseque.MainActivity;
 import com.musicseque.R;
 import com.musicseque.artist.fragments.BaseFragment;
-import com.musicseque.artist.fragments.GigsFragment;
 import com.musicseque.artist.fragments.ImagesFragment;
 import com.musicseque.artist.fragments.MusicFragment;
 import com.musicseque.artist.fragments.ProfileFragment;
@@ -228,7 +227,7 @@ public class BandProfileDetailFragment extends BaseFragment implements View.OnCl
         if (!isPicAPIHit) {
             getBandProfile();
             changeBackgroundColor(ivGigs, tvGigs, getResources().getDrawable(R.drawable.icon_gigs_active), getResources().getString(R.string.txt_gigs), ivImage, tvImage, getResources().getDrawable(R.drawable.icon_photos), getResources().getString(R.string.txt_image), ivMusic, tvMusic, getResources().getDrawable(R.drawable.icon_music), getResources().getString(R.string.txt_music), ivVideo, tvVideo, getResources().getDrawable(R.drawable.icon_videos), getResources().getString(R.string.txt_video), ivMember, tvMember, getResources().getDrawable(R.drawable.icon_collaborators), getResources().getString(R.string.txt_members));
-            changeFragment(new GigsFragment());
+            changeFragment(new BandGigsFragment());
         }
 
     }

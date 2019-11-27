@@ -71,6 +71,9 @@ class KotlinHitAPI {
             else if (TYPE == FOR_ARTIST_GIGS) {
                 calls = apis!!.methodArtistGigs(params)
             }
+            else if (TYPE == FOR_VENUE_GIGS) {
+                calls = apis!!.methodVenueGigs(params)
+            }
 
             callRetrofitKotlin(calls, TYPE)
 
@@ -174,6 +177,10 @@ fun <T> callRetrofitKotlin(call: Call<T>, TYPE: Int) {
             }
             else if (TYPE == FOR_ARTIST_GIGS) {
                 Log.e("FOR_ARTIST_GIGS", response.body()!!.toString())
+                myInterfaces.sendResponse(response.body(), TYPE)
+            }
+            else if (TYPE == FOR_VENUE_GIGS) {
+                Log.e("FOR_VENUE_GIGS", response.body()!!.toString())
                 myInterfaces.sendResponse(response.body(), TYPE)
             }
         }

@@ -33,6 +33,7 @@ import com.musicseque.utilities.Constants;
 import com.musicseque.utilities.FileUtils;
 import com.musicseque.utilities.SharedPref;
 import com.musicseque.utilities.Utils;
+import com.musicseque.venue_manager.activity.BookVenueActivity;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -368,7 +369,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             ReportProblemActivity report = (ReportProblemActivity) this;
             report.getImageDetails(fileToUpload, mUSerId, name);
         } else if (activityName.equalsIgnoreCase("event_image")) {
-            CreateEventActivity report = (CreateEventActivity) this;
+            BookVenueActivity report = (BookVenueActivity) this;
             report.getImage(file, fileToUpload, mUSerId, name);
         }
 

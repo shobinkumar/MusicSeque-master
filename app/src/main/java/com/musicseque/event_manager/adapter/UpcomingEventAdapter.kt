@@ -45,18 +45,23 @@ class UpcomingEventAdapter(var al: ArrayList<EventListModel>, var type: Int, val
 
             itemView.tvEventName.text = data.event_title
 
-            if (data.venue_name.equals("")) {
-                itemView.tvTime.text = data.event_time_from + " - " + data.event_time_to
+//            if (data.venue_name.equals(""))
+//            {
+//                itemView.tvTime.text = data.event_time_from + " - " + data.event_time_to
+//
+//
+//                val dateOldF = oldFormat.parse(data.event_from_date)
+//
+//                val dateNewF = newFormat.format(dateOldF)
+//                val mNewType = KotlinUtils.monthToReadFormat(dateNewF)
+//                itemView.tvDay.text = mNewType.split("/")[0]
+//                itemView.tvMonth.text = mNewType.split("/")[1]
+//            } else {
 
 
-                val dateOldF = oldFormat.parse(data.event_from_date)
+            val (mFromDate, mToDate) = KotlinUtils.dateFormatToReceive(data.venue_from_date, data.venue_to_date)
 
-                val dateNewF = newFormat.format(dateOldF)
-                val mNewType = KotlinUtils.monthToReadFormat(dateNewF)
-                itemView.tvDay.text = mNewType.split("/")[0]
-                itemView.tvMonth.text = mNewType.split("/")[1]
-            } else {
-                itemView.tvTime.text = data.venue_from_time + " - " + data.venue_to_time
+            itemView.tvTime.text =mFromDate+" "+ data.venue_from_time + " - " + mToDate+" "+data.venue_to_time
 
 
                 val dateOldF = oldFormat.parse(data.venue_from_date)
@@ -65,37 +70,37 @@ class UpcomingEventAdapter(var al: ArrayList<EventListModel>, var type: Int, val
                 val mNewType = KotlinUtils.monthToReadFormat(dateNewF)
                 itemView.tvDay.text = mNewType.split("/")[0]
                 itemView.tvMonth.text = mNewType.split("/")[1]
-            }
+         //   }
 
 
 
 
             if (data.booking_status.equals("B", true)) {
-                itemView.ivEdit.visibility = GONE
-                itemView.ivDelete.visibility = GONE
+//                itemView.ivEdit.visibility = GONE
+//                itemView.ivDelete.visibility = GONE
                 itemView.bookingStatus.visibility = View.VISIBLE
                 itemView.bookingStatus.setText("Booked")
             } else if (data.booking_status.equals("R", true)) {
 
 
-                itemView.ivEdit.visibility = GONE
-                itemView.ivDelete.visibility = GONE
+//                itemView.ivEdit.visibility = GONE
+//                itemView.ivDelete.visibility = GONE
                 itemView.bookingStatus.visibility = View.VISIBLE
                 itemView.bookingStatus.setText("Rejected")
 
 
             } else {
-                itemView.ivEdit.visibility = VISIBLE
-                itemView.ivDelete.visibility = VISIBLE
+//              itemView.ivEdit.visibility = VISIBLE
+//                itemView.ivDelete.visibility = VISIBLE
                 itemView.bookingStatus.visibility = View.GONE
-                itemView.ivEdit.setOnClickListener {
-                    val intent = Intent(activitys, CreateEventActivity::class.java).putExtra("event_id", data.event_id).putExtra("isEdit", true)
-                    activitys.startActivity(intent)
-                }
-                itemView.ivDelete.setOnClickListener {
-                    eventsListActivity.deleteEvent(data.event_id)
-
-                }
+//                itemView.ivEdit.setOnClickListener {
+//                    val intent = Intent(activitys, CreateEventActivity::class.java).putExtra("event_id", data.event_id).putExtra("isEdit", true)
+//                    activitys.startActivity(intent)
+//                }
+//                itemView.ivDelete.setOnClickListener {
+//                    eventsListActivity.deleteEvent(data.event_id)
+//
+//                }
             }
 
             itemView.setOnClickListener {

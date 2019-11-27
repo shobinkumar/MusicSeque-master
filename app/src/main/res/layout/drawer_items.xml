@@ -380,6 +380,7 @@
 
                 <com.musicseque.Fonts.Noyhr
                     android:id="@+id/tvAddEvent"
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
