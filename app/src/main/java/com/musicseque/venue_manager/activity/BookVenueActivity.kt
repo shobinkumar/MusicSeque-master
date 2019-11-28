@@ -257,7 +257,7 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
                     obj.put("EventDescription", mDescription)
                     obj.put("EventTypeId", mEventTypeId)
 
-                    obj.put("EventDateFrom", mStartTime)
+                    obj.put("EventDateFrom", mStartDate)
                     obj.put("EventDateTo", mEndDate)
                     obj.put("EventTimeFrom", mStartTime)
                     obj.put("EventTimeTo", mEndTime)

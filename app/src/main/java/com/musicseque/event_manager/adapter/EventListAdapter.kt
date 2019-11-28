@@ -63,7 +63,7 @@ class EventListAdapter(var al: ArrayList<EventListModel>, var type: Int,val acti
 
                 val (mFromDate, mToDate) = KotlinUtils.dateFormatToReceive(data.venue_from_date, data.venue_to_date)
 
-                itemView.tvTime.text =mFromDate+" "+ data.venue_from_time + " - " + mToDate+" "+data.venue_to_time
+                itemView.tvTime.text =mFromDate+" "+ data.event_time_from + " - " + mToDate+" "+data.event_time_to
 
                // itemView.tvTime.text = data.venue_from_time + " - " + data.venue_to_time
 

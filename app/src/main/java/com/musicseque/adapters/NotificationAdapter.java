@@ -40,11 +40,16 @@ public class NotificationAdapter extends RecyclerView.Adapter {
     //Venue
     public static final int ARTIST_SEND_BOOKING_REQ = 6;
 
+    public static final int FOR_FOLLOWED_ARTIST = 7;
+    public static final int FOR_UNFOLLOWED_ARTIST = 8;
+
 
     public static final int YOU_SENT_REQUEST = 10;
     public static final int YOUR_REQUEST_ACCEPT = 11;
     public static final int YOUR_REQUEST_REJECT = 12;
     public static final int YOUR_REMOVE_MEMBER = 13;
+    public static final int YOU_FOLLOWED_ARTIST = 14;
+    public static final int YOU_UNFOLLOWED_ARTIST = 15;
     private String mProfileType = "";
     private CommonInterface memInterface;
 
@@ -78,6 +83,13 @@ public class NotificationAdapter extends RecyclerView.Adapter {
                     view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_accept_request, parent, false);
                     return new AcceptViewHolder(view);
                 case ARTIST_SEND_BOOKING_REQ:
+                    view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_accept_request, parent, false);
+                    return new AcceptViewHolder(view);
+
+                case FOR_FOLLOWED_ARTIST:
+                    view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_accept_request, parent, false);
+                    return new AcceptViewHolder(view);
+                case FOR_UNFOLLOWED_ARTIST:
                     view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_accept_request, parent, false);
                     return new AcceptViewHolder(view);
             }
@@ -126,6 +138,23 @@ public class NotificationAdapter extends RecyclerView.Adapter {
 
 
 
+                case FOR_FOLLOWED_ARTIST:
+                    view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_accept_request, parent, false);
+                    return new AcceptViewHolder(view);
+
+                case YOU_FOLLOWED_ARTIST:
+                    view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_accept_request, parent, false);
+                    return new AcceptViewHolder(view);
+
+
+                case FOR_UNFOLLOWED_ARTIST:
+                    view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_accept_request, parent, false);
+                    return new AcceptViewHolder(view);
+
+                case YOU_UNFOLLOWED_ARTIST:
+                    view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_accept_request, parent, false);
+                    return new AcceptViewHolder(view);
+
 
 
                 case ARTIST_SEND_BOOKING_REQ:
@@ -155,7 +184,7 @@ public class NotificationAdapter extends RecyclerView.Adapter {
 
 
             if (SharedPref.getString(PROFILE_TYPE, "").equalsIgnoreCase("Venue Manager")) {
-                if (object.getSender() == 0) {
+
                     switch (object.getIsRequestStatus()) {
                         case FOR_VENUE_ACCEPT_REQUEST:
                             AcceptViewHolder viewHolderVenueAccept = ((AcceptViewHolder) holder);
@@ -186,8 +215,30 @@ public class NotificationAdapter extends RecyclerView.Adapter {
                             viewHolderArtistSendReq.tvNotificationAcceptRequest.setText(Html.fromHtml(sourceStringArtistSendReq));
 
                             break;
+                        case FOR_FOLLOWED_ARTIST:
+                            AcceptViewHolder viewHolderFollowArtist = ((AcceptViewHolder) holder);
+
+
+                            String mFollowArtist ="You followed "+ "<b>" + object.getArtistFullName() + "</b> "  + "<br><br>" + object.getCreated_date() + "</br></br>";
+
+                            viewHolderFollowArtist.tvNotificationAcceptRequest.setText(Html.fromHtml(mFollowArtist));
+
+
+                            break;
+
+
+                        case FOR_UNFOLLOWED_ARTIST:
+                            AcceptViewHolder viewHolderUnFollowArtist = ((AcceptViewHolder) holder);
+
+
+                            String mUnFollowArtist ="You unfollowed "+ "<b>" + object.getArtistFullName() + "</b> "  + "<br><br>" + object.getCreated_date() + "</br></br>";
+
+                            viewHolderUnFollowArtist.tvNotificationAcceptRequest.setText(Html.fromHtml(mUnFollowArtist));
+
+
+                            break;
                     }
-                }
+
             } else {
 
                 if (object.getSender() == 0) {
@@ -245,7 +296,28 @@ public class NotificationAdapter extends RecyclerView.Adapter {
                             break;
 
 
+                        case FOR_FOLLOWED_ARTIST:
+                            AcceptViewHolder viewHolderFollowArtist = ((AcceptViewHolder) holder);
 
+
+                            String mFollowArtist = "<b>" + object.getArtistFullName() + "</b> " + " followed you  " + "<br><br>" + object.getCreated_date() + "</br></br>";
+
+                            viewHolderFollowArtist.tvNotificationAcceptRequest.setText(Html.fromHtml(mFollowArtist));
+
+
+                            break;
+
+
+                        case FOR_UNFOLLOWED_ARTIST:
+                            AcceptViewHolder viewHolderUnFollowArtist = ((AcceptViewHolder) holder);
+
+
+                            String mUnFollowArtist = "<b>" + object.getArtistFullName() + "</b> " + " unfollowed you  " + "<br><br>" + object.getCreated_date() + "</br></br>";
+
+                            viewHolderUnFollowArtist.tvNotificationAcceptRequest.setText(Html.fromHtml(mUnFollowArtist));
+
+
+                            break;
 
 
 
@@ -297,6 +369,31 @@ public class NotificationAdapter extends RecyclerView.Adapter {
 
                             break;
 
+
+
+
+                        case FOR_FOLLOWED_ARTIST:
+                            AcceptViewHolder viewHolderFollowArtist = ((AcceptViewHolder) holder);
+
+
+                            String mFollowArtist ="You followed "+ "<b>" + object.getArtistFullName() + "</b> "  + "<br><br>" + object.getCreated_date() + "</br></br>";
+
+                            viewHolderFollowArtist.tvNotificationAcceptRequest.setText(Html.fromHtml(mFollowArtist));
+
+
+                            break;
+
+
+                        case FOR_UNFOLLOWED_ARTIST:
+                            AcceptViewHolder viewHolderUnFollowArtist = ((AcceptViewHolder) holder);
+
+
+                            String mUnFollowArtist ="You unfollowed "+ "<b>" + object.getArtistFullName() + "</b> "  + "<br><br>" + object.getCreated_date() + "</br></br>";
+
+                            viewHolderUnFollowArtist.tvNotificationAcceptRequest.setText(Html.fromHtml(mUnFollowArtist));
+
+
+                            break;
 
 
                         case ARTIST_SEND_BOOKING_REQ:
@@ -360,6 +457,11 @@ public class NotificationAdapter extends RecyclerView.Adapter {
                     return FOR_VENUE_REJECT_REQUEST;
                 case ARTIST_SEND_BOOKING_REQ:
                     return ARTIST_SEND_BOOKING_REQ;
+
+                    case FOR_FOLLOWED_ARTIST:
+                    return FOR_FOLLOWED_ARTIST;
+                case FOR_UNFOLLOWED_ARTIST:
+                    return FOR_UNFOLLOWED_ARTIST;
             }
 
         } else {
@@ -373,6 +475,10 @@ public class NotificationAdapter extends RecyclerView.Adapter {
                         return FOR_REQUEST_REJECT;
                     case REMOVE_MEMBER:
                         return REMOVE_MEMBER;
+                    case FOR_FOLLOWED_ARTIST:
+                        return FOR_FOLLOWED_ARTIST;
+                    case FOR_UNFOLLOWED_ARTIST:
+                        return FOR_UNFOLLOWED_ARTIST;
                     default:
                         return -1;
                 }
@@ -387,6 +493,12 @@ public class NotificationAdapter extends RecyclerView.Adapter {
 
                     case REMOVE_MEMBER:
                         return YOUR_REMOVE_MEMBER;
+
+
+                    case FOR_FOLLOWED_ARTIST:
+                        return YOU_FOLLOWED_ARTIST;
+                    case FOR_UNFOLLOWED_ARTIST:
+                        return YOU_UNFOLLOWED_ARTIST;
 
 
                     case ARTIST_SEND_BOOKING_REQ:

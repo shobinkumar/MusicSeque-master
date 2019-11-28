@@ -38,7 +38,7 @@ class PendingBookingAdapter(val activity: Activity, val arrayList: ArrayList<Boo
             val textShow= "<b>" + model.ArtistName + "</b> " + " "+"has sent you venue booking request for"
 
             itemView.tvArtistName.text =  Html.fromHtml(textShow)
-            itemView.tvEventName.text="Event Name-"+model.EventName
+            itemView.tvEventName.text="Event Name - "+model.EventName
             itemView.tvRequestSentTimmings.text = model.BookedOn + " " + model.BookingTime
 
             itemView.tvAcceptRequest.setOnClickListener {

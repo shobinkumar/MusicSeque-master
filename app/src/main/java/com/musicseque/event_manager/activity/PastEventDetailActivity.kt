@@ -72,23 +72,23 @@ class PastEventDetailActivity : BaseActivity(), View.OnClickListener, MyInterfac
                 tvBudget.setText(jsonInner.getString("EventBudget"))
                 tvEventType.text=jsonInner.getString("EventTypeName")
 
-                if (jsonInner.getString("VenueName").equals("", true)) {
-                    val (mFromDate, mToDate) = KotlinUtils.dateFormatToReceive(jsonInner.getString("EventDateFrom"), jsonInner.getString("EventDateTo"))
-
-                    tvStartDateTime.setText(mFromDate + " " + jsonInner.getString("EventTimeFrom"))
-
-                    tvEndDateTime.setText(mToDate + " " + jsonInner.getString("EventTimeTo"))
-                } else {
+//                if (jsonInner.getString("VenueName").equals("", true)) {
+//                    val (mFromDate, mToDate) = KotlinUtils.dateFormatToReceive(jsonInner.getString("EventDateFrom"), jsonInner.getString("EventDateTo"))
+//
+//                    tvStartDateTime.setText(mFromDate + " " + jsonInner.getString("EventTimeFrom"))
+//
+//                    tvEndDateTime.setText(mToDate + " " + jsonInner.getString("EventTimeTo"))
+//                } else {
                     tvVenueName.setText(jsonInner.getString("VenueName"))
 
                     val (mFromDate, mToDate) = KotlinUtils.dateFormatToReceive(jsonInner.getString("VenueBookedFromDate"), jsonInner.getString("VenueBookedToDate"))
 
-                    tvStartDateTime.setText(mFromDate + " " + jsonInner.getString("VenueBookingFromTime"))
+                    tvStartDateTime.setText(mFromDate + " " + jsonInner.getString("EventTimeFrom"))
 
-                    tvEndDateTime.setText(mToDate + " " + jsonInner.getString("VenueBookingToTime"))
+                    tvEndDateTime.setText(mToDate + " " + jsonInner.getString("EventTimeTo"))
 
 
-                }
+               // }
 
 
 

@@ -7,18 +7,15 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.support.v4.app.NotificationCompat
+import android.support.v4.util.ArrayMap
 import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.musicseque.event_manager.activity.EventDetailActivity
 import com.musicseque.utilities.Constants.PROFILE_TYPE
 import com.musicseque.utilities.SharedPref
-import android.support.v4.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.support.v4.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.support.v4.util.ArrayMap
-import com.musicseque.event_manager.activity.EventDetailActivity
 import org.json.JSONObject
+import java.util.*
 
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
@@ -85,6 +82,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     public fun sendNotification(remoteMessage: RemoteMessage?) {
 
+        val random: Int = Random().nextInt(1000) + 75
+
         if (SharedPref.getString(PROFILE_TYPE, "").equals("Venue Manager", true)) {
 
             val data = ((remoteMessage?.data as ArrayMap).valueAt(0)).toString()
@@ -106,7 +105,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             notificationBuilder.setContentTitle(json.getString("Message"))
             // notificationBuilder.setContentText()
             notificationBuilder.setContentIntent(pendingIntent)
-            notificationManager.notify(1, notificationBuilder.build())
+            notificationManager.notify(random, notificationBuilder.build())
         } else {
 
 
@@ -133,7 +132,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 notificationBuilder.setContentTitle(json.getString("Message"))
                 // notificationBuilder.setContentText()
                 notificationBuilder.setContentIntent(pendingIntent)
-                notificationManager.notify(1, notificationBuilder.build())
+                notificationManager.notify(random, notificationBuilder.build())
 
 
 
@@ -159,7 +158,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 notificationBuilder.setContentTitle(json.getString("Message"))
                 // notificationBuilder.setContentText()
                 notificationBuilder.setContentIntent(pendingIntent)
-                notificationManager.notify(1, notificationBuilder.build())
+                notificationManager.notify(random, notificationBuilder.build())
 
 
             }
