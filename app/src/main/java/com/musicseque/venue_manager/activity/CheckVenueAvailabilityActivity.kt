@@ -19,7 +19,6 @@ import com.musicseque.utilities.Utils
 import com.musicseque.venue_manager.model.MySelectedTimeModel
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
 import kotlinx.android.synthetic.main.activity_venue_availability.*
-import kotlinx.android.synthetic.main.activity_venue_booking_form.*
 import kotlinx.android.synthetic.main.toolbar_top.*
 import org.json.JSONObject
 import java.text.SimpleDateFormat
@@ -29,20 +28,25 @@ import kotlin.collections.ArrayList
 class CheckVenueAvailabilityActivity : Activity(), View.OnClickListener, MyInterface {
 
 
+    private var mVenueName: String=""
     var arrayList_details: ArrayList<String> = ArrayList()
     private var mVenueId: String = ""
     private var width: Int = 0
     var al: ArrayList<MySelectedTimeModel> = ArrayList()
     val dateFormat = SimpleDateFormat("dd-MM-yyyy")
+
     var sSelectedDate: String = ""
 
+
+    lateinit var currentDate: Date
+    lateinit var selectedDate: Date
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_venue_availability)
         initViews()
         listeners()
-        hitAPI("get_timmings")
+        hitAPI(FOR_VENUE_TIMMINGS)
     }
 
 
@@ -53,8 +57,12 @@ class CheckVenueAvailabilityActivity : Activity(), View.OnClickListener, MyInter
         getWindowManager()?.getDefaultDisplay()?.getMetrics(dimension)
         width = dimension.widthPixels
         mVenueId = intent.getStringExtra("venue_id")
-        sSelectedDate = dateFormat.format(Calendar.getInstance().time)
+        mVenueName=intent.getStringExtra("venue_name")
 
+
+        selectedDate = dateFormat.parse(dateFormat.format(Calendar.getInstance().time))
+        sSelectedDate = dateFormat.format(Calendar.getInstance().time)
+        currentDate=dateFormat.parse(dateFormat.format(Calendar.getInstance().time))
     }
 
     private fun listeners() {
@@ -63,7 +71,9 @@ class CheckVenueAvailabilityActivity : Activity(), View.OnClickListener, MyInter
         calendarView.setOnDateChangedListener(OnDateSelectedListener { widget, date, selected ->
             Log.e("", date.toString());
             sSelectedDate = dateFormat.format(date.date)
-            hitAPI("get_timmings")
+            selectedDate = dateFormat.parse(dateFormat.format(date.date))
+
+            hitAPI(FOR_VENUE_TIMMINGS)
             arrayList_details.clear()
             // KotlinUtils.dateFormatToSend()
         })
@@ -77,14 +87,19 @@ class CheckVenueAvailabilityActivity : Activity(), View.OnClickListener, MyInter
             R.id.tvBook -> {
                 Log.e("", "")
 
-                if(SharedPref.getString(Constants.PROFILE_TYPE,"").equals("Venue Manager"))
-                {
-                    Utils.showToast(this,"You can't book venue as a Venue Manager")
-                }
-                else
-                {
-                    val intent = Intent(this, BookVenueActivity::class.java).putExtra("venue_id", mVenueId)
-                    startActivity(intent)
+                if (SharedPref.getString(Constants.PROFILE_TYPE, "").equals("Venue Manager")) {
+                    Utils.showToast(this, "You can't book venue as a Venue Manager")
+                } else if (selectedDate.before(currentDate)) {
+                    Utils.showToast(this, "Selected date has passed")
+
+                } else {
+                     if (arrayList_details.size == 24) {
+                        Utils.showToast(this, "No booking time available")
+                    } else {
+                        val intent = Intent(this, BookVenueActivity::class.java).putExtra("venue_id", mVenueId).putExtra("selected_date",sSelectedDate).putExtra("venue_name",mVenueName)
+                        startActivity(intent)
+                    }
+
                 }
 
             }
@@ -92,10 +107,10 @@ class CheckVenueAvailabilityActivity : Activity(), View.OnClickListener, MyInter
         }
     }
 
-    private fun hitAPI(sType: String) {
+    private fun hitAPI(sType: Int) {
         if (KotlinUtils.isNetConnected(this)) {
             Utils.initializeAndShow(this)
-            if (sType.equals("get_timmings")) {
+            if (sType == FOR_VENUE_TIMMINGS) {
                 val json = JSONObject()
                 json.put("VenueId", mVenueId)
                 json.put("BookingAsOnDate", sSelectedDate)
@@ -118,13 +133,10 @@ class CheckVenueAvailabilityActivity : Activity(), View.OnClickListener, MyInter
 
                 for (i in 0..size - 1) {
                     var json_objectdetail: JSONObject = jsonArray.getJSONObject(i)
-                    var str=json_objectdetail.getString("BookingTime")
-                    if(str.length==4)
-                    {
-                        str="0"+str
-                    }
-                    else
-                    {
+                    var str = json_objectdetail.getString("BookingTime")
+                    if (str.length == 4) {
+                        str = "0" + str
+                    } else {
 
                     }
                     arrayList_details.add(str)
@@ -135,11 +147,10 @@ class CheckVenueAvailabilityActivity : Activity(), View.OnClickListener, MyInter
         setSlotsMethod();
 
 
-
     }
 
     fun setSlotsMethod() {
-    llAvailability.removeAllViews()
+        llAvailability.removeAllViews()
         val v = layoutInflater.inflate(R.layout.row_time_availability, null)
         val view1 = v.findViewById(R.id.view1) as View
         val view2 = v.findViewById(R.id.view2) as View
@@ -168,100 +179,100 @@ class CheckVenueAvailabilityActivity : Activity(), View.OnClickListener, MyInter
 
 
         if (arrayList_details.contains("01:00")) {
-            view2.setBackgroundResource(R.drawable.rect_time_available)
+            view2.setBackgroundResource(R.drawable.rect_time_not_available)
 
         }
         if (arrayList_details.contains("02:00")) {
-            view3.setBackgroundResource(R.drawable.rect_time_available)
+            view3.setBackgroundResource(R.drawable.rect_time_not_available)
 
         }
         if (arrayList_details.contains("03:00")) {
-            view4.setBackgroundResource(R.drawable.rect_time_available)
+            view4.setBackgroundResource(R.drawable.rect_time_not_available)
 
         }
         if (arrayList_details.contains("04:00")) {
-            view5.setBackgroundResource(R.drawable.rect_time_available)
+            view5.setBackgroundResource(R.drawable.rect_time_not_available)
 
         }
         if (arrayList_details.contains("05:00")) {
-            view6.setBackgroundResource(R.drawable.rect_time_available)
+            view6.setBackgroundResource(R.drawable.rect_time_not_available)
 
         }
         if (arrayList_details.contains("06:00")) {
-            view7.setBackgroundResource(R.drawable.rect_time_available)
+            view7.setBackgroundResource(R.drawable.rect_time_not_available)
 
         }
         if (arrayList_details.contains("07:00")) {
-            view8.setBackgroundResource(R.drawable.rect_time_available)
+            view8.setBackgroundResource(R.drawable.rect_time_not_available)
 
         }
         if (arrayList_details.contains("08:00")) {
-            view9.setBackgroundResource(R.drawable.rect_time_available)
+            view9.setBackgroundResource(R.drawable.rect_time_not_available)
 
         }
         if (arrayList_details.contains("09:00")) {
-            view10.setBackgroundResource(R.drawable.rect_time_available)
+            view10.setBackgroundResource(R.drawable.rect_time_not_available)
 
         }
         if (arrayList_details.contains("10:00")) {
-            view11.setBackgroundResource(R.drawable.rect_time_available)
+            view11.setBackgroundResource(R.drawable.rect_time_not_available)
 
         }
         if (arrayList_details.contains("11:00")) {
-            view12.setBackgroundResource(R.drawable.rect_time_available)
+            view12.setBackgroundResource(R.drawable.rect_time_not_available)
 
         }
         if (arrayList_details.contains("12:00")) {
-            view13.setBackgroundResource(R.drawable.rect_time_available)
+            view13.setBackgroundResource(R.drawable.rect_time_not_available)
 
         }
         if (arrayList_details.contains("13:00")) {
-            view14.setBackgroundResource(R.drawable.rect_time_available)
+            view14.setBackgroundResource(R.drawable.rect_time_not_available)
 
         }
         if (arrayList_details.contains("14:00")) {
-            view15.setBackgroundResource(R.drawable.rect_time_available)
+            view15.setBackgroundResource(R.drawable.rect_time_not_available)
 
         }
         if (arrayList_details.contains("15:00")) {
-            view16.setBackgroundResource(R.drawable.rect_time_available)
+            view16.setBackgroundResource(R.drawable.rect_time_not_available)
 
         }
         if (arrayList_details.contains("16:00")) {
-            view17.setBackgroundResource(R.drawable.rect_time_available)
+            view17.setBackgroundResource(R.drawable.rect_time_not_available)
 
         }
         if (arrayList_details.contains("17:00")) {
-            view18.setBackgroundResource(R.drawable.rect_time_available)
+            view18.setBackgroundResource(R.drawable.rect_time_not_available)
 
         }
         if (arrayList_details.contains("18:00")) {
-            view19.setBackgroundResource(R.drawable.rect_time_available)
+            view19.setBackgroundResource(R.drawable.rect_time_not_available)
 
         }
         if (arrayList_details.contains("19:00")) {
-            view20.setBackgroundResource(R.drawable.rect_time_available)
+            view20.setBackgroundResource(R.drawable.rect_time_not_available)
 
         }
         if (arrayList_details.contains("20:00")) {
-            view21.setBackgroundResource(R.drawable.rect_time_available)
+            view21.setBackgroundResource(R.drawable.rect_time_not_available)
 
         }
         if (arrayList_details.contains("21:00")) {
-            view22.setBackgroundResource(R.drawable.rect_time_available)
+            view22.setBackgroundResource(R.drawable.rect_time_not_available)
 
         }
         if (arrayList_details.contains("22:00")) {
-            view23.setBackgroundResource(R.drawable.rect_time_available)
+            view23.setBackgroundResource(R.drawable.rect_time_not_available)
 
         }
 
         if (arrayList_details.contains("23:00")) {
-            view24.setBackgroundResource(R.drawable.rect_time_available)
+            view24.setBackgroundResource(R.drawable.rect_time_not_available)
 
         }
         if (arrayList_details.contains("00:00")) {
-            view1.setBackgroundResource(R.drawable.rect_time_available)
+            view1.setBackgroundResource(R.drawable.rect_time_not_available)
 
         }
 

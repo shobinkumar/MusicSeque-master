@@ -4,6 +4,8 @@ import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.LinearLayoutManager.VERTICAL
 import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
@@ -126,7 +128,7 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
 
 
     internal var endHashMap = HashMap<String, java.util.ArrayList<String>>()
-
+   var mSelectedDate:String=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -153,7 +155,7 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
 
 
 
-        recyclerEvent?.layoutManager = GridLayoutManager(this, 2)
+        recyclerEvent?.layoutManager = LinearLayoutManager(this, VERTICAL,false)
         seekBarPrice.setOnSeekbarChangeListener { }
         seekBarPrice.setOnSeekbarChangeListener(OnSeekbarChangeListener { minValue -> tvBudgetPerGuest.setText(minValue.toString()) })
         rlAttendence.getViewTreeObserver().addOnGlobalLayoutListener(ViewTreeObserver.OnGlobalLayoutListener { mWidthCode = rlAttendence.getMeasuredWidth() })
@@ -163,7 +165,10 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
         rlStartTime.getViewTreeObserver().addOnGlobalLayoutListener(ViewTreeObserver.OnGlobalLayoutListener { mWidthCode = rlStartTime.getMeasuredWidth() })
         dateFormat = SimpleDateFormat("dd-MM-yyyy")
         timeFormat = SimpleDateFormat("HH:mm")
+        mSelectedDate=intent.getStringExtra("selected_date")
 
+        tvStartDate.text=mSelectedDate
+        tvVenueName.text=intent.getStringExtra("venue_name")
 
     }
 

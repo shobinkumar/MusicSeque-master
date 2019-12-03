@@ -19,7 +19,7 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
-            android:background="@drawable/rectangle_time_not_available" />
+            android:background="@drawable/rect_time_available" />
 
         <View
             android:id="@+id/view2"
@@ -27,7 +27,7 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
-            android:background="@drawable/rectangle_time_not_available" />
+            android:background="@drawable/rect_time_available" />
 
         <View
             android:id="@+id/view3"
@@ -35,7 +35,7 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
-            android:background="@drawable/rectangle_time_not_available" />
+            android:background="@drawable/rect_time_available" />
 
         <View
             android:id="@+id/view4"
@@ -43,7 +43,7 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
-            android:background="@drawable/rectangle_time_not_available" />
+            android:background="@drawable/rect_time_available" />
 
         <View
             android:id="@+id/view5"
@@ -51,7 +51,7 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
-            android:background="@drawable/rectangle_time_not_available" />
+            android:background="@drawable/rect_time_available" />
 
         <View
             android:id="@+id/view6"
@@ -59,7 +59,7 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
-            android:background="@drawable/rectangle_time_not_available" />
+            android:background="@drawable/rect_time_available" />
 
         <View
             android:id="@+id/view7"
@@ -67,7 +67,7 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
-            android:background="@drawable/rectangle_time_not_available" />
+            android:background="@drawable/rect_time_available" />
 
         <View
             android:id="@+id/view8"
@@ -75,7 +75,7 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
-            android:background="@drawable/rectangle_time_not_available" />
+            android:background="@drawable/rect_time_available" />
 
         <View
             android:id="@+id/view9"
@@ -83,7 +83,7 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
-            android:background="@drawable/rectangle_time_not_available" />
+            android:background="@drawable/rect_time_available" />
 
         <View
             android:id="@+id/view10"
@@ -91,7 +91,7 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
-            android:background="@drawable/rectangle_time_not_available" />
+            android:background="@drawable/rect_time_available" />
 
         <View
             android:id="@+id/view11"
@@ -99,7 +99,7 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
-            android:background="@drawable/rectangle_time_not_available" />
+            android:background="@drawable/rect_time_available" />
 
         <View
             android:id="@+id/view12"
@@ -107,7 +107,7 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
-            android:background="@drawable/rectangle_time_not_available" />
+            android:background="@drawable/rect_time_available" />
 
         <View
             android:id="@+id/view13"
@@ -115,7 +115,7 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
-            android:background="@drawable/rectangle_time_not_available" />
+            android:background="@drawable/rect_time_available" />
 
         <View
             android:id="@+id/view14"
@@ -123,7 +123,7 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
-            android:background="@drawable/rectangle_time_not_available" />
+            android:background="@drawable/rect_time_available" />
 
         <View
             android:id="@+id/view15"
@@ -131,7 +131,7 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
-            android:background="@drawable/rectangle_time_not_available" />
+            android:background="@drawable/rect_time_available" />
 
         <View
             android:id="@+id/view16"
@@ -139,7 +139,7 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
-            android:background="@drawable/rectangle_time_not_available" />
+            android:background="@drawable/rect_time_available" />
 
         <View
             android:id="@+id/view17"
@@ -147,7 +147,7 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
-            android:background="@drawable/rectangle_time_not_available" />
+            android:background="@drawable/rect_time_available" />
 
         <View
             android:id="@+id/view18"
@@ -155,7 +155,7 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
-            android:background="@drawable/rectangle_time_not_available" />
+            android:background="@drawable/rect_time_available" />
 
         <View
             android:id="@+id/view19"
@@ -163,7 +163,7 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
-            android:background="@drawable/rectangle_time_not_available" />
+            android:background="@drawable/rect_time_available" />
 
         <View
             android:id="@+id/view20"
@@ -171,7 +171,7 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
-            android:background="@drawable/rectangle_time_not_available" />
+            android:background="@drawable/rect_time_available" />
 
         <View
             android:id="@+id/view21"
@@ -180,7 +180,7 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
-            android:background="@drawable/rectangle_time_not_available" />
+            android:background="@drawable/rect_time_available" />
 
         <View
             android:id="@+id/view22"
@@ -189,7 +189,7 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
-            android:background="@drawable/rectangle_time_not_available" />
+            android:background="@drawable/rect_time_available" />
 
         <View
             android:id="@+id/view23"
@@ -198,7 +198,7 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
-            android:background="@drawable/rectangle_time_not_available" />
+            android:background="@drawable/rect_time_available" />
 
         <View
             android:id="@+id/view24"
@@ -207,7 +207,7 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
-            android:background="@drawable/rectangle_time_not_available" />
+            android:background="@drawable/rect_time_available" />
     </LinearLayout>
 
 

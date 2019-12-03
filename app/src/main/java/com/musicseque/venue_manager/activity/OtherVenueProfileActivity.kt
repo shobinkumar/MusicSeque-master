@@ -70,12 +70,13 @@ class OtherVenueProfileActivity : BaseActivity(), MyInterface, View.OnClickListe
                 finish()
             }
             R.id.tvAvailability -> {
-                val intent = Intent(this, CheckVenueAvailabilityActivity::class.java).putExtra("venue_id", mVenueId)
+                val intent = Intent(this, CheckVenueAvailabilityActivity::class.java).putExtra("venue_id", mVenueId).putExtra("venue_name",mVenueName)
                 startActivity(intent)
             }
         }
     }
 
+    private var mVenueName: String=""
     lateinit var mVenueId: String
 
 
@@ -94,8 +95,6 @@ class OtherVenueProfileActivity : BaseActivity(), MyInterface, View.OnClickListe
         img_first_icon.visibility = View.VISIBLE
         mVenueId = intent.getStringExtra("venue_id")
         hitAPI(FOR_USER_PROFILE)
-        openFragment(VenueGigsFragment())
-        changeBackgroundColor(ivGigs, tvGigs, resources.getDrawable(R.drawable.icon_gigs_active), resources.getString(R.string.txt_gigs), ivVideo, tvVideo, getResources().getDrawable(R.drawable.icon_videos), getResources().getString(R.string.txt_video),ivImage, tvImage, getResources().getDrawable(R.drawable.icon_photos), getResources().getString(R.string.txt_image), ivMember, tvMember, resources.getDrawable(R.drawable.icon_collaborators), resources.getString(R.string.txt_members))
 
     }
 
@@ -103,6 +102,8 @@ class OtherVenueProfileActivity : BaseActivity(), MyInterface, View.OnClickListe
         if (fragment is VenueGigsFragment) {
             val args = Bundle()
             args.putString("venue_id", mVenueId)
+            args.putString("venue_name", mVenueName)
+
             fragment.setArguments(args)
         }
         val manager = supportFragmentManager
@@ -155,6 +156,9 @@ class OtherVenueProfileActivity : BaseActivity(), MyInterface, View.OnClickListe
 
                 Constants.FOR_USER_PROFILE -> {
                     try {
+
+
+                        mVenueName=jsonObj.getString("FirstName") + " " + jsonObj.getString("LastName")
                         tvUserNameDetail.setText(jsonObj.getString("FirstName") + " " + jsonObj.getString("LastName"))
                         tvUserID.text = SharedPref.getString(Constants.UNIQUE_CODE, "")
                         tvUserLocation.setText(jsonObj.getString("City") + ", " + jsonObj.getString("CountryName"))
@@ -188,6 +192,8 @@ class OtherVenueProfileActivity : BaseActivity(), MyInterface, View.OnClickListe
                         e.printStackTrace()
                     }
 
+                    openFragment(VenueGigsFragment())
+                    changeBackgroundColor(ivGigs, tvGigs, resources.getDrawable(R.drawable.icon_gigs_active), resources.getString(R.string.txt_gigs), ivVideo, tvVideo, getResources().getDrawable(R.drawable.icon_videos), getResources().getString(R.string.txt_video),ivImage, tvImage, getResources().getDrawable(R.drawable.icon_photos), getResources().getString(R.string.txt_image), ivMember, tvMember, resources.getDrawable(R.drawable.icon_collaborators), resources.getString(R.string.txt_members))
 
                 }
 
