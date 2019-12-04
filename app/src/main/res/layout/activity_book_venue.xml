@@ -125,7 +125,7 @@
                     android:layout_centerVertical="true"
                     android:padding="10dp"
                     android:src="@drawable/icon_arrow_down"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
 
                 <ImageView
                     android:id="@+id/iconUpEventType"
@@ -135,13 +135,14 @@
                     android:padding="10dp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/icon_arrow_up"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
             </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerEvent"
+                android:visibility="gone"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="90dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -420,6 +421,21 @@
             </RelativeLayout>
 
 
+
+            <com.musicseque.Fonts.NoyhrEditText
+                android:id="@+id/etBudgetPerGuest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/color_edit_text"
+                android:padding="@dimen/_5sdp"
+                android:inputType="number"
+                android:maxLength="3"
+                android:hint="0"
+                android:textColorHint="@color/color_white_hint"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_16sdp" />
+
             <TextView
                 android:id="@+id/tvBudgetPerGuest"
                 android:layout_width="wrap_content"
@@ -429,10 +445,16 @@
                 android:text="0"
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/_16sdp" />
-            <com.crystal.crystalrangeseekbar.widgets.BubbleThumbSeekbar
+
+
+
+
+            <android.support.v7.widget.AppCompatSeekBar
                 android:id="@+id/seekBarPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxHeight="10dp"
+                android:minHeight="10dp"
                 app:corner_radius="10"
                 app:min_value="0"
                 app:max_value="100"
@@ -473,226 +495,3 @@
 
 
 
-<!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    android:background="@color/color_app_background"-->
-<!--    android:orientation="vertical">-->
-
-<!--    <include-->
-<!--        android:id="@+id/ll"-->
-<!--        layout="@layout/toolbar_top" />-->
-
-<!--    -->
-<!--    -->
-<!--    -->
-<!--    -->
-<!--    -->
-<!--    -->
-<!--    -->
-
-<!--    <RelativeLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@+id/ll"-->
-<!--        android:padding="20dp">-->
-
-<!--        <com.musicseque.Fonts.Noyhr-->
-<!--            android:id="@+id/txtGig"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Select Event Name"-->
-<!--            android:textColor="@color/color_white"-->
-<!--            android:textSize="16sp" />-->
-
-<!--        <RelativeLayout-->
-<!--            android:id="@+id/rl"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@+id/txtGig"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:background="@android:color/transparent">-->
-
-<!--            <com.musicseque.Fonts.Noyhr-->
-<!--                android:id="@+id/tvEventName"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:background="#0C1C24"-->
-<!--                android:hint="Select Event Name"-->
-<!--                android:paddingLeft="@dimen/_10sdp"-->
-<!--                android:paddingTop="@dimen/_5sdp"-->
-<!--                android:paddingRight="@dimen/_5sdp"-->
-<!--                android:paddingBottom="@dimen/_5sdp"-->
-<!--                android:textColor="@color/color_white"-->
-<!--                android:textColorHint="@color/color_white_hint"-->
-<!--                android:textSize="@dimen/_15sdp"-->
-
-<!--                />-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/eventArrow"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_alignParentRight="true"-->
-<!--                android:layout_centerVertical="true"-->
-<!--                android:layout_marginRight="5dp"-->
-<!--                android:src="@drawable/arrowdown" />-->
-<!--        </RelativeLayout>-->
-
-
-<!--        <com.musicseque.Fonts.Noyhr-->
-<!--            android:id="@+id/tvStart"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@+id/rl"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:text="Start Date/Time "-->
-<!--            android:textColor="@color/color_white"-->
-<!--            android:textSize="16sp" />-->
-
-<!--        <LinearLayout-->
-<!--            android:id="@+id/llStart"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@+id/tvStart"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:paddingTop="15dp"-->
-<!--            android:weightSum="100">-->
-
-
-<!--            <LinearLayout-->
-<!--                android:id="@+id/llStartDate"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginRight="15dp"-->
-<!--                android:layout_weight="70"-->
-<!--                android:orientation="vertical">-->
-
-<!--                <com.musicseque.Fonts.Noyhr-->
-<!--                    android:id="@+id/tvStartDate"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:hint="Select Date"-->
-<!--                    android:textColor="@color/color_white"-->
-<!--                    android:textColorHint="@color/color_white"-->
-<!--                    android:textSize="18sp" />-->
-
-<!--                <View-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="1dp"-->
-<!--                    android:layout_marginTop="8dp"-->
-<!--                    android:background="@color/color_white" />-->
-<!--            </LinearLayout>-->
-
-<!--            <LinearLayout-->
-<!--                android:id="@+id/llStartTime"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="30"-->
-<!--                android:orientation="vertical">-->
-
-<!--                <com.musicseque.Fonts.Noyhr-->
-<!--                    android:id="@+id/tvStartTime"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:hint="Select Time"-->
-<!--                    android:textColor="@color/color_white"-->
-
-<!--                    android:textColorHint="@color/color_white"-->
-<!--                    android:textSize="15sp" />-->
-
-<!--                <View-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="1dp"-->
-<!--                    android:layout_marginTop="8dp"-->
-<!--                    android:background="@color/color_white" />-->
-<!--            </LinearLayout>-->
-<!--        </LinearLayout>-->
-
-<!--        <com.musicseque.Fonts.Noyhr-->
-<!--            android:id="@+id/llEnd"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@+id/llStart"-->
-<!--            android:layout_marginTop="25dp"-->
-<!--            android:text="End Date/Time "-->
-<!--            android:textColor="@color/color_white"-->
-<!--            android:textSize="16sp" />-->
-
-<!--        <LinearLayout-->
-<!--            android:id="@+id/llEndDateDateTime"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@+id/llEnd"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:paddingTop="15dp"-->
-<!--            android:weightSum="100">-->
-
-
-<!--            <LinearLayout-->
-<!--                android:id="@+id/llEndDate"-->
-
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginRight="15dp"-->
-<!--                android:layout_weight="70"-->
-<!--                android:orientation="vertical">-->
-
-<!--                <com.musicseque.Fonts.Noyhr-->
-<!--                    android:id="@+id/tvEndDate"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:hint="Select Date"-->
-<!--                    android:textColor="@color/color_white"-->
-
-<!--                    android:textColorHint="@color/color_white"-->
-<!--                    android:textSize="18sp" />-->
-
-<!--                <View-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="1dp"-->
-<!--                    android:layout_marginTop="8dp"-->
-<!--                    android:background="@color/color_white" />-->
-<!--            </LinearLayout>-->
-
-<!--            <LinearLayout-->
-<!--                android:id="@+id/llEndTime"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="30"-->
-<!--                android:orientation="vertical">-->
-
-<!--                <com.musicseque.Fonts.Noyhr-->
-<!--                    android:id="@+id/tvEndTime"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:hint="Select Time"-->
-<!--                    android:textColor="@color/color_white"-->
-<!--                    android:textColorHint="@color/color_white"-->
-<!--                    android:textSize="15sp" />-->
-
-<!--                <View-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="1dp"-->
-<!--                    android:layout_marginTop="8dp"-->
-<!--                    android:background="@color/color_white" />-->
-<!--            </LinearLayout>-->
-<!--        </LinearLayout>-->
-<!--    </RelativeLayout>-->
-
-<!--    <com.musicseque.Fonts.Noyhr-->
-<!--        android:id="@+id/tvSendRequest"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:background="@drawable/rectangle_orange"-->
-<!--        android:paddingLeft="20dp"-->
-<!--        android:paddingTop="10dp"-->
-<!--        android:paddingRight="20dp"-->
-<!--        android:paddingBottom="10dp"-->
-<!--        android:text="Send Request"-->
-<!--        android:textColor="@color/color_white"-->
-<!--        android:textSize="18sp" />-->
-<!--</LinearLayout>-->

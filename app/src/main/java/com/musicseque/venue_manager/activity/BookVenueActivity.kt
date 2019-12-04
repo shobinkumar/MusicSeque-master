@@ -3,15 +3,15 @@ package com.musicseque.venue_manager.activity
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.LinearLayoutManager.VERTICAL
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.*
 import com.bumptech.glide.Glide
-import com.crystal.crystalrangeseekbar.interfaces.OnSeekbarChangeListener
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.musicseque.MainActivity
@@ -19,7 +19,6 @@ import com.musicseque.R
 import com.musicseque.activities.BaseActivity
 import com.musicseque.event_manager.adapter.EventAdapter
 import com.musicseque.event_manager.model.CurrencyModel
-import com.musicseque.event_manager.model.EventListModel
 import com.musicseque.event_manager.model.EventModel
 import com.musicseque.interfaces.MyInterface
 import com.musicseque.interfaces.SpinnerData
@@ -36,25 +35,6 @@ import com.musicseque.venue_manager.others.TimeInterface
 import com.musicseque.venue_manager.others.ToDialogTime
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import kotlinx.android.synthetic.main.activity_book_venue.*
-import kotlinx.android.synthetic.main.activity_book_venue.etAttendence
-import kotlinx.android.synthetic.main.activity_book_venue.etEventDescription
-import kotlinx.android.synthetic.main.activity_book_venue.etEventName
-import kotlinx.android.synthetic.main.activity_book_venue.ivAddImage
-import kotlinx.android.synthetic.main.activity_book_venue.ivProfile
-import kotlinx.android.synthetic.main.activity_book_venue.recyclerEvent
-import kotlinx.android.synthetic.main.activity_book_venue.rlAttendence
-import kotlinx.android.synthetic.main.activity_book_venue.rlBudgetGuestCurrency
-import kotlinx.android.synthetic.main.activity_book_venue.rlStartTime
-import kotlinx.android.synthetic.main.activity_book_venue.seekBarPrice
-import kotlinx.android.synthetic.main.activity_book_venue.tvBudgetPerGuest
-import kotlinx.android.synthetic.main.activity_book_venue.tvCurrency
-import kotlinx.android.synthetic.main.activity_book_venue.tvEndDate
-import kotlinx.android.synthetic.main.activity_book_venue.tvEndTime
-import kotlinx.android.synthetic.main.activity_book_venue.tvStartDate
-import kotlinx.android.synthetic.main.activity_book_venue.tvStartTime
-import kotlinx.android.synthetic.main.activity_create_event.*
-
-
 import kotlinx.android.synthetic.main.toolbar_top.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -128,7 +108,7 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
 
 
     internal var endHashMap = HashMap<String, java.util.ArrayList<String>>()
-   var mSelectedDate:String=""
+    var mSelectedDate: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -155,9 +135,26 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
 
 
 
-        recyclerEvent?.layoutManager = LinearLayoutManager(this, VERTICAL,false)
-        seekBarPrice.setOnSeekbarChangeListener { }
-        seekBarPrice.setOnSeekbarChangeListener(OnSeekbarChangeListener { minValue -> tvBudgetPerGuest.setText(minValue.toString()) })
+        recyclerEvent?.layoutManager = LinearLayoutManager(this, VERTICAL, false)
+        seekBarPrice.setOnSeekBarChangeListener(object :
+                SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seek: SeekBar,
+                                           progress: Int, fromUser: Boolean) {
+                tvBudgetPerGuest.setText(progress.toString())
+                etBudgetPerGuest.setText(progress.toString())
+            }
+
+            override fun onStartTrackingTouch(seek: SeekBar) {
+                // write custom code for progress is started
+            }
+
+            override fun onStopTrackingTouch(seek: SeekBar) {
+                // write custom code for progress is stopped
+
+            }
+        })
+
+
         rlAttendence.getViewTreeObserver().addOnGlobalLayoutListener(ViewTreeObserver.OnGlobalLayoutListener { mWidthCode = rlAttendence.getMeasuredWidth() })
 
 
@@ -165,10 +162,11 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
         rlStartTime.getViewTreeObserver().addOnGlobalLayoutListener(ViewTreeObserver.OnGlobalLayoutListener { mWidthCode = rlStartTime.getMeasuredWidth() })
         dateFormat = SimpleDateFormat("dd-MM-yyyy")
         timeFormat = SimpleDateFormat("HH:mm")
-        mSelectedDate=intent.getStringExtra("selected_date")
+        mSelectedDate = intent.getStringExtra("selected_date")
 
-        tvStartDate.text=mSelectedDate
-        tvVenueName.text=intent.getStringExtra("venue_name")
+        mStartDate = mSelectedDate;
+        tvStartDate.text = mSelectedDate
+        tvVenueName.text = intent.getStringExtra("venue_name")
 
     }
 
@@ -182,12 +180,59 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
         tvEndTime.setOnClickListener(this)
         tvSendRequest.setOnClickListener(this)
         ivAddImage.setOnClickListener(this)
+        iconDownEventType.setOnClickListener(this)
+        iconUpEventType.setOnClickListener(this)
+        etBudgetPerGuest.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(str: Editable?) {
+                if (str?.length == 0) {
+                    tvBudgetPerGuest.text = 0.toString()
+                    seekBarPrice.setProgress(0)
+                } else {
+                    tvBudgetPerGuest.text = str.toString()
+                    var value = str.toString()
+                    if (str!!.length > 1) {
+                        if (str.startsWith("0")) {
+                            value = str.substring(1)
+                        }
+
+                    }
+
+                    seekBarPrice.setProgress(Integer.parseInt(value))
+                    etBudgetPerGuest.setSelection(value.length)
+
+
+                }
+
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(str: CharSequence?, start: Int, before: Int, count: Int) {
+
+
+            }
+        })
 
         // eventArrow.setOnClickListener(this)
     }
 
     override fun onClick(view: View) {
         when (view.id) {
+
+
+            R.id.iconDownEventType -> {
+                recyclerEvent.setVisibility(View.VISIBLE)
+                iconDownEventType.setVisibility(View.GONE)
+                iconUpEventType.setVisibility(View.VISIBLE)
+            }
+            R.id.iconUpEventType -> {
+                recyclerEvent.setVisibility(View.GONE)
+                iconDownEventType.setVisibility(View.VISIBLE)
+                iconUpEventType.setVisibility(View.GONE)
+            }
+
+
             R.id.img_first_icon -> {
                 finish()
             }
@@ -224,32 +269,29 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
                 val mCurrency = tvCurrency.text.toString()
                 val mBudgetGuest = tvBudgetPerGuest.text.toString()
                 if (KotlinUtils.checkEmpty(mEventName)) {
-                    Utils.showToast(this,resources.getString(R.string.err_event_name))
+                    Utils.showToast(this, resources.getString(R.string.err_event_name))
                 } else if (KotlinUtils.checkEmpty(mDescription)) {
-                    Utils.showToast(this,resources.getString(R.string.err_event_desc))
+                    Utils.showToast(this, resources.getString(R.string.err_event_desc))
 
                 } else if (KotlinUtils.checkEmpty(mEventTypeId)) {
-                    Utils.showToast(this,resources.getString(R.string.err_event_type))
+                    Utils.showToast(this, resources.getString(R.string.err_event_type))
 
                 } else if (KotlinUtils.checkEmpty(mStartDate)) {
-                    Utils.showToast(this,resources.getString(R.string.err_event_start_date))
+                    Utils.showToast(this, resources.getString(R.string.err_event_start_date))
                 } else if (KotlinUtils.checkEmpty(mEndDate)) {
-                    Utils.showToast(this,resources.getString(R.string.err_event_end_date))
+                    Utils.showToast(this, resources.getString(R.string.err_event_end_date))
 
                 } else if (KotlinUtils.checkEmpty(mStartTime)) {
-                    Utils.showToast(this,resources.getString(R.string.err_event_start_time))
+                    Utils.showToast(this, resources.getString(R.string.err_event_start_time))
                 } else if (KotlinUtils.checkEmpty(mEndTime)) {
-                    Utils.showToast(this,resources.getString(R.string.err_event_end_time))
+                    Utils.showToast(this, resources.getString(R.string.err_event_end_time))
 
                 } else if (KotlinUtils.checkEmpty(mAttendence)) {
-                    Utils.showToast(this,resources.getString(R.string.err_event_guest_count))
-                }
-                else if (KotlinUtils.checkEmpty(mCurrency)) {
-                    Utils.showToast(this,resources.getString(R.string.err_currency))
-                }
-
-                else if (mBudgetGuest.equals("0")) {
-                    Utils.showToast(this,resources.getString(R.string.err_event_guest_budget_0))
+                    Utils.showToast(this, resources.getString(R.string.err_event_guest_count))
+                } else if (KotlinUtils.checkEmpty(mCurrency)) {
+                    Utils.showToast(this, resources.getString(R.string.err_currency))
+                } else if (mBudgetGuest.equals("0")) {
+                    Utils.showToast(this, resources.getString(R.string.err_event_guest_budget_0))
 
                 } else {
 
@@ -270,7 +312,7 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
                     obj.put("EventChargesPayCurrencyId", mCurrencyId)
                     obj.put("EventBudget", mBudgetGuest)
                     obj.put("EventManagerId", SharedPref.getString(Constants.USER_ID, ""))
-                    obj.put("EventVenueId",mVenueId)
+                    obj.put("EventVenueId", mVenueId)
 
                     hitAPI(FOR_SAVE_UPDATE_EVENT_DETAIL, obj.toString())
 
@@ -278,93 +320,42 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//                    getDateTimeDetails()
-//                    if (mEventName.equals("")) {
-//                        Utils.showToast(this, resources.getString(R.string.err_event_name))
-//                    } else if (mStartDate.equals("")) {
-//                        Utils.showToast(this, resources.getString(R.string.err_event_start_date))
-//                    } else if (mStartTime.equals("")) {
-//                        Utils.showToast(this, resources.getString(R.string.err_event_start_time))
-//                    } else if (mEndDate.equals("")) {
-//                        Utils.showToast(this, resources.getString(R.string.err_event_end_date))
-//                    } else if (mEndTime.equals("")) {
-//                        Utils.showToast(this, resources.getString(R.string.err_event_end_time))
-//
-//                    } else {
-////                    mStartDate = newFormat.format(oldFormat.parse(mStartDate))
-////                    mEndDate = newFormat.format(oldFormat.parse(mEndDate))
-//                        val json = JSONObject()
-//                        json.put("VenueId", mVenueId)
-//                        json.put("EventId", mEventId)
-//                        json.put("ArtistId", SharedPref.getString(Constants.USER_ID, ""))
-//                        json.put("VenueBookingFrom", mStartDate)
-//                        json.put("VenueBookingTo", mEndDate)
-//                        json.put("VenueBookingFromTime", mStartTime)
-//                        json.put("VenueBookingToTime", mEndTime)
-//                        json.put("BookingType", "0")
-//                        json.put("BookingStatus", "P")
-//                        hitAPI(FOR_VENUE_BOOK, json.toString())
-//                        //KotlinHitAPI.callAPI(json.toString(), FOR_VENUE_BOOK, this)
-//                    }
-
-
                 }
             }
 
             R.id.tvStartDate -> {
 
-                    FOR_START_DATE = true
-                    dpd = null
-                    if (dpd == null) {
-                        dpd = DatePickerDialog.newInstance(
-                                this,
-                                now.get(Calendar.YEAR),
-                                now.get(Calendar.MONTH),
-                                now.get(Calendar.DAY_OF_MONTH)
-                        )
+                FOR_START_DATE = true
+                dpd = null
+                if (dpd == null) {
+                    dpd = DatePickerDialog.newInstance(
+                            this,
+                            now.get(Calendar.YEAR),
+                            now.get(Calendar.MONTH),
+                            now.get(Calendar.DAY_OF_MONTH)
+                    )
+                }
+                dpd?.minDate = now
+                dpd?.maxDate = addSixMonthsCalendar
+
+                if (alBookings.size > 0) {
+                    listStartDate.clear()
+                    getDisabledDays()
+
+                    val alDate = java.util.ArrayList<Calendar>()
+                    for (i in listStartDate) {
+                        val calendar = Calendar.getInstance()
+                        val data = i.split("-")
+
+                        calendar.set(Calendar.YEAR, Integer.parseInt(data[2]))
+                        calendar.set(Calendar.MONTH, Integer.parseInt(data[1]) - 1)
+                        calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(data[0]))
+                        alDate.add(calendar)
                     }
-                    dpd?.minDate = now
-                    dpd?.maxDate = addSixMonthsCalendar
+                    var days = arrayOfNulls<Calendar>(alDate.size)
+                    days = alDate.toTypedArray<Calendar?>()
 
-                    if (alBookings.size > 0) {
-                        listStartDate.clear()
-                        getDisabledDays()
-
-                        val alDate = java.util.ArrayList<Calendar>()
-                        for (i in listStartDate) {
-                            val calendar = Calendar.getInstance()
-                            val data = i.split("-")
-
-                            calendar.set(Calendar.YEAR, Integer.parseInt(data[2]))
-                            calendar.set(Calendar.MONTH, Integer.parseInt(data[1]) - 1)
-                            calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(data[0]))
-                            alDate.add(calendar)
-                        }
-                        var days = arrayOfNulls<Calendar>(alDate.size)
-                        days = alDate.toTypedArray<Calendar?>()
-
-                        dpd!!.disabledDays = days
-
-
-
-
-
+                    dpd!!.disabledDays = days
 
 
                 }
@@ -644,8 +635,7 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
                 KotlinHitAPI.callGetAPI(FOR_EVENT_TYPE_LIST, this)
             } else if (type == FOR_CURRENCY_LIST) {
                 KotlinHitAPI.callGetAPI(FOR_CURRENCY_LIST, this)
-            }
-            else if (type == FOR_SAVE_UPDATE_EVENT_DETAIL) {
+            } else if (type == FOR_SAVE_UPDATE_EVENT_DETAIL) {
                 KotlinHitAPI.callAPI(str, FOR_SAVE_UPDATE_EVENT_DETAIL, this)
             }
 
@@ -683,11 +673,11 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
                 Log.e("", "")
 
 
-
+                val alDate = java.util.ArrayList<Calendar>()
                 if (alBookingsEnd.size > 0) {
                     //getEnabledDays()
                     val hashMapSorted = endHashMap.toList().sortedBy { (key, _) -> key }.toMap()
-                    val alDate = java.util.ArrayList<Calendar>()
+
                     for ((k, v) in hashMapSorted) {
 
 
@@ -697,7 +687,10 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
                         calendar.set(Calendar.YEAR, Integer.parseInt(data[2]))
                         calendar.set(Calendar.MONTH, Integer.parseInt(data[1]) - 1)
                         calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(data[0]))
-                        alDate.add(calendar)
+                        if (mStartDate.equals(k)) {
+                            alDate.add(calendar)
+                        }
+
                     }
                     var days = arrayOfNulls<Calendar>(alDate.size)
                     days = alDate.toTypedArray<Calendar?>()
@@ -706,7 +699,10 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
 
 
                 }
+                if(alDate.size>0)
                 dpd!!.show(fragmentManager, "Datepickerdialog")
+                else
+                    Utils.showToast(this,"Please change your Start Date/Time")
 
             } else {
                 Utils.showToast(this, "Please change your Start Date/Time")
@@ -724,9 +720,7 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
 
             }
 
-        }
-        else if (TYPE == FOR_VENUE_BOOK)
-        {
+        } else if (TYPE == FOR_VENUE_BOOK) {
             val obj = JSONObject(response.toString())
             if (obj.getString("Status").equals("Success", false)) {
                 if (Utils.isNetworkConnected(this)) {
@@ -749,11 +743,10 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
             } else {
 
             }
-        }
-        else if (TYPE == FOR_SAVE_UPDATE_EVENT_DETAIL) {
+        } else if (TYPE == FOR_SAVE_UPDATE_EVENT_DETAIL) {
             val obj = JSONObject(response.toString())
             if (obj.getString("Status").equals("Success", false)) {
-                mEventId=obj.getString("EventId")
+                mEventId = obj.getString("EventId")
                 if (Utils.isNetworkConnected(this)) {
 
                     if (uploadFile != null) {
@@ -771,8 +764,7 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
             } else {
 
             }
-        }
-        else if(TYPE==FOR_UPLOAD_EVENT_PROFILE_IMAGE)  {
+        } else if (TYPE == FOR_UPLOAD_EVENT_PROFILE_IMAGE) {
             val jsonObj = JSONObject(response.toString())
             if (jsonObj.getString("Status").equals("Success", true)) {
                 dialogRequest()
@@ -816,7 +808,6 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
         })
         listPopupWindow.show()
     }
-
 
 
     private fun getTimmingsHashMap(arraylist: java.util.ArrayList<MySelectedTimeModel>, hashmap: HashMap<String, java.util.ArrayList<String>>) {
@@ -911,6 +902,7 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
 
 
     }
+
     private fun getEventsId() {
         for (item in eventsList) {
             if (item.isSelected) {
@@ -925,6 +917,7 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
             mEventTypeId = mEventTypeId.substring(1, mEventTypeId.length)
 
     }
+
     public fun getImage(file: File, fileToUpload: MultipartBody.Part, mUSerId: RequestBody, name: String) {
         Glide.with(this).load(file).into(ivProfile)
         uploadFile = fileToUpload
