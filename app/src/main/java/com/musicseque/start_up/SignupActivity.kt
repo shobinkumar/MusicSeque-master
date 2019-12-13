@@ -2,12 +2,10 @@ package com.musicseque.start_up
 
 import android.app.Activity
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
-import android.text.Html
 import android.text.InputFilter
 import android.text.SpannableString
 import android.text.Spanned
@@ -26,7 +24,6 @@ import android.widget.ListView
 import android.widget.RelativeLayout
 import android.widget.Spinner
 import android.widget.TextView
-import android.widget.Toast
 
 import com.musicseque.Fonts.NoyhrEditText
 import com.musicseque.R
@@ -74,10 +71,6 @@ class SignupActivity : Activity(), View.OnClickListener, MyInterface, TextWatche
     private var prevString: String? = null
     internal var mCountryCode = ""
 
-
-    //    SharedPreferences sharedPreferences;
-    //    SharedPreferences.Editor editor;
-    //    private RetrofitComponent retrofitComponent;
     private var spinnerCountryCode: Spinner? = null
     private val countryCodeAL = ArrayList<String>()
     private val countryAL = ArrayList<CountryModel>()
@@ -95,9 +88,6 @@ class SignupActivity : Activity(), View.OnClickListener, MyInterface, TextWatche
 
     private fun initOtherViews() {
 
-        //        retrofitComponent = DaggerRetrofitComponent.builder().sharedPrefDependency(new SharedPrefDependency(getApplicationContext())).build();
-        //        sharedPreferences = retrofitComponent.getShared();
-        //        editor = retrofitComponent.getEditor();
     }
 
     private fun initViews() {
@@ -148,10 +138,6 @@ class SignupActivity : Activity(), View.OnClickListener, MyInterface, TextWatche
 
         makeLinks(tvTerms, arrayOf("Terms of Use", "Privacy Policy"), arrayOf(normalLinkClickSpan, noUnderLineClickSpan))
 
-
-        //        et_firstName.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-        //        et_lastname.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-        //        et_email.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
 
         tvName.text = "Create Account"
 

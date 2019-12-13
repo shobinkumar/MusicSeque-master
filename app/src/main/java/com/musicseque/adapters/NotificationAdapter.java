@@ -190,7 +190,7 @@ public class NotificationAdapter extends RecyclerView.Adapter {
                             AcceptViewHolder viewHolderVenueAccept = ((AcceptViewHolder) holder);
 
 
-                            String sourceStringVenueAccept = " You accept  request for the event " + "<b>" + object.getEvent_title() + "</b>" + "<br><br>" + object.getCreated_date() + "</br></br>";
+                            String sourceStringVenueAccept = " You accepted  request for the event " + "<b>" + object.getEvent_title() + "</b>" + "<br><br>" + object.getCreated_date() + "</br></br>";
 
                             viewHolderVenueAccept.tvNotificationAcceptRequest.setText(Html.fromHtml(sourceStringVenueAccept));
 
@@ -199,7 +199,7 @@ public class NotificationAdapter extends RecyclerView.Adapter {
                             AcceptViewHolder viewHolderVenueReject = ((AcceptViewHolder) holder);
 
 
-                            String sourceStringVenueReject = " You reject  request for the event " + "<b>" + object.getEvent_title() + "</b>" + "<br><br>" + object.getCreated_date() + "</br></br>";
+                            String sourceStringVenueReject = " You rejected  request for the event " + "<b>" + object.getEvent_title() + "</b>" + "<br><br>" + object.getCreated_date() + "</br></br>";
 
                             viewHolderVenueReject.tvNotificationAcceptRequest.setText(Html.fromHtml(sourceStringVenueReject));
 

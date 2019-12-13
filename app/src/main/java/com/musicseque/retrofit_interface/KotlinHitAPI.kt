@@ -114,7 +114,7 @@ fun <T> callRetrofitKotlin(call: Call<T>, TYPE: Int) {
             } else if (TYPE == FOR_EVENT_DETAIL) {
                 Log.e("FOR_EVENT_DETAIL", response.body()!!.toString())
                 myInterfaces.sendResponse(response.body(), TYPE)
-            } else if (TYPE == FOR_SAVE_UPDATE_EVENT_DETAIL) {
+             } else if (TYPE == FOR_SAVE_UPDATE_EVENT_DETAIL) {
                 Log.e("FOR_SAVE_UPDATE_EVENT", response.body()!!.toString())
                 myInterfaces.sendResponse(response.body(), TYPE)
             } else if (TYPE == FOR_SEARCH_VENUE_LIST) {

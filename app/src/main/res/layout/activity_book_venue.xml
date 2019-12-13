@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Venue Name"
-                android:textColor="@color/color_white"
+                android:textColor="@color/color_white_hint"
                 android:textSize="@dimen/_16sdp" />
 
             <com.musicseque.Fonts.Noyhr
@@ -65,7 +65,7 @@
                 android:text="Event Title"
                 android:layout_marginTop="@dimen/_15sdp"
 
-                android:textColor="@color/color_white"
+                android:textColor="@color/color_white_hint"
                 android:textSize="@dimen/_16sdp" />
 
             <com.musicseque.Fonts.NoyhrEditText
@@ -76,7 +76,7 @@
                 android:background="@color/color_edit_text"
                 android:padding="@dimen/_5sdp"
                 android:hint="Enter the event name"
-                android:textColorHint="@color/color_white_hint"
+                android:textColorHint="@color/color_white"
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/_16sdp" />
 
@@ -85,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:text="Event Description"
-                android:textColor="@color/color_white"
+                android:textColor="@color/color_white_hint"
                 android:textSize="@dimen/_16sdp" />
 
             <com.musicseque.Fonts.NoyhrEditText
@@ -163,7 +163,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Start Date"
-                        android:textColor="@color/color_white"
+                        android:textColor="@color/color_white_hint"
                         android:textSize="@dimen/_16sdp" />
 
                     <RelativeLayout
@@ -205,7 +205,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="End Date"
-                        android:textColor="@color/color_white"
+                        android:textColor="@color/color_white_hint"
                         android:textSize="@dimen/_16sdp" />
 
                     <RelativeLayout
@@ -257,7 +257,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Start Time"
-                        android:textColor="@color/color_white"
+                        android:textColor="@color/color_white_hint"
                         android:textSize="@dimen/_16sdp" />
 
                     <RelativeLayout
@@ -302,7 +302,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="End Time"
-                        android:textColor="@color/color_white"
+                        android:textColor="@color/color_white_hint"
                         android:textSize="@dimen/_16sdp" />
 
                     <RelativeLayout
@@ -340,7 +340,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:text="Attendence"
-                android:textColor="@color/color_white"
+                android:textColor="@color/color_white_hint"
                 android:textSize="@dimen/_16sdp" />
 
             <RelativeLayout
@@ -366,17 +366,8 @@
                     android:paddingBottom="@dimen/_5sdp"
                     android:inputType="number"
                     android:textColor="@color/color_white"
-                    android:textColorHint="@color/color_white_hint"
+                    android:textColorHint="@color/color_white"
                     android:textSize="@dimen/_15sdp" />
-
-                <!--                <ImageView-->
-                <!--                    android:id="@+id/iconArrowAttendence"-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="match_parent"-->
-                <!--                    android:layout_alignParentRight="true"-->
-                <!--                    android:layout_centerVertical="true"-->
-                <!--                    android:layout_marginRight="10dp"-->
-                <!--                    android:src="@drawable/arrowdown" />-->
             </RelativeLayout>
 
             <com.musicseque.Fonts.Noyhr
@@ -384,7 +375,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:text="Budget Per Guest"
-                android:textColor="@color/color_white"
+                android:textColor="@color/color_white_hint"
                 android:textSize="@dimen/_16sdp" />
 
             <RelativeLayout
@@ -407,7 +398,7 @@
                     android:paddingRight="@dimen/_5sdp"
                     android:paddingBottom="@dimen/_5sdp"
                     android:textColor="@color/color_white"
-                    android:textColorHint="@color/color_white_hint"
+                    android:textColorHint="@color/color_white"
                     android:textSize="@dimen/_15sdp" />
 
                 <ImageView

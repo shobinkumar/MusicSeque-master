@@ -18,17 +18,19 @@ import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils
 import com.musicseque.venue_manager.model.MySelectedTimeModel
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
+import com.prolificinteractive.materialcalendarview.OnRangeSelectedListener
 import kotlinx.android.synthetic.main.activity_venue_availability.*
 import kotlinx.android.synthetic.main.toolbar_top.*
 import org.json.JSONObject
 import java.text.SimpleDateFormat
+import java.time.DayOfWeek
 import java.util.*
 import kotlin.collections.ArrayList
 
 class CheckVenueAvailabilityActivity : Activity(), View.OnClickListener, MyInterface {
 
 
-    private var mVenueName: String=""
+    private var mVenueName: String = ""
     var arrayList_details: ArrayList<String> = ArrayList()
     private var mVenueId: String = ""
     private var width: Int = 0
@@ -57,12 +59,12 @@ class CheckVenueAvailabilityActivity : Activity(), View.OnClickListener, MyInter
         getWindowManager()?.getDefaultDisplay()?.getMetrics(dimension)
         width = dimension.widthPixels
         mVenueId = intent.getStringExtra("venue_id")
-        mVenueName=intent.getStringExtra("venue_name")
+        mVenueName = intent.getStringExtra("venue_name")
 
 
         selectedDate = dateFormat.parse(dateFormat.format(Calendar.getInstance().time))
         sSelectedDate = dateFormat.format(Calendar.getInstance().time)
-        currentDate=dateFormat.parse(dateFormat.format(Calendar.getInstance().time))
+        currentDate = dateFormat.parse(dateFormat.format(Calendar.getInstance().time))
     }
 
     private fun listeners() {
@@ -77,6 +79,35 @@ class CheckVenueAvailabilityActivity : Activity(), View.OnClickListener, MyInter
             arrayList_details.clear()
             // KotlinUtils.dateFormatToSend()
         })
+        calendarView.setOnMonthChangedListener { widget, date ->
+            var dCurrent = Calendar.getInstance().time
+            dCurrent = dateFormat.parse(dateFormat.format(Calendar.getInstance().time))
+            val mDay=date.day
+            val mMonth=date.month+1
+            val mYear=date.year
+
+            val mDate=mDay.toString()+"-"+mMonth.toString()+"-"+mYear.toString()
+            val dSelected = dateFormat.parse(mDate)
+//            var cAfter = Calendar.getInstance()
+//
+//            cAfter.add(Calendar.DAY_OF_MONTH, date.day)
+//            cAfter.add(Calendar.DAY_OF_MONTH, -1)
+//            val dateAfter = dateFormat.parse(dateFormat.format(cAfter.time))
+
+            if (dCurrent.equals(dSelected)) {
+
+            }
+            else
+            {
+              calendarView.setSelectedDate(dSelected)
+                sSelectedDate = dateFormat.format(dSelected)
+                selectedDate = dateFormat.parse(dateFormat.format(dSelected))
+                hitAPI(FOR_VENUE_TIMMINGS)
+                arrayList_details.clear()
+            }
+
+
+        }
     }
 
     override fun onClick(view: View) {
@@ -93,10 +124,10 @@ class CheckVenueAvailabilityActivity : Activity(), View.OnClickListener, MyInter
                     Utils.showToast(this, "Selected date has passed")
 
                 } else {
-                     if (arrayList_details.size == 24) {
+                    if (arrayList_details.size == 24) {
                         Utils.showToast(this, "No booking time available")
                     } else {
-                        val intent = Intent(this, BookVenueActivity::class.java).putExtra("venue_id", mVenueId).putExtra("selected_date",sSelectedDate).putExtra("venue_name",mVenueName)
+                        val intent = Intent(this, BookVenueActivity::class.java).putExtra("venue_id", mVenueId).putExtra("selected_date", sSelectedDate).putExtra("venue_name", mVenueName)
                         startActivity(intent)
                     }
 
