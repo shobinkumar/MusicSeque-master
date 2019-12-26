@@ -39,7 +39,6 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.musicseque.Fonts.NoyhrEditText;
 import com.musicseque.MainActivity;
 import com.musicseque.R;
-import com.musicseque.event_manager.activity.MainActivityEventManager;
 import com.musicseque.interfaces.MyInterface;
 import com.musicseque.retrofit_interface.RetrofitAPI;
 import com.musicseque.utilities.Constants;
@@ -491,12 +490,12 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
 
                             startActivity(intent);
                             finish();
-                        } else if (obj.getString("ProfileTypeName").equalsIgnoreCase("EventManager")) {
+                        } else if (obj.getString("ProfileTypeName").equalsIgnoreCase("Event Manager")) {
                             Intent intent;
                             if (obj.getString("IsFirstLogin").equalsIgnoreCase("Y"))
-                                intent = new Intent(LoginActivity.this, MainActivityEventManager.class).putExtra("frag", "com.musicseque.event_manager.fragment.EventManagerFormFragment");
+                                intent = new Intent(LoginActivity.this, MainActivity.class).putExtra("frag", "com.musicseque.event_manager.fragment.EventManagerFormFragment");
                             else
-                                intent = new Intent(LoginActivity.this, MainActivityEventManager.class);
+                                intent = new Intent(LoginActivity.this, MainActivity.class);
 
                             startActivity(intent);
                             finish();
@@ -506,6 +505,28 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                             Intent intent;
                             if (obj.getString("IsFirstLogin").equalsIgnoreCase("Y"))
                                 intent = new Intent(LoginActivity.this, MainActivity.class).putExtra("frag", "com.musicseque.venue_manager.fragment.CreateVenueFragment");
+                            else
+                                intent = new Intent(LoginActivity.this, MainActivity.class);
+
+                            startActivity(intent);
+                            finish();
+                        }
+                        else if(obj.getString("ProfileTypeName").equalsIgnoreCase("Music Lover"))
+                        {
+                            Intent intent;
+                            if (obj.getString("IsFirstLogin").equalsIgnoreCase("Y"))
+                                intent = new Intent(LoginActivity.this, MainActivity.class).putExtra("frag", "com.musicseque.music_lover.fragments.FragmentProfileMusicLover");
+                            else
+                                intent = new Intent(LoginActivity.this, MainActivity.class);
+
+                            startActivity(intent);
+                            finish();
+                        }
+                        else if(obj.getString("ProfileTypeName").equalsIgnoreCase("Event Manager"))
+                        {
+                            Intent intent;
+                            if (obj.getString("IsFirstLogin").equalsIgnoreCase("Y"))
+                                intent = new Intent(LoginActivity.this, MainActivity.class).putExtra("frag", "com.musicseque.event_manager.fragment.EventManagerFormFragment");
                             else
                                 intent = new Intent(LoginActivity.this, MainActivity.class);
 
@@ -638,6 +659,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
 
                 break;
             case Constants.FOR_SOCIAL_LOGIN:
+
                 try {
                     JSONObject jsonObject = new JSONObject(response.toString());
                     if (jsonObject.getString("Status").equalsIgnoreCase("Success")) {
@@ -673,6 +695,28 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                             Intent intent;
                             if (jsonObject.getString("IsFirstLogin").equalsIgnoreCase("Y"))
                                 intent = new Intent(LoginActivity.this, MainActivity.class).putExtra("frag", "com.musicseque.venue_manager.fragment.CreateVenueFragment");
+                            else
+                                intent = new Intent(LoginActivity.this, MainActivity.class);
+
+                            startActivity(intent);
+                            finish();
+                        }
+                        else if(jsonObject.getString("ProfileTypeName").equalsIgnoreCase("Event Manager"))
+                        {
+                            Intent intent;
+                            if (jsonObject.getString("IsFirstLogin").equalsIgnoreCase("Y"))
+                                intent = new Intent(LoginActivity.this, MainActivity.class).putExtra("frag", "com.musicseque.event_manager.fragment.EventManagerFormFragment");
+                            else
+                                intent = new Intent(LoginActivity.this, MainActivity.class);
+
+                            startActivity(intent);
+                            finish();
+                        }
+                        else if(jsonObject.getString("ProfileTypeName").equalsIgnoreCase("Music Lover"))
+                        {
+                            Intent intent;
+                            if (jsonObject  .getString("IsFirstLogin").equalsIgnoreCase("Y"))
+                                intent = new Intent(LoginActivity.this, MainActivity.class).putExtra("frag", "com.musicseque.music_lover.fragments.FragmentProfileMusicLover");
                             else
                                 intent = new Intent(LoginActivity.this, MainActivity.class);
 
@@ -803,8 +847,8 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
 
-                if(pType[pos].equals("Artist") || pType[pos].equals("Venue"))
-                {
+//                if(pType[pos].equals("Artist") || pType[pos].equals("Venue") || pType[pos].equals("Music Lover"))
+//                {
                     pro_type.setText(pType[pos]);
                     list.setVisibility(View.GONE);
                     btn_submit.setVisibility(View.VISIBLE);
@@ -819,11 +863,11 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                         profileType = String.valueOf((pos + 2));
 
                     }
-                }
-                else
-                {
-                    Utils.showToast(LoginActivity.this,"You can select only artist and venue for now");
-                }
+//                }
+//                else
+//                {
+//                    Utils.showToast(LoginActivity.this,"You can select only artist and venue for now");
+//                }
 
 
 

@@ -1,5 +1,5 @@
 package com.musicseque.interfaces;
 
 public interface SpinnerData {
-    void getData(String mData,String mData1);
+    void getData(String mId,String mName);
 }

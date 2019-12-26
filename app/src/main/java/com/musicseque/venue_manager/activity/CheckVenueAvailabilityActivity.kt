@@ -120,7 +120,13 @@ class CheckVenueAvailabilityActivity : Activity(), View.OnClickListener, MyInter
 
                 if (SharedPref.getString(Constants.PROFILE_TYPE, "").equals("Venue Manager")) {
                     Utils.showToast(this, "You can't book venue as a Venue Manager")
-                } else if (selectedDate.before(currentDate)) {
+                }
+               else if (SharedPref.getString(Constants.PROFILE_TYPE, "").equals("Music Lover")) {
+                    Utils.showToast(this, "You can't book venue as a Music Lover")
+                }
+
+
+                else if (selectedDate.before(currentDate)) {
                     Utils.showToast(this, "Selected date has passed")
 
                 } else {

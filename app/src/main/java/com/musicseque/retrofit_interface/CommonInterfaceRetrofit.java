@@ -190,4 +190,9 @@ public interface CommonInterfaceRetrofit {
     @POST(Constants.LOGOUT_API)
     Call<String> methodForLogout(@Body String params);
 
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.TEST_API)
+    Call<String>  methodTest(@Body String params);
+
 }

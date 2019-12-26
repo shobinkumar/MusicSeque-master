@@ -129,6 +129,10 @@ public class RetrofitAPI {
             call = api.methodForLogout(params);
 
         }
+        else if (TYPE == Constants.FOR_TEST) {
+            call = api.methodTest(params);
+
+        }
 
 
 

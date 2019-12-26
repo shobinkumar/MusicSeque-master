@@ -122,7 +122,7 @@ class VenueProfileDetailFragment : KotlinBaseFragment(), View.OnClickListener, M
     }
 
 
-    public fun getImage(file: File) {
+     fun getImage(file: File) {
         val mFile = RequestBody.create(MediaType.parse("image/*"), file)
         val fileToUpload = MultipartBody.Part.createFormData("file", file.name, mFile)
         val mUSerId = RequestBody.create(MediaType.parse("text/plain"), SharedPref.getString(Constants.USER_ID, "")!!)

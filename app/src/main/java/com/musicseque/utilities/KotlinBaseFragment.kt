@@ -21,6 +21,10 @@ import com.karumi.dexter.Dexter
 import com.karumi.dexter.listener.PermissionRequest
 import com.musicseque.BuildConfig
 import com.musicseque.artist.fragments.BaseFragment
+import com.musicseque.event_manager.fragment.EventManagerDetailFragment
+import com.musicseque.event_manager.fragment.EventManagerFormFragment
+import com.musicseque.music_lover.fragments.FragmentProfileDetailMusicLover
+import com.musicseque.music_lover.fragments.FragmentProfileMusicLover
 import com.musicseque.venue_manager.fragment.CreateVenueFragment
 import com.musicseque.venue_manager.fragment.VenueProfileDetailFragment
 
@@ -225,10 +229,31 @@ open class KotlinBaseFragment : BaseFragment() {
             fName.getImage(file)
 
         }
+        else if(fragmentName.equals("com.musicseque.music_lover.fragments.FragmentProfileMusicLover"))
+        {
+            val fName = frag as FragmentProfileMusicLover
 
-//        val intent = Intent()
-//        intent.putExtra("file", file.toString())
-//        activity?.setResult(RESULT_OK, intent)
+            fName.getImage(file)
+        }
+               else if(fragmentName.equals("com.musicseque.music_lover.fragments.FragmentProfileDetailMusicLover"))
+        {
+            val fName = frag as FragmentProfileDetailMusicLover
+
+            fName.getImageFile(file)
+        }
+        else if(fragmentName.equals("com.musicseque.event_manager.fragment.EventManagerFormFragment"))
+        {
+            val fName = frag as EventManagerFormFragment
+
+            fName.getImage(file)
+        }
+        else if(fragmentName.equals("com.musicseque.event_manager.fragment.EventManagerDetailFragment"))
+        {
+            val fName = frag as EventManagerDetailFragment
+
+            fName.getImageFile(file)
+        }
+
 
     }
 

@@ -99,7 +99,7 @@ public class Constants {
     public static final String LOGOUT_API = "Service/UserLogOut";
 
 
-    public static final String  TEST_API="Login/StudentLogin";
+    public static final String  TEST_API="Service/SalarySlip";
 
     // public static final String SEND_VENUE_TIMMINGS_API="Service/VenueUnAvailabilityAdd";
 

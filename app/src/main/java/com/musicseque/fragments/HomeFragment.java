@@ -87,21 +87,21 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG));
 
         // Set up a PlaceSelectionListener to handle the response.
-        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-            @Override
-            public void onPlaceSelected(Place place) {
-                // TODO: Get info about the selected place.
-
-                etLoc.setText(place.getAddress());
-                Log.e("TAG", "Place: " + place.getName() + ", " + place.getId() + "," + place.getAddress() + "," + place.getLatLng());
-            }
-
-            @Override
-            public void onError(Status status) {
-                // TODO: Handle the error.
-                Log.i("TAG", "An error occurred: " + status);
-            }
-        });
+//        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+//            @Override
+//            public void onPlaceSelected(Place place) {
+//                // TODO: Get info about the selected place.
+//
+//                etLoc.setText(place.getAddress());
+//                Log.e("TAG", "Place: " + place.getName() + ", " + place.getId() + "," + place.getAddress() + "," + place.getLatLng());
+//            }
+//
+//            @Override
+//            public void onError(Status status) {
+//                // TODO: Handle the error.
+//                Log.i("TAG", "An error occurred: " + status);
+//            }
+//        });
     }
 
     @Override

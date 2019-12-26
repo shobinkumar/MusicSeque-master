@@ -968,6 +968,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
                         mMobileNumber=obj.getString("ContactNo");
                         mCountryName= obj.getString("CountryName");
                         mCountryId=obj.getString("CountryId");
+                        mExperienceId = obj.getString("ExperienceId");
+                        mGenreId = obj.getString("Genre");
 
 
                         tvUserName.setText(obj.getString("FirstName") + " " + obj.getString("LastName"));
@@ -1005,9 +1007,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, M
                         tvCertification.setText(obj.getString("Certifications"));
                         tvGrade.setText(obj.getString("Grade"));
 
-                        mExperienceId = obj.getString("ExperienceId");
-                        mGenreId = obj.getString("Genre");
-                        mCountryId = obj.getString("CountryId");
 
 
                         if (obj.getString("SocialId").equals("")) {

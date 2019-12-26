@@ -21,7 +21,6 @@ import com.musicseque.R
 import com.musicseque.activities.BaseActivity
 
 
-import com.musicseque.event_manager.activity.MainActivityEventManager
 import com.musicseque.service.LocationService
 import com.musicseque.utilities.Constants
 import com.musicseque.utilities.SharedPref
@@ -39,7 +38,7 @@ class SplashActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         MyApplication.context = this
-        SharedPref.init(applicationContext)
+        SharedPref.init(this)
 
 
         initOtherViews()
@@ -148,9 +147,11 @@ class SplashActivity : BaseActivity() {
                         if (SharedPref.getBoolean(Constants.IS_LOGIN, false)) {
                             if (SharedPref.getString(Constants.PROFILE_TYPE, "").equals("Artist", ignoreCase = true))
                                 intent = Intent(this@SplashActivity, MainActivity::class.java)
-                            else if (SharedPref.getString(Constants.PROFILE_TYPE, "").equals("EventManager", ignoreCase = true))
-                                intent = Intent(this@SplashActivity, MainActivityEventManager::class.java)
+                            else if (SharedPref.getString(Constants.PROFILE_TYPE, "").equals("Event Manager", ignoreCase = true))
+                                intent = Intent(this@SplashActivity, MainActivity::class.java)
                             else if (SharedPref.getString(Constants.PROFILE_TYPE, "").equals("Venue Manager", ignoreCase = true))
+                                intent = Intent(this@SplashActivity, MainActivity::class.java)
+                            else if (SharedPref.getString(Constants.PROFILE_TYPE, "").equals("Music Lover", ignoreCase = true))
                                 intent = Intent(this@SplashActivity, MainActivity::class.java)
                         } else {
                             intent = Intent(this@SplashActivity, LoginActivity::class.java)

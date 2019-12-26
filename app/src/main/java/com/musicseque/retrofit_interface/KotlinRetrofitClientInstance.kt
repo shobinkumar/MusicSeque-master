@@ -13,7 +13,7 @@ class KotlinRetrofitClientInstance {
     {
          var retrofit: Retrofit? = null
         private val BASE_URL = Constants.ROOT_URL
-        private val BASE_URL1 ="http://schoolapi.htistelecom.in/api/"
+        private val BASE_URL1 ="http://htistestapi.htistelecom.in/api/"
 
         internal var okHttpClient = OkHttpClient().newBuilder()
                 .connectTimeout(60000, TimeUnit.SECONDS)

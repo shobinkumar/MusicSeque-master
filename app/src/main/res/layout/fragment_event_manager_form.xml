@@ -5,17 +5,12 @@
     android:layout_height="match_parent"
     android:background="#0B171F">
 
-    <!--<include-->
-    <!--android:id="@+id/toolbar"-->
-    <!--layout="@layout/toolbar_top"-->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="wrap_content" />-->
+
 
     <com.musicseque.utilities.VerticalScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        android:layout_below="@+id/toolbar"
         android:layout_alignParentStart="true">
 
         <RelativeLayout
@@ -38,26 +33,26 @@
 
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/ivProfile"
+                        android:id="@+id/ivProfileFormEventManager"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:src="@drawable/icon_img_dummy" />
 
                     <ProgressBar
-                        android:id="@+id/pBar"
+                        android:id="@+id/pBarFormEventManager"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true" />
 
                     <ImageView
-                        android:id="@+id/ivAddImage"
+                        android:id="@+id/ivAddImageFormEventManager"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
 
                         android:visibility="gone" />
 
                     <ImageView
-                        android:id="@+id/ivCamera"
+                        android:id="@+id/ivCameraFormEventManager"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
@@ -66,7 +61,7 @@
                         android:src="@drawable/icon_camera" />
 
                     <ImageView
-                        android:id="@+id/ivStatus"
+                        android:id="@+id/ivStatusFormEventManager"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -85,7 +80,7 @@
                     android:orientation="vertical">
 
                     <com.musicseque.Fonts.Noyhr
-                        android:id="@+id/tvUserName"
+                        android:id="@+id/tvUserNameFormEventManager"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
@@ -94,7 +89,7 @@
                         android:textSize="@dimen/_16sdp" />
 
                     <com.musicseque.Fonts.Noyhr
-                        android:id="@+id/tvProfileType"
+                        android:id="@+id/tvProfileTypeFormEventManager"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
@@ -103,7 +98,7 @@
                         android:textSize="@dimen/_15sdp" />
 
                     <com.musicseque.Fonts.Noyhr
-                        android:id="@+id/tvCityCountry"
+                        android:id="@+id/tvCityCountryFormEventManager"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
@@ -147,7 +142,7 @@
                         android:textSize="@dimen/_15sdp" />
 
                     <com.musicseque.Fonts.NoyhrEditText
-                        android:id="@+id/et_email"
+                        android:id="@+id/etEmailFormEventManager"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".70"
@@ -189,7 +184,7 @@
                         android:background="@android:color/transparent">
 
                         <com.musicseque.Fonts.Noyhr
-                            android:id="@+id/tvCountryCode"
+                            android:id="@+id/tvCountryCodeFormEventManager"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="#0C1C24"
@@ -214,7 +209,7 @@
                     </RelativeLayout>
 
                     <com.musicseque.Fonts.NoyhrEditText
-                        android:id="@+id/etMobileNumber"
+                        android:id="@+id/etMobileNumberFormEventManager"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_10sdp"
@@ -248,7 +243,7 @@
                         android:textSize="@dimen/_15sdp" />
 
                     <com.musicseque.Fonts.NoyhrEditText
-                        android:id="@+id/et_city"
+                        android:id="@+id/etCityFormEventManager"
 
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -285,7 +280,7 @@
                         android:textSize="@dimen/_15sdp" />
 
                     <com.musicseque.Fonts.NoyhrEditText
-                        android:id="@+id/et_postal_code"
+                        android:id="@+id/etPostalCodeFormEventManager"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".70"
@@ -318,7 +313,7 @@
 
 
                     <com.musicseque.Fonts.Noyhr
-                        android:id="@+id/tvCountry"
+                        android:id="@+id/tvCountryFormEventManager"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".70"
@@ -351,7 +346,7 @@
                         android:textSize="@dimen/_15sdp" />
 
                     <com.musicseque.Fonts.NoyhrEditText
-                        android:id="@+id/et_desc"
+                        android:id="@+id/etDescFormEventManager"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".70"
@@ -373,7 +368,7 @@
                 </LinearLayout>
 
                 <com.musicseque.Fonts.Noyhr
-                    android:id="@+id/tvCount"
+                    android:id="@+id/tvCountFormEventManager"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
@@ -406,7 +401,7 @@
                         android:background="@android:color/transparent">
 
                         <com.musicseque.Fonts.Noyhr
-                            android:id="@+id/tvExperience"
+                            android:id="@+id/tvExperienceFormEventManager"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
@@ -437,7 +432,7 @@
 
 
                 <com.musicseque.Fonts.CustomButton
-                    android:id="@+id/btn_submit"
+                    android:id="@+id/btnSubmitFormEventManager"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

@@ -14,6 +14,7 @@ public class RetrofitClientInstance {
 
         private static Retrofit retrofit;
         private static final String BASE_URL =Constants.ROOT_URL;
+  //  private static final String BASE_URL1 ="http://htistestapi.htistelecom.in/api/";
 
     static OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
             .connectTimeout(60000, TimeUnit.SECONDS)

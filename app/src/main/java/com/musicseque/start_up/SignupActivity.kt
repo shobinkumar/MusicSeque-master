@@ -34,6 +34,7 @@ import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.Constants
 import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils
+import kotlinx.android.synthetic.main.activity_signup.*
 
 import org.json.JSONArray
 import org.json.JSONException
@@ -52,26 +53,26 @@ class SignupActivity : Activity(), View.OnClickListener, MyInterface, TextWatche
     private var pasw = ""
     private var confPasw = ""
     private var proType: String? = null
-     lateinit var radioBtn: CheckBox
-   lateinit  var et_firstName: NoyhrEditText
-    lateinit var et_lastname: EditText
-    private var et_email: EditText? = null
-    private var et_phone: EditText? = null
-    private var et_pasw: EditText? = null
-    private var et_conf_pasw: EditText? = null
-    private var pro_type: TextView? = null
-    private var tv_sign_up: TextView? = null
+//     lateinit var radioBtn: CheckBox
+//   lateinit  var et_firstName: NoyhrEditText
+//    lateinit var et_lastname: EditText
+//    private var et_email: EditText? = null
+//    private var et_phone: EditText? = null
+//    private var et_pasw: EditText? = null
+//    private var et_conf_pasw: EditText? = null
+//    private var pro_type: TextView? = null
+//    private var tv_sign_up: TextView? = null
     internal var userType = arrayOf("Artist", "Talent Manager", "Event Manager", "Music Lover", "Venue", "Store")
-    private var rel8: RelativeLayout? = null
+   // private var rel8: RelativeLayout? = null
     private var list: ListView? = null
     private var profileType = ""
-    lateinit var ivBack: ImageView
-     lateinit var tvName: TextView
-    lateinit var tvTerms: TextView
+//    lateinit var ivBack: ImageView
+//     lateinit var tvName: TextView
+//    lateinit var tvTerms: TextView
     private var prevString: String? = null
     internal var mCountryCode = ""
 
-    private var spinnerCountryCode: Spinner? = null
+ //   private var spinnerCountryCode: Spinner? = null
     private val countryCodeAL = ArrayList<String>()
     private val countryAL = ArrayList<CountryModel>()
 
@@ -91,25 +92,31 @@ class SignupActivity : Activity(), View.OnClickListener, MyInterface, TextWatche
     }
 
     private fun initViews() {
+        et_firstName.setText("Event")
+        et_lastname.setText("Manager")
+        et_email.setText("htistele@gmail.com")
+        et_phone.setText("9876543212")
+        et_pasw.setText("Test@123")
+        et_conf_pasw.setText("Test@123")
 
-        ivBack = findViewById<View>(R.id.ivBack) as ImageView
-        tvName = findViewById<View>(R.id.tvName) as TextView
-
-        et_firstName = findViewById<View>(R.id.et_firstName) as NoyhrEditText
-        et_lastname = findViewById<View>(R.id.et_lastname) as EditText
-        et_email = findViewById<View>(R.id.et_email) as EditText
-        spinnerCountryCode = findViewById<View>(R.id.spinnerCountryCode) as Spinner
-
-        et_phone = findViewById<View>(R.id.et_phone) as EditText
-        et_pasw = findViewById<View>(R.id.et_pasw) as EditText
-        et_conf_pasw = findViewById<View>(R.id.et_conf_pasw) as EditText
-        pro_type = findViewById<View>(R.id.pro_type) as TextView
-        tv_sign_up = findViewById<View>(R.id.tv_sign_up) as TextView
-        tvTerms = findViewById<View>(R.id.tvTerms) as TextView
+//        ivBack = findViewById<View>(R.id.ivBack) as ImageView
+//        tvName = findViewById<View>(R.id.tvName) as TextView
+//
+//        et_firstName = findViewById<View>(R.id.et_firstName) as NoyhrEditText
+//        et_lastname = findViewById<View>(R.id.et_lastname) as EditText
+//        et_email = findViewById<View>(R.id.et_email) as EditText
+//        spinnerCountryCode = findViewById<View>(R.id.spinnerCountryCode) as Spinner
+//
+//        et_phone = findViewById<View>(R.id.et_phone) as EditText
+//        et_pasw = findViewById<View>(R.id.et_pasw) as EditText
+//        et_conf_pasw = findViewById<View>(R.id.et_conf_pasw) as EditText
+//        pro_type = findViewById<View>(R.id.pro_type) as TextView
+//        tv_sign_up = findViewById<View>(R.id.tv_sign_up) as TextView
+//        tvTerms = findViewById<View>(R.id.tvTerms) as TextView
 
         list = findViewById<View>(R.id.list2) as ListView
-        rel8 = findViewById<View>(R.id.rel8) as RelativeLayout
-        radioBtn = findViewById<View>(R.id.radioBtn) as CheckBox
+//        rel8 = findViewById<View>(R.id.rel8) as RelativeLayout
+//        radioBtn = findViewById<View>(R.id.radioBtn) as CheckBox
 
 
         tvTerms.setLinkTextColor(Color.WHITE) // default link color for clickable span, we can also set it in xml by android:textColorLink=""
@@ -179,16 +186,16 @@ class SignupActivity : Activity(), View.OnClickListener, MyInterface, TextWatche
 
 
         list!!.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, pos, l ->
-            if (userType[pos] == "Artist" || userType[pos] == "Venue") {
+//            if (userType[pos] == "Artist" || userType[pos] == "Venue" || userType[pos] == "Music Lover") {
                 pro_type!!.text = userType[pos]
                 list!!.visibility = View.GONE
                 if (pos == 0)
                     profileType = (pos + 1).toString()
                 else
                     profileType = (pos + 2).toString()
-            } else {
-                Utils.showToast(this@SignupActivity, "You can select only artist and venue for now")
-            }
+//            } else {
+//                Utils.showToast(this@SignupActivity, "You can select only artist and venue for now")
+//            }
         }
 
 

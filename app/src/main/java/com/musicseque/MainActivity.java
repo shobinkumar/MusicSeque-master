@@ -34,10 +34,14 @@ import com.musicseque.artist.service.CommonService;
 
 import com.musicseque.event_manager.activity.CreateEventActivity;
 import com.musicseque.event_manager.activity.EventsListActivity;
+import com.musicseque.event_manager.fragment.EventManagerDetailFragment;
+import com.musicseque.event_manager.fragment.EventManagerFormFragment;
 import com.musicseque.firebase_notification.NotificationActivity;
 import com.musicseque.fragments.HomeFragment;
 import com.musicseque.fragments.SettingFragment;
 import com.musicseque.interfaces.MyInterface;
+import com.musicseque.music_lover.fragments.FragmentProfileDetailMusicLover;
+import com.musicseque.music_lover.fragments.FragmentProfileMusicLover;
 import com.musicseque.retrofit_interface.RetrofitAPI;
 import com.musicseque.service.LocationService;
 import com.musicseque.start_up.LoginActivity;
@@ -56,6 +60,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static android.view.View.GONE;
 import static com.musicseque.utilities.Constants.FOR_LOGOUT;
 import static com.musicseque.utilities.Constants.PROFILE_TYPE;
 
@@ -135,6 +140,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageView ivSchedule;
     @BindView(R.id.viewSchedule)
     View viewSchedule;
+
+
+    @BindView(R.id.llEvents)
+    LinearLayout llEvents;
 
 
     @BindView(R.id.llTimmings)
@@ -256,7 +265,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         iv_chat = (ImageView) findViewById(R.id.iv_chat);
         iv_settings = (ImageView) findViewById(R.id.iv_settings);
         ivDrawer = (ImageView) findViewById(R.id.ivDrawer);
-        llBand.setVisibility(View.GONE);
+        llBand.setVisibility(GONE);
 
     }
 
@@ -364,6 +373,48 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 changeIconBottom(R.drawable.home3, R.drawable.profile3, R.drawable.featured3, R.drawable.chat3, R.drawable.settingactive3, fragment);
             }
 
+            else if (getIntent().getStringExtra("frag").equalsIgnoreCase("com.musicseque.music_lover.fragments.FragmentProfileMusicLover")) {
+                Boolean b = getIntent().getBooleanExtra("profileTemp", false);
+
+                if (b == null) {
+                    if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equalsIgnoreCase("Y"))
+                        fragment = new FragmentProfileMusicLover();
+                    else
+                        fragment = new ProfileDetailFragment();
+                } else {
+
+                    fragment = new FragmentProfileMusicLover();
+
+                }
+
+
+                changeIconBottom(R.drawable.home3, R.drawable.profileactive3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment);
+
+            }
+
+
+
+            else if (getIntent().getStringExtra("frag").equalsIgnoreCase("com.musicseque.event_manager.fragment.EventManagerFormFragment")) {
+                Boolean b = getIntent().getBooleanExtra("profileTemp", false);
+
+                if (b == null) {
+                    if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equalsIgnoreCase("Y"))
+                        fragment = new EventManagerFormFragment();
+                    else
+                        fragment = new EventManagerDetailFragment();
+                } else {
+
+                    fragment = new EventManagerFormFragment();
+
+                }
+
+
+                changeIconBottom(R.drawable.home3, R.drawable.profileactive3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment);
+
+            }
+
+
+
         }
 
 
@@ -382,14 +433,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equalsIgnoreCase("Y")) {
                 if (mLoginType.equalsIgnoreCase("Venue Manager")) {
                     fragment = new CreateVenueFragment();
-                } else {
+                } else if (mLoginType.equalsIgnoreCase("Artist")) {
                     fragment = new ProfileFragment();
+                } else if (mLoginType.equalsIgnoreCase("Music Lover")) {
+                    fragment = new FragmentProfileMusicLover();
+                }
+                else if (mLoginType.equalsIgnoreCase("Event Manager")) {
+                    fragment = new EventManagerFormFragment();
                 }
             } else {
                 if (mLoginType.equalsIgnoreCase("Venue Manager")) {
                     fragment = new VenueProfileDetailFragment();
-                } else {
+                } else if (mLoginType.equalsIgnoreCase("Artist")) {
                     fragment = new ProfileDetailFragment();
+                } else if (mLoginType.equalsIgnoreCase("Music Lover")) {
+                    fragment = new FragmentProfileDetailMusicLover();
+                }
+                else if (mLoginType.equalsIgnoreCase("Event Manager")) {
+                    fragment = new EventManagerDetailFragment();
                 }
             }
 
@@ -474,19 +535,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClicks(View view) {
         switch (view.getId()) {
             case R.id.ivUpArrow:
-                llAllProfile.setVisibility(View.GONE);
-                ivUpArrow.setVisibility(View.GONE);
+                llAllProfile.setVisibility(GONE);
+                ivUpArrow.setVisibility(GONE);
                 ivDownArrow.setVisibility(View.VISIBLE);
 
                 break;
             case R.id.ivDownArrow:
                 llAllProfile.setVisibility(View.VISIBLE);
-                ivDownArrow.setVisibility(View.GONE);
+                ivDownArrow.setVisibility(GONE);
                 ivUpArrow.setVisibility(View.VISIBLE);
                 break;
+
+
+
             case R.id.tvMyProfile:
-
-
                 if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equalsIgnoreCase("Y")) {
                     fragment = new ProfileFragment();
                 } else {
@@ -496,24 +558,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 changeIconBottom(R.drawable.home3, R.drawable.profileactive3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment);
                 navDrawer.closeDrawers();
-                llAllProfile.setVisibility(View.GONE);
-                ivUpArrow.setVisibility(View.GONE);
+                llAllProfile.setVisibility(GONE);
+                ivUpArrow.setVisibility(GONE);
                 ivDownArrow.setVisibility(View.VISIBLE);
                 break;
             case R.id.tvBandProfile:
                 fragment = new BandListFragment();
                 changeIconBottom(R.drawable.home3, R.drawable.profileactive3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment);
                 navDrawer.closeDrawers();
-                llAllProfile.setVisibility(View.GONE);
-                ivUpArrow.setVisibility(View.GONE);
+                llAllProfile.setVisibility(GONE);
+                ivUpArrow.setVisibility(GONE);
                 ivDownArrow.setVisibility(View.VISIBLE);
                 break;
             case R.id.tvOtherBand:
                 fragment = new OtherBandListFragment();
                 changeIconBottom(R.drawable.home3, R.drawable.profileactive3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment);
                 navDrawer.closeDrawers();
-                llAllProfile.setVisibility(View.GONE);
-                ivUpArrow.setVisibility(View.GONE);
+                llAllProfile.setVisibility(GONE);
+                ivUpArrow.setVisibility(GONE);
                 ivDownArrow.setVisibility(View.VISIBLE);
                 break;
             case R.id.llActivity:
@@ -597,15 +659,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.ivDownArrowEvents:
                 llAllEvents.setVisibility(View.VISIBLE);
-                ivDownArrowEvents.setVisibility(View.GONE);
+                ivDownArrowEvents.setVisibility(GONE);
                 ivUpArrowEvents.setVisibility(View.VISIBLE);
 
 
                 break;
             case R.id.ivUpArrowEvents:
-                llAllEvents.setVisibility(View.GONE);
+                llAllEvents.setVisibility(GONE);
                 ivDownArrowEvents.setVisibility(View.VISIBLE);
-                ivUpArrowEvents.setVisibility(View.GONE);
+                ivUpArrowEvents.setVisibility(GONE);
 
                 break;
 
@@ -671,11 +733,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     void closeProfile() {
-        if (mLoginType.equalsIgnoreCase("Venue Manager")) {
+        if (mLoginType.equalsIgnoreCase("Venue Manager") || mLoginType.equalsIgnoreCase("Music Lover") ||  mLoginType.equalsIgnoreCase("Event Manager")) {
 
-        } else {
-            llAllProfile.setVisibility(View.GONE);
-            ivUpArrow.setVisibility(View.GONE);
+        } else if (mLoginType.equalsIgnoreCase("Artist")) {
+            llAllProfile.setVisibility(GONE);
+            ivUpArrow.setVisibility(GONE);
             ivDownArrow.setVisibility(View.VISIBLE);
         }
         ;
@@ -695,14 +757,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void showHideDrawerViews() {
         if (mLoginType.equalsIgnoreCase("Venue Manager")) {
-           // tvAddEvent.setVisibility(View.GONE);
-            llAllProfile.setVisibility(View.GONE);
-            ivUpArrow.setVisibility(View.GONE);
-            ivDownArrow.setVisibility(View.GONE);
+            // tvAddEvent.setVisibility(View.GONE);
+            llAllProfile.setVisibility(GONE);
+            ivUpArrow.setVisibility(GONE);
+            ivDownArrow.setVisibility(GONE);
             llTimmings.setVisibility(View.VISIBLE);
             viewTimmings.setVisibility(View.VISIBLE);
-            llSchedule.setVisibility(View.GONE);
-            viewSchedule.setVisibility(View.GONE);
+            llSchedule.setVisibility(GONE);
+            viewSchedule.setVisibility(GONE);
             llBookingStatus.setVisibility(View.VISIBLE);
             viewBookingStatus.setVisibility(View.VISIBLE);
             llSchedule.setVisibility(View.VISIBLE);
@@ -721,20 +783,72 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     navDrawer.closeDrawers();
                 }
             });
-        } else {
-           // tvAddEvent.setVisibility(View.VISIBLE);
-            llAllProfile.setVisibility(View.GONE);
-            ivUpArrow.setVisibility(View.GONE);
-            ivDownArrow.setVisibility(View.VISIBLE);
-            llTimmings.setVisibility(View.GONE);
-            viewTimmings.setVisibility(View.GONE);
+        } else if (mLoginType.equalsIgnoreCase("Artist")) {
+            // tvAddEvent.setVisibility(View.VISIBLE);
+            llAllProfile.setVisibility(GONE);
+            ivUpArrow.setVisibility(GONE);
+            ivDownArrow.setVisibility(GONE);
+            llTimmings.setVisibility(GONE);
+            viewTimmings.setVisibility(GONE);
             llSchedule.setVisibility(View.VISIBLE);
             viewSchedule.setVisibility(View.VISIBLE);
-            llBookingStatus.setVisibility(View.GONE);
-            viewBookingStatus.setVisibility(View.GONE);
-            llSchedule.setVisibility(View.GONE);
-            viewSchedule.setVisibility(View.GONE);
+            llBookingStatus.setVisibility(GONE);
+            viewBookingStatus.setVisibility(GONE);
+            llSchedule.setVisibility(GONE);
+            viewSchedule.setVisibility(GONE);
 
+        } else if (mLoginType.equalsIgnoreCase("Event Manager")) {
+
+            ivUpArrow.setVisibility(GONE);
+            ivDownArrow.setVisibility(GONE);
+            llAllProfile.setVisibility(GONE);
+            llBand.setVisibility(GONE);
+            llBookingStatus.setVisibility(GONE);
+            llTimmings.setVisibility(GONE);
+            tvProfile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equalsIgnoreCase("Y")) {
+                        fragment = new EventManagerFormFragment();
+
+                    } else {
+                        fragment = new EventManagerDetailFragment();
+
+                    }
+                    changeIconBottom(R.drawable.home3, R.drawable.profileactive3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment);
+                    navDrawer.closeDrawers();
+                }
+            });
+
+
+        } else if (mLoginType.equalsIgnoreCase("Music Lover")) {
+            llAllProfile.setVisibility(GONE);
+            ivUpArrow.setVisibility(GONE);
+            ivDownArrow.setVisibility(GONE);
+            llTimmings.setVisibility(GONE);
+            viewTimmings.setVisibility(GONE);
+            llSchedule.setVisibility(GONE);
+            viewSchedule.setVisibility(GONE);
+            llBookingStatus.setVisibility(GONE);
+            viewBookingStatus.setVisibility(GONE);
+            llSchedule.setVisibility(GONE);
+            viewSchedule.setVisibility(GONE);
+            llEvents.setVisibility(GONE);
+            viewBookingStatus.setVisibility(GONE);
+            tvProfile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equalsIgnoreCase("Y")) {
+                        fragment = new FragmentProfileMusicLover();
+
+                    } else {
+                        fragment = new FragmentProfileDetailMusicLover();
+
+                    }
+                    changeIconBottom(R.drawable.home3, R.drawable.profileactive3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment);
+                    navDrawer.closeDrawers();
+                }
+            });
         }
 
 
