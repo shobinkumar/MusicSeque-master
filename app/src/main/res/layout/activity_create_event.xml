@@ -423,7 +423,90 @@
                 app:data_type="_integer"
                 android:layout_marginTop="@dimen/_5sdp"/>
 
+            <com.musicseque.Fonts.Noyhr
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="City"
+                android:layout_marginTop="@dimen/_15sdp"
 
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_16sdp" />
+
+            <com.musicseque.Fonts.NoyhrEditText
+                android:id="@+id/etCityCreateEvent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/color_edit_text"
+                android:padding="@dimen/_5sdp"
+                android:hint="Enter the city name"
+                android:textColorHint="@color/color_white_hint"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_16sdp" />
+
+
+            <com.musicseque.Fonts.Noyhr
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="State"
+                android:layout_marginTop="@dimen/_15sdp"
+
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_16sdp" />
+
+            <com.musicseque.Fonts.NoyhrEditText
+                android:id="@+id/etStateCreateEvent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/color_edit_text"
+                android:padding="@dimen/_5sdp"
+                android:hint="Enter the state"
+                android:textColorHint="@color/color_white_hint"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_16sdp" />
+
+            <com.musicseque.Fonts.Noyhr
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Country"
+                android:layout_marginTop="@dimen/_15sdp"
+
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_16sdp" />
+
+            <com.musicseque.Fonts.NoyhrEditText
+                android:id="@+id/etCountryCreateEvent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/color_edit_text"
+                android:padding="@dimen/_5sdp"
+                android:hint="Enter the country name"
+                android:textColorHint="@color/color_white_hint"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_16sdp" />
+
+            <com.musicseque.Fonts.Noyhr
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Zip Code"
+                android:layout_marginTop="@dimen/_15sdp"
+
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_16sdp" />
+
+            <com.musicseque.Fonts.NoyhrEditText
+                android:id="@+id/etZipCodeCreateEvent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/color_edit_text"
+                android:padding="@dimen/_5sdp"
+                android:hint="Enter the zip code"
+                android:textColorHint="@color/color_white_hint"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_16sdp" />
 
             <com.musicseque.Fonts.Noyhr
                 android:id="@+id/tvSubmit"

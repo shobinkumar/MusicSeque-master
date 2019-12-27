@@ -75,6 +75,12 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
     var mFromTime: String = ""
     var mToTime: String = ""
     var mEventTypeId: String = ""
+    var mCity: String = ""
+    var mState: String = ""
+    var mCountry: String = ""
+    var mZipCode: String = ""
+
+
     var isEdit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -140,13 +146,13 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
 
         if (Utils.isNetworkConnected(this)) {
             Utils.initializeAndShow(this)
-            if (value==FOR_EVENT_TYPE_LIST) {
+            if (value == FOR_EVENT_TYPE_LIST) {
                 KotlinHitAPI.callGetAPI(FOR_EVENT_TYPE_LIST, this)
-            } else if (value==FOR_CURRENCY_LIST) {
+            } else if (value == FOR_CURRENCY_LIST) {
                 KotlinHitAPI.callGetAPI(FOR_CURRENCY_LIST, this)
-            } else if (value==FOR_SAVE_UPDATE_EVENT_DETAIL) {
+            } else if (value == FOR_SAVE_UPDATE_EVENT_DETAIL) {
                 KotlinHitAPI.callAPI(args, FOR_SAVE_UPDATE_EVENT_DETAIL, this)
-            } else if (value==FOR_EVENT_DETAIL) {
+            } else if (value == FOR_EVENT_DETAIL) {
                 val obj = JSONObject()
                 obj.put("EventId", mEventId)
                 KotlinHitAPI.callAPI(obj.toString(), FOR_EVENT_DETAIL, this)
@@ -233,13 +239,10 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                         );
                         timePickerDialog.setThemeDark(false);
                         timePickerDialog.setTitle("TimePicker Title");
-                        timePickerDialog.setTimeInterval(1,60)
-                       // timePickerDialog.setTimeInterval(1, 60, 0); // 15 Minutes Interval
+                        timePickerDialog.setTimeInterval(1, 60)
                         timePickerDialog.setAccentColor(resources.getColor(R.color.color_orange));
 
-//                        timePickerDialog.setOnCancelListener(DialogInterface.OnCancelListener() {
-//                            Utils.showToast(this, "TEst")
-//                        });
+
                         timePickerDialog.show(fragmentManager, "Timepickerdialog");
 
 
@@ -289,13 +292,10 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                         );
                         timePickerDialog.setThemeDark(false);
                         timePickerDialog.setTitle("TimePicker Title");
-                        timePickerDialog.setTimeInterval(1,60)
-                        // timePickerDialog.setTimeInterval(1, 60, 0); // 15 Minutes Interval
+                        timePickerDialog.setTimeInterval(1, 60)
                         timePickerDialog.setAccentColor(resources.getColor(R.color.color_orange));
 
-//                        timePickerDialog.setOnCancelListener(DialogInterface.OnCancelListener() {
-//                            Utils.showToast(this, "TEst")
-//                        });
+
                         timePickerDialog.show(fragmentManager, "Timepickerdialog");
                     }
                 }
@@ -304,13 +304,6 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
             }
 
 
-//            R.id.rlAttendence -> {
-//
-//                showDropdown(arrGuestCount, Attendence, SpinnerData { mData, mData1 ->
-//                    mAttendenceCount = mData
-//                    Attendence.text = mAttendenceCount
-//                }, mWidthCode)
-//            }
             R.id.rlBudgetGuestCurrency -> {
                 var list = ArrayList<String>()
                 // var items: Array<String> = arrayOf()
@@ -341,6 +334,10 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                 mToDate = tvEndDate.text.toString()
                 mFromTime = tvStartTime.text.toString()
                 mToTime = tvEndTime.text.toString()
+                mCity = etCityCreateEvent.text.toString()
+                mState = etStateCreateEvent.text.toString()
+                mCountry = etCountryCreateEvent.text.toString()
+                mZipCode = etZipCodeCreateEvent.text.toString()
 
                 val mAttendence = etAttendence.text.toString()
                 val mCurrency = tvCurrency.text.toString()
@@ -368,6 +365,14 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                 } else if (mBudgetGuest.equals("0")) {
                     showToast(resources.getString(R.string.err_event_guest_budget_0))
 
+                } else if (KotlinUtils.checkEmpty(mCity)) {
+                    showToast(resources.getString(R.string.err_city))
+                } else if (KotlinUtils.checkEmpty(mState)) {
+                    showToast(resources.getString(R.string.err_state))
+                } else if (KotlinUtils.checkEmpty(mCountry)) {
+                    showToast(resources.getString(R.string.err_country))
+                } else if (KotlinUtils.checkEmpty(mZipCode)) {
+                    showToast(resources.getString(R.string.err_zip_code))
                 } else {
 
 
@@ -387,6 +392,10 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                     obj.put("EventChargesPayCurrencyId", mCurrencyId)
                     obj.put("EventBudget", mBudgetGuest)
                     obj.put("EventManagerId", SharedPref.getString(Constants.USER_ID, ""))
+                    obj.put("EventCity", mCity)
+                    obj.put("EventState", mState)
+                    obj.put("EventCountry", mCountry)
+                    obj.put("EventPostalCode", mZipCode)
                     getAPI(FOR_SAVE_UPDATE_EVENT_DETAIL, obj.toString())
 
                 }

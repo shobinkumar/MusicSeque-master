@@ -252,6 +252,9 @@
     <string name="err_venue_bio">Please enter venue description</string>
     <string name="txt_booking_status">Booking Status</string>
     <string name="err_currency">Please select the currency</string>
+    <string name="err_state">Enter the state name</string>
+    <string name="err_country">Enter the country name</string>
+    <string name="err_zip_code">Enter the zip code</string>
 
 
     <string-array name="my_time_array">

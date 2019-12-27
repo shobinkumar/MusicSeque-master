@@ -85,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/icon_collaborators" />
+                android:src="@drawable/icon_venue" />
 
             <com.musicseque.Fonts.Noyhr
                 android:id="@+id/tvVenues"
@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
-                android:text="Collaborators"
+                android:text="Venue"
                 android:textColor="@color/color_white"
 
                 android:textSize="@dimen/_14sdp"
