@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
 import android.widget.ImageView
@@ -19,7 +18,9 @@ import com.musicseque.MainActivity
 import com.musicseque.R
 import com.musicseque.interfaces.MyInterface
 import com.musicseque.interfaces.SpinnerData
+import com.musicseque.models.CityModel
 import com.musicseque.models.CountryModel
+import com.musicseque.models.StateModel
 import com.musicseque.retrofit_interface.ImageUploadClass
 import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.Constants
@@ -27,6 +28,7 @@ import com.musicseque.utilities.Constants.*
 import com.musicseque.utilities.KotlinBaseFragment
 import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils
+import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile_music_lover.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -54,6 +56,19 @@ class FragmentProfileMusicLover : KotlinBaseFragment(), MyInterface, View.OnClic
     var countryAL = ArrayList<CountryModel>()
     var countryNameAL = ArrayList<String>()
     var countryCodeAL = ArrayList<String>()
+    lateinit var arrStateName: Array<String>
+    var alState = ArrayList<StateModel>()
+    var alStateName = ArrayList<String>()
+    var mStateName = ""
+    var mStateId = ""
+    lateinit var arrCityName: Array<String>
+    var alCity = ArrayList<CityModel>()
+    var alCityName = ArrayList<String>()
+    var mCityName = ""
+    var mCityId = ""
+    private var mAddress: String = ""
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_profile_music_lover, null)
     }
@@ -69,6 +84,8 @@ class FragmentProfileMusicLover : KotlinBaseFragment(), MyInterface, View.OnClic
         tvCountryCodeMusicLover.setOnClickListener(this)
         btnSubmitMusicLover.setOnClickListener(this)
         ivCameraMusicLover.setOnClickListener(this)
+        tvStateProfileMusicLover.setOnClickListener(this)
+        tvCityProfileMusicLover.setOnClickListener(this)
         etDescMusicLover.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
@@ -82,21 +99,7 @@ class FragmentProfileMusicLover : KotlinBaseFragment(), MyInterface, View.OnClic
 
     private fun initViews() {
 
-
-//        try {
-//            val viewTreeObserver = view!!.getViewTreeObserver();
-//            if (viewTreeObserver.isAlive()) {
-//                viewTreeObserver.addOnGlobalLayoutListener {
-//                   // tvCountryCodeMusicLover.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-//                    mWidthCode = tvCityCountryMusicLover.getWidth();
-//                }
-//
-//            }
-//            tvCountryCodeMusicLover.getViewTreeObserver().addOnGlobalLayoutListener(OnGlobalLayoutListener { mWidthCode = tvCountryCodeMusicLover.getMeasuredWidth() })
-//        } catch (e: java.lang.Exception) {
-//            mWidthCode = 0
-//        }
-        mWidthCode=200
+        mWidthCode = 200
         img_right_icon = (activity as MainActivity?)!!.findViewById<View>(R.id.img_right_icon) as ImageView
         img_right_icon.setVisibility(View.GONE)
         val tvDone = (activity as MainActivity?)!!.findViewById<View>(R.id.tvDone) as TextView
@@ -119,6 +122,10 @@ class FragmentProfileMusicLover : KotlinBaseFragment(), MyInterface, View.OnClic
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
+            } else if (type == Constants.FOR_STATE_LIST) {
+                RetrofitAPI.callAPI(params, Constants.FOR_STATE_LIST, this)
+            } else if (type == Constants.FOR_CITY_LIST) {
+                RetrofitAPI.callAPI(params, Constants.FOR_CITY_LIST, this)
             } else if (type == FOR_UPDATE_PROFILE) {
                 RetrofitAPI.callAPI(params, FOR_UPDATE_PROFILE, this)
 
@@ -156,6 +163,42 @@ class FragmentProfileMusicLover : KotlinBaseFragment(), MyInterface, View.OnClic
                 }
 
             }
+
+
+            Constants.FOR_STATE_LIST -> try {
+                val jsonArray = JSONArray(response.toString())
+                var i = 0
+                while (i < jsonArray.length()) {
+                    val jsonObjectState = jsonArray.getJSONObject(i)
+                    val model = StateModel()
+                    model.stateName = jsonObjectState.getString("StateName")
+                    model.stateId = jsonObjectState.getString("StateId")
+                    alState.add(model)
+                    alStateName.add(jsonObjectState.getString("StateName"))
+                    i++
+                }
+                arrStateName = alStateName.toTypedArray()
+                if (!mStateId.equals("", ignoreCase = true)) {
+                    callCityAPI()
+                }
+            } catch (e: Exception) {
+            }
+            Constants.FOR_CITY_LIST -> try {
+                val jsonArray = JSONArray(response.toString())
+                var i = 0
+                while (i < jsonArray.length()) {
+                    val jsonObjectState = jsonArray.getJSONObject(i)
+                    val model = CityModel()
+                    model.cityName = jsonObjectState.getString("CityName")
+                    model.cityId = jsonObjectState.getString("CityId")
+                    alCity.add(model)
+                    alCityName.add(jsonObjectState.getString("CityName"))
+                    i++
+                }
+                arrCityName = alCityName.toTypedArray()
+            } catch (e: Exception) {
+            }
+
             FOR_USER_PROFILE -> {
 
                 try {
@@ -167,25 +210,30 @@ class FragmentProfileMusicLover : KotlinBaseFragment(), MyInterface, View.OnClic
                         mMobileNumber = obj.getString("ContactNo")
                         mCountryName = obj.getString("CountryName")
                         mCountryId = obj.getString("CountryId")
-
+                        mStateId = obj.getString("StateId")
+                        mCityId = obj.getString("CityID")
 
                         SharedPref.putString(Constants.COUNTRY_CODE, mCountryCode)
                         SharedPref.putString(Constants.MOBILE_NUMBER, mMobileNumber)
                         SharedPref.putString(Constants.COUNTRY_NAME, mCountryName)
-                        //SharedPref.putString(Constants.COUNTRY_ID,mCountryId)
 
 
                         tvUserNameMusicLover.setText(obj.getString("FirstName") + " " + obj.getString("LastName"))
                         tvProfileTypeMusicLover.setText(obj.getString("ProfileTypeName"))
-                        if (!obj.getString("City").equals("", ignoreCase = true))
-                            tvCityCountryMusicLover.setText(obj.getString("City") + ", " + obj.getString("CountryName"))
+                        if (!obj.getString("CityName").equals("", ignoreCase = true))
+                            tvCityCountryMusicLover.setText(obj.getString("CityName") + ", " + obj.getString("CountryName"))
 
                         etEmailMusicLover.setText(obj.getString("Email"))
                         tvCountryCodeMusicLover.setText(mCountryCode)
                         etMobileNumberMusicLover.setText(mMobileNumber)
-                        etCityMusicLover.setText(obj.getString("City"))
+
+                        tvCountryMusicLover.text = mCountryName
+                        tvStateProfileMusicLover!!.text = obj.getString("StateName")
+                        tvCityProfileMusicLover!!.text = obj.getString("CityName")
+                        etAddressProfileMusicLover!!.setText(obj.getString("UserAddress"))
                         etPostalCodeMusicLover.setText(obj.getString("PostCode"))
-                        tvCountryMusicLover.setText(mCountryName)
+
+
                         etDescMusicLover.setText(obj.getString("Bio"))
 
                         etWebsiteMusicLover.setText(obj.getString("Website"))
@@ -208,8 +256,10 @@ class FragmentProfileMusicLover : KotlinBaseFragment(), MyInterface, View.OnClic
                             pBarMusicLover.setVisibility(View.GONE)
                         }
                     }
+                    callStateAPI()
                 } catch (e: JSONException) {
                     e.printStackTrace()
+                    callStateAPI()
                 }
 
 
@@ -254,6 +304,10 @@ class FragmentProfileMusicLover : KotlinBaseFragment(), MyInterface, View.OnClic
         listPopupWindow.setOnItemClickListener(OnItemClickListener { parent, view, position, id ->
             if (textView.id == R.id.tvCountryCode) {
                 spinnerData.getData(countryAL[position].countryId, countryAL[position].countryName)
+            } else if (textView.id == R.id.tvStateProfileMusicLover) {
+                spinnerData.getData(alState[position].stateId, array[position])
+            } else if (textView.id == R.id.tvCityProfileMusicLover) {
+                spinnerData.getData(alCity[position].cityId, array[position])
             }
             textView.text = array[position]
             listPopupWindow.dismiss()
@@ -268,9 +322,39 @@ class FragmentProfileMusicLover : KotlinBaseFragment(), MyInterface, View.OnClic
                 showDropdown(arrCountryCode, tvCountryCodeMusicLover, SpinnerData { mId, mName ->
                     mCountryId = mId
                     mCountryName = mName
+                    tvCountryMusicLover.text = mName
+                    mStateId = ""
+                    mCityId = ""
+                    tvState.text = ""
+                    tvCity.text = ""
+                    alCity.clear()
+                    alCityName.clear()
+                    alState.clear()
+                    alStateName.clear()
 
+                    callStateAPI()
                 }, mWidthCode)
             }
+
+            R.id.tvStateProfileMusicLover -> showDropdown(arrStateName, tvStateProfileMusicLover, SpinnerData { mId, mName ->
+                mStateId = mId
+                mStateName = mName
+                tvState.text = mName
+                alCity.clear()
+                alCityName.clear()
+
+                mCityId = ""
+                tvCity.text = ""
+
+                callCityAPI()
+            }, mWidthCode)
+            R.id.tvCityProfileMusicLover -> showDropdown(arrCityName, tvCityProfileMusicLover, SpinnerData { mId, mName ->
+                mCityId = mId
+                mCityName = mName
+                tvCity.text = mName
+            }, mWidthCode)
+
+
             R.id.ivCameraMusicLover -> {
                 checkPermissions("image", "com.musicseque.music_lover.fragments.FragmentProfileMusicLover", this)
 
@@ -283,10 +367,10 @@ class FragmentProfileMusicLover : KotlinBaseFragment(), MyInterface, View.OnClic
 
                 mEmail = etEmailMusicLover.text.toString().trim { it <= ' ' }
                 mMobileNumber = etMobileNumberMusicLover.getText().toString().trim()
-                mCity = etCityMusicLover.text.toString().trim { it <= ' ' }
                 mPostCode = etPostalCodeMusicLover.text.toString().trim { it <= ' ' }
                 mBio = etDescMusicLover.text.toString().trim { it <= ' ' }
                 mWebsite = etWebsiteMusicLover.text.toString().trim { it <= ' ' }
+                mAddress = etAddressProfileMusicLover.text.toString()
 
                 if (mEmail.equals("", ignoreCase = true)) {
                     Utils.showToast(activity, resources.getString(R.string.err_email_id))
@@ -296,8 +380,12 @@ class FragmentProfileMusicLover : KotlinBaseFragment(), MyInterface, View.OnClic
                     Utils.showToast(activity, resources.getString(R.string.err_phone_empty))
                 } else if (mMobileNumber.length < 10) {
                     Utils.showToast(activity, resources.getString(R.string.err_phone))
+                } else if (mStateId.equals("", ignoreCase = true)) {
+                    Utils.showToast(activity, resources.getString(R.string.err_state))
                 } else if (mCity.equals("", ignoreCase = true)) {
                     Utils.showToast(activity, resources.getString(R.string.err_city))
+                } else if (mAddress.equals("", ignoreCase = true)) {
+                    Utils.showToast(activity, resources.getString(R.string.err_address))
                 } else if (mPostCode.equals("", ignoreCase = true)) {
                     Utils.showToast(activity, resources.getString(R.string.err_postcode))
                 } else if (mBio.equals("", ignoreCase = true)) {
@@ -312,7 +400,9 @@ class FragmentProfileMusicLover : KotlinBaseFragment(), MyInterface, View.OnClic
                         jsonBody.put("Email", mEmail)
                         jsonBody.put("CountryId", mCountryId)
                         jsonBody.put("Phone", mMobileNumber)
-                        jsonBody.put("City", mCity)
+                        jsonBody.put("CityId", mCityId)
+                        jsonBody.put("StateId", mStateId)
+                        jsonBody.put("UserAddress", mAddress)
                         jsonBody.put("PostCode", mPostCode)
                         jsonBody.put("Bio", mBio)
                         jsonBody.put("Genre", "0")
@@ -332,6 +422,28 @@ class FragmentProfileMusicLover : KotlinBaseFragment(), MyInterface, View.OnClic
 
     }
 
+
+    private fun callStateAPI() {
+        try {
+            val jsonObject1 = JSONObject()
+            jsonObject1.put("CountryId", mCountryId)
+            hitAPIs(Constants.FOR_STATE_LIST, jsonObject1.toString())
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun callCityAPI() {
+        try {
+            val jsonObject1 = JSONObject()
+            jsonObject1.put("StateId", mStateId)
+            hitAPIs(Constants.FOR_CITY_LIST, jsonObject1.toString())
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+    }
+
+
     fun getImage(file: File) {
         Glide.with(this).load(file).into(ivProfileMusicLover)
         if (Utils.isNetworkConnected(activity)) {
@@ -345,7 +457,6 @@ class FragmentProfileMusicLover : KotlinBaseFragment(), MyInterface, View.OnClic
 
 
     }
-
 
 
 }

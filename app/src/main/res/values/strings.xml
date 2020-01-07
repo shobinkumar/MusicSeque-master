@@ -52,7 +52,7 @@
 
     <string name="err_password_empty">Please enter your password.</string>
     <string name="err_confirm_password_empty">Please enter confirm password.</string>
-    <string name="err_city">Please enter the city.</string>
+    <string name="err_city">Please select the city.</string>
     <string name="err_postcode">Please enter the postcode.</string>
     <string name="err_bio">Please enter your bio.</string>
     <string name="err_genre">Please select the genre.</string>
@@ -74,6 +74,8 @@
     <string name="str_city">City *</string>
     <string name="str_post_code">PostCode *</string>
     <string name="str_country">Country *</string>
+    <string name="str_state">State *</string>
+
     <string name="str_bio">Bio *</string>
     <string name="str_collaborators">Collaborators</string>
     <string name="str_profile">Profile</string>
@@ -252,7 +254,7 @@
     <string name="err_venue_bio">Please enter venue description</string>
     <string name="txt_booking_status">Booking Status</string>
     <string name="err_currency">Please select the currency</string>
-    <string name="err_state">Enter the state name</string>
+    <string name="err_state">Select the state name</string>
     <string name="err_country">Enter the country name</string>
     <string name="err_zip_code">Enter the zip code</string>
 

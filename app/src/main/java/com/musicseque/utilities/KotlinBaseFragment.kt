@@ -20,12 +20,14 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.listener.PermissionRequest
 import com.musicseque.BuildConfig
+import com.musicseque.artist.band.band_fragment.BandFormFragment
 import com.musicseque.artist.fragments.BaseFragment
+import com.musicseque.artist.fragments.ProfileFragment
 import com.musicseque.event_manager.fragment.EventManagerDetailFragment
 import com.musicseque.event_manager.fragment.EventManagerFormFragment
 import com.musicseque.music_lover.fragments.FragmentProfileDetailMusicLover
 import com.musicseque.music_lover.fragments.FragmentProfileMusicLover
-import com.musicseque.venue_manager.fragment.CreateVenueFragment
+import com.musicseque.venue_manager.fragment.VenueFormFragment
 import com.musicseque.venue_manager.fragment.VenueProfileDetailFragment
 
 
@@ -217,8 +219,8 @@ open class KotlinBaseFragment : BaseFragment() {
     }
 
     private fun sendImage(file: File) {
-        if (fragmentName.equals("com.musicseque.venue_manager.fragment.CreateVenueFragment")) {
-            val fName = frag as CreateVenueFragment
+        if (fragmentName.equals("com.musicseque.venue_manager.fragment.VenueFormFragment")) {
+            val fName = frag as VenueFormFragment
 
             fName.getImage(file)
 
@@ -253,7 +255,18 @@ open class KotlinBaseFragment : BaseFragment() {
 
             fName.getImageFile(file)
         }
+        else if(fragmentName.equals("com.musicseque.artist.fragments.ProfileFragment"))
+        {
+            val fName = frag as ProfileFragment
 
+            fName.getImageFile(file)
+        }
+        else if(fragmentName.equals("com.musicseque.artist.band.band_fragment.BandFormFragment"))
+        {
+            val fName = frag as BandFormFragment
+
+            fName.getImageFile(file)
+        }
 
     }
 

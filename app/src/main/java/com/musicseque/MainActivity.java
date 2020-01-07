@@ -28,7 +28,6 @@ import com.musicseque.artist.band.band_fragment.BandFormFragment;
 import com.musicseque.artist.band.band_fragment.BandListFragment;
 import com.musicseque.artist.fragments.ProfileDetailFragment;
 import com.musicseque.artist.fragments.ProfileFragment;
-import com.musicseque.artist.fragments.UploadPhotoFragment;
 import com.musicseque.artist.other_band.fragments.OtherBandListFragment;
 import com.musicseque.artist.service.CommonService;
 
@@ -50,7 +49,7 @@ import com.musicseque.utilities.Constants;
 import com.musicseque.utilities.SharedPref;
 import com.musicseque.utilities.Utils;
 import com.musicseque.venue_manager.fragment.VenueBookingStatusFragment;
-import com.musicseque.venue_manager.fragment.CreateVenueFragment;
+import com.musicseque.venue_manager.fragment.VenueFormFragment;
 import com.musicseque.venue_manager.fragment.VenueProfileDetailFragment;
 import com.musicseque.venue_manager.fragment.VenueTimmingsFragment;
 
@@ -348,12 +347,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 if (b == null) {
                     if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equalsIgnoreCase("Y"))
-                        fragment = new CreateVenueFragment();
+                        fragment = new VenueFormFragment();
                     else
                         fragment = new VenueProfileDetailFragment();
                 } else {
 
-                    fragment = new CreateVenueFragment();
+                    fragment = new VenueFormFragment();
 
                 }
 
@@ -433,7 +432,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equalsIgnoreCase("Y")) {
                 if (mLoginType.equalsIgnoreCase("Venue Manager")) {
-                    fragment = new CreateVenueFragment();
+                    fragment = new VenueFormFragment();
                 } else if (mLoginType.equalsIgnoreCase("Artist")) {
                     fragment = new ProfileFragment();
                 } else if (mLoginType.equalsIgnoreCase("Music Lover")) {
@@ -758,7 +757,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void showHideDrawerViews() {
         if (mLoginType.equalsIgnoreCase("Venue Manager")) {
-            // tvAddEvent.setVisibility(View.GONE);
             llAllProfile.setVisibility(GONE);
             ivUpArrow.setVisibility(GONE);
             ivDownArrow.setVisibility(GONE);
@@ -774,7 +772,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void onClick(View view) {
                     if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equalsIgnoreCase("Y")) {
-                        fragment = new CreateVenueFragment();
+                        fragment = new VenueFormFragment();
 
                     } else {
                         fragment = new VenueProfileDetailFragment();
@@ -785,7 +783,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
         } else if (mLoginType.equalsIgnoreCase("Artist")) {
-            // tvAddEvent.setVisibility(View.VISIBLE);
             llAllProfile.setVisibility(GONE);
             ivUpArrow.setVisibility(GONE);
             ivDownArrow.setVisibility(View.VISIBLE);
@@ -799,6 +796,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             viewSchedule.setVisibility(GONE);
             llAllEvents.setVisibility(View.VISIBLE);
             tvAddEvent.setVisibility(GONE);
+            llAllEvents.setVisibility(GONE);
+            ivDownArrowEvents.setVisibility(View.VISIBLE);
+            ivUpArrowEvents.setVisibility(GONE);
 
         } else if (mLoginType.equalsIgnoreCase("Event Manager")) {
 

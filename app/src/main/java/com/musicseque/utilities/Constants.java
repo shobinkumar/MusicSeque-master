@@ -31,6 +31,8 @@ public class Constants {
 
     public static final String GENRE_LIST_API = "Service/GenreTypeList";
     public static final String COUNTRY_LIST_API = "Service/CountryCodes";
+    public static final String STATE_LIST_API ="Service/StateList";
+    public static final String CITY_LIST_API ="Service/CityList";
 
 
     public static final String GET_UPLOADED_MEDIA_API = "Service/GetUploadedFiles";
@@ -207,6 +209,8 @@ public class Constants {
 
 
     public static final int FOR_LOGOUT = 1001;
+    public static final int FOR_STATE_LIST=1002;
+    public static final int FOR_CITY_LIST=1003;
 
 
     public static final int FOR_TEST=2001;

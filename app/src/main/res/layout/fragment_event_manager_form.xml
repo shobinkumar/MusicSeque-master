@@ -226,75 +226,9 @@
                         android:textSize="@dimen/_15sdp" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/_5sdp"
 
-                    android:weightSum="1">
 
-                    <com.musicseque.Fonts.Noyhr
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".30"
-                        android:text="@string/str_city"
-                        android:textColor="@color/color_white"
-                        android:textSize="@dimen/_15sdp" />
 
-                    <com.musicseque.Fonts.NoyhrEditText
-                        android:id="@+id/etCityFormEventManager"
-
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".70"
-                        android:background="#0C1C24"
-                        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                        android:hint="Please enter the city"
-                        android:maxLength="12"
-                        android:maxLines="1"
-                        android:paddingLeft="@dimen/_10sdp"
-                        android:paddingTop="@dimen/_5sdp"
-                        android:paddingRight="@dimen/_5sdp"
-                        android:paddingBottom="@dimen/_5sdp"
-                        android:singleLine="true"
-                        android:textColor="@color/color_white"
-                        android:textColorHint="@color/color_white_hint"
-                        android:textSize="@dimen/_15sdp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-
-                    android:padding="@dimen/_5sdp"
-                    android:weightSum="1">
-
-                    <com.musicseque.Fonts.Noyhr
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".30"
-                        android:text="@string/str_post_code"
-                        android:textColor="@color/color_white"
-                        android:textSize="@dimen/_15sdp" />
-
-                    <com.musicseque.Fonts.NoyhrEditText
-                        android:id="@+id/etPostalCodeFormEventManager"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".70"
-                        android:background="#0C1C24"
-                        android:hint="Please enter the post code"
-                        android:maxLength="10"
-                        android:paddingLeft="@dimen/_10sdp"
-                        android:paddingTop="@dimen/_5sdp"
-                        android:paddingRight="@dimen/_5sdp"
-                        android:paddingBottom="@dimen/_5sdp"
-                        android:textColor="@color/color_white"
-                        android:textColorHint="@color/color_white_hint"
-                        android:textSize="@dimen/_15sdp" />
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -329,7 +263,173 @@
                         android:textSize="@dimen/_15sdp" />
 
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
 
+
+                    android:weightSum="100">
+
+                    <com.musicseque.Fonts.Noyhr
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="30"
+                        android:text="State *"
+                        android:padding="@dimen/_5sdp"
+                        android:textColor="@color/color_white"
+                        android:textSize="@dimen/_15sdp" />
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="70"
+                        android:background="@android:color/transparent">
+
+                        <com.musicseque.Fonts.Noyhr
+                            android:id="@+id/tvStateFormEventManager"
+                            android:layout_width="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_edit_text"
+                            android:hint="Please select state"
+                            android:paddingLeft="@dimen/_10sdp"
+                            android:textColor="@color/color_white"
+                            android:textColorHint="@color/color_white_hint"
+                            android:textSize="@dimen/_15sdp"
+
+                            />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/arrowdown" />
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:weightSum="1">
+
+                    <com.musicseque.Fonts.Noyhr
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".30"
+                        android:text="@string/str_city"
+                        android:padding="@dimen/_5sdp"
+
+                        android:textColor="@color/color_white"
+                        android:textSize="@dimen/_15sdp" />
+
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight=".70"
+
+                        android:background="@android:color/transparent">
+
+                        <com.musicseque.Fonts.Noyhr
+                            android:id="@+id/tvCityFormEventManager"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_edit_text"
+                            android:paddingLeft="@dimen/_10sdp"
+                            android:hint="Please select city"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/color_white"
+                            android:textColorHint="@color/color_white_hint"
+                            android:textSize="@dimen/_15sdp"
+
+                            />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/arrowdown" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_5sdp"
+                    android:weightSum="1">
+
+                    <com.musicseque.Fonts.Noyhr
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".30"
+                        android:text="@string/str_address"
+                        android:textColor="@color/color_white"
+                        android:textSize="@dimen/_15sdp" />
+
+
+                    <com.musicseque.Fonts.Noyhr
+                        android:id="@+id/etAddressFormEventManager"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".70"
+                        android:background="#0C1C24"
+                        android:hint="Please enter the address"
+                        android:inputType="number"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:paddingTop="@dimen/_5sdp"
+                        android:paddingRight="@dimen/_5sdp"
+                        android:paddingBottom="@dimen/_5sdp"
+                        android:textColor="@color/color_white"
+                        android:textColorHint="@color/color_white_hint"
+                        android:textSize="@dimen/_15sdp" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+
+                    android:padding="@dimen/_5sdp"
+                    android:weightSum="1">
+
+                    <com.musicseque.Fonts.Noyhr
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".30"
+                        android:text="@string/str_post_code"
+                        android:textColor="@color/color_white"
+                        android:textSize="@dimen/_15sdp" />
+
+                    <com.musicseque.Fonts.NoyhrEditText
+                        android:id="@+id/etPostalCodeFormEventManager"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".70"
+                        android:background="#0C1C24"
+                        android:hint="Please enter the post code"
+                        android:maxLength="10"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:paddingTop="@dimen/_5sdp"
+                        android:paddingRight="@dimen/_5sdp"
+                        android:paddingBottom="@dimen/_5sdp"
+                        android:textColor="@color/color_white"
+                        android:textColorHint="@color/color_white_hint"
+                        android:textSize="@dimen/_15sdp" />
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

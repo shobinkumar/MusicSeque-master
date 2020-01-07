@@ -13,15 +13,17 @@ import com.musicseque.MainActivity
 import com.musicseque.R
 import com.musicseque.interfaces.MyInterface
 import com.musicseque.interfaces.SpinnerData
+import com.musicseque.models.CityModel
 import com.musicseque.models.CountryModel
+import com.musicseque.models.StateModel
 import com.musicseque.retrofit_interface.ImageUploadClass
 import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.*
-import kotlinx.android.synthetic.main.fragment_create_venue.*
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import com.musicseque.utilities.Constants.*
+import kotlinx.android.synthetic.main.fragment_create_venue.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -29,7 +31,7 @@ import java.io.File
 import java.lang.Exception
 
 
-class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterface {
+class VenueFormFragment : KotlinBaseFragment(), View.OnClickListener, MyInterface {
     private var imgRight: ImageView? = null
     private var tvHeading: BoldNoyhr? = null
 
@@ -50,7 +52,20 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
     lateinit var mVenueCapacity: String
     lateinit var mVenueCountryId: String
     lateinit var mVenuePhoneNumber: String
+    lateinit var arrStateName: Array<String>
+    var alState = java.util.ArrayList<StateModel>()
+    var alStateName = java.util.ArrayList<String>()
+    var mStateName = ""
+    var mStateId = ""
+    lateinit var arrCityName: Array<String>
+    var alCity = java.util.ArrayList<CityModel>()
+    var alCityName = java.util.ArrayList<String>()
+    var mCityName = ""
+    var mCityId = ""
+
+
     var mWidth = 0
+    var mWidthFull = 0
 
     //var mVenueName
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -64,7 +79,7 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
         initViews()
         showDefaultData()
         listeners()
-        hitAPI("countries_list")
+        hitAPI(FOR_COUNTRIES_LIST, "")
     }
 
     private fun showDefaultData() {
@@ -78,7 +93,7 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
         tvVenueName.text = mVenueName
         tvVenueCountryCode.setText(mCountryCode)
         etMobileNumber.setText(mVenuePhoneNumber)
-        tvVenueCountry.setText(mVenueCountry)
+        tvCountryVenueForm.setText(mVenueCountry)
     }
 
 
@@ -102,6 +117,7 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
 
         }
         )
+        mWidthFull = 500
 
     }
 
@@ -109,48 +125,74 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
         ivVenueImage.setOnClickListener(this)
         btnSubmit.setOnClickListener(this)
         tvVenueCountryCode.setOnClickListener(this)
+        tvStateVenueForm.setOnClickListener(this)
+        tvCityVenueForm.setOnClickListener(this)
     }
 
     override fun onClick(view: View) {
 
         when (view.id) {
-//            R.id.ivDrawer -> {
-//                onClick(ivDrawer)
-//            }
+
             R.id.ivVenueImage -> {
-                checkPermissions("image", "com.musicseque.venue_manager.fragment.CreateVenueFragment", this)
+                checkPermissions("image", "com.musicseque.venue_manager.fragment.VenueFormFragment", this)
             }
             R.id.tvVenueCountryCode -> {
-                showDropdown(SpinnerData { mData, mData1 ->
-                    mVenueCountryId = mData
-                    mVenueCountry = mData1
-                    tvVenueCountry.setText(mData1)
-                })
+                showDropdown(arrCountryCode, tvVenueCountryCode, SpinnerData { mId, mName ->
+                    mVenueCountryId = mId
+                    mVenueCountry = mName
+                    tvCountryVenueForm.setText(mName)
+                    mStateId = ""
+                    mCityId = ""
+                    tvStateVenueForm.text = ""
+                    tvCityVenueForm.text = ""
+                    alCity.clear()
+                    alCityName.clear()
+                    alState.clear()
+                    alStateName.clear()
+
+                    callStateAPI()
+                }, mWidth)
             }
+            R.id.tvStateVenueForm -> showDropdown(arrStateName, tvStateVenueForm, SpinnerData { mId, mName ->
+                mStateId = mId
+                mStateName = mName
+                tvStateVenueForm.text = mName
+                alCity.clear()
+                alCityName.clear()
+
+                mCityId = ""
+                tvCityVenueForm.text = ""
+
+                callCityAPI()
+            }, mWidthFull)
+            R.id.tvCityVenueForm -> showDropdown(arrCityName, tvCityVenueForm, SpinnerData { mId, mName ->
+                mCityId = mId
+                mCityName = mName
+                tvCityVenueForm.text = mName
+            }, mWidthFull)
+
+
             R.id.btnSubmit -> {
                 mVenuePhoneNumber = etMobileNumber.text.toString()
-                mVenueCity = etVenueCity.text.toString()
                 mVenuePinCode = etVenuePinCode.text.toString()
                 mVenueBio = etVenueDesc.text.toString()
                 mVenueCapacity = etVenueCapacity.text.toString()
-                mVenueAddress = etVenueAddress.text.toString()
-                mCountryCode=tvVenueCountryCode.text.toString()
-                mVenueCountry=tvVenueCountry.text.toString()
+                mVenueAddress = etAddressVenueForm.text.toString()
+                mCountryCode = tvVenueCountryCode.text.toString()
 
 
 
-                 if(mCountryCode.equals("",true))
-                {
+                if (mCountryCode.equals("", true)) {
                     Utils.showToast(activity, resources.getString(R.string.err_country_code))
 
-                }
-                else if (mVenuePhoneNumber.length < 10) {
+                } else if (mVenuePhoneNumber.length < 10) {
                     Utils.showToast(activity, resources.getString(R.string.err_phone))
-                } else if (mVenueAddress.equals("", ignoreCase = true)) {
-                    Utils.showToast(activity,  resources.getString(R.string.err_address))
-
-                } else if (mVenueCity.equals("", ignoreCase = true)) {
+                } else if (mStateId.equals("", ignoreCase = true)) {
+                    Utils.showToast(activity, resources.getString(R.string.err_state))
+                } else if (mCityId.equals("", ignoreCase = true)) {
                     Utils.showToast(activity, resources.getString(R.string.err_city))
+                } else if (mVenueAddress.equals("", ignoreCase = true)) {
+                    Utils.showToast(activity, resources.getString(R.string.err_address))
 
                 } else if (mVenuePinCode.equals("", ignoreCase = true)) {
                     Utils.showToast(activity, resources.getString(R.string.err_postcode))
@@ -167,8 +209,6 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
                         val jsonBody = JSONObject()
 
 
-//                        jsonBody.put("VenueId", SharedPref.getString(USER_ID, ""))
-//                        jsonBody.put("VenueName", mVenueName)
                         jsonBody.put("Phone", mVenuePhoneNumber)
                         jsonBody.put("EmailId", mVenueEmail)
 
@@ -177,12 +217,11 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
                         jsonBody.put("CountryId", mVenueCountryId)
                         jsonBody.put("Bio", mVenueBio)
                         jsonBody.put("UserId", SharedPref.getString(USER_ID, ""))
-//                        jsonBody.put("VenueTypeId", "")
+                        jsonBody.put("CityId", mCityId)
+                        jsonBody.put("StateId", mStateId)
+                        jsonBody.put("UserAddress", mVenueAddress)
                         jsonBody.put("VenueCapacity", mVenueCapacity)
-//                        jsonBody.put("ProfileTypeId", "")
-//                        jsonBody.put("VenueLatitude", mLatitude)
-//                        jsonBody.put("VenueLongitude", LocationService.mLongitude)
-//                        jsonBody.put("VenueWebsite", "")
+
                         jsonBody.put("DisplayName", mVenueName)
                         jsonBody.put("VenueAddress", mVenueAddress)
                         RetrofitAPI.callAPI(jsonBody.toString(), FOR_UPDATE_PROFILE, this)
@@ -201,15 +240,19 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
     }
 
 
-    private fun hitAPI(type: String) {
+    private fun hitAPI(type: Int, args: String) {
 
         if (KotlinUtils.isNetConnected(activity!!.applicationContext)) {
             Utils.initializeAndShow(requireContext())
-            if (type == "countries_list") {
+            if (type == FOR_COUNTRIES_LIST) {
                 RetrofitAPI.callGetAPI(Constants.FOR_COUNTRIES_LIST, this)
 
 
-            } else if (type == "profile") {
+            } else if (type == Constants.FOR_STATE_LIST) {
+                RetrofitAPI.callAPI(args, Constants.FOR_STATE_LIST, this)
+            } else if (type == Constants.FOR_CITY_LIST) {
+                RetrofitAPI.callAPI(args, Constants.FOR_CITY_LIST, this)
+            } else if (type == FOR_USER_PROFILE) {
                 try {
                     val jsonObject = JSONObject()
                     jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""))
@@ -248,7 +291,7 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
 
 
                     arrCountryCode = countryCodeAL.toTypedArray()
-                    hitAPI("profile")
+                    hitAPI(FOR_USER_PROFILE, "")
 
 
                 } catch (e: JSONException) {
@@ -256,6 +299,42 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
                 }
 
             }
+
+            Constants.FOR_STATE_LIST -> try {
+                val jsonArray = JSONArray(response.toString())
+                var i = 0
+                while (i < jsonArray.length()) {
+                    val jsonObjectState = jsonArray.getJSONObject(i)
+                    val model = StateModel()
+                    model.stateName = jsonObjectState.getString("StateName")
+                    model.stateId = jsonObjectState.getString("StateId")
+                    alState.add(model)
+                    alStateName.add(jsonObjectState.getString("StateName"))
+                    i++
+                }
+                arrStateName = alStateName.toTypedArray()
+                if (!mStateId.equals("", ignoreCase = true)) {
+                    callCityAPI()
+                }
+            } catch (e: Exception) {
+            }
+            Constants.FOR_CITY_LIST -> try {
+                val jsonArray = JSONArray(response.toString())
+                var i = 0
+                while (i < jsonArray.length()) {
+                    val jsonObjectState = jsonArray.getJSONObject(i)
+                    val model = CityModel()
+                    model.cityName = jsonObjectState.getString("CityName")
+                    model.cityId = jsonObjectState.getString("CityId")
+                    alCity.add(model)
+                    alCityName.add(jsonObjectState.getString("CityName"))
+                    i++
+                }
+                arrCityName = alCityName.toTypedArray()
+            } catch (e: Exception) {
+            }
+
+
             FOR_USER_PROFILE -> {
                 try {
                     val obj = JSONObject(response.toString())
@@ -266,7 +345,8 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
                         mVenueCountryId = obj.getString("CountryId")
                         mVenueCountry = obj.getString("CountryName")
                         mVenuePhoneNumber = obj.getString("ContactNo")
-
+                        mStateId = obj.getString("StateId")
+                        mCityId = obj.getString("CityID")
 
                         SharedPref.putString(Constants.COUNTRY_CODE, obj.getString("CountryCode"))
                         SharedPref.putString(Constants.MOBILE_NUMBER, obj.getString("ContactNo"))
@@ -276,13 +356,14 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
 
                         tvVenueCountryCode.setText(obj.getString("CountryCode"));
                         etMobileNumber.setText(obj.getString("ContactNo"))
-                        tvVenueCountry.setText(obj.getString("CountryName"))
+                        tvCountryVenueForm.setText(obj.getString("CountryName"))
+                        tvStateVenueForm.text = obj.getString("StateName")
+                        tvCityVenueForm.setText(obj.getString("CityName"))
+                        etAddressVenueForm.setText(obj.getString("VenueAddress"))
+                        etVenuePinCode.setText(obj.getString("PostCode"))
 
-                        etVenueAddress.setText(obj.getString("VenueAddress"))
-                        etVenueCity.setText(obj.getString("City"))
                         etVenueDesc.setText(obj.getString("Bio"))
                         etVenueCapacity.setText(obj.getString("VenueCapacity"))
-                        etVenuePinCode.setText(obj.getString("PostCode"))
 
                         if (obj.getString("SocialId").equals("")) {
                             ivCamera.visibility = View.VISIBLE
@@ -297,20 +378,21 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
                             }
                         } else {
                             ivCamera.visibility = View.GONE
-                            val sUrl=obj.getString("SocialImageUrl")
-                            if(sUrl.equals(""))
+                            val sUrl = obj.getString("SocialImageUrl")
+                            if (sUrl.equals(""))
                                 Glide.with(this).load(R.drawable.icon_img_dummy).into(ivVenueImage)
-
                             else
-                            Glide.with(this).load(obj.getString("SocialImageUrl")).into(ivVenueImage)
+                                Glide.with(this).load(obj.getString("SocialImageUrl")).into(ivVenueImage)
                             pBar.visibility = View.GONE
                         }
 
 
                     }
+                    callStateAPI()
 
                 } catch (e: JSONException) {
                     e.printStackTrace()
+                    callStateAPI()
                 }
 
 
@@ -358,27 +440,49 @@ class CreateVenueFragment : KotlinBaseFragment(), View.OnClickListener, MyInterf
     }
 
 
-    fun showDropdown(spinnerData: SpinnerData) {
+    fun showDropdown(array: Array<String>, textView: TextView?, spinnerData: SpinnerData, width: Int) {
         listPopupWindow = ListPopupWindow(
-                activity!!)
-        listPopupWindow.setAdapter(ArrayAdapter(
+                activity)
+        listPopupWindow!!.setAdapter(ArrayAdapter<Any?>(
                 activity,
-                R.layout.row_profile_spinner, arrCountryCode))
-        listPopupWindow.setBackgroundDrawable(resources.getDrawable(R.drawable.rectangle_black))
-        listPopupWindow.setAnchorView(tvVenueCountryCode)
-        listPopupWindow.setWidth(mWidth)
-        listPopupWindow.setHeight(400)
-        listPopupWindow.setModal(true)
-        listPopupWindow.setOnItemClickListener(AdapterView.OnItemClickListener { parent, view, position, id ->
-
-            spinnerData.getData(countryAL[position].countryId, countryAL[position].countryName)
-
-            tvVenueCountryCode.text = arrCountryCode[position]
-
-            listPopupWindow.dismiss()
-        })
-        listPopupWindow.show()
+                R.layout.row_profile_spinner, array))
+        listPopupWindow!!.setBackgroundDrawable(resources.getDrawable(R.drawable.rectangle_black))
+        listPopupWindow!!.anchorView = textView
+        listPopupWindow!!.width = width
+        listPopupWindow!!.height = 400
+        listPopupWindow!!.isModal = true
+        listPopupWindow!!.setOnItemClickListener { parent, view, position, id ->
+            if (textView!!.id == R.id.tvCountryCode) {
+                spinnerData.getData(countryAL[position].countryId, countryAL[position].countryName)
+            } else if (textView.id == R.id.tvStateVenueForm) {
+                spinnerData.getData(alState[position].stateId, array[position])
+            } else if (textView.id == R.id.tvCityVenueForm) {
+                spinnerData.getData(alCity[position].cityId, array[position])
+            }
+            textView.text = array[position]
+            listPopupWindow!!.dismiss()
+        }
+        listPopupWindow!!.show()
     }
 
+    private fun callStateAPI() {
+        try {
+            val jsonObject1 = JSONObject()
+            jsonObject1.put("CountryId", mVenueCountryId)
+            hitAPI(Constants.FOR_STATE_LIST, jsonObject1.toString())
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun callCityAPI() {
+        try {
+            val jsonObject1 = JSONObject()
+            jsonObject1.put("StateId", mStateId)
+            hitAPI(Constants.FOR_CITY_LIST, jsonObject1.toString())
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+    }
 
 }

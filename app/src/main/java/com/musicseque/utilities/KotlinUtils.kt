@@ -4,19 +4,21 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
 import android.net.ConnectivityManager
-import android.os.Build
-import android.support.annotation.RequiresApi
+import android.view.View
 import android.view.ViewTreeObserver
+import android.widget.AdapterView.OnItemClickListener
+import android.widget.ArrayAdapter
+import android.widget.ListPopupWindow
 import android.widget.TextView
-import android.widget.Toast
-import com.musicseque.event_manager.activity.CreateEventActivity
+import com.musicseque.R
 import com.musicseque.interfaces.DateTimeInterface
+import com.musicseque.interfaces.SpinnerData
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 class KotlinUtils {
 
+    lateinit var listPopupWindow: ListPopupWindow
 
     companion object {
 
@@ -135,6 +137,12 @@ class KotlinUtils {
             return cm.activeNetworkInfo != null
         }
 
+
+        fun createEvent(mDate1: String, mDate2: String): Pair<String, String> {
+            val oldDateFormat = SimpleDateFormat("dd/MMM/yyyy");
+            val newDateFormat = SimpleDateFormat("dd-MM-yyyy");
+            return Pair(newDateFormat.format(oldDateFormat.parse(mDate1)), newDateFormat.format(oldDateFormat.parse(mDate2)))
+        }
         fun dateFormatToSend(mDate1: String, mDate2: String): Pair<String, String> {
             val oldDateFormat = SimpleDateFormat("dd-MM-yyyy");
             val newDateFormat = SimpleDateFormat("MM-dd-yyyy");
@@ -157,7 +165,40 @@ class KotlinUtils {
         }
     }
 
-
+//    fun showDropdown(array: Array<String?>, textView: TextView, spinnerData: SpinnerData, width: Int,ctx:Context) {
+//        listPopupWindow = ListPopupWindow(
+//                ctx)
+//        listPopupWindow.setAdapter(ArrayAdapter<Any?>(
+//                ctx,
+//                R.layout.row_profile_spinner, array))
+//        listPopupWindow.setBackgroundDrawable(ctx.getResources().getDrawable(R.drawable.rectangle_black))
+//        listPopupWindow.setAnchorView(textView)
+//        listPopupWindow.setWidth(width)
+//        listPopupWindow.setHeight(400)
+//        listPopupWindow.setModal(true)
+//        listPopupWindow.setOnItemClickListener(OnItemClickListener { parent, view, position, id ->
+//            if (textView.id == R.id.tvCountryCode) {
+//                spinnerData.getData(countryAL.get(position).getCountryId(), countryAL.get(position).getCountryName())
+//            } else if (textView.id == R.id.tvGenre) {
+//                spinnerData.getData(array[position], genreAL.get(position).getId())
+//            } else if (textView.id == R.id.tvExperience) {
+//                val pos = position + 1
+//                spinnerData.getData(array[position], pos.toString() + "")
+//            } else if (textView.id == R.id.tvCertification) {
+//                if (arrCertification.get(position).equals("Others", ignoreCase = true)) {
+//                    llCertification.setVisibility(View.VISIBLE)
+//                } else {
+//                    llCertification.setVisibility(View.GONE)
+//                    spinnerData.getData(array[position], "")
+//                }
+//            } else {
+//                spinnerData.getData(array[position], "")
+//            }
+//            textView.text = array[position]
+//            listPopupWindow.dismiss()
+//        })
+//        listPopupWindow.show()
+//    }
 
 
 }

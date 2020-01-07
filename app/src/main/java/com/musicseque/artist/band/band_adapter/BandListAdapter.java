@@ -83,19 +83,16 @@ public class BandListAdapter extends RecyclerView.Adapter<BandListAdapter.ViewHo
 
             }
         });
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                BandProfileDetailFragment ldf = new BandProfileDetailFragment();
-                Bundle args = new Bundle();
-                args.putString("band_id", bandDataModel.getBandId().toString());
-                ldf.setArguments(args);
+        viewHolder.itemView.setOnClickListener(view -> {
+            BandProfileDetailFragment ldf = new BandProfileDetailFragment();
+            Bundle args = new Bundle();
+            args.putString("band_id", bandDataModel.getBandId().toString());
+            ldf.setArguments(args);
 
-                ((FragmentActivity)view. getContext()).getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frameLayout, ldf)
-                        .commit();
+            ((FragmentActivity)view. getContext()).getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frameLayout, ldf)
+                    .commit();
 
-            }
         });
 
 

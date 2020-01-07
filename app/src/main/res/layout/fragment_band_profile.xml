@@ -33,27 +33,26 @@
 
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/ivProfile"
+                        android:id="@+id/ivProfileBandProfile"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:src="@drawable/icon_img_dummy" />
 
                     <ProgressBar
-                        android:id="@+id/pBar"
+                        android:id="@+id/pBarBandProfile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:visibility="gone"
                         android:layout_centerInParent="true" />
 
                     <ImageView
-                        android:id="@+id/ivAddImage"
+                        android:id="@+id/ivAddImageBandProfile"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-
                         android:visibility="gone" />
 
                     <ImageView
-                        android:id="@+id/ivCamera"
+                        android:id="@+id/ivCameraBandProfile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
@@ -62,7 +61,7 @@
                         android:src="@drawable/icon_camera" />
 
                     <ImageView
-                        android:id="@+id/ivStatus"
+                        android:id="@+id/ivStatusBandProfile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -71,44 +70,6 @@
                         android:src="@drawable/circle_green" />
                 </RelativeLayout>
 
-
-                <!--<LinearLayout-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginLeft="@dimen/_15sdp"-->
-                    <!--android:layout_marginTop="@dimen/_10sdp"-->
-                    <!--android:layout_toRightOf="@+id/rlImage"-->
-                    <!--android:orientation="vertical">-->
-
-                    <!--<com.musicseque.Fonts.Noyhr-->
-                        <!--android:id="@+id/tvUserName"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:maxLines="1"-->
-                        <!--android:singleLine="true"-->
-                        <!--android:textColor="@color/color_white"-->
-                        <!--android:textSize="@dimen/_16sdp" />-->
-
-                    <!--<com.musicseque.Fonts.Noyhr-->
-                        <!--android:id="@+id/tvProfileType"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:maxLines="1"-->
-                        <!--android:singleLine="true"-->
-                        <!--android:textColor="@color/color_orange"-->
-                        <!--android:textSize="@dimen/_15sdp" />-->
-
-                    <!--<com.musicseque.Fonts.Noyhr-->
-                        <!--android:id="@+id/tvCityCountry"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:maxLines="1"-->
-                        <!--android:singleLine="true"-->
-                        <!--android:textColor="@color/color_white"-->
-                        <!--android:textSize="@dimen/_13sdp" />-->
-
-
-                <!--</LinearLayout>-->
 
             </RelativeLayout>
 
@@ -141,7 +102,7 @@
                         android:textSize="@dimen/_15sdp" />
 
                     <com.musicseque.Fonts.NoyhrEditText
-                        android:id="@+id/etBandName"
+                        android:id="@+id/etBandNameBandProfile"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".70"
@@ -174,7 +135,7 @@
                         android:textSize="@dimen/_15sdp" />
 
                     <com.musicseque.Fonts.NoyhrEditText
-                        android:id="@+id/et_email"
+                        android:id="@+id/etEmailBandProfile"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".70"
@@ -216,7 +177,7 @@
                         android:background="@android:color/transparent">
 
                         <com.musicseque.Fonts.Noyhr
-                            android:id="@+id/tvCountryCode"
+                            android:id="@+id/tvCountryCodeBandProfile"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="#0C1C24"
@@ -241,7 +202,7 @@
                     </RelativeLayout>
 
                     <com.musicseque.Fonts.NoyhrEditText
-                        android:id="@+id/etMobileNumber"
+                        android:id="@+id/etMobileNumberBandProfile"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_10sdp"
@@ -258,75 +219,9 @@
                         android:textSize="@dimen/_15sdp" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/_5sdp"
 
-                    android:weightSum="1">
 
-                    <com.musicseque.Fonts.Noyhr
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".30"
-                        android:text="@string/str_city"
-                        android:textColor="@color/color_white"
-                        android:textSize="@dimen/_15sdp" />
 
-                    <com.musicseque.Fonts.NoyhrEditText
-                        android:id="@+id/et_city"
-
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".70"
-                        android:background="#0C1C24"
-                        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                        android:hint="Please enter the city"
-                        android:maxLength="12"
-                        android:maxLines="1"
-                        android:paddingLeft="@dimen/_10sdp"
-                        android:paddingTop="@dimen/_5sdp"
-                        android:paddingRight="@dimen/_5sdp"
-                        android:paddingBottom="@dimen/_5sdp"
-                        android:singleLine="true"
-                        android:textColor="@color/color_white"
-                        android:textColorHint="@color/color_white_hint"
-                        android:textSize="@dimen/_15sdp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-
-                    android:padding="@dimen/_5sdp"
-                    android:weightSum="1">
-
-                    <com.musicseque.Fonts.Noyhr
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".30"
-                        android:text="@string/str_post_code"
-                        android:textColor="@color/color_white"
-                        android:textSize="@dimen/_15sdp" />
-
-                    <com.musicseque.Fonts.NoyhrEditText
-                        android:id="@+id/et_postal_code"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".70"
-                        android:background="#0C1C24"
-                        android:hint="Please enter the post code"
-                        android:maxLength="10"
-                        android:paddingLeft="@dimen/_10sdp"
-                        android:paddingTop="@dimen/_5sdp"
-                        android:paddingRight="@dimen/_5sdp"
-                        android:paddingBottom="@dimen/_5sdp"
-                        android:textColor="@color/color_white"
-                        android:textColorHint="@color/color_white_hint"
-                        android:textSize="@dimen/_15sdp" />
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -345,7 +240,7 @@
 
 
                     <com.musicseque.Fonts.Noyhr
-                        android:id="@+id/tvCountry"
+                        android:id="@+id/tvCountryBandProfile"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".70"
@@ -361,7 +256,171 @@
                         android:textSize="@dimen/_15sdp" />
 
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
 
+
+                    android:weightSum="100">
+
+                    <com.musicseque.Fonts.Noyhr
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="30"
+                        android:text="State *"
+                        android:padding="@dimen/_5sdp"
+                        android:textColor="@color/color_white"
+                        android:textSize="@dimen/_15sdp" />
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="70"
+                        android:background="@android:color/transparent">
+
+                        <com.musicseque.Fonts.Noyhr
+                            android:id="@+id/tvStateBandProfile"
+                            android:layout_width="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_edit_text"
+                            android:hint="Please select state"
+                            android:paddingLeft="@dimen/_10sdp"
+                            android:textColor="@color/color_white"
+                            android:textColorHint="@color/color_white_hint"
+                            android:textSize="@dimen/_15sdp"
+
+                            />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/arrowdown" />
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:weightSum="1">
+
+                    <com.musicseque.Fonts.Noyhr
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".30"
+                        android:text="@string/str_city"
+                        android:padding="@dimen/_5sdp"
+
+                        android:textColor="@color/color_white"
+                        android:textSize="@dimen/_15sdp" />
+
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight=".70"
+
+                        android:background="@android:color/transparent">
+
+                        <com.musicseque.Fonts.Noyhr
+                            android:id="@+id/tvCityBandProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_edit_text"
+                            android:paddingLeft="@dimen/_10sdp"
+                            android:hint="Please select city"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/color_white"
+                            android:textColorHint="@color/color_white_hint"
+                            android:textSize="@dimen/_15sdp"
+
+                            />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/arrowdown" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_5sdp"
+                    android:weightSum="1">
+
+                    <com.musicseque.Fonts.Noyhr
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".30"
+                        android:text="@string/str_address"
+                        android:textColor="@color/color_white"
+                        android:textSize="@dimen/_15sdp" />
+
+
+                    <com.musicseque.Fonts.NoyhrEditText
+                        android:id="@+id/etAddressBandProfile"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".70"
+                        android:background="@color/color_edit_text"
+                        android:hint="Please enter the address"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:paddingTop="@dimen/_5sdp"
+                        android:paddingRight="@dimen/_5sdp"
+                        android:paddingBottom="@dimen/_5sdp"
+                        android:textColor="@color/color_white"
+                        android:textColorHint="@color/color_white_hint"
+                        android:textSize="@dimen/_15sdp" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+
+                    android:padding="@dimen/_5sdp"
+                    android:weightSum="1">
+
+                    <com.musicseque.Fonts.Noyhr
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".30"
+                        android:text="@string/str_post_code"
+                        android:textColor="@color/color_white"
+                        android:textSize="@dimen/_15sdp" />
+
+                    <com.musicseque.Fonts.NoyhrEditText
+                        android:id="@+id/etPostalCodeBandProfile"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".70"
+                        android:background="#0C1C24"
+                        android:hint="Please enter the post code"
+                        android:maxLength="10"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:paddingTop="@dimen/_5sdp"
+                        android:paddingRight="@dimen/_5sdp"
+                        android:paddingBottom="@dimen/_5sdp"
+                        android:textColor="@color/color_white"
+                        android:textColorHint="@color/color_white_hint"
+                        android:textSize="@dimen/_15sdp" />
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -378,7 +437,7 @@
                         android:textSize="@dimen/_15sdp" />
 
                     <com.musicseque.Fonts.NoyhrEditText
-                        android:id="@+id/et_desc"
+                        android:id="@+id/etDescBandProfile"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".70"
@@ -400,7 +459,7 @@
                 </LinearLayout>
 
                 <com.musicseque.Fonts.Noyhr
-                    android:id="@+id/tvCount"
+                    android:id="@+id/tvCountBandProfile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
@@ -432,7 +491,7 @@
                         android:background="@android:color/transparent">
 
                         <com.musicseque.Fonts.Noyhr
-                            android:id="@+id/tvGenre"
+                            android:id="@+id/tvGenreBandProfile"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="#0C1C24"
@@ -474,7 +533,7 @@
 
 
                     <com.musicseque.Fonts.NoyhrEditText
-                        android:id="@+id/et_website"
+                        android:id="@+id/etWebsiteBandProfile"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".70"
@@ -490,54 +549,7 @@
 
                 </LinearLayout>
 
-                <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:orientation="horizontal"-->
 
-                    <!--android:padding="@dimen/_5sdp"-->
-                    <!--android:weightSum="1">-->
-
-                    <!--<com.musicseque.Fonts.Noyhr-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_weight=".30"-->
-                        <!--android:text="@string/str_talent_expertise"-->
-                        <!--android:textColor="@color/color_white"-->
-                        <!--android:textSize="@dimen/_15sdp" />-->
-
-                    <!--<RelativeLayout-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_weight=".70"-->
-
-                        <!--android:background="@android:color/transparent">-->
-
-                        <!--<com.musicseque.Fonts.Noyhr-->
-                            <!--android:id="@+id/tvExpertise"-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:background="#0C1C24"-->
-                            <!--android:entries="@array/arr_experience"-->
-                            <!--android:hint="Select your skills"-->
-                            <!--android:paddingLeft="@dimen/_10sdp"-->
-                            <!--android:paddingTop="@dimen/_5sdp"-->
-                            <!--android:paddingRight="@dimen/_5sdp"-->
-                            <!--android:paddingBottom="@dimen/_5sdp"-->
-                            <!--android:textColor="@color/color_white"-->
-                            <!--android:textColorHint="@color/color_white_hint"-->
-                            <!--android:textSize="@dimen/_15sdp" />-->
-
-                        <!--<ImageView-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="match_parent"-->
-                            <!--android:layout_alignParentRight="true"-->
-                            <!--android:layout_centerVertical="true"-->
-                            <!--android:layout_marginRight="10dp"-->
-                            <!--android:src="@drawable/arrowdown" />-->
-                    <!--</RelativeLayout>-->
-
-                <!--</LinearLayout>-->
 
 
                 <LinearLayout
@@ -564,7 +576,7 @@
                         android:background="@android:color/transparent">
 
                         <com.musicseque.Fonts.Noyhr
-                            android:id="@+id/tvExperience"
+                            android:id="@+id/tvExperienceBandProfile"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
@@ -592,143 +604,10 @@
                 </LinearLayout>
 
 
-                <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:orientation="horizontal"-->
 
-                    <!--android:padding="@dimen/_5sdp"-->
-                    <!--android:weightSum="1">-->
-
-                    <!--<com.musicseque.Fonts.Noyhr-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_weight=".30"-->
-                        <!--android:text="@string/str_certifications"-->
-                        <!--android:textColor="@color/color_white"-->
-                        <!--android:textSize="@dimen/_16sdp" />-->
-
-                    <!--<RelativeLayout-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_weight=".70"-->
-
-                        <!--android:background="@android:color/transparent">-->
-
-                        <!--<com.musicseque.Fonts.Noyhr-->
-                            <!--android:id="@+id/tvCertification"-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:background="#0C1C24"-->
-                            <!--android:entries="@array/arr_experience"-->
-                            <!--android:hint="Select music school"-->
-                            <!--android:paddingLeft="@dimen/_10sdp"-->
-                            <!--android:paddingTop="@dimen/_5sdp"-->
-                            <!--android:paddingRight="@dimen/_5sdp"-->
-                            <!--android:paddingBottom="@dimen/_5sdp"-->
-                            <!--android:textColor="@color/color_white"-->
-                            <!--android:textColorHint="@color/color_white_hint"-->
-                            <!--android:textSize="@dimen/_15sdp" />-->
-
-                        <!--<ImageView-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="match_parent"-->
-                            <!--android:layout_alignParentRight="true"-->
-                            <!--android:layout_centerVertical="true"-->
-                            <!--android:layout_marginRight="10dp"-->
-                            <!--android:src="@drawable/arrowdown" />-->
-                    <!--</RelativeLayout>-->
-
-                <!--</LinearLayout>-->
-
-                <!--<LinearLayout-->
-                    <!--android:id="@+id/llCertification"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:orientation="horizontal"-->
-                    <!--android:padding="@dimen/_5sdp"-->
-                    <!--android:visibility="gone"-->
-                    <!--android:weightSum="1">-->
-
-                    <!--<com.musicseque.Fonts.Noyhr-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_weight=".30"-->
-                        <!--android:textColor="@color/color_white"-->
-                        <!--android:textSize="@dimen/_15sdp" />-->
-
-
-                    <!--<com.musicseque.Fonts.NoyhrEditText-->
-                        <!--android:id="@+id/etCertification"-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_weight=".70"-->
-                        <!--android:background="#0C1C24"-->
-                        <!--android:hint="Please enter music school"-->
-                        <!--android:maxLines="1"-->
-                        <!--android:paddingLeft="@dimen/_10sdp"-->
-                        <!--android:paddingTop="@dimen/_5sdp"-->
-                        <!--android:paddingRight="@dimen/_5sdp"-->
-                        <!--android:paddingBottom="@dimen/_5sdp"-->
-                        <!--android:singleLine="true"-->
-                        <!--android:textColor="@color/color_white"-->
-                        <!--android:textColorHint="@color/color_white_hint"-->
-                        <!--android:textSize="@dimen/_15sdp" />-->
-
-                <!--</LinearLayout>-->
-
-
-                <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:orientation="horizontal"-->
-
-                    <!--android:padding="@dimen/_5sdp"-->
-                    <!--android:weightSum="1">-->
-
-                    <!--<com.musicseque.Fonts.Noyhr-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_weight=".30"-->
-                        <!--android:text="@string/str_grade"-->
-                        <!--android:textColor="@color/color_white"-->
-                        <!--android:textSize="@dimen/_15sdp" />-->
-
-                    <!--<RelativeLayout-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_weight=".70"-->
-
-                        <!--android:background="@android:color/transparent">-->
-
-                        <!--<com.musicseque.Fonts.Noyhr-->
-                            <!--android:id="@+id/tvGrade"-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:background="#0C1C24"-->
-                            <!--android:entries="@array/arr_experience"-->
-                            <!--android:hint="Select current grade"-->
-                            <!--android:paddingLeft="@dimen/_10sdp"-->
-                            <!--android:paddingTop="@dimen/_5sdp"-->
-                            <!--android:paddingRight="@dimen/_5sdp"-->
-                            <!--android:paddingBottom="@dimen/_5sdp"-->
-                            <!--android:textColor="@color/color_white"-->
-                            <!--android:textColorHint="@color/color_white_hint"-->
-                            <!--android:textSize="@dimen/_15sdp" />-->
-
-                        <!--<ImageView-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="match_parent"-->
-                            <!--android:layout_alignParentRight="true"-->
-                            <!--android:layout_centerVertical="true"-->
-                            <!--android:layout_marginRight="10dp"-->
-                            <!--android:src="@drawable/arrowdown" />-->
-                    <!--</RelativeLayout>-->
-
-                <!--</LinearLayout>-->
 
                 <com.musicseque.Fonts.CustomButton
-                    android:id="@+id/btn_submit"
+                    android:id="@+id/btnSubmitBandProfile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

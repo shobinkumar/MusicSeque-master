@@ -37,14 +37,17 @@ import com.musicseque.MainActivity
 import com.musicseque.R
 import com.musicseque.event_manager.model.EventModel
 import com.musicseque.fragments.HomeFragment
+import com.musicseque.models.CountryModel
+import com.musicseque.models.StateModel
 import com.musicseque.retrofit_interface.ImageUploadClass
+import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.SharedPref
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog
-import kotlinx.android.synthetic.main.row_event_list.view.*
 import kotlinx.android.synthetic.main.toolbar_top.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.json.JSONException
 import java.io.File
 import java.util.*
 
@@ -76,12 +79,21 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
     var mToTime: String = ""
     var mEventTypeId: String = ""
     var mCity: String = ""
-    var mState: String = ""
-    var mCountry: String = ""
+    var mStateId: String = ""
+    var mCountryId: String = ""
     var mZipCode: String = ""
 
 
     var isEdit = false
+
+    var countryAL = ArrayList<CountryModel>()
+    var countryNameAL = ArrayList<String>()
+    lateinit var arrCountryName: Array<String?>
+
+
+    private val stateNameAL = java.util.ArrayList<String>()
+    private val stateAL = java.util.ArrayList<StateModel>()
+    private lateinit var arrStateName: Array<String?>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -140,6 +152,8 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
         // rlAttendence.setOnClickListener(this)
         rlBudgetGuestCurrency.setOnClickListener(this)
         tvSubmit.setOnClickListener(this)
+        tvCountryCreateEvent.setOnClickListener(this)
+        tvStateCreateEvent.setOnClickListener(this)
     }
 
     private fun getAPI(value: Int, args: String) {
@@ -156,6 +170,13 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                 val obj = JSONObject()
                 obj.put("EventId", mEventId)
                 KotlinHitAPI.callAPI(obj.toString(), FOR_EVENT_DETAIL, this)
+            } else if (value == FOR_COUNTRIES_LIST) {
+                RetrofitAPI.callGetAPI(Constants.FOR_COUNTRIES_LIST, this@CreateEventActivity)
+
+            }
+            else if (value == FOR_STATE_LIST) {
+                RetrofitAPI.callAPI(args,Constants.FOR_STATE_LIST, this@CreateEventActivity)
+
             }
         } else {
             Utils.showToast(this, getString(R.string.err_no_internet))
@@ -315,9 +336,9 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                 list.toArray(currencyArray)
 
                 if (currencyArray != null) {
-                    showDropdown(currencyArray, tvCurrency, SpinnerData { mData, mData1 ->
-                        mCurrency = mData
-                        mCurrencyId = mData1
+                    showDropdown(currencyArray, tvCurrency, SpinnerData { mId, mName ->
+                        mCurrency = mName
+                        mCurrencyId = mId
                         tvCurrency.text = mCurrency
                     }, mWidthCode)
                 }
@@ -335,8 +356,8 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                 mFromTime = tvStartTime.text.toString()
                 mToTime = tvEndTime.text.toString()
                 mCity = etCityCreateEvent.text.toString()
-                mState = etStateCreateEvent.text.toString()
-                mCountry = etCountryCreateEvent.text.toString()
+//                mState = tvStateCreateEvent.text.toString()
+//                mCountry = tvCountryCreateEvent.text.toString()
                 mZipCode = etZipCodeCreateEvent.text.toString()
 
                 val mAttendence = etAttendence.text.toString()
@@ -367,16 +388,19 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
 
                 } else if (KotlinUtils.checkEmpty(mCity)) {
                     showToast(resources.getString(R.string.err_city))
-                } else if (KotlinUtils.checkEmpty(mState)) {
-                    showToast(resources.getString(R.string.err_state))
-                } else if (KotlinUtils.checkEmpty(mCountry)) {
+                }
+
+                else if (KotlinUtils.checkEmpty(mCountryId)) {
                     showToast(resources.getString(R.string.err_country))
-                } else if (KotlinUtils.checkEmpty(mZipCode)) {
+                }
+                else if (KotlinUtils.checkEmpty(mStateId)) {
+                    showToast(resources.getString(R.string.err_state))
+                }  else if (KotlinUtils.checkEmpty(mZipCode)) {
                     showToast(resources.getString(R.string.err_zip_code))
                 } else {
 
 
-                    val (mDate1, mDate2) = KotlinUtils.dateFormatToSend(mFromDate, mToDate)
+                    val (mDate1, mDate2) = KotlinUtils.createEvent(mFromDate, mToDate)
 
                     val obj = JSONObject();
                     obj.put("EventId", mEventId)
@@ -393,12 +417,30 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                     obj.put("EventBudget", mBudgetGuest)
                     obj.put("EventManagerId", SharedPref.getString(Constants.USER_ID, ""))
                     obj.put("EventCity", mCity)
-                    obj.put("EventState", mState)
-                    obj.put("EventCountry", mCountry)
+                    obj.put("EventState", mStateId)
+                    obj.put("EventCountry", mCountryId)
                     obj.put("EventPostalCode", mZipCode)
                     getAPI(FOR_SAVE_UPDATE_EVENT_DETAIL, obj.toString())
 
                 }
+            }
+            R.id.tvCountryCreateEvent -> {
+                showDropdown(arrCountryName, tvCountryCreateEvent, SpinnerData { mId, mName ->
+                    mCountryId = mId
+                    tvCountryCreateEvent.text = mName
+                    val json = JSONObject()
+                    json.put("CountryId", mCountryId.toInt())
+                    getAPI(Constants.FOR_STATE_LIST, json.toString())
+
+                }, 500)
+            }
+            R.id.tvStateCreateEvent -> {
+                showDropdown(arrStateName, tvStateCreateEvent, SpinnerData { mId, mName ->
+                    mStateId = mId
+                    tvStateCreateEvent.text = mName
+
+
+                }, 500)
             }
         }
     }
@@ -484,7 +526,8 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                 val listType = object : TypeToken<ArrayList<EventModel>>() {}.type
                 eventsList = gson.fromJson<ArrayList<EventModel>>(jsonArray.toString(), listType)
                 recyclerEvent.adapter = EventAdapter(this, eventsList)
-                getAPI(FOR_CURRENCY_LIST, "")
+
+                getAPI(FOR_COUNTRIES_LIST, "")
             }
             FOR_CURRENCY_LIST -> {
                 val jsonArray = JSONArray(response.toString())
@@ -591,6 +634,47 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                     finish()
                 }
             }
+            FOR_COUNTRIES_LIST -> {
+                try {
+                    val jsonArray = JSONArray(response.toString())
+                    for (i in 0 until jsonArray.length()) {
+                        val jsonObject = jsonArray.getJSONObject(i)
+                        val model = CountryModel()
+                        model.countryId = jsonObject.getString("CountryId")
+                        model.countryName = jsonObject.getString("CountryName")
+                        model.countryCode = jsonObject.getString("CountryCode")
+
+                        countryNameAL.add(jsonObject.getString("CountryName"))
+                        countryAL.add(model)
+                    }
+
+                    arrCountryName = countryNameAL.toTypedArray()
+
+                    getAPI(FOR_CURRENCY_LIST, "")
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+            FOR_STATE_LIST -> {
+                try {
+                    val jsonArray = JSONArray(response.toString())
+                    for (i in 0 until jsonArray.length()) {
+                        val jsonObject = jsonArray.getJSONObject(i)
+                        val model = StateModel()
+                        model.countryId = jsonObject.getString("CountryId")
+                        model.stateId = jsonObject.getString("StateId")
+                        model.stateName = jsonObject.getString("StateName")
+
+                        stateNameAL.add(jsonObject.getString("StateName"))
+                        stateAL.add(model)
+                    }
+
+                    arrStateName = stateNameAL.toTypedArray()
+
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
         }
     }
 
@@ -605,11 +689,14 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
         listPopupWindow.setHeight(400)
         listPopupWindow.setModal(true)
         listPopupWindow.setOnItemClickListener(AdapterView.OnItemClickListener { parent, view, position, id ->
-            if (textView.id == com.musicseque.R.id.tvCurrency) {
-                spinnerData.getData(newList.get(position).currency, newList.get(position).id)
-            } else if (textView.id == com.musicseque.R.id.etAttendence) {
-                spinnerData.getData(array[position], "")
+            if (textView.id ==R.id.tvCurrency) {
+                spinnerData.getData(newList.get(position).id,newList.get(position).currency)
+            } else if (textView.id == com.musicseque.R.id.tvCountryCreateEvent) {
+                spinnerData.getData(countryAL.get(position).countryId,array[position])
 
+            }
+            else if (textView.id == com.musicseque.R.id.tvStateCreateEvent) {
+                spinnerData.getData(stateAL.get(position).countryId,array[position])
             }
 
             listPopupWindow.dismiss()

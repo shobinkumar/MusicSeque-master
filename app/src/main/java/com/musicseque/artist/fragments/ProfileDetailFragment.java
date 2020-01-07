@@ -482,7 +482,7 @@ public class ProfileDetailFragment extends BaseFragment implements View.OnClickL
                     if (obj.getString("Status").equalsIgnoreCase("Success")) {
                         tvUserName.setText(obj.getString("FirstName") + " " + obj.getString("LastName"));
                         tvUserType.setText(obj.getString("Expertise"));
-                        tvUserLocation.setText(obj.getString("City") + ", " + obj.getString("CountryName"));
+                        tvUserLocation.setText(obj.getString("CityName") + ", " + obj.getString("CountryName"));
                         tvFollowersCount.setText(obj.getString("Followers"));
                         tvUserID.setText(SharedPref.getString(Constants.UNIQUE_CODE, ""));
                         // rBar.setRating(Float.parseFloat(obj.getString("Rating")));

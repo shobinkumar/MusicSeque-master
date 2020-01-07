@@ -136,7 +136,7 @@ class EventManagerDetailFragment : KotlinBaseFragment(), MyInterface, View.OnCli
                 if (obj.getString("Status").equals("Success", ignoreCase = true)) {
                     tvUserNameDetailDetailEventManager.setText(obj.getString("FirstName") + " " + obj.getString("LastName"))
                     tvUserTypeDetailEventManager.text = obj.getString("Expertise")
-                    tvUserLocationDetailEventManager.text = obj.getString("City") + ", " + obj.getString("CountryName")
+                    tvUserLocationDetailEventManager.text = obj.getString("CityName") + ", " + obj.getString("CountryName")
                     tvFollowersCountDetailEventManager.text = obj.getString("Followers")
                     tvUserIDDetailEventManager.text = SharedPref.getString(Constants.UNIQUE_CODE, "")
                     tvReviewsDetailEventManager.text = "(" + obj.getString("Reviews") + " reviews" + ")"

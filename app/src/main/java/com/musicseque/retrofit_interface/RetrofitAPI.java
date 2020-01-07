@@ -134,7 +134,14 @@ public class RetrofitAPI {
 
         }
 
+        else if (TYPE == Constants.FOR_STATE_LIST) {
+            call = api.methodForStateList(params);
 
+        }
+        else if (TYPE == Constants.FOR_CITY_LIST) {
+            call = api.methodForCityList(params);
+
+        }
 
 
         callRetrofit(call, TYPE);
@@ -330,6 +337,16 @@ public class RetrofitAPI {
                 }
                 else if (TYPE == Constants.FOR_LOGOUT) {
                     Log.e("FOR_LOGOUT", response.body().toString());
+                    commonInterface.sendResponse(response.body(), TYPE);
+
+                }
+                else if (TYPE == Constants.FOR_STATE_LIST) {
+                    Log.e("FOR_STATE_LIST", response.body().toString());
+                    commonInterface.sendResponse(response.body(), TYPE);
+
+                }
+                else if (TYPE == Constants.FOR_CITY_LIST) {
+                    Log.e("FOR_CITY_LIST", response.body().toString());
                     commonInterface.sendResponse(response.body(), TYPE);
 
                 }
