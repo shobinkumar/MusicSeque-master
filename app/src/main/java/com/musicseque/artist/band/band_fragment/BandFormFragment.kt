@@ -371,11 +371,18 @@ class BandFormFragment : KotlinBaseFragment(), View.OnClickListener, MyInterface
                 callCityAPI()
 
             }, mWidthExp)
-            R.id.tvCityBandProfile -> showDropdown(arrCityName, tvCityBandProfile, SpinnerData { mId, mName ->
-                mCityId = mId
-                mCityName = mName
-                tvCityBandProfile.text=mName
-            }, mWidthExp)
+            R.id.tvCityBandProfile ->
+                if (!mStateId.equals("")) {
+                    showDropdown(arrCityName, tvCityBandProfile, SpinnerData { mId, mName ->
+                        mCityId = mId
+                        mCityName = mName
+                        tvCityBandProfile.text=mName
+                    }, mWidthExp)
+                } else {
+                    Utils.showToast(activity, resources.getString(R.string.err_state))
+                }
+
+
 
 
             R.id.tvGenreBandProfile -> showDropdown(arrGenre, tvGenreBandProfile, SpinnerData { mId, mName ->

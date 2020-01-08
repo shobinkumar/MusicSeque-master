@@ -4,29 +4,25 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.view.ViewTreeObserver
+import android.view.*
 import android.widget.*
 import com.bumptech.glide.Glide
-import com.musicseque.Fonts.BoldNoyhr
+import com.musicseque.Fonts.*
 import com.musicseque.MainActivity
 import com.musicseque.R
-import com.musicseque.interfaces.MyInterface
-import com.musicseque.interfaces.SpinnerData
-import com.musicseque.models.CityModel
-import com.musicseque.models.CountryModel
-import com.musicseque.models.StateModel
-import com.musicseque.retrofit_interface.ImageUploadClass
-import com.musicseque.retrofit_interface.RetrofitAPI
+import com.musicseque.interfaces.*
+import com.musicseque.models.*
+import com.musicseque.retrofit_interface.*
 import com.musicseque.utilities.*
-import org.json.JSONArray
-import org.json.JSONException
-import org.json.JSONObject
+import org.json.*
 import com.musicseque.utilities.Constants.*
 import kotlinx.android.synthetic.main.fragment_create_venue.*
-import okhttp3.MediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
+import kotlinx.android.synthetic.main.fragment_create_venue.etMobileNumber
+import kotlinx.android.synthetic.main.fragment_create_venue.ivCamera
+import kotlinx.android.synthetic.main.fragment_create_venue.pBar
+import kotlinx.android.synthetic.main.fragment_profile.*
+import kotlinx.android.synthetic.main.fragment_profile_music_lover.*
+import okhttp3.*
 import java.io.File
 import java.lang.Exception
 
@@ -165,11 +161,16 @@ class VenueFormFragment : KotlinBaseFragment(), View.OnClickListener, MyInterfac
 
                 callCityAPI()
             }, mWidthFull)
-            R.id.tvCityVenueForm -> showDropdown(arrCityName, tvCityVenueForm, SpinnerData { mId, mName ->
-                mCityId = mId
-                mCityName = mName
-                tvCityVenueForm.text = mName
-            }, mWidthFull)
+            R.id.tvCityVenueForm ->
+                if (!mStateId.equals("")) {
+                    showDropdown(arrCityName, tvCityVenueForm, SpinnerData { mId, mName ->
+                        mCityId = mId
+                        mCityName = mName
+                        tvCityVenueForm.text = mName
+                    }, mWidthFull)
+                } else {
+                    Utils.showToast(activity, resources.getString(R.string.err_state))
+                }
 
 
             R.id.btnSubmit -> {
@@ -179,7 +180,7 @@ class VenueFormFragment : KotlinBaseFragment(), View.OnClickListener, MyInterfac
                 mVenueCapacity = etVenueCapacity.text.toString()
                 mVenueAddress = etAddressVenueForm.text.toString()
                 mCountryCode = tvVenueCountryCode.text.toString()
-
+                mVenueCity = tvCityVenueForm.text.toString()
 
 
                 if (mCountryCode.equals("", true)) {
@@ -207,11 +208,8 @@ class VenueFormFragment : KotlinBaseFragment(), View.OnClickListener, MyInterfac
                     try {
 
                         val jsonBody = JSONObject()
-
-
                         jsonBody.put("Phone", mVenuePhoneNumber)
                         jsonBody.put("EmailId", mVenueEmail)
-
                         jsonBody.put("City", mVenueCity)
                         jsonBody.put("PostCode", mVenuePinCode)
                         jsonBody.put("CountryId", mVenueCountryId)
@@ -221,10 +219,9 @@ class VenueFormFragment : KotlinBaseFragment(), View.OnClickListener, MyInterfac
                         jsonBody.put("StateId", mStateId)
                         jsonBody.put("UserAddress", mVenueAddress)
                         jsonBody.put("VenueCapacity", mVenueCapacity)
-
                         jsonBody.put("DisplayName", mVenueName)
                         jsonBody.put("VenueAddress", mVenueAddress)
-                        RetrofitAPI.callAPI(jsonBody.toString(), FOR_UPDATE_PROFILE, this)
+                        hitAPI(FOR_UPDATE_PROFILE, jsonBody.toString())
 
 
                     } catch (e: JSONException) {
@@ -260,6 +257,8 @@ class VenueFormFragment : KotlinBaseFragment(), View.OnClickListener, MyInterfac
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
+            } else if (type == FOR_UPDATE_PROFILE) {
+                RetrofitAPI.callAPI(args, FOR_UPDATE_PROFILE, this)
             }
 
 

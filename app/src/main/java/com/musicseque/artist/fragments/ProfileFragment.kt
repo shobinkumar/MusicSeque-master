@@ -215,11 +215,20 @@ class ProfileFragment : KotlinBaseFragment(), View.OnClickListener, MyInterface 
 
                 callCityAPI()
             }, mWidthExp)
-            R.id.tvCity -> showDropdown(arrCityName, tvCity, SpinnerData { mId, mName ->
-                mCityId = mId
-                mCityName = mName
-                tvCity.text = mName
-            }, mWidthExp)
+
+
+
+            R.id.tvCity ->
+                if (!mStateId.equals("")) {
+                    showDropdown(arrCityName, tvCity, SpinnerData { mId, mName ->
+                        mCityId = mId
+                        mCityName = mName
+                        tvCity.text = mName
+                    }, mWidthExp)
+                } else {
+                    Utils.showToast(activity, resources.getString(R.string.err_state))
+                }
+
             R.id.ivStatus -> {
                 val layoutInflater = activity!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
                 val customView = layoutInflater.inflate(R.layout.dropdown_user_status, null)

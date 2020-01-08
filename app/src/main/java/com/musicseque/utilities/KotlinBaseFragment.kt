@@ -21,6 +21,7 @@ import com.karumi.dexter.Dexter
 import com.karumi.dexter.listener.PermissionRequest
 import com.musicseque.BuildConfig
 import com.musicseque.artist.band.band_fragment.BandFormFragment
+import com.musicseque.artist.band.band_fragment.BandProfileDetailFragment
 import com.musicseque.artist.fragments.BaseFragment
 import com.musicseque.artist.fragments.ProfileFragment
 import com.musicseque.event_manager.fragment.EventManagerDetailFragment
@@ -264,6 +265,12 @@ open class KotlinBaseFragment : BaseFragment() {
         else if(fragmentName.equals("com.musicseque.artist.band.band_fragment.BandFormFragment"))
         {
             val fName = frag as BandFormFragment
+
+            fName.getImageFile(file)
+        }
+        else if(fragmentName.equals("com.musicseque.artist.band.band_fragment.BandProfileDetailFragment"))
+        {
+            val fName = frag as BandProfileDetailFragment
 
             fName.getImageFile(file)
         }

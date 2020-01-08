@@ -381,14 +381,13 @@
                         android:textSize="@dimen/_15sdp" />
 
 
-                    <com.musicseque.Fonts.Noyhr
+                    <com.musicseque.Fonts.NoyhrEditText
                         android:id="@+id/etAddressFormEventManager"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".70"
                         android:background="#0C1C24"
                         android:hint="Please enter the address"
-                        android:inputType="number"
                         android:paddingLeft="@dimen/_10sdp"
                         android:paddingTop="@dimen/_5sdp"
                         android:paddingRight="@dimen/_5sdp"

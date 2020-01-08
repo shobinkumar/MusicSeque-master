@@ -28,6 +28,7 @@ import com.musicseque.utilities.Constants.*
 import com.musicseque.utilities.KotlinBaseFragment
 import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils
+import kotlinx.android.synthetic.main.fragment_event_manager_form.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile_music_lover.*
 import okhttp3.MediaType
@@ -53,6 +54,8 @@ class FragmentProfileMusicLover : KotlinBaseFragment(), MyInterface, View.OnClic
     private var mMobileNumber: String = ""
     private var mCountryCode: String = ""
     private var mWidthCode: Int = 0
+    private var mWidthFullCode: Int = 500
+
     var countryAL = ArrayList<CountryModel>()
     var countryNameAL = ArrayList<String>()
     var countryCodeAL = ArrayList<String>()
@@ -302,7 +305,7 @@ class FragmentProfileMusicLover : KotlinBaseFragment(), MyInterface, View.OnClic
         listPopupWindow.setHeight(400)
         listPopupWindow.setModal(true)
         listPopupWindow.setOnItemClickListener(OnItemClickListener { parent, view, position, id ->
-            if (textView.id == R.id.tvCountryCode) {
+            if (textView.id == R.id.tvCountryCodeMusicLover) {
                 spinnerData.getData(countryAL[position].countryId, countryAL[position].countryName)
             } else if (textView.id == R.id.tvStateProfileMusicLover) {
                 spinnerData.getData(alState[position].stateId, array[position])
@@ -325,8 +328,8 @@ class FragmentProfileMusicLover : KotlinBaseFragment(), MyInterface, View.OnClic
                     tvCountryMusicLover.text = mName
                     mStateId = ""
                     mCityId = ""
-                    tvState.text = ""
-                    tvCity.text = ""
+                    tvStateProfileMusicLover.text = ""
+                    tvCityProfileMusicLover.text = ""
                     alCity.clear()
                     alCityName.clear()
                     alState.clear()
@@ -339,20 +342,28 @@ class FragmentProfileMusicLover : KotlinBaseFragment(), MyInterface, View.OnClic
             R.id.tvStateProfileMusicLover -> showDropdown(arrStateName, tvStateProfileMusicLover, SpinnerData { mId, mName ->
                 mStateId = mId
                 mStateName = mName
-                tvState.text = mName
+                tvStateProfileMusicLover.text = mName
                 alCity.clear()
                 alCityName.clear()
 
                 mCityId = ""
-                tvCity.text = ""
+                tvCityProfileMusicLover.text = ""
 
                 callCityAPI()
-            }, mWidthCode)
-            R.id.tvCityProfileMusicLover -> showDropdown(arrCityName, tvCityProfileMusicLover, SpinnerData { mId, mName ->
-                mCityId = mId
-                mCityName = mName
-                tvCity.text = mName
-            }, mWidthCode)
+            }, mWidthFullCode)
+            R.id.tvCityProfileMusicLover ->
+                if (!mStateId.equals("")) {
+                    showDropdown(arrCityName, tvCityProfileMusicLover, SpinnerData { mId, mName ->
+                        mCityId = mId
+                        mCityName = mName
+                        tvCityProfileMusicLover.text = mName
+                    }, mWidthFullCode)
+                } else {
+                    Utils.showToast(activity, resources.getString(R.string.err_state))
+                }
+
+
+
 
 
             R.id.ivCameraMusicLover -> {
@@ -382,7 +393,7 @@ class FragmentProfileMusicLover : KotlinBaseFragment(), MyInterface, View.OnClic
                     Utils.showToast(activity, resources.getString(R.string.err_phone))
                 } else if (mStateId.equals("", ignoreCase = true)) {
                     Utils.showToast(activity, resources.getString(R.string.err_state))
-                } else if (mCity.equals("", ignoreCase = true)) {
+                } else if (mCityId.equals("", ignoreCase = true)) {
                     Utils.showToast(activity, resources.getString(R.string.err_city))
                 } else if (mAddress.equals("", ignoreCase = true)) {
                     Utils.showToast(activity, resources.getString(R.string.err_address))

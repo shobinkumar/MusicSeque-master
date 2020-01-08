@@ -25,6 +25,7 @@ import com.musicseque.utilities.KotlinBaseFragment
 import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils
 import com.musicseque.utilities.Utils.initializeProgressDialog
+import kotlinx.android.synthetic.main.fragment_band_profile.*
 import kotlinx.android.synthetic.main.fragment_event_manager_form.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -42,7 +43,7 @@ class EventManagerFormFragment : KotlinBaseFragment(), MyInterface, View.OnClick
     private var mAddress: String = ""
     private lateinit var arrCountryCode: Array<String>
     private lateinit var mExpArray: Array<String>
-    lateinit var mCountryCodeArray: Array<String>
+   // lateinit var mCountryCodeArray: Array<String>
     var mCountryCode: String = ""
     var mMobileNumber: String = ""
     var mExperienceId: String = ""
@@ -139,7 +140,7 @@ class EventManagerFormFragment : KotlinBaseFragment(), MyInterface, View.OnClick
 
         when (view!!.id) {
             R.id.tvCountryCodeFormEventManager -> {
-                showDropdown(mCountryCodeArray, tvCountryCodeFormEventManager, SpinnerData { mId, mName ->
+                showDropdown(arrCountryCode, tvCountryCodeFormEventManager, SpinnerData { mId, mName ->
                     mCountryId = mId
                     mCountryName = mName
                     tvCountryFormEventManager.text = mName
@@ -170,11 +171,19 @@ class EventManagerFormFragment : KotlinBaseFragment(), MyInterface, View.OnClick
 
                 callCityAPI()
             }, mWidthExp)
-            R.id.tvCityFormEventManager -> showDropdown(arrCityName, tvCityFormEventManager, SpinnerData { mId, mName ->
-                mCityId = mId
-                mCityName = mName
-                tvCityFormEventManager.text = mName
-            }, mWidthExp)
+            R.id.tvCityFormEventManager ->
+                if (!mStateId.equals("")) {
+                    showDropdown(arrCityName, tvCityFormEventManager, SpinnerData { mId, mName ->
+                        mCityId = mId
+                        mCityName = mName
+                        tvCityFormEventManager.text = mName
+                    }, mWidthExp)
+                } else {
+                    Utils.showToast(activity, resources.getString(R.string.err_state))
+                }
+
+
+
 
 
             R.id.tvExperienceFormEventManager -> {
