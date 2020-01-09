@@ -180,6 +180,7 @@ public class SearchArtistActivity extends BaseActivity implements MyInterface {
                     try {
                         jsonObject.put("SearchTypeValue", editable.toString());
                         jsonObject.put("UserId",SharedPref.getString(Constants.USER_ID,""));
+                        jsonObject.put("ProfileTypeId","1");
 
                     } catch (JSONException e) {
                         e.printStackTrace();

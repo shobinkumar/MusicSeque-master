@@ -86,7 +86,7 @@
             android:name=".event_manager.activity.CreateEventActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".event_manager.activity.SearchArtistActivityEventManager"
+            android:name=".event_manager.activity.SearchArtistEventManagerActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".event_manager.activity.OtherArtistActivityEventManager"
