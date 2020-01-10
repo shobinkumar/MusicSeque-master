@@ -13,7 +13,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:id="@+id/llPhotos"
+            android:id="@+id/llMusicPlaylist"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -21,58 +21,58 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/ivPhotos"
+                android:id="@+id/ivMusicPlayList"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:layout_gravity="center"
-                android:src="@drawable/icon_photos" />
+                android:src="@drawable/icon_musicplaylist_active" />
 
             <com.musicseque.Fonts.Noyhr
-                android:id="@+id/tvPhotos"
+                android:id="@+id/tvMusicPlaylist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
-                android:text="Photos"
+                android:text="Music Playlist"
+                android:textStyle="bold"
                 android:textColor="@color/color_white"
+                android:textSize="14sp" />
+        </LinearLayout>
 
-                android:textSize="@dimen/_14sdp"
-                android:textStyle="bold" />
+        <LinearLayout
+            android:id="@+id/llVideoPlaylist"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/ivVideoPlaylist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+
+                android:src="@drawable/icon_videoplaylist" />
+
+            <com.musicseque.Fonts.Noyhr
+                android:id="@+id/tvVideoPlaylist"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:text="Video Playlist"
+                android:textStyle="bold"
+
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_14sdp"/>
         </LinearLayout>
 
 
-        <LinearLayout
-            android:id="@+id/llGigs"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/ivGigs"
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/icon_gigs" />
-
-            <com.musicseque.Fonts.Noyhr
-                android:id="@+id/tvGigs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:text="Gigs"
-                android:textColor="@color/color_white"
-                android:textSize="@dimen/_14sdp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
 
         <LinearLayout
-            android:id="@+id/llVenues"
+            android:id="@+id/llFavorite"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -81,23 +81,23 @@
 
 
             <ImageView
-                android:id="@+id/ivVenues"
+                android:id="@+id/ivFavorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/icon_venue" />
+                android:src="@drawable/icon_favourite" />
 
             <com.musicseque.Fonts.Noyhr
-                android:id="@+id/tvVenues"
+                android:id="@+id/tvFavorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
-                android:text="Venue"
-                android:textColor="@color/color_white"
+                android:text="Favorite"
+                android:textStyle="bold"
 
-                android:textSize="@dimen/_14sdp"
-                android:textStyle="bold" />
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_14sdp"/>
         </LinearLayout>
 
     </LinearLayout>

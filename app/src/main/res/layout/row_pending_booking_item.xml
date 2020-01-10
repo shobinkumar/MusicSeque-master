@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_app_background"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivEventManagerImage"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:src="@drawable/icon_img_dummy" />
+
+    <RelativeLayout
+        android:id="@+id/rlOutside"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/ivEventManagerImage">
+
+
+        <com.musicseque.Fonts.Noyhr
+            android:id="@+id/tvArtistName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Arti has sent you a venue booking request"
+            android:textColor="@color/color_white"
+            android:textSize="18sp" />
+
+        <com.musicseque.Fonts.BoldNoyhr
+            android:id="@+id/tvEventName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/tvArtistName"
+            android:textColor="@color/color_white"
+            android:textSize="18sp" />
+
+        <com.musicseque.Fonts.Noyhr
+            android:id="@+id/tvRequestSentTimmings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvEventName"
+            android:layout_marginTop="5dp"
+            android:text="5 mins ago 15:30 hrs GMT"
+            android:textColor="@color/color_white"
+            android:textSize="18sp" />
+
+        <RelativeLayout
+            android:id="@+id/rlDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvRequestSentTimmings"
+            android:layout_marginTop="15dp">
+
+            <com.musicseque.Fonts.Noyhr
+                android:id="@+id/tvAcceptRequest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rectangle_orange"
+                android:paddingLeft="15dp"
+                android:paddingTop="8dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="8dp"
+                android:text="Accept"
+                android:textColor="@color/color_white"
+                android:textSize="18sp" />
+
+            <com.musicseque.Fonts.Noyhr
+                android:id="@+id/tvRejectRequest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@+id/tvAcceptRequest"
+                android:background="@drawable/rectangle_orange_border"
+                android:paddingLeft="15dp"
+                android:paddingTop="8dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="8dp"
+                android:text="Reject"
+                android:textColor="@color/color_white"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/rlOutside"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_white" />
+
+</RelativeLayout>

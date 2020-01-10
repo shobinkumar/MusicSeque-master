@@ -17,6 +17,8 @@ import com.musicseque.event_manager.adapter.SearchArtistAdapterEventManager
 import com.musicseque.interfaces.MyInterface
 import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.Constants
+import com.musicseque.utilities.Constants.GET_ARTIST_LIST
+import com.musicseque.utilities.Constants.SEARCH_ARTIST
 import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils
 import org.json.JSONException
@@ -32,12 +34,12 @@ class SearchArtistActivityEventManager : BaseActivity(), MyInterface {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_search_artist)
+        setContentView(R.layout.activity_search_artist_event_manager)
         ButterKnife.bind(this)
         initOtherViews()
         initViews()
         listeners()
-        hitAPI("get_list", "")
+        hitAPI(GET_ARTIST_LIST, "")
     }
 
 
@@ -76,7 +78,7 @@ class SearchArtistActivityEventManager : BaseActivity(), MyInterface {
                             e.printStackTrace()
                         }
 
-                        hitAPI("search", jsonObject.toString())
+                        hitAPI(SEARCH_ARTIST, jsonObject.toString())
 
                     } else {
                         Utils.showToast(this@SearchArtistActivityEventManager, R.string.err_no_internet.toString())
@@ -88,10 +90,10 @@ class SearchArtistActivityEventManager : BaseActivity(), MyInterface {
         })
     }
 
-    private fun hitAPI(type: String, args: String) {
+    private fun hitAPI(type: Int, args: String) {
         if (Utils.isNetworkConnected(this)) {
             Utils.initializeAndShow(this@SearchArtistActivityEventManager)
-            if (type.equals("get_list")) {
+            if (type==GET_ARTIST_LIST) {
                 val jsonObject = JSONObject()
                 try {
                     jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""))
@@ -100,7 +102,7 @@ class SearchArtistActivityEventManager : BaseActivity(), MyInterface {
                 }
 
                 RetrofitAPI.callAPI(jsonObject.toString(), Constants.GET_ARTIST_LIST, this@SearchArtistActivityEventManager)
-            } else if (type.equals("search")) {
+            } else if (type==SEARCH_ARTIST) {
                 RetrofitAPI.callAPI(args.toString(), Constants.SEARCH_ARTIST, this@SearchArtistActivityEventManager)
 
             }

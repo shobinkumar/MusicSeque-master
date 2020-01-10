@@ -73,6 +73,8 @@ class EventManagerDetailFragment : KotlinBaseFragment(), MyInterface, View.OnCli
         ivCameraBackgroundDetailEventManager.setOnClickListener(this)
         ivCameraProfilePicDetailEventManager.setOnClickListener(this)
         img_right_icon.setOnClickListener(this)
+        ivIconDropDetailEventManager.setOnClickListener(this)
+        ivIconUpDetailEventManager.setOnClickListener(this)
     }
 
 
@@ -88,6 +90,17 @@ class EventManagerDetailFragment : KotlinBaseFragment(), MyInterface, View.OnCli
         } else if (v.id == R.id.img_right_icon) {
             startActivity(Intent(activity, MainActivity::class.java).putExtra("profileTemp", true).putExtra("frag", "com.musicseque.event_manager.fragment.EventManagerFormFragment"))
         }
+        else if (v.id == R.id.ivIconDropDetailEventManager) {
+            tvBioDetailEventManager.setVisibility(View.VISIBLE);
+            ivIconDropDetailEventManager.setVisibility(View.GONE);
+            ivIconUpDetailEventManager.setVisibility(View.VISIBLE);
+        }
+        else if (v.id == R.id.ivIconUpDetailEventManager) {
+            tvBioDetailEventManager.setVisibility(View.GONE);
+            ivIconDropDetailEventManager.setVisibility(View.VISIBLE);
+            ivIconUpDetailEventManager.setVisibility(View.GONE)
+        }
+
     }
 
 

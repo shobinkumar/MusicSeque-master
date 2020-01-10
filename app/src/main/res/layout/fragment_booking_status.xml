@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_background"
+    android:orientation="vertical"
+   >
+
+
+    <LinearLayout
+        android:id="@+id/llTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="20dp"
+        android:weightSum="3">
+
+
+        <com.musicseque.Fonts.BoldNoyhr
+            android:id="@+id/tvPending"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Pending"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/_16sdp" />
+
+
+        <com.musicseque.Fonts.BoldNoyhr
+            android:id="@+id/tvAccepted"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Accepted"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/_16sdp" />
+
+        <com.musicseque.Fonts.BoldNoyhr
+            android:id="@+id/tvRejected"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Rejected"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/_16sdp" />
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llTop" />
+
+</RelativeLayout>
+
+
+
+
+
+
+

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_app_background">
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvBookVenue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rectangle_orange"
+        android:paddingLeft="20dp"
+        android:paddingTop="8dp"
+        android:paddingRight="20dp"
+        android:textSize="20sp"
+        android:layout_marginTop="15dp"
+        android:paddingBottom="8dp"
+        android:text="Book Venue"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/color_white" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewGigs"
+        android:layout_below="@+id/tvBookVenue"
+        android:layout_width="match_parent"
+        android:layout_marginTop="15dp"
+        android:layout_height="match_parent"
+        android:visibility="visible" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvNoData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:layout_below="@+id/tvBookVenue"
+        android:text="No Data Available"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/_16sdp"
+        android:layout_marginTop="20dp"
+        android:visibility="gone" />
+
+</RelativeLayout>

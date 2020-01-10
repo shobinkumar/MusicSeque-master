@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@color/color_app_background"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="@dimen/_15sdp"
+        android:paddingBottom="@dimen/_15sdp"
+
+        android:text="Your booking request has been submitted successfully.The venue manager will contact you within 2 days.\n Thank You"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/_20sdp" />
+
+
+    <com.musicseque.Fonts.CustomButton
+        android:id="@+id/btnClose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_15sdp"
+        android:background="#F87A42"
+        android:padding="@dimen/_10sdp"
+        android:text="Close"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/_14sdp" />
+
+
+</LinearLayout>
+
