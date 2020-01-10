@@ -136,7 +136,7 @@ class EventManagerDetailFragment : KotlinBaseFragment(), MyInterface, View.OnCli
                 if (obj.getString("Status").equals("Success", ignoreCase = true)) {
                     tvUserNameDetailDetailEventManager.setText(obj.getString("FirstName") + " " + obj.getString("LastName"))
                     tvUserTypeDetailEventManager.text = obj.getString("Expertise")
-                    tvUserLocationDetailEventManager.text = obj.getString("City") + ", " + obj.getString("CountryName")
+                    tvUserLocationDetailEventManager.text = obj.getString("CityName") + ", " + obj.getString("CountryName")
                     tvFollowersCountDetailEventManager.text = obj.getString("Followers")
                     tvUserIDDetailEventManager.text = SharedPref.getString(Constants.UNIQUE_CODE, "")
                     tvReviewsDetailEventManager.text = "(" + obj.getString("Reviews") + " reviews" + ")"
@@ -171,20 +171,42 @@ class EventManagerDetailFragment : KotlinBaseFragment(), MyInterface, View.OnCli
                         }
                     } else {
                         mProfilePic = obj.getString("SocialImageUrl")
-                        Glide.with(activity!!)
-                                .load(mProfilePic)
-                                .listener(object : RequestListener<Drawable> {
-                                    override fun onLoadFailed(e: GlideException?, model: Any, target: Target<Drawable>, isFirstResource: Boolean): Boolean {
-                                        pBarDetailEventManager.visibility = View.GONE
-                                        return false
-                                    }
 
-                                    override fun onResourceReady(resource: Drawable, model: Any, target: Target<Drawable>, dataSource: DataSource, isFirstResource: Boolean): Boolean {
-                                        pBarDetailEventManager.visibility = View.GONE
-                                        return false
-                                    }
-                                })
-                                .into(ivProfilePicDetailEventManager)
+                       if(mProfilePic.equals(""))
+                       {
+                           Glide.with(activity!!)
+                                   .load(R.drawable.icon_img_dummy)
+                                   .listener(object : RequestListener<Drawable> {
+                                       override fun onLoadFailed(e: GlideException?, model: Any, target: Target<Drawable>, isFirstResource: Boolean): Boolean {
+                                           pBarDetailEventManager.visibility = View.GONE
+                                           return false
+                                       }
+
+                                       override fun onResourceReady(resource: Drawable, model: Any, target: Target<Drawable>, dataSource: DataSource, isFirstResource: Boolean): Boolean {
+                                           pBarDetailEventManager.visibility = View.GONE
+                                           return false
+                                       }
+                                   })
+                                   .into(ivProfilePicDetailEventManager)
+                       }
+                        else
+                       {
+                           Glide.with(activity!!)
+                                   .load(mProfilePic)
+                                   .listener(object : RequestListener<Drawable> {
+                                       override fun onLoadFailed(e: GlideException?, model: Any, target: Target<Drawable>, isFirstResource: Boolean): Boolean {
+                                           pBarDetailEventManager.visibility = View.GONE
+                                           return false
+                                       }
+
+                                       override fun onResourceReady(resource: Drawable, model: Any, target: Target<Drawable>, dataSource: DataSource, isFirstResource: Boolean): Boolean {
+                                           pBarDetailEventManager.visibility = View.GONE
+                                           return false
+                                       }
+                                   })
+                                   .into(ivProfilePicDetailEventManager)
+                       }
+
 
                     }
 

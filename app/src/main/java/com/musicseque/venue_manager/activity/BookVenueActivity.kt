@@ -247,9 +247,9 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
                 list.toArray(currencyArray)
 
                 if (currencyArray != null) {
-                    showDropdown(currencyArray, tvCurrency, SpinnerData { mData, mData1 ->
-                        mCurrency = mData
-                        mCurrencyId = mData1
+                    showDropdown(currencyArray, tvCurrency, SpinnerData { mId, mName ->
+                        mCurrency = mName
+                        mCurrencyId = mId
                         tvCurrency.text = mCurrency
                     }, mWidthCode)
                 }
@@ -798,9 +798,9 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
         listPopupWindow.setModal(true)
         listPopupWindow.setOnItemClickListener(AdapterView.OnItemClickListener { parent, view, position, id ->
             if (textView.id == com.musicseque.R.id.tvCurrency) {
-                spinnerData.getData(newList.get(position).currency, newList.get(position).id)
+                spinnerData.getData(newList.get(position).id,newList.get(position).currency)
             } else if (textView.id == com.musicseque.R.id.etAttendence) {
-                spinnerData.getData(array[position], "")
+                spinnerData.getData("",array[position])
 
             }
 

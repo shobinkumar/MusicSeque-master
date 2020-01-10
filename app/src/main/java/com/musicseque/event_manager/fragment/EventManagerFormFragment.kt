@@ -14,7 +14,9 @@ import com.musicseque.MainActivity
 import com.musicseque.R
 import com.musicseque.interfaces.MyInterface
 import com.musicseque.interfaces.SpinnerData
+import com.musicseque.models.CityModel
 import com.musicseque.models.CountryModel
+import com.musicseque.models.StateModel
 import com.musicseque.retrofit_interface.ImageUploadClass
 import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.Constants
@@ -23,6 +25,7 @@ import com.musicseque.utilities.KotlinBaseFragment
 import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils
 import com.musicseque.utilities.Utils.initializeProgressDialog
+import kotlinx.android.synthetic.main.fragment_band_profile.*
 import kotlinx.android.synthetic.main.fragment_event_manager_form.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -31,24 +34,42 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.File
+import java.util.ArrayList
 
 
 class EventManagerFormFragment : KotlinBaseFragment(), MyInterface, View.OnClickListener {
 
 
-     var  mCountryCode: String=""
-     var mMobileNumber: String=""
-     var mExperienceId: String=""
-     var mExperience: String=""
-     var mCountryName: String=""
-     var mCountryId:String=""
+    private var mAddress: String = ""
+    private lateinit var arrCountryCode: Array<String>
+    private lateinit var mExpArray: Array<String>
+   // lateinit var mCountryCodeArray: Array<String>
+    var mCountryCode: String = ""
+    var mMobileNumber: String = ""
+    var mExperienceId: String = ""
+    var mExperience: String = ""
+    var mCountryName: String = ""
+    var mCountryId: String = ""
     val countryNameList = arrayListOf<String>()
     val countryCodeList = arrayListOf<String>()
     val countryList = arrayListOf<CountryModel>()
-     var mCount: Int = 0
-     var mStart = 0
-     var mWidthExp: Int = 0
-     var mWidthCode: Int = 0
+    var mCount: Int = 0
+    var mStart = 0
+    var mWidthExp: Int = 0
+    var mWidthCode: Int = 0
+
+    lateinit var arrStateName: Array<String>
+    var alState = ArrayList<StateModel>()
+    var alStateName = ArrayList<String>()
+    var mStateName = ""
+    var mStateId = ""
+    lateinit var arrCityName: Array<String>
+    var alCity = ArrayList<CityModel>()
+    var alCityName = ArrayList<String>()
+    var mCityName = ""
+    var mCityId = ""
+
+
     lateinit var v: View
     lateinit var listPopupWindow: ListPopupWindow
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -67,20 +88,21 @@ class EventManagerFormFragment : KotlinBaseFragment(), MyInterface, View.OnClick
 
 
     private fun initViews() {
-       val img_right_icon = (activity as MainActivity?)!!.findViewById<View>(R.id.img_right_icon) as ImageView
+        val img_right_icon = (activity as MainActivity?)!!.findViewById<View>(R.id.img_right_icon) as ImageView
         img_right_icon.setVisibility(View.GONE)
         val tvDone = (activity as MainActivity?)!!.findViewById<View>(R.id.tvDone) as TextView
         tvDone.visibility = View.GONE
-       val tvHeading = (activity as MainActivity?)!!.findViewById<View>(R.id.tvHeading) as TextView
-        tvHeading.text="Profile"
+        val tvHeading = (activity as MainActivity?)!!.findViewById<View>(R.id.tvHeading) as TextView
+        tvHeading.text = "Profile"
+        mExpArray = getResources().getStringArray(R.array.array_exp)
 
 
 //        tvCountryCodeFormEventManager.viewTreeObserver.addOnGlobalLayoutListener {
 //            mWidthCode = tvCountryCodeFormEventManager.measuredWidth
 //        }
-        mWidthCode=200
-        mWidthExp=500
-       // tvExperienceFormEventManager.viewTreeObserver.addOnGlobalLayoutListener { mWidthExp = tvExperienceFormEventManager.measuredWidth }
+        mWidthCode = 200
+        mWidthExp = 500
+        // tvExperienceFormEventManager.viewTreeObserver.addOnGlobalLayoutListener { mWidthExp = tvExperienceFormEventManager.measuredWidth }
     }
 
     private fun listeners() {
@@ -89,59 +111,13 @@ class EventManagerFormFragment : KotlinBaseFragment(), MyInterface, View.OnClick
         ivStatusFormEventManager.setOnClickListener(this)
         tvCountryCodeFormEventManager.setOnClickListener(this)
         tvExperienceFormEventManager.setOnClickListener(this)
+        tvStateFormEventManager.setOnClickListener(this)
+        tvCityFormEventManager.setOnClickListener(this)
 
 
     }
 
     private fun changeListeners() {
-        etCityFormEventManager.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
-
-        etCityFormEventManager.addTextChangedListener(object : TextWatcher {
-
-
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                mStart = start + count
-            }
-
-            override fun afterTextChanged(s: Editable) {
-                val input = s.toString()
-                val capitalizedText: String
-                if (input.length < 1)
-                    capitalizedText = input
-                else if (input.length > 1 && input.contains(" ")) {
-                    val fstr = input.substring(0, input.lastIndexOf(" ") + 1)
-                    if (fstr.length == input.length) {
-                        capitalizedText = fstr
-                    } else {
-                        var sstr = input.substring(input.lastIndexOf(" ") + 1)
-                        sstr = sstr.substring(0, 1).toUpperCase() + sstr.substring(1)
-                        capitalizedText = fstr + sstr
-                    }
-                } else
-                    capitalizedText = input.substring(0, 1).toUpperCase() + input.substring(1)
-
-                if (capitalizedText != etCityFormEventManager.text.toString()) {
-                    etCityFormEventManager.addTextChangedListener(object : TextWatcher {
-                        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-
-                        }
-
-                        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-
-                        }
-
-                        override fun afterTextChanged(s: Editable) {
-                            etCityFormEventManager.setSelection(mStart)
-                            etCityFormEventManager.removeTextChangedListener(this)
-                        }
-                    })
-                    etCityFormEventManager.setText(capitalizedText)
-                }
-            }
-
-        })
 
 
         etDescFormEventManager.addTextChangedListener(object : TextWatcher {
@@ -161,17 +137,55 @@ class EventManagerFormFragment : KotlinBaseFragment(), MyInterface, View.OnClick
     }
 
     override fun onClick(view: View?) {
-        var mExpArray = getResources().getStringArray(R.array.array_exp)
-        val mCountryCodeArray = arrayOfNulls<String>(countryCodeList.size)
-        countryCodeList.toArray(mCountryCodeArray)
+
         when (view!!.id) {
             R.id.tvCountryCodeFormEventManager -> {
-                showDropdown(mCountryCodeArray, tvCountryCodeFormEventManager, SpinnerData { mId, mName ->
+                showDropdown(arrCountryCode, tvCountryCodeFormEventManager, SpinnerData { mId, mName ->
                     mCountryId = mId
                     mCountryName = mName
                     tvCountryFormEventManager.text = mName
+
+                    mStateId = ""
+                    mCityId = ""
+                    tvStateFormEventManager.text = ""
+                    tvCityFormEventManager.text = ""
+                    alCity.clear()
+                    alCityName.clear()
+                    alState.clear()
+                    alStateName.clear()
+
+                    callStateAPI()
                 }, mWidthCode)
             }
+
+
+            R.id.tvStateFormEventManager -> showDropdown(arrStateName, tvStateFormEventManager, SpinnerData { mId, mName ->
+                mStateId = mId
+                mStateName = mName
+                tvStateFormEventManager.text = mName
+                alCity.clear()
+                alCityName.clear()
+
+                mCityId = ""
+                tvCityFormEventManager.text = ""
+
+                callCityAPI()
+            }, mWidthExp)
+            R.id.tvCityFormEventManager ->
+                if (!mStateId.equals("")) {
+                    showDropdown(arrCityName, tvCityFormEventManager, SpinnerData { mId, mName ->
+                        mCityId = mId
+                        mCityName = mName
+                        tvCityFormEventManager.text = mName
+                    }, mWidthExp)
+                } else {
+                    Utils.showToast(activity, resources.getString(R.string.err_state))
+                }
+
+
+
+
+
             R.id.tvExperienceFormEventManager -> {
                 showDropdown(mExpArray, tvExperienceFormEventManager, SpinnerData { mId, mName ->
                     mExperience = mName
@@ -183,6 +197,10 @@ class EventManagerFormFragment : KotlinBaseFragment(), MyInterface, View.OnClick
                 checkPermissions("image", "com.musicseque.event_manager.fragment.EventManagerFormFragment", this)
 
             }
+
+
+
+
             R.id.btnSubmitFormEventManager -> {
 
 
@@ -190,17 +208,15 @@ class EventManagerFormFragment : KotlinBaseFragment(), MyInterface, View.OnClick
 
                 val jsonBody = JSONObject()
                 var mEmail = ""
-                val mCity: String
                 var mPostCode = ""
                 var mBio = ""
 
                 mEmail = etEmailFormEventManager.text.toString()
                 mMobileNumber = etMobileNumberFormEventManager.text.toString()
-                mCity = etCityFormEventManager.text.toString()
                 mPostCode = etPostalCodeFormEventManager.text.toString()
                 mBio = etDescFormEventManager.text.toString()
                 mExperience = tvExperienceFormEventManager.text.toString()
-
+                mAddress = etAddressFormEventManager.text.toString()
 
 
                 if (mEmail.equals("", ignoreCase = true)) {
@@ -213,9 +229,12 @@ class EventManagerFormFragment : KotlinBaseFragment(), MyInterface, View.OnClick
 
                 } else if (mMobileNumber.length < 10) {
                     Utils.showToast(activity, resources.getString(R.string.err_phone))
-                } else if (mCity.equals("", ignoreCase = true)) {
+                } else if (mStateId.equals("", ignoreCase = true)) {
+                    Utils.showToast(activity, resources.getString(R.string.err_state))
+                } else if (mCityId.equals("", ignoreCase = true)) {
                     Utils.showToast(activity, resources.getString(R.string.err_city))
-
+                } else if (mAddress.equals("", ignoreCase = true)) {
+                    Utils.showToast(activity, resources.getString(R.string.err_address))
                 } else if (mPostCode.equals("", ignoreCase = true)) {
                     Utils.showToast(activity, resources.getString(R.string.err_postcode))
 
@@ -235,7 +254,9 @@ class EventManagerFormFragment : KotlinBaseFragment(), MyInterface, View.OnClick
                         jsonBody.put("Email", mEmail)
                         jsonBody.put("CountryId", mCountryId)
                         jsonBody.put("Phone", mMobileNumber)
-                        jsonBody.put("City", mCity)
+                        jsonBody.put("CityId", mCityId)
+                        jsonBody.put("StateId", mStateId)
+                        jsonBody.put("UserAddress", mAddress)
                         jsonBody.put("PostCode", mPostCode)
                         jsonBody.put("Bio", mBio)
                         jsonBody.put("Genre", "")
@@ -268,6 +289,10 @@ class EventManagerFormFragment : KotlinBaseFragment(), MyInterface, View.OnClick
             showDialog()
             if (TYPE == FOR_COUNTRIES_LIST) {
                 RetrofitAPI.callGetAPI(Constants.FOR_COUNTRIES_LIST, this)
+            } else if (TYPE == Constants.FOR_STATE_LIST) {
+                RetrofitAPI.callAPI(str, Constants.FOR_STATE_LIST, this)
+            } else if (TYPE == Constants.FOR_CITY_LIST) {
+                RetrofitAPI.callAPI(str, Constants.FOR_CITY_LIST, this)
             } else if (TYPE == FOR_USER_PROFILE) {
                 val jsonObject = JSONObject()
                 jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""))
@@ -301,7 +326,7 @@ class EventManagerFormFragment : KotlinBaseFragment(), MyInterface, View.OnClick
                         countryList.add(model)
                     }
 
-
+                    arrCountryCode = countryCodeList.toTypedArray()
 
 
                     getAPI(FOR_USER_PROFILE, "")
@@ -312,26 +337,62 @@ class EventManagerFormFragment : KotlinBaseFragment(), MyInterface, View.OnClick
                 }
 
             }
+            Constants.FOR_STATE_LIST -> try {
+                val jsonArray = JSONArray(response.toString())
+                var i = 0
+                while (i < jsonArray.length()) {
+                    val jsonObjectState = jsonArray.getJSONObject(i)
+                    val model = StateModel()
+                    model.stateName = jsonObjectState.getString("StateName")
+                    model.stateId = jsonObjectState.getString("StateId")
+                    alState.add(model)
+                    alStateName.add(jsonObjectState.getString("StateName"))
+                    i++
+                }
+                arrStateName = alStateName.toTypedArray()
+                if (!mStateId.equals("", ignoreCase = true)) {
+                    callCityAPI()
+                }
+            } catch (e: Exception) {
+            }
+            Constants.FOR_CITY_LIST -> try {
+                val jsonArray = JSONArray(response.toString())
+                var i = 0
+                while (i < jsonArray.length()) {
+                    val jsonObjectState = jsonArray.getJSONObject(i)
+                    val model = CityModel()
+                    model.cityName = jsonObjectState.getString("CityName")
+                    model.cityId = jsonObjectState.getString("CityId")
+                    alCity.add(model)
+                    alCityName.add(jsonObjectState.getString("CityName"))
+                    i++
+                }
+                arrCityName = alCityName.toTypedArray()
+            } catch (e: Exception) {
+            }
             FOR_USER_PROFILE -> {
                 try {
 
                     val obj: JSONObject = JSONObject(response.toString())
-                    if (obj.getString("Status").equals("Success", true)) {
+                    if (obj.getString("Status").equals("Success", true))
+                    {
                         tvUserNameFormEventManager.text = obj.getString("FirstName") + " " + obj.getString("LastName")
                         tvProfileTypeFormEventManager.text = obj.getString("ProfileTypeName")
 
-                        if (!obj.getString("City").equals("", ignoreCase = true))
-                            tvCityCountryFormEventManager.setText(obj.getString("City") + ", " + obj.getString("CountryName"))
+                        if (!obj.getString("CityName").equals("", ignoreCase = true))
+                            tvCityCountryFormEventManager.setText(obj.getString("CityName") + ", " + obj.getString("CountryName"))
 
                         etEmailFormEventManager?.setText(obj.getString("Email"))
                         tvCountryCodeFormEventManager.text = obj.getString("CountryCode")
                         etMobileNumberFormEventManager.setText(obj.getString("ContactNo"))
-                        etCityFormEventManager.setText(obj.getString("City"))
-                        etPostalCodeFormEventManager.setText(obj.getString("PostCode"))
-                        tvCountryFormEventManager.text = obj.getString("CountryName")
                         etDescFormEventManager.setText(obj.getString("Bio"))
                         tvExperienceFormEventManager.text = obj.getString("ExperienceYear")
 
+                        tvCountryFormEventManager.text = obj.getString("CountryName")
+                        tvStateFormEventManager.text = obj.getString("StateName")
+                        tvCityFormEventManager!!.text = obj.getString("CityName")
+                        etAddressFormEventManager.setText(obj.getString("UserAddress"))
+                        etPostalCodeFormEventManager.setText(obj.getString("PostCode"))
 
 
                         SharedPref.putString(COUNTRY_CODE, obj.getString("CountryCode"))
@@ -344,7 +405,8 @@ class EventManagerFormFragment : KotlinBaseFragment(), MyInterface, View.OnClick
                         mCountryName = obj.getString("CountryName")
                         mCountryId = obj.getString("CountryId")
                         mExperienceId = obj.getString("ExperienceId")
-
+                        mStateId = obj.getString("StateId")
+                        mCityId = obj.getString("CityID")
 
 
                         if (obj.getString("SocialId") == "") {
@@ -367,8 +429,10 @@ class EventManagerFormFragment : KotlinBaseFragment(), MyInterface, View.OnClick
                     } else {
 
                     }
-                } catch (exc: Exception) {
 
+                    callStateAPI()
+                } catch (exc: Exception) {
+                    callStateAPI()
                 }
             }
             FOR_UPDATE_PROFILE -> {
@@ -395,7 +459,27 @@ class EventManagerFormFragment : KotlinBaseFragment(), MyInterface, View.OnClick
         }
     }
 
-    fun showDropdown(array: Array<String?>, textView: TextView, spinnerData: SpinnerData, width: Int) {
+    private fun callStateAPI() {
+        try {
+            val jsonObject1 = JSONObject()
+            jsonObject1.put("CountryId", mCountryId)
+            getAPI(Constants.FOR_STATE_LIST, jsonObject1.toString())
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun callCityAPI() {
+        try {
+            val jsonObject1 = JSONObject()
+            jsonObject1.put("StateId", mStateId)
+            getAPI(Constants.FOR_CITY_LIST, jsonObject1.toString())
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+    }
+
+    fun showDropdown(array: Array<String>, textView: TextView, spinnerData: SpinnerData, width: Int) {
         listPopupWindow = ListPopupWindow(
                 activity!!)
         listPopupWindow.setAdapter(ArrayAdapter(
@@ -411,10 +495,14 @@ class EventManagerFormFragment : KotlinBaseFragment(), MyInterface, View.OnClick
                 spinnerData.getData(countryList.get(position).getCountryId(), countryList.get(position).getCountryName())
             } else if (textView.id == R.id.tvExperienceFormEventManager) {
                 val pos = position + 1
-                spinnerData.getData(pos.toString() + "",array[position] )
+                spinnerData.getData(pos.toString() + "", array[position])
 
+            } else if (textView.id == R.id.tvStateFormEventManager) {
+                spinnerData.getData(alState[position].stateId, array[position])
+            } else if (textView.id == R.id.tvCityFormEventManager) {
+                spinnerData.getData(alCity[position].cityId, array[position])
             } else {
-                spinnerData.getData("",array[position])
+                spinnerData.getData("", array[position])
             }
             textView.text = array[position]
 

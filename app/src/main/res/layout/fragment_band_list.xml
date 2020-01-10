@@ -5,8 +5,9 @@
     android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerBand"
+        android:id="@+id/recycleBand"
         android:layout_width="match_parent"
+        android:visibility="visible"
         android:layout_height="match_parent" />
     <Button
         android:id="@+id/btnAddBand"
@@ -16,6 +17,7 @@
         android:layout_marginTop="45dp"
         android:background="@drawable/rectangle_orange"
         android:padding="10dp"
+        android:visibility="gone"
         android:text="Add New Band"
 
         android:textColor="@color/color_white"

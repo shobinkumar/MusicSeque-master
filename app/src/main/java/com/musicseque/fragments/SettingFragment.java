@@ -16,14 +16,11 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.musicseque.MainActivity;
 import com.musicseque.R;
 import com.musicseque.artist.activity.ChangePasswordActivity;
-import com.musicseque.artist.activity.PrivacyPolicyActivity;
 import com.musicseque.artist.activity.ReportProblemActivity;
-import com.musicseque.artist.fragments.ProfileFragment;
 import com.musicseque.artist.service.CommonService;
 
 import com.musicseque.interfaces.MyInterface;
@@ -32,7 +29,6 @@ import com.musicseque.start_up.LoginActivity;
 import com.musicseque.utilities.Constants;
 import com.musicseque.utilities.SharedPref;
 import com.musicseque.utilities.Utils;
-import com.musicseque.venue_manager.fragment.CreateVenueFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;

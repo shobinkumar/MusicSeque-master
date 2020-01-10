@@ -425,6 +425,177 @@
 
 
 
+
+
+            <com.musicseque.Fonts.Noyhr
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Country"
+                android:layout_marginTop="@dimen/_15sdp"
+
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_16sdp" />
+
+            <RelativeLayout
+                android:id="@+id/rlCountryCreateEvent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+
+                android:background="@android:color/transparent">
+
+                <com.musicseque.Fonts.Noyhr
+                    android:id="@+id/tvCountryCreateEvent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#0C1C24"
+                    android:entries="@array/arr_experience"
+                    android:hint="Select the country"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingRight="@dimen/_5sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:textColor="@color/color_white"
+                    android:textColorHint="@color/color_white_hint"
+                    android:textSize="@dimen/_15sdp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/arrowdown" />
+            </RelativeLayout>
+
+
+
+            <com.musicseque.Fonts.Noyhr
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="State"
+                android:layout_marginTop="@dimen/_15sdp"
+
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_16sdp" />
+
+            <RelativeLayout
+                android:id="@+id/rlStateCreateEvent"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+
+                android:background="@android:color/transparent">
+
+                <com.musicseque.Fonts.Noyhr
+                    android:id="@+id/tvStateCreateEvent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#0C1C24"
+                    android:entries="@array/arr_experience"
+                    android:hint="Select the state"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingRight="@dimen/_5sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:textColor="@color/color_white"
+                    android:textColorHint="@color/color_white_hint"
+                    android:textSize="@dimen/_15sdp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/arrowdown" />
+            </RelativeLayout>
+
+
+            <com.musicseque.Fonts.Noyhr
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="City"
+                android:layout_marginTop="@dimen/_15sdp"
+
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_16sdp" />
+
+            <RelativeLayout
+                android:id="@+id/rlCityCreateEvent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+
+                android:background="@android:color/transparent">
+
+                <com.musicseque.Fonts.Noyhr
+                    android:id="@+id/tvCityCreateEvent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#0C1C24"
+                    android:entries="@array/arr_experience"
+                    android:hint="Select the city"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingRight="@dimen/_5sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:textColor="@color/color_white"
+                    android:textColorHint="@color/color_white_hint"
+                    android:textSize="@dimen/_15sdp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/arrowdown" />
+            </RelativeLayout>
+
+            <com.musicseque.Fonts.Noyhr
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Address"
+                android:layout_marginTop="@dimen/_15sdp"
+
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_16sdp" />
+
+            <com.musicseque.Fonts.NoyhrEditText
+                android:id="@+id/etAddressCreateEvent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/color_edit_text"
+                android:padding="@dimen/_5sdp"
+                android:hint="Enter the zip code"
+                android:textColorHint="@color/color_white_hint"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_16sdp" />
+
+            <com.musicseque.Fonts.Noyhr
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Zip Code"
+                android:layout_marginTop="@dimen/_15sdp"
+
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_16sdp" />
+
+            <com.musicseque.Fonts.NoyhrEditText
+                android:id="@+id/etZipCodeCreateEvent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/color_edit_text"
+                android:padding="@dimen/_5sdp"
+                android:hint="Enter the zip code"
+                android:textColorHint="@color/color_white_hint"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_16sdp" />
+
             <com.musicseque.Fonts.Noyhr
                 android:id="@+id/tvSubmit"
                 android:layout_width="wrap_content"

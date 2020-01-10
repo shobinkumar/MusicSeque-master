@@ -37,10 +37,11 @@ import com.musicseque.event_manager.activity.EventsListActivity;
 import com.musicseque.event_manager.fragment.EventManagerDetailFragment;
 import com.musicseque.event_manager.fragment.EventManagerFormFragment;
 import com.musicseque.firebase_notification.NotificationActivity;
-
+import com.musicseque.fragments.HomeFragment;
 import com.musicseque.fragments.SettingFragment;
 import com.musicseque.interfaces.MyInterface;
 import com.musicseque.music_lover.fragments.FragmentProfileDetailMusicLover;
+import com.musicseque.music_lover.fragments.FragmentProfileMusicLover;
 import com.musicseque.retrofit_interface.RetrofitAPI;
 import com.musicseque.service.LocationService;
 import com.musicseque.start_up.LoginActivity;
@@ -670,11 +671,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
 
-            case R.id.tvAddEvent:
-                startActivity(new Intent(this, CreateEventActivity.class));
-                navDrawer.closeDrawers();
-
-                break;
+//            case R.id.tvAddEvent:
+//                startActivity(new Intent(this, CreateEventActivity.class));
+//                navDrawer.closeDrawers();
+//
+//                break;
             case R.id.tvUpcomingEvent:
                 if (mLoginType.equalsIgnoreCase("Venue Manager")) {
                     Utils.showToast(MainActivity.this, "Coming Soon");
@@ -786,7 +787,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // tvAddEvent.setVisibility(View.VISIBLE);
             llAllProfile.setVisibility(GONE);
             ivUpArrow.setVisibility(GONE);
-            ivDownArrow.setVisibility(View.VISIBLE);
+            ivDownArrow.setVisibility(GONE);
             llTimmings.setVisibility(GONE);
             viewTimmings.setVisibility(GONE);
             llSchedule.setVisibility(View.VISIBLE);
@@ -795,8 +796,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             viewBookingStatus.setVisibility(GONE);
             llSchedule.setVisibility(GONE);
             viewSchedule.setVisibility(GONE);
-            llAllEvents.setVisibility(View.VISIBLE);
-            tvAddEvent.setVisibility(GONE);
 
         } else if (mLoginType.equalsIgnoreCase("Event Manager")) {
 

@@ -40,25 +40,23 @@
             android:src="@drawable/icon_artist_search" />
     </RelativeLayout>
 
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerArtist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/rlOuter"
-      />
+        android:layout_below="@+id/rlOuter" />
 
     <com.musicseque.Fonts.Noyhr
         android:id="@+id/tvNoRecord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No Record Found"
-        android:visibility="gone"
         android:layout_centerInParent="true"
-        android:textSize="@dimen/_22sdp"
+        android:text="No Record Found"
         android:textColor="@color/color_white"
-        />
+        android:textSize="@dimen/_22sdp"
+        android:visibility="gone" />
 </RelativeLayout>
-
 
 
 

@@ -21,6 +21,7 @@ import com.musicseque.interfaces.MyInterface
 import com.musicseque.retrofit_interface.ImageUploadClass
 import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.*
+import com.musicseque.utilities.Constants.FOR_USER_PROFILE
 import kotlinx.android.synthetic.main.fragment_create_venue.*
 import kotlinx.android.synthetic.main.fragment_venue_profile_detail.*
 import kotlinx.android.synthetic.main.fragment_venue_profile_detail.pBar
@@ -49,7 +50,7 @@ class VenueProfileDetailFragment : KotlinBaseFragment(), View.OnClickListener, M
         initOtherViews()
         initViews()
         listeners()
-        hitAPI("profile")
+        hitAPI(FOR_USER_PROFILE,"")
     }
 
 
@@ -102,11 +103,11 @@ class VenueProfileDetailFragment : KotlinBaseFragment(), View.OnClickListener, M
     }
 
 
-    fun hitAPI(type: String) {
+    fun hitAPI(type: Int,args:String) {
 
         if (KotlinUtils.isNetConnected(activity!!.applicationContext)) {
             Utils.initializeAndShow(requireContext())
-            if (type.equals("profile")) {
+            if (type==FOR_USER_PROFILE) {
                 try {
                     val jsonObject = JSONObject()
                     jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""))
@@ -150,7 +151,7 @@ class VenueProfileDetailFragment : KotlinBaseFragment(), View.OnClickListener, M
                     try {
                         tvUserNameDetail.setText(jsonObj.getString("FirstName") + " " + jsonObj.getString("LastName"))
                         tvUserID.text = SharedPref.getString(Constants.UNIQUE_CODE, "")
-                        tvUserLocation.setText(jsonObj.getString("City") + ", " + jsonObj.getString("CountryName"))
+                        tvUserLocation.setText(jsonObj.getString("CityName") + ", " + jsonObj.getString("CountryName"))
                         tvReviews.text = "(" + jsonObj.getString("Reviews") + " reviews" + ")"
                         tvCapacity.text = jsonObj.getString("VenueCapacity")
                         tvFollowersCount.text = jsonObj.getString("Followers")
@@ -205,25 +206,11 @@ class VenueProfileDetailFragment : KotlinBaseFragment(), View.OnClickListener, M
                     if (jsonObject.getString("Status").equals("Success", ignoreCase = true)) {
                         SharedPref.putString(Constants.PROFILE_IMAGE, jsonObject.getString("imageurl") + jsonObject.getString("ImageName"))
                         Utils.showToast(activity, "Profile Pic uploaded successfully")
-                        //Glide.with(getActivity()).load(jsonObject.getString("imageurl") + jsonObject.getString("ImageName")).into(ivProfilePic);
 
 
                         pBar.visibility = View.VISIBLE
 
-//                        Glide.with(this)
-//                                .load(jsonObject.getString("imageurl") + jsonObject.getString("ImageName"))
-//                                .listener(object : RequestListener<Drawable> {
-//                                    override fun onLoadFailed(e: GlideException?, model: Any, target: Target<Drawable>, isFirstResource: Boolean): Boolean {
-//                                        pBar.visibility = View.GONE
-//                                        return false
-//                                    }
-//
-//                                    override fun onResourceReady(resource: Drawable, model: Any, target: Target<Drawable>, dataSource: DataSource, isFirstResource: Boolean): Boolean {
-//                                        pBar.visibility = View.GONE
-//                                        return false
-//                                    }
-//                                })
-//                                .into(ivProfilePic)
+
 
                         SharedPref.putString(Constants.PROFILE_IMAGE, jsonObject.getString("imageurl") + jsonObject.getString("ImageName"))
 

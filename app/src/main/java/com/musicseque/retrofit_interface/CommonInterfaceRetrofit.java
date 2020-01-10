@@ -195,4 +195,12 @@ public interface CommonInterfaceRetrofit {
     @POST(Constants.TEST_API)
     Call<String>  methodTest(@Body String params);
 
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.STATE_LIST_API)
+    Call<String>  methodForStateList(@Body String params);
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.CITY_LIST_API)
+    Call<String>  methodForCityList(@Body String params);
 }
