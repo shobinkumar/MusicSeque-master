@@ -10,7 +10,8 @@
         android:id="@+id/recycler_events"
         android:layout_below="@+id/rl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        />
 
     <com.musicseque.Fonts.Noyhr
         android:id="@+id/tvNoList"

@@ -6,6 +6,10 @@
     android:background="@color/color_background"
     android:orientation="vertical">
 
+    <include
+    android:id="@+id/toolbarTop"
+    layout="@layout/toolbar_top"
+    android:visibility="visible"/>
 
     <ScrollView
         android:id="@+id/sv"
@@ -13,7 +17,7 @@
         android:layout_height="match_parent">
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/cLayout"
+            android:id="@+id/cLayoutArtistEventManager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/color_background"
@@ -21,7 +25,7 @@
             android:focusableInTouchMode="true">
 
             <ImageView
-                android:id="@+id/ivBackground"
+                android:id="@+id/ivBackgroundArtistEventManager"
                 android:layout_width="match_parent"
                 android:layout_height="280dp"
                 android:scaleType="centerCrop"
@@ -31,16 +35,15 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ProgressBar
-                android:id="@+id/pBarBackgroundImage"
+                android:id="@+id/progressBarArtistEventManager"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-
                 android:visibility="visible"
-                app:layout_constraintBottom_toTopOf="@+id/ivProfilePic"
+                app:layout_constraintBottom_toTopOf="@+id/ivProfilePicArtistEventManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -49,61 +52,59 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:background="@drawable/circle_white_border"
-                app:layout_constraintBottom_toBottomOf="@+id/ivBackground"
+                app:layout_constraintBottom_toBottomOf="@+id/ivBackgroundArtistEventManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ivBackground" />
+                app:layout_constraintTop_toBottomOf="@+id/ivBackgroundArtistEventManager" />
 
 
             <ProgressBar
-                android:id="@+id/pBarProfilePic"
+                android:id="@+id/pBarArtistEventManager"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="@+id/ivBackground"
+                app:layout_constraintBottom_toBottomOf="@+id/ivBackgroundArtistEventManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ivBackground" />
+                app:layout_constraintTop_toBottomOf="@+id/ivBackgroundArtistEventManager" />
 
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/ivProfilePic"
+                android:id="@+id/ivProfilePicArtistEventManager"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:padding="1dp"
                 android:src="@color/color_orange"
-                app:layout_constraintBottom_toBottomOf="@+id/ivBackground"
+                app:layout_constraintBottom_toBottomOf="@+id/ivBackgroundArtistEventManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ivBackground" />
+                app:layout_constraintTop_toBottomOf="@+id/ivBackgroundArtistEventManager" />
 
             <ImageView
-                android:id="@+id/ivCameraBackground"
+                android:id="@+id/ivCameraBackgroundArtistEventManager"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:visibility="invisible"
                 android:layout_marginBottom="8dp"
                 android:src="@drawable/icon_backgound_pic_upload"
-                app:layout_constraintBottom_toBottomOf="@+id/ivBackground"
+                app:layout_constraintBottom_toBottomOf="@+id/ivBackgroundArtistEventManager"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <ImageView
-                android:id="@+id/ivCameraProfilePic"
+                android:id="@+id/ivCameraProfilePicArtistEventManager"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:visibility="invisible"
                 android:src="@drawable/icon_pic_upload"
-                app:layout_constraintBottom_toBottomOf="@+id/ivProfilePic"
-                app:layout_constraintEnd_toEndOf="@+id/ivProfilePic" />
+                app:layout_constraintBottom_toBottomOf="@+id/ivProfilePicArtistEventManager"
+                app:layout_constraintEnd_toEndOf="@+id/ivProfilePicArtistEventManager" />
 
             <com.musicseque.Fonts.Noyhr
-                android:id="@+id/tvFollowersCount"
+                android:id="@+id/tvFollowersCountArtistEventManager"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -111,10 +112,10 @@
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/_13sdp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ivBackground" />
+                app:layout_constraintTop_toBottomOf="@+id/ivBackgroundArtistEventManager" />
 
             <com.musicseque.Fonts.Noyhr
-                android:id="@+id/txtFollower"
+                android:id="@+id/txtFollowerArtistEventManager"
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -123,10 +124,10 @@
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/_14sdp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvFollowersCount" />
+                app:layout_constraintTop_toBottomOf="@+id/tvFollowersCountArtistEventManager" />
 
             <com.musicseque.Fonts.Noyhr
-                android:id="@+id/btnFollow"
+                android:id="@+id/btnFollowArtistEventManager"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -140,10 +141,10 @@
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/_14sdp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtFollower" />
+                app:layout_constraintTop_toBottomOf="@+id/txtFollowerArtistEventManager" />
 
             <com.musicseque.Fonts.Noyhr
-                android:id="@+id/txtID"
+                android:id="@+id/txtIDArtistEventManager"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -152,20 +153,20 @@
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/_13sdp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ivBackground" />
+                app:layout_constraintTop_toBottomOf="@+id/ivBackgroundArtistEventManager" />
 
             <com.musicseque.Fonts.Noyhr
-                android:id="@+id/tvUserID"
+                android:id="@+id/tvUserIDArtistEventManager"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/_13sdp"
-                app:layout_constraintStart_toEndOf="@+id/ivProfilePic"
-                app:layout_constraintTop_toBottomOf="@+id/txtID" />
+                app:layout_constraintStart_toEndOf="@+id/ivProfilePicArtistEventManager"
+                app:layout_constraintTop_toBottomOf="@+id/txtIDArtistEventManager" />
 
             <RatingBar
-                android:id="@+id/rBar"
+                android:id="@+id/rBarArtistEventManager"
                 android:layout_width="13dp"
                 android:layout_height="12dp"
                 android:layout_marginTop="4dp"
@@ -175,11 +176,11 @@
                 android:rating="4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/tvUserID"
-                app:layout_constraintTop_toBottomOf="@+id/tvUserID" />
+                app:layout_constraintStart_toStartOf="@+id/tvUserIDArtistEventManager"
+                app:layout_constraintTop_toBottomOf="@+id/tvUserIDArtistEventManager" />
 
             <com.musicseque.Fonts.Noyhr
-                android:id="@+id/tvReviews"
+                android:id="@+id/tvReviewsArtistEventManager"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -187,11 +188,11 @@
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/_14sdp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/rBar"
-                app:layout_constraintTop_toBottomOf="@+id/rBar" />
+                app:layout_constraintStart_toStartOf="@+id/rBarArtistEventManager"
+                app:layout_constraintTop_toBottomOf="@+id/rBarArtistEventManager" />
 
             <com.musicseque.Fonts.BoldNoyhr
-                android:id="@+id/tvUserNameDetail"
+                android:id="@+id/tvUserNameDetailArtistEventManager"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -201,22 +202,33 @@
                 android:textSize="@dimen/_18sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ivProfilePic" />
+                app:layout_constraintTop_toBottomOf="@+id/ivProfilePicArtistEventManager" />
 
             <ImageView
-                android:id="@+id/ivIndicator"
+                android:id="@+id/ivIndicatorArtistEventManager"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
                 android:src="@drawable/icon_green"
-                app:layout_constraintStart_toEndOf="@+id/tvUserNameDetail"
-                app:layout_constraintTop_toTopOf="@+id/tvUserNameDetail" />
+                app:layout_constraintStart_toEndOf="@+id/tvUserNameDetailArtistEventManager"
+                app:layout_constraintTop_toTopOf="@+id/tvUserNameDetailArtistEventManager" />
 
-
+            <com.musicseque.Fonts.BoldNoyhr
+                android:id="@+id/tvUserTypeArtistEventManager"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_14sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvUserNameDetailArtistEventManager" />
 
             <com.musicseque.Fonts.Noyhr
-                android:id="@+id/tvUserLocation"
+                android:id="@+id/tvUserLocationArtistEventManager"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -228,34 +240,52 @@
                 android:textSize="@dimen/_14sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvUserNameDetail" />
+                app:layout_constraintTop_toBottomOf="@+id/tvUserTypeArtistEventManager" />
+
+
+            <com.musicseque.Fonts.Noyhr
+                android:id="@+id/tvSendRequestArtistEventManager"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/rectangle_orange"
+                android:paddingLeft="15dp"
+                android:paddingTop="5dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="5dp"
+                android:text="Send Request"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_14sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvUserLocationArtistEventManager" />
 
             <View
-                android:id="@+id/view1"
+                android:id="@+id/view1ArtistEventManager"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="30dp"
                 android:background="@color/color_black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvUserLocation" />
+                app:layout_constraintTop_toBottomOf="@+id/tvSendRequestArtistEventManager" />
 
 
             <ImageView
-                android:id="@+id/iconGenre"
+                android:id="@+id/iconGenreArtistEventManager"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:src="@drawable/icon_genre"
-                app:layout_constraintEnd_toEndOf="@+id/iconExperience"
+                app:layout_constraintEnd_toEndOf="@+id/iconExperienceArtistEventManager"
                 app:layout_constraintHorizontal_bias="0.046"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/view1" />
+                app:layout_constraintTop_toTopOf="@+id/view1ArtistEventManager" />
 
             <ImageView
-                android:id="@+id/iconExperience"
+                android:id="@+id/iconExperienceArtistEventManager"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -265,10 +295,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.33"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/view1" />
+                app:layout_constraintTop_toTopOf="@+id/view1ArtistEventManager" />
 
             <com.musicseque.Fonts.Noyhr
-                android:id="@+id/txtExperience"
+                android:id="@+id/txtExperienceArtistEventManager"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -276,21 +306,21 @@
                 android:text="@string/txt_experience"
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/_12sdp"
-                app:layout_constraintStart_toEndOf="@+id/iconExperience"
-                app:layout_constraintTop_toTopOf="@+id/view1" />
+                app:layout_constraintStart_toEndOf="@+id/iconExperienceArtistEventManager"
+                app:layout_constraintTop_toTopOf="@+id/view1ArtistEventManager" />
 
             <com.musicseque.Fonts.Noyhr
-                android:id="@+id/tvExperience"
+                android:id="@+id/tvExperienceArtistEventManager"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/_13sdp"
-                app:layout_constraintStart_toEndOf="@+id/iconExperience"
-                app:layout_constraintTop_toBottomOf="@+id/txtExperience" />
+                app:layout_constraintStart_toEndOf="@+id/iconExperienceArtistEventManager"
+                app:layout_constraintTop_toBottomOf="@+id/txtExperienceArtistEventManager" />
 
             <com.musicseque.Fonts.Noyhr
-                android:id="@+id/tvMessage"
+                android:id="@+id/tvMessageArtistEventManager"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -309,11 +339,11 @@
                 android:textSize="@dimen/_13sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.879"
-                app:layout_constraintStart_toEndOf="@+id/txtExperience"
-                app:layout_constraintTop_toTopOf="@+id/view1" />
+                app:layout_constraintStart_toEndOf="@+id/txtExperienceArtistEventManager"
+                app:layout_constraintTop_toTopOf="@+id/view1ArtistEventManager" />
 
             <com.musicseque.Fonts.Noyhr
-                android:id="@+id/txtGenre"
+                android:id="@+id/txtGenreArtistEventManager"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -321,32 +351,32 @@
                 android:text="@string/str_genre"
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/_13sdp"
-                app:layout_constraintStart_toEndOf="@+id/iconGenre"
-                app:layout_constraintTop_toTopOf="@+id/view1" />
+                app:layout_constraintStart_toEndOf="@+id/iconGenreArtistEventManager"
+                app:layout_constraintTop_toTopOf="@+id/view1ArtistEventManager" />
 
             <com.musicseque.Fonts.Noyhr
-                android:id="@+id/tvGenre"
+                android:id="@+id/tvGenreArtistEventManager"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/_13sdp"
-                app:layout_constraintStart_toStartOf="@+id/txtGenre"
-                app:layout_constraintTop_toBottomOf="@+id/txtGenre" />
+                app:layout_constraintStart_toStartOf="@+id/txtGenreArtistEventManager"
+                app:layout_constraintTop_toBottomOf="@+id/txtGenreArtistEventManager" />
 
             <View
-                android:id="@+id/viewGenre"
+                android:id="@+id/viewGenreArtistEventManager"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="@color/color_white"
-                app:layout_constraintEnd_toStartOf="@+id/iconExperience"
-                app:layout_constraintStart_toEndOf="@+id/txtGenre"
-                app:layout_constraintTop_toTopOf="@+id/view1" />
+                app:layout_constraintEnd_toStartOf="@+id/iconExperienceArtistEventManager"
+                app:layout_constraintStart_toEndOf="@+id/txtGenreArtistEventManager"
+                app:layout_constraintTop_toTopOf="@+id/view1ArtistEventManager" />
 
             <View
-                android:id="@+id/view2"
+                android:id="@+id/view2ArtistEventManager"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="16dp"
@@ -354,23 +384,23 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvExperience" />
+                app:layout_constraintTop_toBottomOf="@+id/tvExperienceArtistEventManager" />
 
             <LinearLayout
-                android:id="@+id/llBio"
+                android:id="@+id/llBioArtistEventManager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
                 android:orientation="vertical"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view2">
+                app:layout_constraintTop_toBottomOf="@+id/view2ArtistEventManager">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <com.musicseque.Fonts.Noyhr
-                        android:id="@+id/tvAboutUser"
+                        android:id="@+id/tvAboutUserArtistEventManager"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -380,7 +410,7 @@
                         android:textSize="@dimen/_16sdp" />
 
                     <ImageView
-                        android:id="@+id/ivIconDrop"
+                        android:id="@+id/ivIconDropArtistEventManager"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -394,7 +424,7 @@
                         android:visibility="visible" />
 
                     <ImageView
-                        android:id="@+id/ivIconUp"
+                        android:id="@+id/ivIconUpArtistEventManager"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -410,17 +440,17 @@
 
 
                 <View
-                    android:id="@+id/view3"
+                    android:id="@+id/view3ArtistEventManager"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/color_black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvAboutUser" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvAboutUserArtistEventManager" />
 
                 <com.musicseque.Fonts.Noyhr
-                    android:id="@+id/tvBio"
+                    android:id="@+id/tvBioArtistEventManager"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
@@ -430,29 +460,28 @@
                     android:textSize="@dimen/_16sdp"
                     android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvAboutUser" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvAboutUserArtistEventManager" />
 
                 <include
-                    android:id="@+id/bottom_layout"
-                    layout="@layout/bottom_bar_band"
+                    android:id="@+id/bottom_layoutArtistEventManager"
+                    layout="@layout/bottom_bar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvBio" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvBioArtistEventManager" />
 
                 <FrameLayout
-                    android:id="@+id/frame_layout"
+                    android:id="@+id/frame_layoutArtistEventManager"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:fitsSystemWindows="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/bottom_layout" />
+                    app:layout_constraintTop_toBottomOf="@+id/bottom_layoutArtistEventManager" />
 
             </LinearLayout>
-
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 </LinearLayout>

@@ -29,6 +29,7 @@ import com.musicseque.R;
 import com.musicseque.artist.activity.other_artist_activity.SearchArtistActivity;
 import com.musicseque.artist.activity.other_artist_activity.SearchBandActivity;
 import com.musicseque.artist.fragments.BaseFragment;
+import com.musicseque.event_manager.activity.SearchArtistActivityEventManager;
 import com.musicseque.service.LocationService;
 import com.musicseque.utilities.Constants;
 import com.musicseque.utilities.SharedPref;
@@ -41,52 +42,55 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.musicseque.utilities.Constants.PROFILE_TYPE;
+
 
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
-  private ImageView img_gigs, img_venue, img_event_manger, img_talent_manager, iv_featured, ivDrawer;
-  private Context context;
-  private LinearLayout line_settings;
-  private TextView et_explore;
-  Fragment fragment = null;
+    private ImageView img_gigs, img_venue, img_event_manger, img_talent_manager, iv_featured, ivDrawer;
+    private Context context;
+    private LinearLayout line_settings;
+    private TextView et_explore;
+    Fragment fragment = null;
 
-  @BindView(R.id.ivArtist)
-  ImageView ivArtist;
+    @BindView(R.id.ivArtist)
+    ImageView ivArtist;
 
-  @BindView(R.id.ivEditLoc)
-  ImageView ivEditLoc;
-  @BindView(R.id.etLoc)
-  EditText etLoc;
+    @BindView(R.id.ivEditLoc)
+    ImageView ivEditLoc;
+    @BindView(R.id.etLoc)
+    EditText etLoc;
 
-  @BindView(R.id.ivBand)
-  ImageView ivBand;
-  @BindView(R.id.rlSearch)
-  RelativeLayout rlSearch;
+    @BindView(R.id.ivBand)
+    ImageView ivBand;
+    @BindView(R.id.rlSearch)
+    RelativeLayout rlSearch;
 
-  View v;
+    View v;
+    String mUserType = "";
 
-  @Override
-  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-    super.onViewCreated(view, savedInstanceState);
-    String apiKey = getString(R.string.api_key);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        String apiKey = getString(R.string.api_key);
 
-    /**
-     * Initialize Places. For simplicity, the API key is hard-coded. In a production
-     * environment we recommend using a secure mechanism to manage API keys.
-     */
-    if (!Places.isInitialized()) {
-      Places.initialize(getActivity(), apiKey);
-    }
+        /**
+         * Initialize Places. For simplicity, the API key is hard-coded. In a production
+         * environment we recommend using a secure mechanism to manage API keys.
+         */
+        if (!Places.isInitialized()) {
+            Places.initialize(getActivity(), apiKey);
+        }
 
 // Create a new Places client instance.
-    PlacesClient placesClient = Places.createClient(getActivity());
+        PlacesClient placesClient = Places.createClient(getActivity());
 
 
-    AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment) getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment) getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
 
-    // Specify the types of place data to return.
-    autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG));
+        // Specify the types of place data to return.
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG));
 
-    // Set up a PlaceSelectionListener to handle the response.
+        // Set up a PlaceSelectionListener to handle the response.
 //        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
 //            @Override
 //            public void onPlaceSelected(Place place) {
@@ -102,53 +106,54 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 //                Log.i("TAG", "An error occurred: " + status);
 //            }
 //        });
-  }
+    }
 
-  @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                           Bundle savedInstanceState) {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-    v = inflater.inflate(R.layout.fragment_home, container, false);
-    ButterKnife.bind(this, v);
-    TextView tv_title = (TextView) ((MainActivity) getActivity()).findViewById(R.id.tvHeading);
-    TextView tvDone = (TextView) ((MainActivity) getActivity()).findViewById(R.id.tvDone);
-    tvDone.setVisibility(View.GONE);
-    ImageView img_right_icon = (ImageView) ((MainActivity) getActivity()).findViewById(R.id.img_right_icon);
-    img_right_icon.setVisibility(View.GONE);
-    tv_title.setText("Home");
-    initialize();
-    clickListner();
-
-
-    return v;
-  }
+        v = inflater.inflate(R.layout.fragment_home, container, false);
+        ButterKnife.bind(this, v);
+        TextView tv_title = (TextView) ((MainActivity) getActivity()).findViewById(R.id.tvHeading);
+        TextView tvDone = (TextView) ((MainActivity) getActivity()).findViewById(R.id.tvDone);
+        tvDone.setVisibility(View.GONE);
+        ImageView img_right_icon = (ImageView) ((MainActivity) getActivity()).findViewById(R.id.img_right_icon);
+        img_right_icon.setVisibility(View.GONE);
+        tv_title.setText("Home");
+        initialize();
+        clickListner();
 
 
-  public void initialize() {
-    img_gigs = (ImageView) v.findViewById(R.id.img_gigs);
-    img_venue = (ImageView) v.findViewById(R.id.img_venue);
+        return v;
+    }
 
-    iv_featured = (ImageView) v.findViewById(R.id.iv_profile);
-    img_event_manger = (ImageView) v.findViewById(R.id.img_event_manger);
-    img_talent_manager = (ImageView) v.findViewById(R.id.img_talent_manager);
-    et_explore = (TextView) v.findViewById(R.id.et_explore);
-    try {
-      Address address = Utils.getCompleteAddressString(Double.parseDouble(LocationService.mLatitude), Double.parseDouble(LocationService.mLongitude), getActivity());
-      etLoc.setText(address.getAddressLine(0));
-    } catch (Exception e) {
+
+    public void initialize() {
+        mUserType = SharedPref.getString(PROFILE_TYPE, "");
+        img_gigs = (ImageView) v.findViewById(R.id.img_gigs);
+        img_venue = (ImageView) v.findViewById(R.id.img_venue);
+
+        iv_featured = (ImageView) v.findViewById(R.id.iv_profile);
+        img_event_manger = (ImageView) v.findViewById(R.id.img_event_manger);
+        img_talent_manager = (ImageView) v.findViewById(R.id.img_talent_manager);
+        et_explore = (TextView) v.findViewById(R.id.et_explore);
+        try {
+            Address address = Utils.getCompleteAddressString(Double.parseDouble(LocationService.mLatitude), Double.parseDouble(LocationService.mLongitude), getActivity());
+            etLoc.setText(address.getAddressLine(0));
+        } catch (Exception e) {
+
+        }
 
     }
 
-  }
-
-  public void clickListner() {
+    public void clickListner() {
 
 
-    img_gigs.setOnClickListener(this);
-    img_venue.setOnClickListener(this);
-    img_event_manger.setOnClickListener(this);
-    img_talent_manager.setOnClickListener(this);
-    et_explore.setOnClickListener(this);
+        img_gigs.setOnClickListener(this);
+        img_venue.setOnClickListener(this);
+        img_event_manger.setOnClickListener(this);
+        img_talent_manager.setOnClickListener(this);
+        et_explore.setOnClickListener(this);
 //        etLoc.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 //            @Override
 //            public void onFocusChange(View view, boolean b) {
@@ -166,47 +171,57 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 //        });
 
 
-  }
+    }
 
 
-  @Override
-  public void onClick(View view) {
-    if (view == img_gigs) {
-      Toast.makeText(getActivity(), "Disabled", Toast.LENGTH_SHORT).show();
+    @Override
+    public void onClick(View view) {
+        if (view == img_gigs) {
+            Toast.makeText(getActivity(), "Disabled", Toast.LENGTH_SHORT).show();
 
-    } else if (view == img_venue) {
+        } else if (view == img_venue) {
 
-      startActivity(new Intent(getActivity(), SearchVenueActivity.class));
-
-
+            startActivity(new Intent(getActivity(), SearchVenueActivity.class));
 
 
-    } else if (view == img_event_manger) {
-      Toast.makeText(getActivity(), "Disabled", Toast.LENGTH_SHORT).show();
+        } else if (view == img_event_manger) {
+            Toast.makeText(getActivity(), "Disabled", Toast.LENGTH_SHORT).show();
 
-    } else if (view == img_talent_manager) {
-      Toast.makeText(getActivity(), "Disabled", Toast.LENGTH_SHORT).show();
+        } else if (view == img_talent_manager) {
+            Toast.makeText(getActivity(), "Disabled", Toast.LENGTH_SHORT).show();
+
+
+        }
 
 
     }
 
+    @OnClick({R.id.ivArtist, R.id.rlSearch, R.id.ivSearch, R.id.ivEditLoc, R.id.ivBand})
+    public void click(View view) {
+        if (view.getId() == R.id.ivArtist) {
+            searchArtistMethod();
 
-  }
+        } else if (view.getId() == R.id.rlSearch) {
+            searchArtistMethod();
+        } else if (view.getId() == R.id.ivSearch) {
+            searchArtistMethod();
+        } else if (view.getId() == R.id.ivEditLoc) {
+            etLoc.setCursorVisible(true);
+            etLoc.setFocusable(true);
+        } else if (view.getId() == R.id.ivBand) {
+            startActivity(new Intent(getActivity(), SearchBandActivity.class));
+        }
 
-  @OnClick({R.id.ivArtist, R.id.rlSearch, R.id.ivSearch, R.id.ivEditLoc, R.id.ivBand})
-  public void click(View view) {
-    if (view.getId() == R.id.ivArtist) {
-      startActivity(new Intent(getActivity(), SearchArtistActivity.class));
-    } else if (view.getId() == R.id.rlSearch) {
-      startActivity(new Intent(getActivity(), SearchArtistActivity.class));
-    } else if (view.getId() == R.id.ivSearch) {
-      startActivity(new Intent(getActivity(), SearchArtistActivity.class));
-    } else if (view.getId() == R.id.ivEditLoc) {
-      etLoc.setCursorVisible(true);
-      etLoc.setFocusable(true);
-    } else if (view.getId() == R.id.ivBand) {
-      startActivity(new Intent(getActivity(), SearchBandActivity.class));
     }
 
-  }
+    private void searchArtistMethod() {
+
+        if (mUserType.equalsIgnoreCase("Event Manager")) {
+            startActivity(new Intent(getActivity(), SearchArtistActivityEventManager.class));
+
+        } else {
+            startActivity(new Intent(getActivity(), SearchArtistActivity.class));
+
+        }
+    }
 }

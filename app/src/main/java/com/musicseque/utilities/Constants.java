@@ -80,7 +80,7 @@ public class Constants {
     public static final String GET_EVENTS_LIST_API = "Service/EventsListDisplay";
     public static final String UPLOAD_EVENT_IMAGE_API = "Service/EventPromotionImageUpload";
     public static final String DELETE_EVENT_API = "Service/EventDelete";
-
+    public static final String SEARCH_ARTIST_EVENT_MANAGER_API="Service/SearchArtistsForEvent";
     //Venue
     public static final String VENUE_LIST_API = "Service/VenueListSearch";
     public static final String VENUE_BOOK_API = "Service/VenueBooking";
@@ -202,7 +202,7 @@ public class Constants {
 
     public static final int FOR_ACCEPT_EVENT_REQ = 169;
     public static final int FOR_REJECT_EVENT_REQ = 170;
-
+    public static final int FOR_SEARCH_ARTIST_EVENT_MANAGER = 171;
 
     public static final int FOR_UPLOAD_EVENT_PROFILE_IMAGE = 201;
     public static final int FOR_DELETE_EVENT = 202;

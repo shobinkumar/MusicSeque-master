@@ -9,13 +9,13 @@ import com.bumptech.glide.Glide
 import com.musicseque.R
 import com.musicseque.artist.artist_models.ArtistModel
 import com.musicseque.event_manager.activity.OtherArtistActivityEventManager
-import com.musicseque.event_manager.activity.SearchArtistEventManagerActivity
+import com.musicseque.event_manager.activity.SearchArtistActivityEventManager
 import com.musicseque.service.LocationService
 import com.musicseque.utilities.Utils
 import kotlinx.android.synthetic.main.row_search_artist.view.*
 import java.text.DecimalFormat
 
-class SearchArtistAdapterEventManager(act: SearchArtistEventManagerActivity, val arrayList: ArrayList<ArtistModel>, val user_id: String) : RecyclerView.Adapter<SearchArtistAdapterEventManager.MyHolder>() {
+class SearchArtistAdapterEventManager(act: SearchArtistActivityEventManager, val arrayList: ArrayList<ArtistModel>, val user_id: String) : RecyclerView.Adapter<SearchArtistAdapterEventManager.MyHolder>() {
 
     var decimalFormat = DecimalFormat(".##")
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): com.musicseque.event_manager.adapter.SearchArtistAdapterEventManager.MyHolder {

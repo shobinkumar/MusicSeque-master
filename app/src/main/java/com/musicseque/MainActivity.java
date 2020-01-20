@@ -49,7 +49,6 @@ import com.musicseque.utilities.Constants;
 import com.musicseque.utilities.SharedPref;
 import com.musicseque.utilities.Utils;
 import com.musicseque.venue_manager.fragment.VenueBookingStatusFragment;
-import com.musicseque.venue_manager.fragment.CreateVenueFragment;
 import com.musicseque.venue_manager.fragment.VenueProfileDetailFragment;
 import com.musicseque.venue_manager.fragment.VenueTimmingsFragment;
 
@@ -347,12 +346,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 if (b == null) {
                     if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equalsIgnoreCase("Y"))
-                        fragment = new CreateVenueFragment();
+                        //fragment = new CreateVenueFragment();
+                        Log.e("","");
                     else
                         fragment = new VenueProfileDetailFragment();
                 } else {
 
-                    fragment = new CreateVenueFragment();
+                  //  fragment = new CreateVenueFragment();
 
                 }
 
@@ -432,7 +432,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equalsIgnoreCase("Y")) {
                 if (mLoginType.equalsIgnoreCase("Venue Manager")) {
-                    fragment = new CreateVenueFragment();
+                 //   fragment = new CreateVenueFragment();
                 } else if (mLoginType.equalsIgnoreCase("Artist")) {
                     fragment = new ProfileFragment();
                 } else if (mLoginType.equalsIgnoreCase("Music Lover")) {
@@ -773,7 +773,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void onClick(View view) {
                     if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equalsIgnoreCase("Y")) {
-                        fragment = new CreateVenueFragment();
+                       // fragment = new CreateVenueFragment();
 
                     } else {
                         fragment = new VenueProfileDetailFragment();

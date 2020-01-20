@@ -203,4 +203,9 @@ public interface CommonInterfaceRetrofit {
     @Headers("Content-Type: application/json")
     @POST(Constants.CITY_LIST_API)
     Call<String>  methodForCityList(@Body String params);
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.SEARCH_ARTIST_EVENT_MANAGER_API)
+    Call<String>  methodSearchArtistEventManager(@Body String params);
+
 }

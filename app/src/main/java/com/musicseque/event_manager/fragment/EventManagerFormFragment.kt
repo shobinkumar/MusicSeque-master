@@ -140,10 +140,10 @@ class EventManagerFormFragment : KotlinBaseFragment(), MyInterface, View.OnClick
 
         when (view!!.id) {
             R.id.tvCountryCodeFormEventManager -> {
-                showDropdown(arrCountryCode, tvCountryCodeFormEventManager, SpinnerData { mId, mName ->
-                    mCountryId = mId
-                    mCountryName = mName
-                    tvCountryFormEventManager.text = mName
+                                   showDropdown(arrCountryCode, tvCountryCodeFormEventManager, SpinnerData { mId, mName ->
+                        mCountryId = mId
+                        mCountryName = mName
+                        tvCountryFormEventManager.text = mName
 
                     mStateId = ""
                     mCityId = ""

@@ -39,47 +39,50 @@
             android:layout_alignParentRight="true"
             android:src="@drawable/icon_artist_search" />
     </RelativeLayout>
+
     <RelativeLayout
-        android:id="@+id/rlOuter"
-        android:layout_width="wrap_content"
+        android:id="@+id/rlEvents"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
-        android:background="@color/color_white"
+        android:layout_below="@+id/rlOuter"
+        android:padding="10dp"
+        android:background="@color/color_edit_text"
 
-        android:padding="10dp">
+       >
 
-        <com.musicseque.Fonts.NoyhrEditText
-            android:id="@+id/etSearch"
-            android:layout_width="match_parent"
+        <com.musicseque.Fonts.Noyhr
+            android:id="@+id/tvEventsArtistEventManager"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:background="@null"
-            android:hint="Find here......"
+            android:textColor="@color/color_white"
+            android:layout_centerHorizontal="true"
+            android:textColorHint="@color/color_white"
+            android:hint="Select Event"
             android:textSize="@dimen/_18sdp" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:src="@drawable/icon_artist_search" />
+            android:src="@drawable/icon_arrow_down" />
     </RelativeLayout>
+
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerArtist"
+        android:id="@+id/recyclerArtistSearchArtistEventManager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/rlOuter"
-        />
+        android:layout_below="@+id/rlEvents" />
 
     <com.musicseque.Fonts.Noyhr
-        android:id="@+id/tvNoRecord"
+        android:id="@+id/tvNoRecordSearchArtistEventManager"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No Record Found"
-        android:visibility="gone"
         android:layout_centerInParent="true"
-        android:textSize="@dimen/_22sdp"
+        android:text="No Record Found"
         android:textColor="@color/color_white"
-        />
+        android:textSize="@dimen/_22sdp"
+        android:visibility="gone" />
 </RelativeLayout>
 
 

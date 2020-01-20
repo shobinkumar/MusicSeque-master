@@ -52,6 +52,7 @@
         <activity android:name=".artist.activity.ChangePasswordActivity" />
         <activity android:name=".artist.activity.other_artist_activity.SearchBandActivity" />
         <activity android:name=".event_manager.activity.EventsListActivity" />
+        <activity android:name=".event_manager.activity.SearchArtistActivityEventManager"/>
         <activity
             android:name=".start_up.LoginActivity"
             android:screenOrientation="portrait" />
@@ -85,9 +86,7 @@
         <activity
             android:name=".event_manager.activity.CreateEventActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".event_manager.activity.SearchArtistEventManagerActivity"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name=".event_manager.activity.OtherArtistActivityEventManager"
             android:screenOrientation="portrait" />

@@ -123,7 +123,10 @@ public class RetrofitAPI {
             call = api.methodBandListSearch(params);
 
         }
+        else if (TYPE == Constants.FOR_SEARCH_ARTIST_EVENT_MANAGER) {
+            call = api.methodSearchArtistEventManager(params);
 
+        }
 
         else if (TYPE == Constants.FOR_LOGOUT) {
             call = api.methodForLogout(params);
@@ -350,6 +353,12 @@ public class RetrofitAPI {
                     commonInterface.sendResponse(response.body(), TYPE);
 
                 }
+                else if (TYPE == Constants.FOR_SEARCH_ARTIST_EVENT_MANAGER) {
+                    Log.e("SEARCH_ARTIST_EVENT", response.body().toString());
+                    commonInterface.sendResponse(response.body(), TYPE);
+
+                }
+
             }
 
             @Override
