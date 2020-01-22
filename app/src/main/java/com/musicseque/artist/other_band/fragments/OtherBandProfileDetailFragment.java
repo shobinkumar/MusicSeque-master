@@ -41,7 +41,6 @@ import com.musicseque.R;
 import com.musicseque.artist.band.band_fragment.BandMemberStatusFragment;
 import com.musicseque.artist.fragments.BaseFragment;
 import com.musicseque.artist.fragments.GigsFragment;
-import com.musicseque.artist.fragments.ImagesFragment;
 import com.musicseque.artist.fragments.MusicFragment;
 import com.musicseque.interfaces.MyInterface;
 import com.musicseque.models.ImageModel;
@@ -245,20 +244,16 @@ public class OtherBandProfileDetailFragment extends BaseFragment implements View
 
             case R.id.llMusic:
                 changeBackgroundColor(ivMusic, tvMusic, getResources().getDrawable(R.drawable.icon_music_active), getResources().getString(R.string.txt_music), ivVideo, tvVideo, getResources().getDrawable(R.drawable.icon_videos), getResources().getString(R.string.txt_video), ivImage, tvImage, getResources().getDrawable(R.drawable.icon_photos), getResources().getString(R.string.txt_image), ivGigs, tvGigs, getResources().getDrawable(R.drawable.icon_gigs), getResources().getString(R.string.txt_gigs), ivMember, tvMember, getResources().getDrawable(R.drawable.icon_collaborators), getResources().getString(R.string.txt_members));
-                //  changeFragment(new MusicFragment());
-                //hitAPI(FOR_IMAGE);
-                // changeFragment(new MusicFragment());
+
                 break;
             case R.id.llVideo:
                 changeBackgroundColor(ivVideo, tvVideo, getResources().getDrawable(R.drawable.icon_videos_active), getResources().getString(R.string.txt_video), ivMusic, tvMusic, getResources().getDrawable(R.drawable.icon_music), getResources().getString(R.string.txt_music), ivImage, tvImage, getResources().getDrawable(R.drawable.icon_photos), getResources().getString(R.string.txt_image), ivGigs, tvGigs, getResources().getDrawable(R.drawable.icon_gigs), getResources().getString(R.string.txt_gigs), ivMember, tvMember, getResources().getDrawable(R.drawable.icon_collaborators), getResources().getString(R.string.txt_members));
-                // changeFragment(new VideoFragment());
-                //hitAPI(FOR_IMAGE);
+
                 break;
 
             case R.id.llPhotos:
 
                 changeBackgroundColor(ivImage, tvImage, getResources().getDrawable(R.drawable.icon_photos_active), getResources().getString(R.string.txt_image), ivMusic, tvMusic, getResources().getDrawable(R.drawable.icon_music), getResources().getString(R.string.txt_music), ivVideo, tvVideo, getResources().getDrawable(R.drawable.icon_videos), getResources().getString(R.string.txt_video), ivGigs, tvGigs, getResources().getDrawable(R.drawable.icon_gigs), getResources().getString(R.string.txt_gigs), ivMember, tvMember, getResources().getDrawable(R.drawable.icon_collaborators), getResources().getString(R.string.txt_members));
-                //hitAPI(FOR_IMAGE);
 
 
                 break;
@@ -433,66 +428,9 @@ public class OtherBandProfileDetailFragment extends BaseFragment implements View
 
                 break;
 
-            case Constants.FOR_ARTIST_UPLOADED_IMAGES:
 
 
-                try {
-                    JSONArray jsonArray = new JSONArray(response.toString());
-                    arrayList.clear();
-                    if (jsonArray.length() > 0) {
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject jsonObject = jsonArray.getJSONObject(i);
-                            arrayList.add(new ImageModel(jsonObject.getString("ImgUrl"), jsonObject.getString("Image"), true, -1, false));
 
-                            ImagesFragment fragment = new ImagesFragment();
-                            Bundle bundle = new Bundle();
-                            Gson gson = new Gson();
-                            bundle.putString("data", gson.toJson(arrayList));
-                            fragment.setArguments(bundle);
-                            changeFragment(fragment);
-                        }
-
-                    } else {
-                        ImagesFragment fragment = new ImagesFragment();
-                        Bundle bundle = new Bundle();
-                        Gson gson = new Gson();
-                        bundle.putString("data", "");
-                        fragment.setArguments(bundle);
-                        changeFragment(fragment);
-                    }
-                    //  arrayList.add(new ImageModel("", "", false));
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
-                break;
-
-
-            case Constants.FOR_UPLOADED_AUDIO:
-                try {
-                    JSONArray jsonArray = new JSONArray(response.toString());
-                    if (jsonArray.length() > 0) {
-
-                    } else {
-                        MusicFragment fragment = new MusicFragment();
-                        Bundle bundle = new Bundle();
-                        Gson gson = new Gson();
-                        bundle.putString("data", "");
-                        fragment.setArguments(bundle);
-                        changeFragment(fragment);
-                    }
-                    //  arrayList.add(new ImageModel("", "", false));
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
-                break;
 
 
 

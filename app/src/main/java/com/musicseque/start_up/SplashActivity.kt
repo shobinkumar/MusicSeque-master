@@ -87,25 +87,7 @@ class SplashActivity : BaseActivity() {
 
     internal fun checkGPS() {
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            //            startService(new Intent(this, LocationService.class));
-            //
-            //            new Handler().postDelayed(new Runnable() {
-            //                @Override
-            //                public void run() {
-            //                    Intent intent = null;
-            //                    if (SharedPref.getBoolean(Constants.IS_LOGIN, false)) {
-            //                        intent = new Intent(SplashActivity.this, MainActivity.class);
-            //                    } else {
-            //                        intent = new Intent(SplashActivity.this, LoginActivity.class);
-            //                        intent.putExtra("isEmailVerified", true);
-            //
-            //                    }
-            //                    startActivity(intent);
-            //                    finish();
-            //                }
-            //
-            //
-            //            }, 1000);
+
         } else {
             showGPSDisabledAlertToUser()
         }

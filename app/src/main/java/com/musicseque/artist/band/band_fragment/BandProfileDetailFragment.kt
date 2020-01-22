@@ -133,10 +133,23 @@ class BandProfileDetailFragment : KotlinBaseFragment(), View.OnClickListener, My
                 ivIconDrop!!.visibility = View.VISIBLE
                 ivIconUp!!.visibility = View.GONE
             }
-            R.id.llMusic -> changeBackgroundColor(ivMusic, tvMusic, resources.getDrawable(R.drawable.icon_music_active), resources.getString(R.string.txt_music), ivVideo, tvVideo, resources.getDrawable(R.drawable.icon_videos), resources.getString(R.string.txt_video), ivImage, tvImage, resources.getDrawable(R.drawable.icon_photos), resources.getString(R.string.txt_image), ivGigs, tvGigs, resources.getDrawable(R.drawable.icon_gigs), resources.getString(R.string.txt_gigs), ivMember, tvMember, resources.getDrawable(R.drawable.icon_collaborators), resources.getString(R.string.txt_members))
-            R.id.llVideo -> changeBackgroundColor(ivVideo, tvVideo, resources.getDrawable(R.drawable.icon_videos_active), resources.getString(R.string.txt_video), ivMusic, tvMusic, resources.getDrawable(R.drawable.icon_music), resources.getString(R.string.txt_music), ivImage, tvImage, resources.getDrawable(R.drawable.icon_photos), resources.getString(R.string.txt_image), ivGigs, tvGigs, resources.getDrawable(R.drawable.icon_gigs), resources.getString(R.string.txt_gigs), ivMember, tvMember, resources.getDrawable(R.drawable.icon_collaborators), resources.getString(R.string.txt_members))
-            R.id.llPhotos -> changeBackgroundColor(ivImage, tvImage, resources.getDrawable(R.drawable.icon_photos_active), resources.getString(R.string.txt_image), ivMusic, tvMusic, resources.getDrawable(R.drawable.icon_music), resources.getString(R.string.txt_music), ivVideo, tvVideo, resources.getDrawable(R.drawable.icon_videos), resources.getString(R.string.txt_video), ivGigs, tvGigs, resources.getDrawable(R.drawable.icon_gigs), resources.getString(R.string.txt_gigs), ivMember, tvMember, resources.getDrawable(R.drawable.icon_collaborators), resources.getString(R.string.txt_members))
-            R.id.llGigs -> changeBackgroundColor(ivGigs, tvGigs, resources.getDrawable(R.drawable.icon_gigs_active), resources.getString(R.string.txt_gigs), ivImage, tvImage, resources.getDrawable(R.drawable.icon_photos), resources.getString(R.string.txt_image), ivMusic, tvMusic, resources.getDrawable(R.drawable.icon_music), resources.getString(R.string.txt_music), ivVideo, tvVideo, resources.getDrawable(R.drawable.icon_videos), resources.getString(R.string.txt_video), ivMember, tvMember, resources.getDrawable(R.drawable.icon_collaborators), resources.getString(R.string.txt_members))
+            R.id.llMusic ->
+            {
+                changeBackgroundColor(ivMusic, tvMusic, resources.getDrawable(R.drawable.icon_music_active), resources.getString(R.string.txt_music), ivVideo, tvVideo, resources.getDrawable(R.drawable.icon_videos), resources.getString(R.string.txt_video), ivImage, tvImage, resources.getDrawable(R.drawable.icon_photos), resources.getString(R.string.txt_image), ivGigs, tvGigs, resources.getDrawable(R.drawable.icon_gigs), resources.getString(R.string.txt_gigs), ivMember, tvMember, resources.getDrawable(R.drawable.icon_collaborators), resources.getString(R.string.txt_members))
+
+            }
+            R.id.llVideo ->{
+                changeBackgroundColor(ivVideo, tvVideo, resources.getDrawable(R.drawable.icon_videos_active), resources.getString(R.string.txt_video), ivMusic, tvMusic, resources.getDrawable(R.drawable.icon_music), resources.getString(R.string.txt_music), ivImage, tvImage, resources.getDrawable(R.drawable.icon_photos), resources.getString(R.string.txt_image), ivGigs, tvGigs, resources.getDrawable(R.drawable.icon_gigs), resources.getString(R.string.txt_gigs), ivMember, tvMember, resources.getDrawable(R.drawable.icon_collaborators), resources.getString(R.string.txt_members))
+
+            }
+            R.id.llPhotos ->
+                changeBackgroundColor(ivImage, tvImage, resources.getDrawable(R.drawable.icon_photos_active), resources.getString(R.string.txt_image), ivMusic, tvMusic, resources.getDrawable(R.drawable.icon_music), resources.getString(R.string.txt_music), ivVideo, tvVideo, resources.getDrawable(R.drawable.icon_videos), resources.getString(R.string.txt_video), ivGigs, tvGigs, resources.getDrawable(R.drawable.icon_gigs), resources.getString(R.string.txt_gigs), ivMember, tvMember, resources.getDrawable(R.drawable.icon_collaborators), resources.getString(R.string.txt_members))
+
+            R.id.llGigs ->
+            {
+                changeBackgroundColor(ivGigs, tvGigs, resources.getDrawable(R.drawable.icon_gigs_active), resources.getString(R.string.txt_gigs), ivImage, tvImage, resources.getDrawable(R.drawable.icon_photos), resources.getString(R.string.txt_image), ivMusic, tvMusic, resources.getDrawable(R.drawable.icon_music), resources.getString(R.string.txt_music), ivVideo, tvVideo, resources.getDrawable(R.drawable.icon_videos), resources.getString(R.string.txt_video), ivMember, tvMember, resources.getDrawable(R.drawable.icon_collaborators), resources.getString(R.string.txt_members))
+
+            }
             R.id.llMember -> {
                 changeBackgroundColor(ivMember, tvMember, resources.getDrawable(R.drawable.icon_collaborators_active), resources.getString(R.string.txt_members), ivMusic, tvMusic, resources.getDrawable(R.drawable.icon_music), resources.getString(R.string.txt_music), ivVideo, tvVideo, resources.getDrawable(R.drawable.icon_videos), resources.getString(R.string.txt_video), ivImage, tvImage, resources.getDrawable(R.drawable.icon_photos), resources.getString(R.string.txt_image), ivGigs, tvGigs, resources.getDrawable(R.drawable.icon_gigs), resources.getString(R.string.txt_gigs))
                 val bundle = Bundle()
@@ -265,49 +278,7 @@ class BandProfileDetailFragment : KotlinBaseFragment(), View.OnClickListener, My
             } catch (e: JSONException) {
                 e.printStackTrace()
             }
-            Constants.FOR_ARTIST_UPLOADED_IMAGES -> try {
-                val jsonArray = JSONArray(response.toString())
-                arrayList.clear()
-                if (jsonArray.length() > 0) {
-                    var i = 0
-                    while (i < jsonArray.length()) {
-                        val jsonObject = jsonArray.getJSONObject(i)
-                        arrayList.add(ImageModel(jsonObject.getString("ImgUrl"), jsonObject.getString("Image"), true, -1, false))
-                        val fragment = ImagesFragment()
-                        val bundle = Bundle()
-                        val gson = Gson()
-                        bundle.putString("data", gson.toJson(arrayList))
-                        fragment.arguments = bundle
-                        changeFragment(fragment)
-                        i++
-                    }
-                } else {
-                    val fragment = ImagesFragment()
-                    val bundle = Bundle()
-                    val gson = Gson()
-                    bundle.putString("data", "")
-                    fragment.arguments = bundle
-                    changeFragment(fragment)
-                }
-                //  arrayList.add(new ImageModel("", "", false));
-            } catch (e: JSONException) {
-                e.printStackTrace()
-            }
-            Constants.FOR_UPLOADED_AUDIO -> try {
-                val jsonArray = JSONArray(response.toString())
-                if (jsonArray.length() > 0) {
-                } else {
-                    val fragment = MusicFragment()
-                    val bundle = Bundle()
-                    val gson = Gson()
-                    bundle.putString("data", "")
-                    fragment.arguments = bundle
-                    changeFragment(fragment)
-                }
-                //  arrayList.add(new ImageModel("", "", false));
-            } catch (e: JSONException) {
-                e.printStackTrace()
-            }
+
             Constants.FOR_UPLOAD_BAND_PROFILE_IMAGE -> {
                 isPicAPIHit = false
                 try {
@@ -382,17 +353,9 @@ class BandProfileDetailFragment : KotlinBaseFragment(), View.OnClickListener, My
 
 
 
-    private fun showImage(file: File) {
-        if (IMAGE_FOR == FOR_BACKGROUND) Glide.with(activity!!).load(file).into(ivBackground!!) else Glide.with(activity!!).load(file).into(ivProfilePic!!)
-    }
 
 
-    companion object {
-        private const val FOR_AUDIO = 101
-        private const val FOR_IMAGE = 100
-        private const val REQUEST_CAMERA = 1
-        private const val SELECT_FILE = 2
-    }
+
 
 
 

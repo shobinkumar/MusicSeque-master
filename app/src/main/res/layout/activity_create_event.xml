@@ -570,7 +570,9 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@color/color_edit_text"
                 android:padding="@dimen/_5sdp"
-                android:hint="Enter the zip code"
+                android:hint="Enter the address here"
+                android:minLines="3"
+                android:gravity="top"
                 android:textColorHint="@color/color_white_hint"
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/_16sdp" />

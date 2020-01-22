@@ -23,6 +23,7 @@ import com.musicseque.BuildConfig
 import com.musicseque.artist.band.band_fragment.BandFormFragment
 import com.musicseque.artist.band.band_fragment.BandProfileDetailFragment
 import com.musicseque.artist.fragments.BaseFragment
+import com.musicseque.artist.fragments.ProfileDetailFragment
 import com.musicseque.artist.fragments.ProfileFragment
 import com.musicseque.event_manager.fragment.EventManagerDetailFragment
 import com.musicseque.event_manager.fragment.EventManagerFormFragment
@@ -274,7 +275,12 @@ open class KotlinBaseFragment : BaseFragment() {
 
             fName.getImageFile(file)
         }
+        else if(fragmentName.equals("com.musicseque.artist.fragments.ProfileDetailFragment"))
+        {
+            val fName = frag as ProfileDetailFragment
 
+            fName.getImageFile(file)
+        }
     }
 
 }

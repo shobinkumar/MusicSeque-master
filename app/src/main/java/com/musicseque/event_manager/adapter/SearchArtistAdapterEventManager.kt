@@ -8,16 +8,15 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.musicseque.R
 import com.musicseque.artist.artist_models.ArtistModel
-import com.musicseque.event_manager.activity.OtherArtistActivityEventManager
+import com.musicseque.event_manager.activity.ArtistDetailEventManagerActivity
 import com.musicseque.event_manager.activity.SearchArtistActivityEventManager
 import com.musicseque.service.LocationService
 import com.musicseque.utilities.Utils
 import kotlinx.android.synthetic.main.row_search_artist.view.*
 import java.text.DecimalFormat
 
-class SearchArtistAdapterEventManager(act: SearchArtistActivityEventManager, val arrayList: ArrayList<ArtistModel>, val user_id: String) : RecyclerView.Adapter<SearchArtistAdapterEventManager.MyHolder>() {
+class SearchArtistAdapterEventManager(val act: SearchArtistActivityEventManager, val arrayList: ArrayList<ArtistModel>, val user_id: String) : RecyclerView.Adapter<SearchArtistAdapterEventManager.MyHolder>() {
 
-    var decimalFormat = DecimalFormat(".##")
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): com.musicseque.event_manager.adapter.SearchArtistAdapterEventManager.MyHolder {
         val inflater = LayoutInflater.from(
                 parent.context)
@@ -34,19 +33,29 @@ class SearchArtistAdapterEventManager(act: SearchArtistActivityEventManager, val
     override fun onBindViewHolder(holder: MyHolder, position: Int) {
         val model: ArtistModel = arrayList.get(position)
 
-        holder.bindItems(model)
+        holder.bindItems(model, act)
     }
 
 
     class MyHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bindItems(artistModel: ArtistModel) {
+        fun bindItems(artistModel: ArtistModel, act: SearchArtistActivityEventManager) {
             itemView.rlMain.setVisibility(View.VISIBLE)
             itemView.tvArtistName.setText(artistModel.getFirstName() + " " + artistModel.getLastName())
 
             val mDistance = Utils.calculateDistance(java.lang.Double.parseDouble(LocationService.mLatitude), java.lang.Double.parseDouble(LocationService.mLongitude), java.lang.Double.parseDouble(artistModel.getUserLatitude()), java.lang.Double.parseDouble(artistModel.getUserLongitude()))
             var decimalFormat = DecimalFormat(".##")
-            itemView.tvDistance.setText(decimalFormat.format(mDistance) + " miles")
+
+            if(mDistance==0.0)
+            {
+                itemView.tvDistance.setText("0 miles")
+
+            }
+            else
+            {
+                itemView.tvDistance.setText(decimalFormat.format(mDistance) + " miles")
+
+            }
             itemView.tvProfileType.setText(artistModel.getExpertise() + "," + artistModel.getGenreTypeName())
             itemView.tvCountry.setText(artistModel.getCity() + "," + artistModel.getCountryName())
             if (!artistModel.getSocialImageUrl().equals("", ignoreCase = true)) {
@@ -67,7 +76,18 @@ class SearchArtistAdapterEventManager(act: SearchArtistActivityEventManager, val
             } else {
                 itemView.ivIndicator.setImageDrawable(itemView.context.getResources().getDrawable(R.drawable.icon_red))
             }
-            itemView.setOnClickListener(View.OnClickListener { itemView.context.startActivity(Intent(itemView.context, OtherArtistActivityEventManager::class.java).putExtra("id", artistModel.getUserId())) })
+            itemView.setOnClickListener(View.OnClickListener {
+                if (act.eventsList.size == 0) {
+
+                } else {
+                    if (act.mEventId.equals("")) {
+                        Utils.showToast(act, "Select the event from the list")
+                    } else {
+                        itemView.context.startActivity(Intent(itemView.context, ArtistDetailEventManagerActivity::class.java).putExtra("id", artistModel.getUserId()).putExtra("event_id", act.mEventId))
+
+                    }
+                }
+            })
 
 
         }

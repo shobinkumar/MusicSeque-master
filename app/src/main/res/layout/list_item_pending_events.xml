@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_app_background">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivEventImagePending"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/icon_img_dummy"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvEventDayPending"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="17"
+        android:textColor="@color/color_white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/ivEventImagePending"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvEventDayWeekPending"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="MON"
+        android:textColor="@color/color_white"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/ivEventImagePending"
+        app:layout_constraintTop_toBottomOf="@+id/tvEventDayPending" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvEventNamePending"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Warped Tour"
+        android:textColor="@color/color_orange"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/tvEventDayWeekPending"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/textTimePending"
+        android:layout_width="28dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="15dp"
+        android:text="Time"
+        android:textColor="@color/color_white"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/tvEventNamePending"
+        app:layout_constraintTop_toBottomOf="@+id/tvEventNamePending" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/textArtistPending"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Artist"
+        android:textColor="@color/color_white"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/textTimePending"
+        app:layout_constraintTop_toBottomOf="@+id/textTimePending" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/textVenuePending"
+        android:layout_width="40dp"
+        android:layout_height="11dp"
+        android:layout_marginTop="10dp"
+        android:text="Venue"
+        android:textColor="@color/color_white"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/textArtistPending"
+        app:layout_constraintTop_toBottomOf="@+id/textArtistPending" />
+
+    <android.support.constraint.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="right"
+        app:constraint_referenced_ids="textArtistPending,textTimePending,textVenuePending"
+        tools:layout_editor_absoluteX="411dp" />
+
+</android.support.constraint.ConstraintLayout>

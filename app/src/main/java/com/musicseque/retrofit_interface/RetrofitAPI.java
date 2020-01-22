@@ -17,7 +17,7 @@ public class RetrofitAPI {
         commonInterface = myInterface;
 
 
-        CommonInterfaceRetrofit api =RetrofitClientInstance.createService(CommonInterfaceRetrofit.class);
+        CommonInterfaceRetrofit api = RetrofitClientInstance.createService(CommonInterfaceRetrofit.class);
 
 
         Call<String> call = null;
@@ -110,42 +110,34 @@ public class RetrofitAPI {
         } else if (TYPE == Constants.FOR_REJECT_BAND_REQUEST) {
             call = api.methodRejectBandRequest(params);
 
-        }
-        else if (TYPE == Constants.FOR_OTHER_BAND_LIST) {
+        } else if (TYPE == Constants.FOR_OTHER_BAND_LIST) {
             call = api.methodOtherBandList(params);
 
-        }
-        else if (TYPE == Constants.FOR_EVENT_MANAGER_DETAIL) {
+        } else if (TYPE == Constants.FOR_EVENT_MANAGER_DETAIL) {
             call = api.methodOtherBandList(params);
 
-        }
-        else if (TYPE == Constants.FOR_SEARCH_BAND_LIST) {
+        } else if (TYPE == Constants.FOR_SEARCH_BAND_LIST) {
             call = api.methodBandListSearch(params);
 
-        }
-        else if (TYPE == Constants.FOR_SEARCH_ARTIST_EVENT_MANAGER) {
+        } else if (TYPE == Constants.FOR_SEARCH_ARTIST_EVENT_MANAGER) {
             call = api.methodSearchArtistEventManager(params);
 
-        }
-
-        else if (TYPE == Constants.FOR_LOGOUT) {
+        } else if (TYPE == Constants.FOR_LOGOUT) {
             call = api.methodForLogout(params);
 
-        }
-        else if (TYPE == Constants.FOR_TEST) {
+        } else if (TYPE == Constants.FOR_TEST) {
             call = api.methodTest(params);
 
-        }
-
-        else if (TYPE == Constants.FOR_STATE_LIST) {
+        } else if (TYPE == Constants.FOR_STATE_LIST) {
             call = api.methodForStateList(params);
 
-        }
-        else if (TYPE == Constants.FOR_CITY_LIST) {
+        } else if (TYPE == Constants.FOR_CITY_LIST) {
             call = api.methodForCityList(params);
 
-        }
+        } else if (TYPE == Constants.FOR_SEND_REQ_ARTIST) {
+            call = api.methodForSendArtistReq(params);
 
+        }
 
         callRetrofit(call, TYPE);
 
@@ -172,199 +164,16 @@ public class RetrofitAPI {
         call.enqueue(new Callback<T>() {
             @Override
             public void onResponse(Call<T> call, Response<T> response) {
-                if (TYPE == Constants.FOR_LOGIN) {
-                    commonInterface.sendResponse(response.body(), TYPE);
-                    Log.e("FOR_LOGIN", response.body().toString());
 
+                commonInterface.sendResponse(response.body(), TYPE);
 
-                } else if (TYPE == Constants.FOR_FORGOT_PASSWORD) {
-                    Log.e("FOR_FORGOT_PASSWORD", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_RESEND_OTP) {
-                    Log.e("FOR_RESEND_OTP", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_SIGNUP) {
-                    Log.e("FOR_SIGNUP", response.body().toString());
-
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_ACCOUNT_EXISTS) {
-                    Log.e("FOR_ACCOUNT_EXISTS", response.body().toString());
-
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_SOCIAL_LOGIN) {
-                    Log.e("FOR_SOCIAL_LOGIN", response.body().toString());
-
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_RESET_PASSWORD) {
-                    Log.e("FOR_RESET_PASSWORD", response.body().toString());
-
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_VERIFY_ACCOUNT) {
-                    Log.e("FOR_ACCOUNT_VERIFY", response.body().toString());
-
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_GENRE_LIST) {
-                    Log.e("FOR_GENRE_LIST", response.body().toString());
-
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_COUNTRIES_LIST) {
-                    Log.e("FOR_COUNTRY_LIST", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_UPDATE_PROFILE) {
-                    Log.e("FOR_UPDATE_PROFILE", response.body().toString());
-
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_USER_PROFILE) {
-                    Log.e("FOR_USER_PROFILE", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_ARTIST_UPLOADED_IMAGES) {
-                    Log.e("FOR_UPLOADED_IMAGES", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_UPLOADED_AUDIO) {
-                    commonInterface.sendResponse(response.body(), TYPE);
-                } else if (TYPE == Constants.FOR_CHANGE_PASSWORD) {
-                    Log.e("FOR_CHANGE_PASSWORD", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_UPDATE_STATUS) {
-                    Log.e("FOR_UPDATE_STATUS", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_UPLOADED_VIDEO) {
-                    Log.e("FOR_UPLOADED_VIDEO", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_DELETE_ARTIST_IMAGES) {
-                    Log.e("FOR_DELETE_IMAGES", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_DELETE_ARTIST_MEDIA) {
-                    Log.e("FOR_DELETE_MEDIA", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_DELETE_ACCOUNT) {
-                    Log.e("FOR_DELETE_ACCOUNT", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.GET_ARTIST_LIST) {
-                    Log.e("GET_ARTIST_LIST", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.SEARCH_ARTIST) {
-                    Log.e("SEARCH_ARTIST", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_LAT_LNG) {
-                    Log.e("FOR_LAT_LNG", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_FOLLOW_UNFOLLOW_ARTIST) {
-                    Log.e("FOLLOW_UNFOLLOW_ARTIST", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_OTHER_PROFILE) {
-                    Log.e("FOR_OTHER_PROFILE", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_BAND_PROFILE) {
-                    Log.e("FOR_BAND_PROFILE", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_UPDATE_BAND_PROFILE) {
-                    Log.e("FOR_UPDATE_BAND_PROFILE", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_BAND_LIST) {
-                    Log.e("FOR_BAND_LIST", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_DELETE_BAND) {
-                    Log.e("FOR_DELETE_BAND", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_SEARCH_BAND_MEMBER) {
-                    Log.e("FOR_SEARCH_BAND_MEMBER", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_BAND_MEMBER_STATUS) {
-                    Log.e("FOR_BAND_MEMBER_STATUS", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_ADD_BAND_MEMBER) {
-                    Log.e("FOR_ADD_BAND_MEMBER", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_REMOVE_BAND_MEMBER) {
-                    Log.e("FOR_REMOVE_BAND_MEMBER", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_NOTIFICATION) {
-                    Log.e("FOR_NOTIFICATION", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_ACCEPT_BAND_REQUEST) {
-                    Log.e("FOR_ACCEPT_BAND_REQUEST", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                } else if (TYPE == Constants.FOR_REJECT_BAND_REQUEST) {
-                    Log.e("FOR_REJECT_BAND_REQUEST", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                }
-                else if (TYPE == Constants.FOR_OTHER_BAND_LIST) {
-                    Log.e("FOR_OTHER_BAND_LIST", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                }
-                else if (TYPE == Constants.FOR_EVENT_MANAGER_DETAIL) {
-                    Log.e("FOR_EVENT_MANAGER", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                }
-                else if (TYPE == Constants.FOR_SEARCH_BAND_LIST) {
-                    Log.e("FOR_SEARCH_BAND_LIST", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                }
-                else if (TYPE == Constants.FOR_LOGOUT) {
-                    Log.e("FOR_LOGOUT", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                }
-                else if (TYPE == Constants.FOR_STATE_LIST) {
-                    Log.e("FOR_STATE_LIST", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                }
-                else if (TYPE == Constants.FOR_CITY_LIST) {
-                    Log.e("FOR_CITY_LIST", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                }
-                else if (TYPE == Constants.FOR_SEARCH_ARTIST_EVENT_MANAGER) {
-                    Log.e("SEARCH_ARTIST_EVENT", response.body().toString());
-                    commonInterface.sendResponse(response.body(), TYPE);
-
-                }
 
             }
 
             @Override
             public void onFailure(Call<T> call, Throwable t) {
                 Log.e("Re", "");
-
+                commonInterface.sendResponse("", TYPE);
             }
         });
 

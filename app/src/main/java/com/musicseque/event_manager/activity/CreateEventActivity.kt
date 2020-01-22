@@ -751,7 +751,7 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
             } else if (textView.id == com.musicseque.R.id.tvStateCreateEvent) {
                 spinnerData.getData(stateAL.get(position).stateId, array[position])
             } else if (textView.id == com.musicseque.R.id.tvCityCreateEvent) {
-                spinnerData.getData(stateAL.get(position).countryId, array[position])
+                spinnerData.getData(alCity.get(position).cityId, array[position])
             }
             listPopupWindow.dismiss()
         })

@@ -102,7 +102,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                             if (shouldShowRequestPermissionRationale(android.Manifest.permission.CAMERA)) {
-                                showMessageOKCancel("You need to allow access to all the permissions",
+                                    showMessageOKCancel("You need to allow access to all the permissions",
                                         new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {

@@ -145,7 +145,7 @@ public class ArtistProfileActivity extends BaseActivity implements MyInterface, 
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_artist_profile);
+        setContentView(R.layout.fragment_artist_profile_detail);
         initOtherViews();
         initViews();
         listeners();

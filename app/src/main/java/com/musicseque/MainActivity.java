@@ -671,11 +671,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
 
-//            case R.id.tvAddEvent:
-//                startActivity(new Intent(this, CreateEventActivity.class));
-//                navDrawer.closeDrawers();
-//
-//                break;
+            case R.id.tvAddEvent:
+                startActivity(new Intent(this, CreateEventActivity.class));
+                navDrawer.closeDrawers();
+
+                break;
             case R.id.tvUpcomingEvent:
                 if (mLoginType.equalsIgnoreCase("Venue Manager")) {
                     Utils.showToast(MainActivity.this, "Coming Soon");

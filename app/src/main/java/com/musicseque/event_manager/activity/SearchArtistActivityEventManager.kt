@@ -36,11 +36,11 @@ import java.util.*
 
 class SearchArtistActivityEventManager : BaseActivity(), MyInterface, View.OnClickListener {
     lateinit private var listPopupWindow: ListPopupWindow
-    lateinit private var arrayList: ArrayList<ArtistModel>
+       public var arrayList=ArrayList<ArtistModel>()
     var mEventName = ""
-    var mEventId = ""
+   public var mEventId = ""
 
-    private var eventsList = ArrayList<EventListModel>()
+    public var eventsList = ArrayList<EventListModel>()
     lateinit var arrEventName: Array<String>
     var alEventName = ArrayList<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,6 +71,26 @@ class SearchArtistActivityEventManager : BaseActivity(), MyInterface, View.OnCli
         rlEvents.setOnClickListener(this)
         img_first_icon.setOnClickListener(this)
 
+
+        etSearch.setOnFocusChangeListener { view, b ->
+            if (b) {
+                if (eventsList.size == 0) {
+                    callTextWatcher()
+                } else {
+                    if (mEventId.equals("")) {
+                        Utils.showToast(this, "Select the event first")
+                    } else {
+                        callTextWatcher()
+                    }
+                }
+
+            }
+        }
+
+
+    }
+
+    private fun callTextWatcher() {
         etSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
 
@@ -88,7 +108,9 @@ class SearchArtistActivityEventManager : BaseActivity(), MyInterface, View.OnCli
                     val jsonObject = JSONObject()
                     try {
                         jsonObject.put("SearchTypeValue", mString)
+                        jsonObject.put("EventId", mEventId)
                         jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""))
+                        jsonObject.put("ProfileTypeId", "1")
 
                     } catch (e: JSONException) {
                         e.printStackTrace()
@@ -117,6 +139,8 @@ class SearchArtistActivityEventManager : BaseActivity(), MyInterface, View.OnCli
                 val jsonObject = JSONObject()
                 try {
                     jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""))
+                    jsonObject.put("ProfileTypeId", "1")
+
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
@@ -151,6 +175,7 @@ class SearchArtistActivityEventManager : BaseActivity(), MyInterface, View.OnCli
                     if (jsonObject.getString("Status").equals("Success", ignoreCase = true)) {
                         recyclerArtistSearchArtistEventManager.visibility = View.VISIBLE
                         tvNoRecordSearchArtistEventManager.visibility = GONE
+                        arrayList.clear()
                         val jsonArray = jsonObject.getJSONArray("result")
 
                         if (jsonArray.length() > 0) {
@@ -195,7 +220,7 @@ class SearchArtistActivityEventManager : BaseActivity(), MyInterface, View.OnCli
             } catch (e: JSONException) {
                 e.printStackTrace()
             }
-            Constants.FOR_SHOW_EVENTS_LIST -> {
+            FOR_SHOW_EVENTS_LIST -> {
                 val obj = JSONObject(response.toString())
                 if (obj.getString("Status").equals("Success", false)) {
                     val arr = obj.getJSONArray("result")
@@ -224,7 +249,7 @@ class SearchArtistActivityEventManager : BaseActivity(), MyInterface, View.OnCli
             R.id.img_first_icon -> finish()
             R.id.rlEvents -> {
                 if (arrEventName.size == 0) {
-                    Utils.showToast(this, "No Events is cretaed yet")
+                    Utils.showToast(this, "No Events is created yet")
                 } else {
                     showDropdown(arrEventName, tvEventsArtistEventManager, SpinnerData { mId, mName ->
                         mEventName = mName
