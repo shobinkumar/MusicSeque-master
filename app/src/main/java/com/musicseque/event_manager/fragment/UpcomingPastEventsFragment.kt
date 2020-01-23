@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import com.musicseque.R
 import com.musicseque.utilities.KotlinBaseFragment
 
-class UpcomingEventsFragment:KotlinBaseFragment() {
-    lateinit var v: View
+class UpcomingPastEventsFragment:KotlinBaseFragment() {
+    lateinit var v:View
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        v=inflater.inflate(R.layout.fragment_upcoming_events,null)
+        v=inflater.inflate(R.layout.fragment_upcoming_past_events,null)
         return v
     }
 

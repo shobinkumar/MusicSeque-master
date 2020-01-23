@@ -1,33 +1,32 @@
-package com.musicseque.event_manager.adapter
+package com.musicseque.artist.artist_adapters
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import com.musicseque.event_manager.fragment.UpcomingPastEventsFragment
-import com.musicseque.event_manager.fragment.PendingEventsFragment
+import android.support.v4.app.FragmentStatePagerAdapter
+import com.musicseque.fragments.ArtistEventsListFragment
 
-
-class EventStatusPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm){
+class EventStatusArtistPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> {
-                PendingEventsFragment()
+                ArtistEventsListFragment(2)
             }
-            1 -> UpcomingPastEventsFragment()
+
             else -> {
-                return UpcomingPastEventsFragment()
+                return ArtistEventsListFragment(1)
             }
         }
     }
 
     override fun getCount(): Int {
-        return 3
+        return 2
     }
 
     override fun getPageTitle(position: Int): CharSequence {
         return when (position) {
-            0 -> "Pending"
-            1 -> "Upcoming"
+
+            0 -> "Upcoming"
             else -> {
                 return "Past"
             }

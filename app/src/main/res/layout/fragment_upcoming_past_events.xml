@@ -2,10 +2,11 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/color_app_background">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerPendingEvents"
+        android:id="@+id/recyclerUpcomingPAstEvents"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
@@ -15,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.musicseque.Fonts.Noyhr
-        android:id="@+id/tvNoData"
+        android:id="@+id/tvNoDataUpcomingPastEvents"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="No Data Available"

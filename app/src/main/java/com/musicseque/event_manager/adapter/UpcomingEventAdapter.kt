@@ -7,19 +7,15 @@ import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 import com.musicseque.R
-import com.musicseque.event_manager.activity.CreateEventActivity
-import com.musicseque.event_manager.activity.EventsListActivity
 import com.musicseque.event_manager.activity.UpcomingEventDetailActivity
 import com.musicseque.event_manager.model.EventListModel
 import com.musicseque.utilities.KotlinUtils
 import kotlinx.android.synthetic.main.row_upcoming_event_list.view.*
 import java.text.SimpleDateFormat
 
-class UpcomingEventAdapter(var al: ArrayList<EventListModel>, var type: Int, val activitys: Context, val eventsListActivity: EventsListActivity) : RecyclerView.Adapter<UpcomingEventAdapter.MyHolder>() {
+class UpcomingEventAdapter(var al: ArrayList<EventListModel>, var type: Int, val activitys: Context) : RecyclerView.Adapter<UpcomingEventAdapter.MyHolder>() {
     val newFormat = SimpleDateFormat("dd/MM/yyyy")
     val oldFormat = SimpleDateFormat("MM-dd-yyyy")
 
@@ -36,12 +32,12 @@ class UpcomingEventAdapter(var al: ArrayList<EventListModel>, var type: Int, val
     override fun onBindViewHolder(viewHolder: UpcomingEventAdapter.MyHolder, position: Int) {
         val model: EventListModel = al.get(position)
 
-        viewHolder.bindItems(model, position, activitys, eventsListActivity)
+        viewHolder.bindItems(model, position, activitys)
     }
 
     inner class MyHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         @SuppressLint("NewApi")
-        fun bindItems(data: EventListModel, pos: Int, activity: Context, eventsListActivity: EventsListActivity) {
+        fun bindItems(data: EventListModel, pos: Int, activity: Context) {
 
             itemView.tvEventName.text = data.event_title
 

@@ -28,6 +28,7 @@ import com.musicseque.models.ImageModel
 import com.musicseque.retrofit_interface.ImageUploadClass
 import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.*
+import kotlinx.android.synthetic.main.bottom_bar.*
 import kotlinx.android.synthetic.main.fragment_artist_profile_detail.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -46,36 +47,36 @@ class ProfileDetailFragment : KotlinBaseFragment(), View.OnClickListener, MyInte
     var FOR_BACKGROUND = 2
 
 
-    @JvmField
-    @BindView(R.id.ivMusic)
-    var ivMusic: ImageView? = null
-    @JvmField
-    @BindView(R.id.tvMusic)
-    var tvMusic: Noyhr? = null
-    @JvmField
-    @BindView(R.id.ivVideo)
-    var ivVideo: ImageView? = null
-    @JvmField
-    @BindView(R.id.tvVideo)
-    var tvVideo: Noyhr? = null
-    @JvmField
-    @BindView(R.id.ivImage)
-    var ivImage: ImageView? = null
-    @JvmField
-    @BindView(R.id.tvImage)
-    var tvImage: Noyhr? = null
-    @JvmField
-    @BindView(R.id.ivGigs)
-    var ivGigs: ImageView? = null
-    @JvmField
-    @BindView(R.id.tvGigs)
-    var tvGigs: Noyhr? = null
-    @JvmField
-    @BindView(R.id.ivCollaborators)
-    var ivCollaborators: ImageView? = null
-    @JvmField
-    @BindView(R.id.tvCollaborators)
-    var tvCollaborators: Noyhr? = null
+//    @JvmField
+//    @BindView(R.id.ivMusic)
+//    var ivMusic: ImageView? = null
+//    @JvmField
+//    @BindView(R.id.tvMusic)
+//    var tvMusic: Noyhr? = null
+//    @JvmField
+//    @BindView(R.id.ivVideo)
+//    var ivVideo: ImageView? = null
+//    @JvmField
+//    @BindView(R.id.tvVideo)
+//    var tvVideo: Noyhr? = null
+//    @JvmField
+//    @BindView(R.id.ivImage)
+//    var ivImage: ImageView? = null
+//    @JvmField
+//    @BindView(R.id.tvImage)
+//    var tvImage: Noyhr? = null
+//    @JvmField
+//    @BindView(R.id.ivGigs)
+//    var ivGigs: ImageView? = null
+//    @JvmField
+//    @BindView(R.id.tvGigs)
+//    var tvGigs: Noyhr? = null
+//    @JvmField
+//    @BindView(R.id.ivCollaborators)
+//    var ivCollaborators: ImageView? = null
+//    @JvmField
+//    @BindView(R.id.tvCollaborators)
+//    var tvCollaborators: Noyhr? = null
 
 
     var img_right_icon: ImageView? = null
