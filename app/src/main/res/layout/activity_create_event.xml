@@ -55,10 +55,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@color/color_edit_text"
-                android:padding="@dimen/_5sdp"
                 android:hint="Enter the event name"
-                android:textColorHint="@color/color_white_hint"
+                android:padding="@dimen/_5sdp"
                 android:textColor="@color/color_white"
+                android:textColorHint="@color/color_white_hint"
                 android:textSize="@dimen/_16sdp" />
 
             <com.musicseque.Fonts.Noyhr
@@ -76,11 +76,11 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@color/color_edit_text"
                 android:gravity="top"
-                android:minLines="6"
-                android:textColorHint="@color/color_white"
                 android:hint="Enter the event description"
+                android:minLines="6"
                 android:padding="10dp"
                 android:textColor="@color/color_white"
+                android:textColorHint="@color/color_white"
                 android:textSize="@dimen/_16sdp" />
 
             <RelativeLayout
@@ -113,8 +113,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:padding="10dp"
                     android:layout_centerVertical="true"
+                    android:padding="10dp"
                     android:src="@drawable/icon_arrow_up"
                     android:visibility="visible" />
             </RelativeLayout>
@@ -128,192 +128,410 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_15sdp"
-                android:orientation="horizontal"
-                android:weightSum="100">
+                android:orientation="vertical">
+
+                <com.musicseque.Fonts.BoldNoyhr
+                    android:text="Artist Booking"
+                    android:textColor="@color/color_white"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/_5sdp"
-                    android:layout_weight="50"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp"
+                    android:weightSum="100">
 
-                    android:orientation="vertical">
-
-                    <com.musicseque.Fonts.Noyhr
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Start Date"
-                        android:textColor="@color/color_white"
-                        android:textSize="@dimen/_16sdp" />
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:layout_weight="50"
 
-                    <RelativeLayout
-                        android:id="@+id/rlStartDate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:background="@color/color_edit_text">
+                        android:orientation="vertical">
 
                         <com.musicseque.Fonts.Noyhr
-                            android:id="@+id/tvStartDate"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Select Date"
-                            android:padding="@dimen/_5sdp"
-                            android:textColor="@color/color_white"
-                            android:textColorHint="@color/color_white"
-                            android:textSize="@dimen/_16sdp" />
-
-                        <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="5dp"
-                            android:src="@drawable/schedule" />
+                            android:text="Start Date"
+                            android:textColor="@color/color_white"
+                            android:textSize="@dimen/_16sdp" />
 
-                    </RelativeLayout>
+                        <RelativeLayout
+                            android:id="@+id/rlStartDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:background="@color/color_edit_text">
+
+                            <com.musicseque.Fonts.Noyhr
+                                android:id="@+id/tvStartDate"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Select Date"
+                                android:padding="@dimen/_5sdp"
+                                android:textColor="@color/color_white"
+                                android:textColorHint="@color/color_white"
+                                android:textSize="@dimen/_16sdp" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="5dp"
+                                android:src="@drawable/schedule" />
+
+                        </RelativeLayout>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_weight="50"
+                        android:orientation="vertical">
+
+                        <com.musicseque.Fonts.Noyhr
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="End Date"
+                            android:textColor="@color/color_white"
+                            android:textSize="@dimen/_16sdp" />
+
+                        <RelativeLayout
+                            android:id="@+id/rlEndDate"
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:background="@color/color_edit_text">
+
+                            <com.musicseque.Fonts.Noyhr
+                                android:id="@+id/tvEndDate"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Select Date"
+                                android:padding="@dimen/_5sdp"
+                                android:textColor="@color/color_white"
+                                android:textColorHint="@color/color_white"
+                                android:textSize="@dimen/_16sdp" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="5dp"
+                                android:src="@drawable/schedule" />
+
+                        </RelativeLayout>
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_weight="50"
-                    android:orientation="vertical">
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
 
-                    <com.musicseque.Fonts.Noyhr
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="End Date"
-                        android:textColor="@color/color_white"
-                        android:textSize="@dimen/_16sdp" />
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:layout_weight="50"
 
-                    <RelativeLayout
-                        android:id="@+id/rlEndDate"
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:background="@color/color_edit_text">
+                        android:orientation="vertical">
 
                         <com.musicseque.Fonts.Noyhr
-                            android:id="@+id/tvEndDate"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Select Date"
-                            android:padding="@dimen/_5sdp"
-                            android:textColor="@color/color_white"
-                            android:textColorHint="@color/color_white"
-                            android:textSize="@dimen/_16sdp" />
-
-                        <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="5dp"
-                            android:src="@drawable/schedule" />
+                            android:text="Start Time"
+                            android:textColor="@color/color_white"
+                            android:textSize="@dimen/_16sdp" />
 
-                    </RelativeLayout>
+                        <RelativeLayout
+                            android:id="@+id/rlStartTime"
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:background="@color/color_edit_text">
+
+                            <com.musicseque.Fonts.Noyhr
+                                android:id="@+id/tvStartTime"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/str_select_time"
+                                android:padding="@dimen/_5sdp"
+                                android:textColor="@color/color_white"
+                                android:textColorHint="@color/color_white"
+                                android:textSize="@dimen/_16sdp" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="5dp"
+                                android:src="@drawable/clock" />
+
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_weight="50"
+                        android:orientation="vertical">
+
+                        <com.musicseque.Fonts.Noyhr
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="End Time"
+                            android:textColor="@color/color_white"
+                            android:textSize="@dimen/_16sdp" />
+
+                        <RelativeLayout
+                            android:id="@+id/rlEndTime"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:background="@color/color_edit_text">
+
+                            <com.musicseque.Fonts.Noyhr
+                                android:id="@+id/tvEndTime"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/str_select_time"
+                                android:padding="@dimen/_5sdp"
+                                android:textColor="@color/color_white"
+                                android:textColorHint="@color/color_white"
+                                android:textSize="@dimen/_16sdp" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="5dp"
+                                android:src="@drawable/clock" />
+
+                        </RelativeLayout>
+                    </LinearLayout>
                 </LinearLayout>
-
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_15sdp"
-                android:orientation="horizontal"
-                android:weightSum="100">
+                android:orientation="vertical">
+
+                <com.musicseque.Fonts.BoldNoyhr
+                    android:text="Venue Booking"
+                    android:textColor="@color/color_white"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/_5sdp"
-                    android:layout_weight="50"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp"
+                    android:weightSum="100">
 
-                    android:orientation="vertical">
-
-                    <com.musicseque.Fonts.Noyhr
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Start Time"
-                        android:textColor="@color/color_white"
-                        android:textSize="@dimen/_16sdp" />
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:layout_weight="50"
 
-                    <RelativeLayout
-                        android:id="@+id/rlStartTime"
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:background="@color/color_edit_text">
+                        android:orientation="vertical">
 
                         <com.musicseque.Fonts.Noyhr
-                            android:id="@+id/tvStartTime"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/str_select_time"
-                            android:padding="@dimen/_5sdp"
-                            android:textColor="@color/color_white"
-                            android:textColorHint="@color/color_white"
-                            android:textSize="@dimen/_16sdp" />
-
-                        <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="5dp"
-                            android:src="@drawable/clock" />
+                            android:text="Start Date"
+                            android:textColor="@color/color_white"
+                            android:textSize="@dimen/_16sdp" />
 
-                    </RelativeLayout>
+                        <RelativeLayout
+                            android:id="@+id/rlStartDateVenue"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:background="@color/color_edit_text">
+
+                            <com.musicseque.Fonts.Noyhr
+                                android:id="@+id/tvStartDateVenue"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Select Date"
+                                android:padding="@dimen/_5sdp"
+                                android:textColor="@color/color_white"
+                                android:textColorHint="@color/color_white"
+                                android:textSize="@dimen/_16sdp" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="5dp"
+                                android:src="@drawable/schedule" />
+
+                        </RelativeLayout>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_weight="50"
+                        android:orientation="vertical">
+
+                        <com.musicseque.Fonts.Noyhr
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="End Date"
+                            android:textColor="@color/color_white"
+                            android:textSize="@dimen/_16sdp" />
+
+                        <RelativeLayout
+                            android:id="@+id/rlEndDateVenue"
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:background="@color/color_edit_text">
+
+                            <com.musicseque.Fonts.Noyhr
+                                android:id="@+id/tvEndDateVenue"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Select Date"
+                                android:padding="@dimen/_5sdp"
+                                android:textColor="@color/color_white"
+                                android:textColorHint="@color/color_white"
+                                android:textSize="@dimen/_16sdp" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="5dp"
+                                android:src="@drawable/schedule" />
+
+                        </RelativeLayout>
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_weight="50"
-                    android:orientation="vertical">
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
 
-                    <com.musicseque.Fonts.Noyhr
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="End Time"
-                        android:textColor="@color/color_white"
-                        android:textSize="@dimen/_16sdp" />
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:layout_weight="50"
 
-                    <RelativeLayout
-                        android:id="@+id/rlEndTime"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:background="@color/color_edit_text">
+                        android:orientation="vertical">
 
                         <com.musicseque.Fonts.Noyhr
-                            android:id="@+id/tvEndTime"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/str_select_time"
-                            android:padding="@dimen/_5sdp"
-                            android:textColor="@color/color_white"
-                            android:textColorHint="@color/color_white"
-                            android:textSize="@dimen/_16sdp" />
-
-                        <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="5dp"
-                            android:src="@drawable/clock" />
+                            android:text="Start Time"
+                            android:textColor="@color/color_white"
+                            android:textSize="@dimen/_16sdp" />
 
-                    </RelativeLayout>
+                        <RelativeLayout
+                            android:id="@+id/rlStartTimeVenue"
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:background="@color/color_edit_text">
+
+                            <com.musicseque.Fonts.Noyhr
+                                android:id="@+id/tvStartTimeVenue"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/str_select_time"
+                                android:padding="@dimen/_5sdp"
+                                android:textColor="@color/color_white"
+                                android:textColorHint="@color/color_white"
+                                android:textSize="@dimen/_16sdp" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="5dp"
+                                android:src="@drawable/clock" />
+
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_weight="50"
+                        android:orientation="vertical">
+
+                        <com.musicseque.Fonts.Noyhr
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="End Time"
+                            android:textColor="@color/color_white"
+                            android:textSize="@dimen/_16sdp" />
+
+                        <RelativeLayout
+                            android:id="@+id/rlEndTimeVenue"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:background="@color/color_edit_text">
+
+                            <com.musicseque.Fonts.Noyhr
+                                android:id="@+id/tvEndTimeVenue"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/str_select_time"
+                                android:padding="@dimen/_5sdp"
+                                android:textColor="@color/color_white"
+                                android:textColorHint="@color/color_white"
+                                android:textSize="@dimen/_16sdp" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="5dp"
+                                android:src="@drawable/clock" />
+
+                        </RelativeLayout>
+                    </LinearLayout>
                 </LinearLayout>
+
             </LinearLayout>
-
-
             <com.musicseque.Fonts.Noyhr
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -339,23 +557,23 @@
                     android:layout_alignParentTop="true"
                     android:background="@color/color_edit_text"
                     android:hint="Select number of guest"
+                    android:inputType="number"
                     android:paddingLeft="@dimen/_10sdp"
                     android:paddingTop="@dimen/_5sdp"
                     android:paddingRight="@dimen/_5sdp"
                     android:paddingBottom="@dimen/_5sdp"
-                    android:inputType="number"
                     android:textColor="@color/color_white"
                     android:textColorHint="@color/color_white_hint"
                     android:textSize="@dimen/_15sdp" />
 
-<!--                <ImageView-->
-<!--                    android:id="@+id/iconArrowAttendence"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_alignParentRight="true"-->
-<!--                    android:layout_centerVertical="true"-->
-<!--                    android:layout_marginRight="10dp"-->
-<!--                    android:src="@drawable/arrowdown" />-->
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/iconArrowAttendence"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="match_parent"-->
+                <!--                    android:layout_alignParentRight="true"-->
+                <!--                    android:layout_centerVertical="true"-->
+                <!--                    android:layout_marginRight="10dp"-->
+                <!--                    android:src="@drawable/arrowdown" />-->
             </RelativeLayout>
 
             <com.musicseque.Fonts.Noyhr
@@ -409,29 +627,27 @@
                 android:text="0"
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/_16sdp" />
+
             <com.crystal.crystalrangeseekbar.widgets.BubbleThumbSeekbar
                 android:id="@+id/seekBarPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:corner_radius="10"
-                app:min_value="0"
-                app:max_value="100"
+                android:layout_marginTop="@dimen/_5sdp"
                 app:bar_color="@color/color_edit_text"
                 app:bar_highlight_color="@color/color_orange"
+                app:corner_radius="10"
+                app:data_type="_integer"
                 app:left_thumb_color="@color/color_white"
                 app:left_thumb_color_pressed="@color/color_orange"
-                app:data_type="_integer"
-                android:layout_marginTop="@dimen/_5sdp"/>
-
-
-
+                app:max_value="100"
+                app:min_value="0" />
 
 
             <com.musicseque.Fonts.Noyhr
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Country"
                 android:layout_marginTop="@dimen/_15sdp"
+                android:text="Country"
 
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/_16sdp" />
@@ -469,12 +685,11 @@
             </RelativeLayout>
 
 
-
             <com.musicseque.Fonts.Noyhr
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="State"
                 android:layout_marginTop="@dimen/_15sdp"
+                android:text="State"
 
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/_16sdp" />
@@ -516,8 +731,8 @@
             <com.musicseque.Fonts.Noyhr
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="City"
                 android:layout_marginTop="@dimen/_15sdp"
+                android:text="City"
 
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/_16sdp" />
@@ -557,8 +772,8 @@
             <com.musicseque.Fonts.Noyhr
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Address"
                 android:layout_marginTop="@dimen/_15sdp"
+                android:text="Address"
 
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/_16sdp" />
@@ -569,19 +784,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@color/color_edit_text"
-                android:padding="@dimen/_5sdp"
+                android:gravity="top"
                 android:hint="Enter the address here"
                 android:minLines="3"
-                android:gravity="top"
-                android:textColorHint="@color/color_white_hint"
+                android:padding="@dimen/_5sdp"
                 android:textColor="@color/color_white"
+                android:textColorHint="@color/color_white_hint"
                 android:textSize="@dimen/_16sdp" />
 
             <com.musicseque.Fonts.Noyhr
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Zip Code"
                 android:layout_marginTop="@dimen/_15sdp"
+                android:text="Zip Code"
 
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/_16sdp" />
@@ -592,10 +807,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@color/color_edit_text"
-                android:padding="@dimen/_5sdp"
                 android:hint="Enter the zip code"
-                android:textColorHint="@color/color_white_hint"
+                android:padding="@dimen/_5sdp"
                 android:textColor="@color/color_white"
+                android:textColorHint="@color/color_white_hint"
                 android:textSize="@dimen/_16sdp" />
 
             <com.musicseque.Fonts.Noyhr

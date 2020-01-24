@@ -26,7 +26,6 @@ import android.support.v7.app.AppCompatActivity;
 import com.musicseque.BuildConfig;
 import com.musicseque.artist.activity.ReportProblemActivity;
 import com.musicseque.artist.activity.UploadActivity;
-import com.musicseque.event_manager.activity.CreateEventActivity;
 import com.musicseque.photopicker.activity.PickImageActivity;
 import com.musicseque.service.LocationService;
 import com.musicseque.utilities.Constants;

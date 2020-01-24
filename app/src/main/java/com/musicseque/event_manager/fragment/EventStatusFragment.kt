@@ -14,7 +14,7 @@ import com.musicseque.event_manager.adapter.EventStatusPagerAdapter
 import com.musicseque.utilities.KotlinBaseFragment
 import kotlinx.android.synthetic.main.fragment_event_status.*
 
-class EventStatusFragment : KotlinBaseFragment() {
+class EventStatusFragment : KotlinBaseFragment(), View.OnClickListener {
     lateinit var v: View
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         v = inflater.inflate(R.layout.fragment_event_status, null)
@@ -23,8 +23,12 @@ class EventStatusFragment : KotlinBaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        ButterKnife.bind(this, v)
         initViews()
+        listeners()
+    }
+
+    private fun listeners() {
+        fab.setOnClickListener(this)
     }
 
     private fun initViews() {
@@ -36,8 +40,9 @@ class EventStatusFragment : KotlinBaseFragment() {
         tab_layout.setupWithViewPager(viewPager)
     }
 
-    @OnClick(R.id.fab)
-     fun onClick(v: View) {
+
+    override fun onClick(v: View) {
+
         startActivity(Intent(activity, CreateEventActivity::class.java))
     }
 

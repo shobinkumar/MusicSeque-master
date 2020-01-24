@@ -14,10 +14,7 @@ import kotlinx.android.synthetic.main.activity_past_event_detail.*
 import kotlinx.android.synthetic.main.toolbar_top.*
 import org.json.JSONObject
 
-class
-
-
-EventDetailActivity : BaseActivity(), View.OnClickListener, MyInterface {
+class EventDetailActivity : BaseActivity(), View.OnClickListener, MyInterface {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

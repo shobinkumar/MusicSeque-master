@@ -47,22 +47,6 @@ class SearchVenueActivity : BaseActivity(), View.OnClickListener, MyInterface {
     private fun initViews() {
         rvVenue.layoutManager = LinearLayoutManager(this)
         hitAPI("")
-//        if (Utils.isNetworkConnected(this@SearchVenueActivity)) {
-//            val jsonObject = JSONObject()
-//            try {
-//                jsonObject.put("LoggedInUserId", SharedPref.getString(Constants.USER_ID, ""))
-//
-//                jsonObject.put("SearchText", "")
-//
-//            } catch (e: JSONException) {
-//                e.printStackTrace()
-//            }
-//
-//            KotlinHitAPI.callAPI(jsonObject.toString(), Constants.FOR_SEARCH_VENUE_LIST, this@SearchVenueActivity)
-//
-//        } else {
-//            Utils.showToast(this@SearchVenueActivity, R.string.err_no_internet.toString())
-//        }
 
     }
 

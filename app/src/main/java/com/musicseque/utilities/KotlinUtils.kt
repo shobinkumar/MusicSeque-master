@@ -1,26 +1,24 @@
 package com.musicseque.utilities
 
 import android.app.DatePickerDialog
-import android.app.TimePickerDialog
+import android.app.FragmentManager
 import android.content.Context
 import android.net.ConnectivityManager
-import android.view.View
 import android.view.ViewTreeObserver
-import android.widget.AdapterView.OnItemClickListener
-import android.widget.ArrayAdapter
 import android.widget.ListPopupWindow
 import android.widget.TextView
 import com.musicseque.R
 import com.musicseque.interfaces.DateTimeInterface
-import com.musicseque.interfaces.SpinnerData
 import java.text.SimpleDateFormat
 import java.util.*
 
 class KotlinUtils {
 
     lateinit var listPopupWindow: ListPopupWindow
+    val cal=Calendar.getInstance()
 
     companion object {
+        var dateFormat=SimpleDateFormat("dd/MM/yyyy")
 
         public fun checkEmpty(value: String): Boolean {
             var isEmpty = false
@@ -32,13 +30,32 @@ class KotlinUtils {
             return isEmpty
         }
 
-        public fun setDate(con: Context, intrface: DateTimeInterface) {
+        fun getCurrentDate(): Date
+        {
+            val cal=Calendar.getInstance().time
+
+          return  dateFormat.parse( dateFormat.format(cal))
+
+
+        }
+        fun getDate(date:String): Date
+        {
+
+
+            return  dateFormat.parse( date)
+
+
+        }
+        public fun setDate(con: Context, intrface: DateTimeInterface, mMinDate: Date, TYPE: Int) {
             // Get Current Date
+
+
             val calc = Calendar.getInstance()
+            calc.time=mMinDate
             val mYear = calc.get(Calendar.YEAR)
             val mDay = calc.get(Calendar.DAY_OF_MONTH)
-            val daysInMonth = calc.getActualMaximum(Calendar.DAY_OF_MONTH)
             val mMonth = calc.get(Calendar.MONTH)
+
             val datePickerDialog = DatePickerDialog(con,
                     DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                         var mMonth = "0"
@@ -49,27 +66,43 @@ class KotlinUtils {
                             mMonth = iMonth.toString()
                         intrface.returnDateTime(dayOfMonth.toString() + "/" + mMonth + "/" + year.toString())
                     }, mYear, mMonth, mDay)
+            datePickerDialog.datePicker.minDate=mMinDate.time
+            if(TYPE==2)
+            datePickerDialog.datePicker.maxDate=mMinDate.time
+
 
             datePickerDialog.show()
         }
 
 
-        public fun setTime(con: Context, intrface: DateTimeInterface) {
-            val c = Calendar.getInstance()
-            val hour = c.get(Calendar.HOUR_OF_DAY)
-            val minute = c.get(Calendar.MINUTE)
-
-            var tpd = TimePickerDialog(con, TimePickerDialog.OnTimeSetListener(function = { view, h, m ->
+        public fun setTime(con: Context, intrface: DateTimeInterface, supportFragmentManager: FragmentManager, mHour: Int) {
+            val mStartTimeChangedListener = com.wdullaer.materialdatetimepicker.time.TimePickerDialog.OnTimeSetListener() { view: com.wdullaer.materialdatetimepicker.time.TimePickerDialog?, hourOfDay: Int, minute: Int, second: Int ->
                 val dateFormat = SimpleDateFormat("HH:mm")
-                val mTime = dateFormat.format(dateFormat.parseObject(h.toString() + ":" + m))
+                val mTime = dateFormat.format(dateFormat.parseObject(hourOfDay.toString() + ":" + minute))
                 intrface.returnDateTime(mTime)
 
-            }), hour, minute, false)
+            };
+
+            val timePickerDialog = com.wdullaer.materialdatetimepicker.time.TimePickerDialog.newInstance(mStartTimeChangedListener,
+                    mHour,
+                    0,
+                    true
+            );
+            timePickerDialog.setThemeDark(false);
+            timePickerDialog.setTitle("TimePicker Title");
+            timePickerDialog.setTimeInterval(1, 60)
+            timePickerDialog.setMinTime(mHour,0,0)
+            timePickerDialog.setAccentColor(con.resources.getColor(R.color.color_orange));
+
+
+            timePickerDialog.show(supportFragmentManager, "Timepickerdialog");
 
 
 
 
-            tpd.show()
+
+
+
         }
 
 
@@ -106,6 +139,9 @@ class KotlinUtils {
 
         }
 
+
+
+
         public fun monthToReadFormat(date: String): String {
             val oldFormat = SimpleDateFormat("dd/MM/yyyy")
             val newFormat = SimpleDateFormat("dd/MMM/yyyy")
@@ -120,12 +156,12 @@ class KotlinUtils {
             val mSelectedDate = dateFormat.parse(date)
 
             val cDate = Calendar.getInstance()
-            val mCurrentDate=dateFormat.parse(dateFormat.format(cDate.time))
+            val mCurrentDate = dateFormat.parse(dateFormat.format(cDate.time))
 
-            if (mSelectedDate.before(mCurrentDate)) {
-                return false
-            } else {
+            if (mSelectedDate.equals(mCurrentDate)) {
                 return true
+            } else {
+                return false
             }
 
 
@@ -143,62 +179,49 @@ class KotlinUtils {
             val newDateFormat = SimpleDateFormat("dd-MM-yyyy");
             return Pair(newDateFormat.format(oldDateFormat.parse(mDate1)), newDateFormat.format(oldDateFormat.parse(mDate2)))
         }
+
         fun dateFormatToSend(mDate1: String, mDate2: String): Pair<String, String> {
             val oldDateFormat = SimpleDateFormat("dd-MM-yyyy");
             val newDateFormat = SimpleDateFormat("MM-dd-yyyy");
             return Pair(newDateFormat.format(oldDateFormat.parse(mDate1)), newDateFormat.format(oldDateFormat.parse(mDate2)))
         }
+
         fun dateFormatToReceive(mDate1: String, mDate2: String): Pair<String, String> {
             val newDateFormat = SimpleDateFormat("dd/MMM/yyyy");
             val oldDateFormat = SimpleDateFormat("MM-dd-yyyy");
             return Pair(newDateFormat.format(oldDateFormat.parse(mDate1)), newDateFormat.format(oldDateFormat.parse(mDate2)))
         }
-        public  fun getViewWidth(textView: TextView):Int {
-            var mWidth=0
+
+        public fun getViewWidth(textView: TextView): Int {
+            var mWidth = 0
 
             textView.getViewTreeObserver().addOnGlobalLayoutListener(ViewTreeObserver.OnGlobalLayoutListener
             {
-                mWidth= textView.getMeasuredWidth() }
+                mWidth = textView.getMeasuredWidth()
+            }
             )
 
             return mWidth
         }
+
+        fun getCurrentTime(): Pair<Int,Int> {
+            var cal=Calendar.getInstance()
+
+            var mHourGet=cal.get(Calendar.HOUR_OF_DAY)
+            var mAddHour=mHourGet+1
+            cal.add(Calendar.HOUR_OF_DAY,1)
+
+
+
+
+            mHourGet=cal.get(Calendar.HOUR_OF_DAY)
+            var mMinute=cal.get(Calendar.MINUTE)
+
+
+            return Pair(mHourGet,mMinute)
+        }
     }
 
-//    fun showDropdown(array: Array<String?>, textView: TextView, spinnerData: SpinnerData, width: Int,ctx:Context) {
-//        listPopupWindow = ListPopupWindow(
-//                ctx)
-//        listPopupWindow.setAdapter(ArrayAdapter<Any?>(
-//                ctx,
-//                R.layout.row_profile_spinner, array))
-//        listPopupWindow.setBackgroundDrawable(ctx.getResources().getDrawable(R.drawable.rectangle_black))
-//        listPopupWindow.setAnchorView(textView)
-//        listPopupWindow.setWidth(width)
-//        listPopupWindow.setHeight(400)
-//        listPopupWindow.setModal(true)
-//        listPopupWindow.setOnItemClickListener(OnItemClickListener { parent, view, position, id ->
-//            if (textView.id == R.id.tvCountryCode) {
-//                spinnerData.getData(countryAL.get(position).getCountryId(), countryAL.get(position).getCountryName())
-//            } else if (textView.id == R.id.tvGenre) {
-//                spinnerData.getData(array[position], genreAL.get(position).getId())
-//            } else if (textView.id == R.id.tvExperience) {
-//                val pos = position + 1
-//                spinnerData.getData(array[position], pos.toString() + "")
-//            } else if (textView.id == R.id.tvCertification) {
-//                if (arrCertification.get(position).equals("Others", ignoreCase = true)) {
-//                    llCertification.setVisibility(View.VISIBLE)
-//                } else {
-//                    llCertification.setVisibility(View.GONE)
-//                    spinnerData.getData(array[position], "")
-//                }
-//            } else {
-//                spinnerData.getData(array[position], "")
-//            }
-//            textView.text = array[position]
-//            listPopupWindow.dismiss()
-//        })
-//        listPopupWindow.show()
-//    }
 
 
 }

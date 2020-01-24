@@ -1,6 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_app_background"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context=".venue_manager.activity.SearchVenueEventManagerActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:id="@+id/rlOuterVenue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:background="@color/color_white"
+
+        android:padding="10dp">
+
+        <com.musicseque.Fonts.NoyhrEditText
+            android:id="@+id/etSearchVenue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:hint="Find here......"
+            android:textSize="@dimen/_18sdp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/icon_artist_search" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlEventsVenue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rlOuterVenue"
+        android:background="@color/color_edit_text"
+        android:padding="10dp"
+
+        >
+
+        <com.musicseque.Fonts.Noyhr
+            android:id="@+id/tvEventsVenueEventManager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:hint="Select Event"
+            android:textColor="@color/color_white"
+            android:textColorHint="@color/color_white"
+            android:textSize="@dimen/_18sdp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_arrow_down" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerArtistSearchVenueEventManager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rlEventsVenue" />
+
+    <com.musicseque.Fonts.Noyhr
+        android:id="@+id/tvNoRecordSearchVenueEventManager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="No Record Found"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/_22sdp"
+        android:visibility="gone" />
+</RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
