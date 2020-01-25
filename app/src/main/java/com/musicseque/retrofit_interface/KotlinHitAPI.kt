@@ -4,7 +4,27 @@ import android.util.Log
 import com.musicseque.interfaces.MyInterface
 import com.musicseque.retrofit_interface.KotlinHitAPI.Companion.myInterfaces
 import com.musicseque.utilities.Constants
-import com.musicseque.utilities.Constants.*
+import com.musicseque.utilities.Constants.FOR_ACCEPTED_REQ
+import com.musicseque.utilities.Constants.FOR_ACCEPT_EVENT_REQ
+import com.musicseque.utilities.Constants.FOR_ARTIST_GIGS
+import com.musicseque.utilities.Constants.FOR_CREATE_UPDATE_VENUE_PROFILE
+import com.musicseque.utilities.Constants.FOR_DELETE_EVENT
+import com.musicseque.utilities.Constants.FOR_EVENT_DETAIL
+import com.musicseque.utilities.Constants.FOR_PENDING_REQ
+import com.musicseque.utilities.Constants.FOR_REJECTED_REQ
+import com.musicseque.utilities.Constants.FOR_REJECT_EVENT_REQ
+import com.musicseque.utilities.Constants.FOR_SAVE_UPDATE_EVENT_DETAIL
+import com.musicseque.utilities.Constants.FOR_SEARCH_VENUE_LIST
+import com.musicseque.utilities.Constants.FOR_SHOW_EVENTS_LIST
+import com.musicseque.utilities.Constants.FOR_SUBMIT_TIMMINGS
+import com.musicseque.utilities.Constants.FOR_TEST
+import com.musicseque.utilities.Constants.FOR_VENUE_BOOK
+import com.musicseque.utilities.Constants.FOR_VENUE_FROM_TIMMINGS
+import com.musicseque.utilities.Constants.FOR_VENUE_GIGS
+import com.musicseque.utilities.Constants.FOR_VENUE_PROFILE
+import com.musicseque.utilities.Constants.FOR_VENUE_SHOW_BOOKED_PENDING_TIMMINGS
+import com.musicseque.utilities.Constants.FOR_VENUE_TIMMINGS
+import com.musicseque.utilities.Constants.FOR_VENUE_TO_TIMMINGS
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,9 +59,7 @@ class KotlinHitAPI {
                 calls = apis!!.getEventsListMethod(params)
             } else if (TYPE == FOR_CREATE_UPDATE_VENUE_PROFILE) {
                 calls = apis!!.methodForVenueProfileSaveUpdate(params)
-            } else if (TYPE == FOR_CREATE_UPDATE_VENUE_PROFILE) {
-                calls = apis!!.methodForVenueProfileSaveUpdate(params)
-            } else if (TYPE == FOR_VENUE_TO_TIMMINGS) {
+            }  else if (TYPE == FOR_VENUE_TO_TIMMINGS) {
                 calls = apis!!.methodForVenueToTimmings(params)
             } else if (TYPE == FOR_VENUE_FROM_TIMMINGS) {
                 calls = apis!!.methodForVenueFromTimmings(params)

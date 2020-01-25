@@ -47,7 +47,7 @@
                 android:src="@drawable/username" />
 
             <EditText
-                android:id="@+id/et_username"
+                android:id="@+id/etEmailLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -85,7 +85,7 @@
                 android:src="@drawable/password" />
 
             <EditText
-                android:id="@+id/et_otp"
+                android:id="@+id/etPasswordLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -108,7 +108,7 @@
             android:background="#BDBDBD" />
 
         <TextView
-            android:id="@+id/forgot_pas"
+            android:id="@+id/tvForgotPasswordLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -119,28 +119,28 @@
             android:textSize="15dp" />
 
         <ImageView
-            android:id="@+id/btn_login"
+            android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/forgot_pas"
+            android:layout_below="@+id/tvForgotPasswordLogin"
             android:src="@drawable/login" />
 
         <ImageView
-            android:id="@+id/btn_signup"
+            android:id="@+id/btnSignUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_login"
+            android:layout_below="@+id/btnLogin"
             android:layout_marginTop="10dp"
             android:src="@drawable/signup" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_signup"
+            android:layout_below="@+id/btnSignUp"
             android:layout_marginTop="20dp">
 
             <ImageView
-                android:id="@+id/iv_fb"
+                android:id="@+id/ivFacebookLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
@@ -174,7 +174,7 @@
                 android:src="@drawable/googleplus" />
 
             <com.google.android.gms.common.SignInButton
-                android:id="@+id/btn_sign_in"
+                android:id="@+id/ivGoogleLogin"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/divider"

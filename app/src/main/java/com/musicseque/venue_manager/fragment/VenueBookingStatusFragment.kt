@@ -10,7 +10,9 @@ import com.musicseque.Fonts.BoldNoyhr
 import com.musicseque.MainActivity
 import com.musicseque.R
 import com.musicseque.artist.fragments.BaseFragment
-import com.musicseque.utilities.Constants.*
+import com.musicseque.utilities.Constants.FOR_ACCEPTED_REQ
+import com.musicseque.utilities.Constants.FOR_PENDING_REQ
+import com.musicseque.utilities.Constants.FOR_REJECTED_REQ
 import kotlinx.android.synthetic.main.fragment_booking_status.*
 
 class VenueBookingStatusFragment : BaseFragment(), View.OnClickListener {

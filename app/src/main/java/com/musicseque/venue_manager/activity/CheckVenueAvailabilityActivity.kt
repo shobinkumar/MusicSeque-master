@@ -18,12 +18,10 @@ import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils
 import com.musicseque.venue_manager.model.MySelectedTimeModel
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
-import com.prolificinteractive.materialcalendarview.OnRangeSelectedListener
 import kotlinx.android.synthetic.main.activity_venue_availability.*
 import kotlinx.android.synthetic.main.toolbar_top.*
 import org.json.JSONObject
 import java.text.SimpleDateFormat
-import java.time.DayOfWeek
 import java.util.*
 import kotlin.collections.ArrayList
 

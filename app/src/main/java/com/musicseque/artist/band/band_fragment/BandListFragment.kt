@@ -18,7 +18,8 @@ import com.musicseque.artist.band.band_adapter.BandListAdapter
 import com.musicseque.interfaces.MyInterface
 import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.Constants
-import com.musicseque.utilities.Constants.*
+import com.musicseque.utilities.Constants.FOR_BAND_LIST
+import com.musicseque.utilities.Constants.FOR_DELETE_BAND
 import com.musicseque.utilities.KotlinBaseFragment
 import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils

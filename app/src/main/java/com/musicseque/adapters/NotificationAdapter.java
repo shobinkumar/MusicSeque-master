@@ -128,7 +128,7 @@ public class NotificationAdapter extends RecyclerView.Adapter {
 
 
 
-                    case REMOVE_MEMBER:
+                case REMOVE_MEMBER:
                     view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_accept_request, parent, false);
                     return new AcceptViewHolder(view);
 
@@ -185,59 +185,59 @@ public class NotificationAdapter extends RecyclerView.Adapter {
 
             if (SharedPref.getString(PROFILE_TYPE, "").equalsIgnoreCase("Venue Manager")) {
 
-                    switch (object.getIsRequestStatus()) {
-                        case FOR_VENUE_ACCEPT_REQUEST:
-                            AcceptViewHolder viewHolderVenueAccept = ((AcceptViewHolder) holder);
+                switch (object.getIsRequestStatus()) {
+                    case FOR_VENUE_ACCEPT_REQUEST:
+                        AcceptViewHolder viewHolderVenueAccept = ((AcceptViewHolder) holder);
 
 
-                            String sourceStringVenueAccept = " You accepted  request for the event " + "<b>" + object.getEvent_title() + "</b>" + "<br><br>" + object.getCreated_date() + "</br></br>";
+                        String sourceStringVenueAccept = " You accepted  request for the event " + "<b>" + object.getEvent_title() + "</b>" + "<br><br>" + object.getCreated_date() + "</br></br>";
 
-                            viewHolderVenueAccept.tvNotificationAcceptRequest.setText(Html.fromHtml(sourceStringVenueAccept));
+                        viewHolderVenueAccept.tvNotificationAcceptRequest.setText(Html.fromHtml(sourceStringVenueAccept));
 
-                            break;
-                        case FOR_VENUE_REJECT_REQUEST:
-                            AcceptViewHolder viewHolderVenueReject = ((AcceptViewHolder) holder);
-
-
-                            String sourceStringVenueReject = " You rejected  request for the event " + "<b>" + object.getEvent_title() + "</b>" + "<br><br>" + object.getCreated_date() + "</br></br>";
-
-                            viewHolderVenueReject.tvNotificationAcceptRequest.setText(Html.fromHtml(sourceStringVenueReject));
-
-                            break;
+                        break;
+                    case FOR_VENUE_REJECT_REQUEST:
+                        AcceptViewHolder viewHolderVenueReject = ((AcceptViewHolder) holder);
 
 
-                        case ARTIST_SEND_BOOKING_REQ:
-                            AcceptViewHolder viewHolderArtistSendReq = ((AcceptViewHolder) holder);
+                        String sourceStringVenueReject = " You rejected  request for the event " + "<b>" + object.getEvent_title() + "</b>" + "<br><br>" + object.getCreated_date() + "</br></br>";
+
+                        viewHolderVenueReject.tvNotificationAcceptRequest.setText(Html.fromHtml(sourceStringVenueReject));
+
+                        break;
 
 
-                            String sourceStringArtistSendReq = object.getArtistFullName() + " send the request for event " + object.getEvent_title() + "</b>" + "<br><br>" + object.getCreated_date() + "</br></br>";
-
-                            viewHolderArtistSendReq.tvNotificationAcceptRequest.setText(Html.fromHtml(sourceStringArtistSendReq));
-
-                            break;
-                        case FOR_FOLLOWED_ARTIST:
-                            AcceptViewHolder viewHolderFollowArtist = ((AcceptViewHolder) holder);
+                    case ARTIST_SEND_BOOKING_REQ:
+                        AcceptViewHolder viewHolderArtistSendReq = ((AcceptViewHolder) holder);
 
 
-                            String mFollowArtist ="You followed "+ "<b>" + object.getArtistFullName() + "</b> "  + "<br><br>" + object.getCreated_date() + "</br></br>";
+                        String sourceStringArtistSendReq = object.getArtistFullName() + " send the request for event " + object.getEvent_title() + "</b>" + "<br><br>" + object.getCreated_date() + "</br></br>";
 
-                            viewHolderFollowArtist.tvNotificationAcceptRequest.setText(Html.fromHtml(mFollowArtist));
+                        viewHolderArtistSendReq.tvNotificationAcceptRequest.setText(Html.fromHtml(sourceStringArtistSendReq));
 
-
-                            break;
-
-
-                        case FOR_UNFOLLOWED_ARTIST:
-                            AcceptViewHolder viewHolderUnFollowArtist = ((AcceptViewHolder) holder);
+                        break;
+                    case FOR_FOLLOWED_ARTIST:
+                        AcceptViewHolder viewHolderFollowArtist = ((AcceptViewHolder) holder);
 
 
-                            String mUnFollowArtist ="You unfollowed "+ "<b>" + object.getArtistFullName() + "</b> "  + "<br><br>" + object.getCreated_date() + "</br></br>";
+                        String mFollowArtist ="You followed "+ "<b>" + object.getArtistFullName() + "</b> "  + "<br><br>" + object.getCreated_date() + "</br></br>";
 
-                            viewHolderUnFollowArtist.tvNotificationAcceptRequest.setText(Html.fromHtml(mUnFollowArtist));
+                        viewHolderFollowArtist.tvNotificationAcceptRequest.setText(Html.fromHtml(mFollowArtist));
 
 
-                            break;
-                    }
+                        break;
+
+
+                    case FOR_UNFOLLOWED_ARTIST:
+                        AcceptViewHolder viewHolderUnFollowArtist = ((AcceptViewHolder) holder);
+
+
+                        String mUnFollowArtist ="You unfollowed "+ "<b>" + object.getArtistFullName() + "</b> "  + "<br><br>" + object.getCreated_date() + "</br></br>";
+
+                        viewHolderUnFollowArtist.tvNotificationAcceptRequest.setText(Html.fromHtml(mUnFollowArtist));
+
+
+                        break;
+                }
 
             } else {
 
@@ -458,7 +458,7 @@ public class NotificationAdapter extends RecyclerView.Adapter {
                 case ARTIST_SEND_BOOKING_REQ:
                     return ARTIST_SEND_BOOKING_REQ;
 
-                    case FOR_FOLLOWED_ARTIST:
+                case FOR_FOLLOWED_ARTIST:
                     return FOR_FOLLOWED_ARTIST;
                 case FOR_UNFOLLOWED_ARTIST:
                     return FOR_UNFOLLOWED_ARTIST;

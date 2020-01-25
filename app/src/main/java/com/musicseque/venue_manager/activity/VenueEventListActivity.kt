@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import com.musicseque.R
 import com.musicseque.activities.BaseActivity
-import com.musicseque.utilities.Constants
 import kotlinx.android.synthetic.main.toolbar_top.*
 
 class VenueEventListActivity : BaseActivity() {

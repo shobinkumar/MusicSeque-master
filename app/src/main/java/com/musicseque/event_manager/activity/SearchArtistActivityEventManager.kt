@@ -25,7 +25,9 @@ import com.musicseque.interfaces.SpinnerData
 import com.musicseque.retrofit_interface.KotlinHitAPI
 import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.Constants
-import com.musicseque.utilities.Constants.*
+import com.musicseque.utilities.Constants.FOR_SEARCH_ARTIST_EVENT_MANAGER
+import com.musicseque.utilities.Constants.FOR_SHOW_EVENTS_LIST
+import com.musicseque.utilities.Constants.GET_ARTIST_LIST
 import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils
 import kotlinx.android.synthetic.main.activity_search_artist_event_manager.*

@@ -103,8 +103,8 @@ class UploadVenueMediaActivity : BaseActivity(), View.OnClickListener {
 
     fun uploadPic(fileToUpload: ArrayList<MultipartBody.Part>, mUSerId: RequestBody) {
 
-        val uploadPhotoFragment = fragment as UploadPhotoFragment
-        uploadPhotoFragment.uploadImage(fileToUpload, mUSerId)
+//        val uploadPhotoFragment = fragment as UploadPhotoFragment
+//        uploadPhotoFragment.uploadImage(fileToUpload, mUSerId)
 
 
     }

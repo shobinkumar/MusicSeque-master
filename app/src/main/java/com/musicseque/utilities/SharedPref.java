@@ -22,7 +22,7 @@ public class SharedPref
 
     public static SharedPreferences getSharedPref()
     {
-      return   mSharedPref;
+        return   mSharedPref;
     }
 
     public static SharedPreferences.Editor getEditor()

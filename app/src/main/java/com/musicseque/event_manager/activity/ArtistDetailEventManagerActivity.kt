@@ -22,7 +22,8 @@ import com.musicseque.artist.fragments.*
 import com.musicseque.interfaces.MyInterface
 import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.Constants
-import com.musicseque.utilities.Constants.*
+import com.musicseque.utilities.Constants.FOR_OTHER_PROFILE
+import com.musicseque.utilities.Constants.FOR_SEND_REQ_ARTIST
 import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils
 import kotlinx.android.synthetic.main.activity_artist_detail_event_manager.*
@@ -80,7 +81,7 @@ class ArtistDetailEventManagerActivity : BaseActivity(), MyInterface {
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
-            } else if (TYPE == FOR_FOLLOW_UNFOLLOW_ARTIST) {
+            } else if (TYPE == Constants.FOR_FOLLOW_UNFOLLOW_ARTIST) {
                 RetrofitAPI.callAPI(args, Constants.FOR_FOLLOW_UNFOLLOW_ARTIST, this)
 
             } else if (TYPE == FOR_SEND_REQ_ARTIST) {
@@ -193,7 +194,7 @@ class ArtistDetailEventManagerActivity : BaseActivity(), MyInterface {
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
-                hitAPI(FOR_FOLLOW_UNFOLLOW_ARTIST, jsonObject.toString())
+                hitAPI(Constants.FOR_FOLLOW_UNFOLLOW_ARTIST, jsonObject.toString())
             }
             R.id.tvMessage -> {
             }

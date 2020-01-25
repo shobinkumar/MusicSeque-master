@@ -9,7 +9,9 @@ import com.musicseque.activities.BaseActivity
 import com.musicseque.interfaces.MyInterface
 import com.musicseque.retrofit_interface.KotlinHitAPI
 import com.musicseque.utilities.Constants
-import com.musicseque.utilities.Constants.*
+import com.musicseque.utilities.Constants.FOR_ACCEPT_EVENT_REQ
+import com.musicseque.utilities.Constants.FOR_EVENT_DETAIL
+import com.musicseque.utilities.Constants.FOR_REJECT_EVENT_REQ
 import com.musicseque.utilities.KotlinUtils
 import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils

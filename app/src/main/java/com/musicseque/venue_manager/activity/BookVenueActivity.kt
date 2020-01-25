@@ -25,7 +25,13 @@ import com.musicseque.interfaces.SpinnerData
 import com.musicseque.retrofit_interface.ImageUploadClass
 import com.musicseque.retrofit_interface.KotlinHitAPI
 import com.musicseque.utilities.Constants
-import com.musicseque.utilities.Constants.*
+import com.musicseque.utilities.Constants.FOR_CURRENCY_LIST
+import com.musicseque.utilities.Constants.FOR_EVENT_TYPE_LIST
+import com.musicseque.utilities.Constants.FOR_SAVE_UPDATE_EVENT_DETAIL
+import com.musicseque.utilities.Constants.FOR_UPLOAD_EVENT_PROFILE_IMAGE
+import com.musicseque.utilities.Constants.FOR_VENUE_BOOK
+import com.musicseque.utilities.Constants.FOR_VENUE_FROM_TIMMINGS
+import com.musicseque.utilities.Constants.FOR_VENUE_TO_TIMMINGS
 import com.musicseque.utilities.KotlinUtils
 import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils

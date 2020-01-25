@@ -14,8 +14,14 @@ import com.musicseque.interfaces.*
 import com.musicseque.models.*
 import com.musicseque.retrofit_interface.*
 import com.musicseque.utilities.*
+import com.musicseque.utilities.Constants.EMAIL_ID
+import com.musicseque.utilities.Constants.FOR_COUNTRIES_LIST
+import com.musicseque.utilities.Constants.FOR_UPDATE_PROFILE
+import com.musicseque.utilities.Constants.FOR_UPLOAD_PROFILE_IMAGE
+import com.musicseque.utilities.Constants.FOR_USER_PROFILE
+import com.musicseque.utilities.Constants.USER_ID
+import com.musicseque.utilities.Constants.USER_NAME
 import org.json.*
-import com.musicseque.utilities.Constants.*
 import kotlinx.android.synthetic.main.fragment_create_venue.*
 import kotlinx.android.synthetic.main.fragment_create_venue.etMobileNumber
 import kotlinx.android.synthetic.main.fragment_create_venue.ivCamera

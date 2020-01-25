@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
@@ -34,7 +33,10 @@ import com.musicseque.models.StateModel
 import com.musicseque.retrofit_interface.ImageUploadClass
 import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.*
-import com.musicseque.utilities.Constants.*
+import com.musicseque.utilities.Constants.FOR_BAND_PROFILE
+import com.musicseque.utilities.Constants.FOR_COUNTRIES_LIST
+import com.musicseque.utilities.Constants.FOR_GENRE_LIST
+import com.musicseque.utilities.Constants.FOR_UPDATE_BAND_PROFILE
 import kotlinx.android.synthetic.main.fragment_band_profile.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody

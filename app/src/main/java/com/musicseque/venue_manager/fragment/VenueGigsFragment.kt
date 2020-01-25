@@ -17,9 +17,7 @@ import com.musicseque.artist.artist_adapters.ArtistGigsAdapter
 import com.musicseque.artist.artist_models.GigsModel
 import com.musicseque.interfaces.MyInterface
 import com.musicseque.retrofit_interface.KotlinHitAPI
-import com.musicseque.utilities.Constants
 import com.musicseque.utilities.Constants.FOR_ARTIST_GIGS
-import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils
 import com.musicseque.venue_manager.activity.CheckVenueAvailabilityActivity
 import kotlinx.android.synthetic.main.fragment_gigs_venue.*

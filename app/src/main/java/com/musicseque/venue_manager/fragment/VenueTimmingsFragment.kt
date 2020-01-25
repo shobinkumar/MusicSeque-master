@@ -19,7 +19,8 @@ import com.google.gson.reflect.TypeToken
 import com.musicseque.Fonts.BoldNoyhr
 import com.musicseque.MainActivity
 import com.musicseque.utilities.*
-import com.musicseque.utilities.Constants.*
+import com.musicseque.utilities.Constants.FOR_SUBMIT_TIMMINGS
+import com.musicseque.utilities.Constants.FOR_VENUE_SHOW_BOOKED_PENDING_TIMMINGS
 import com.musicseque.venue_manager.model.*
 import org.json.JSONObject
 import java.text.DateFormat

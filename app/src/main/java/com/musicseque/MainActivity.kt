@@ -14,7 +14,6 @@ import android.view.Gravity
 import android.view.View
 
 import butterknife.ButterKnife
-import butterknife.OnClick
 import com.bumptech.glide.Glide
 import com.musicseque.artist.activity.UploadActivity
 import com.musicseque.artist.activity.other_artist_activity.SearchArtistActivity

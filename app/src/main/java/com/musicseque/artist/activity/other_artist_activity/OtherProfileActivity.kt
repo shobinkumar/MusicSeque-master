@@ -3,7 +3,6 @@ package com.musicseque.artist.activity.other_artist_activity
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
 import android.view.View
 import android.widget.*
@@ -15,12 +14,9 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.google.gson.Gson
-import com.musicseque.Fonts.BoldNoyhr
 import com.musicseque.Fonts.Noyhr
 import com.musicseque.R
 import com.musicseque.activities.BaseActivity
-import com.musicseque.artist.activity.other_artist_activity.OtherProfileActivity
 import com.musicseque.artist.fragments.*
 import com.musicseque.interfaces.MyInterface
 import com.musicseque.models.ImageModel
@@ -29,9 +25,7 @@ import com.musicseque.utilities.Constants
 import com.musicseque.utilities.Constants.FOR_OTHER_PROFILE
 import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils
-import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_other_artist.*
-import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.*

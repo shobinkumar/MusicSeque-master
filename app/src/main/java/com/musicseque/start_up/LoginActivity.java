@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.TwoStatePreference;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Base64;
@@ -73,7 +74,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
     ImageView iv_fb, ivGoogle;
     Button btn_login, btn_signup;
 
-    ProgressDialog progressDialog;
     private String userName = "", password = "";
     ;
 
@@ -82,19 +82,16 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
     GoogleSignInOptions googleSignInOptions;
     private GoogleSignInClient googleSignInClient;
 
-    //    SharedPref SharedPref;
-//    SharedPref.SharedPref SharedPref;
-//    private RetrofitComponent retrofitComponent;
     private String mProfileType = "";
     private FirebaseAuth mAuth;
     private Dialog dialog, dialogUserType;
     private Dialog dialogReset;
     private Dialog dialogVerifyAccount;
 
-    @BindView(R.id.cbRememberMe)
-    CheckBox cbRememberMe;
+
 
     String mToken = "";
+    private CheckBox  cbRememberMe;
 
 
     @Override
@@ -164,13 +161,14 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
 
     private void initViews() {
 
-        et_username = (EditText) findViewById(R.id.et_username);
-        et_password = (EditText) findViewById(R.id.et_password);
+        et_username = (EditText) findViewById(R.id.etEmailLogin);
+        et_password = (EditText) findViewById(R.id.etPasswordLogin);
         tvForgotPassword = (TextView) findViewById(R.id.tvForgotPassword);
-        btn_login = (Button) findViewById(R.id.btn_login);
-        btn_signup = (Button) findViewById(R.id.btn_signup);
-        iv_fb = (ImageView) findViewById(R.id.iv_fb);
+        btn_login = (Button) findViewById(R.id.btnLogin);
+        btn_signup = (Button) findViewById(R.id.btnSignup);
+        iv_fb = (ImageView) findViewById(R.id.ivFB);
         ivGoogle = (ImageView) findViewById(R.id.ivGoogle);
+        cbRememberMe=(CheckBox)findViewById(R.id.cbRememberMe);
         FirebaseApp.initializeApp(this);
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
@@ -292,7 +290,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                 dialogForgot();
 
                 break;
-            case R.id.btn_login:
+            case R.id.btnLogin:
                 userName = et_username.getText().toString();
                 password = et_password.getText().toString();
 
@@ -335,14 +333,14 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                 }
 
                 break;
-            case R.id.btn_signup:
+            case R.id.btnSignup:
                 // Utils.showProgressDialog();
                 Intent intent = new Intent(this, SignupActivity.class);
                 startActivity(intent);
 
                 break;
 
-            case R.id.iv_fb:
+            case R.id.ivFB:
                 if (Utils.isNetworkConnected(this)) {
                     initializeLoader();
 
@@ -1079,19 +1077,19 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
         btnResendOTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    try {
+                try {
 
-                        JSONObject jsonBody = new JSONObject();
-                        jsonBody.put("Email", Utils.getEDitText(etEmail));
-                        // jsonBody.put("OTPType", "Email verification");
+                    JSONObject jsonBody = new JSONObject();
+                    jsonBody.put("Email", Utils.getEDitText(etEmail));
+                    // jsonBody.put("OTPType", "Email verification");
 
-                        SharedPref.putString(Constants.EMAIL_ID, Utils.getEDitText(etEmail));
-                        String requestBody = jsonBody.toString();
-                        callAPI(FOR_RESEND_OTP, requestBody);
+                    SharedPref.putString(Constants.EMAIL_ID, Utils.getEDitText(etEmail));
+                    String requestBody = jsonBody.toString();
+                    callAPI(FOR_RESEND_OTP, requestBody);
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
             }
         });
@@ -1216,4 +1214,3 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
     }
 
 }
-

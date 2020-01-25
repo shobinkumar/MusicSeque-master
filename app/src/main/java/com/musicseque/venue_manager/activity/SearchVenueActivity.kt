@@ -10,12 +10,9 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.musicseque.R
 import com.musicseque.activities.BaseActivity
-import com.musicseque.artist.artist_adapters.SearchBandAdapter
-import com.musicseque.artist.artist_models.BandListModel
 import com.musicseque.interfaces.MyInterface
 import com.musicseque.retrofit_interface.KotlinHitAPI
 import com.musicseque.utilities.Constants
-import com.musicseque.utilities.KotlinUtils
 import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils
 import com.musicseque.venue_manager.adapter.SearchVenueAdapter

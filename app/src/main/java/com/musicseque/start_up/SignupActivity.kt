@@ -17,15 +17,10 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.CheckBox
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.ListView
-import android.widget.RelativeLayout
-import android.widget.Spinner
 import android.widget.TextView
 
-import com.musicseque.Fonts.NoyhrEditText
 import com.musicseque.R
 
 import com.musicseque.interfaces.MyInterface

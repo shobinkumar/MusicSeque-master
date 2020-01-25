@@ -1,12 +1,9 @@
 package com.musicseque.event_manager.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import com.bumptech.glide.Glide
 import com.musicseque.R
 import com.musicseque.activities.BaseActivity
-import com.musicseque.event_manager.adapter.EventAdapter
 import com.musicseque.interfaces.MyInterface
 import com.musicseque.retrofit_interface.KotlinHitAPI
 import com.musicseque.utilities.Constants

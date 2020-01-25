@@ -3,7 +3,6 @@ package com.musicseque.start_up
 
 import android.app.Activity
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 
 import android.location.LocationManager
@@ -12,10 +11,11 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.annotation.RequiresApi
 import android.support.v7.app.AlertDialog
-import android.widget.Toast
 
 
 import com.musicseque.MainActivity
+import com.musicseque.start_up.LoginActivity
+
 import com.musicseque.MyApplication
 import com.musicseque.R
 import com.musicseque.activities.BaseActivity
@@ -27,9 +27,7 @@ import com.musicseque.utilities.SharedPref
 
 
 class SplashActivity : BaseActivity() {
-    //    SharedPref SharedPref;
-    //    SharedPref.Editor editor;
-    //    private RetrofitComponent retrofitComponent;
+
     lateinit var locationManager: LocationManager
 
 

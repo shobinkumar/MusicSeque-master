@@ -199,7 +199,7 @@ open class KotlinBaseFragment : BaseFragment() {
                 } else {
                     val uri = data?.getData()
 
-                    val filePath = FileUtils.compressImage(uri!!.toString(), activity)
+                    val filePath = FileUtils.compressImage(uri!!.toString(), activity!!)
                     val file = File(filePath)
                     sendImage(file)
                 }
@@ -209,7 +209,7 @@ open class KotlinBaseFragment : BaseFragment() {
 
                 } else {
                     val uri = Uri.parse(selectedImagePath)
-                    val filePath = FileUtils.compressImage(uri.toString(), activity)
+                    val filePath = FileUtils.compressImage(uri.toString(), activity!!)
                     val file = File(filePath)
                     sendImage(file)
 

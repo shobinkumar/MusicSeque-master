@@ -1,6 +1,5 @@
 package com.musicseque.fragments;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,11 +14,12 @@ import com.musicseque.R;
 import com.musicseque.artist.artist_adapters.SongsAdapter;
 import com.musicseque.interfaces.MyInterface;
 import com.musicseque.utilities.Constants;
+import com.musicseque.utilities.KotlinBaseFragment;
 import com.musicseque.utilities.Utils;
 
 import org.json.JSONObject;
 
-public class SongsFragment extends Fragment implements MyInterface {
+public class SongsFragment extends KotlinBaseFragment implements MyInterface {
     View view;
     RecyclerView recyclerSongs;
     RecyclerView.LayoutManager layoutManager;

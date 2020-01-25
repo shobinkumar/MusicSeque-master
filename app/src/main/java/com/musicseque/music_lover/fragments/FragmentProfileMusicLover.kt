@@ -24,12 +24,13 @@ import com.musicseque.models.StateModel
 import com.musicseque.retrofit_interface.ImageUploadClass
 import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.Constants
-import com.musicseque.utilities.Constants.*
+import com.musicseque.utilities.Constants.FOR_COUNTRIES_LIST
+import com.musicseque.utilities.Constants.FOR_UPDATE_PROFILE
+import com.musicseque.utilities.Constants.FOR_USER_PROFILE
+import com.musicseque.utilities.Constants.IS_FIRST_LOGIN
 import com.musicseque.utilities.KotlinBaseFragment
 import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils
-import kotlinx.android.synthetic.main.fragment_event_manager_form.*
-import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile_music_lover.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody

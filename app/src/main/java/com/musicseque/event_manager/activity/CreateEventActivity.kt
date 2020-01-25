@@ -11,16 +11,13 @@ import android.widget.*
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.musicseque.activities.BaseActivity
 import com.musicseque.event_manager.adapter.EventAdapter
 import com.musicseque.event_manager.model.CurrencyModel
 import com.musicseque.interfaces.MyInterface
 import com.musicseque.interfaces.SpinnerData
 import com.musicseque.retrofit_interface.KotlinHitAPI
-import com.musicseque.utilities.Constants.*
 import com.musicseque.utilities.KotlinUtils
 import com.musicseque.utilities.Utils
-import kotlinx.android.synthetic.main.activity_create_event.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.lang.Exception
@@ -30,15 +27,22 @@ import kotlin.collections.ArrayList
 import com.crystal.crystalrangeseekbar.interfaces.OnSeekbarChangeListener
 import com.musicseque.MainActivity
 import com.musicseque.R
+import com.musicseque.activities.BaseActivity
 import com.musicseque.event_manager.model.EventModel
 import com.musicseque.models.CityModel
 import com.musicseque.models.CountryModel
 import com.musicseque.models.StateModel
 import com.musicseque.retrofit_interface.ImageUploadClass
 import com.musicseque.retrofit_interface.RetrofitAPI
+import com.musicseque.utilities.Constants.FOR_COUNTRIES_LIST
+import com.musicseque.utilities.Constants.FOR_CURRENCY_LIST
+import com.musicseque.utilities.Constants.FOR_EVENT_DETAIL
+import com.musicseque.utilities.Constants.FOR_EVENT_TYPE_LIST
+import com.musicseque.utilities.Constants.FOR_SAVE_UPDATE_EVENT_DETAIL
+import com.musicseque.utilities.Constants.FOR_STATE_LIST
+import com.musicseque.utilities.Constants.FOR_UPLOAD_EVENT_PROFILE_IMAGE
 import com.musicseque.utilities.SharedPref
-import kotlinx.android.synthetic.main.activity_create_event.ivAddImage
-import kotlinx.android.synthetic.main.activity_create_event.ivProfile
+import kotlinx.android.synthetic.main.activity_create_event.*
 import kotlinx.android.synthetic.main.toolbar_top.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -114,7 +118,7 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
         setContentView(R.layout.activity_create_event)
         initViews()
         listeners()
-        getAPI(FOR_EVENT_TYPE_LIST, "")
+        getAPI(Constants.FOR_EVENT_TYPE_LIST, "")
     }
 
     private fun initViews() {
@@ -177,17 +181,17 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
 
         if (Utils.isNetworkConnected(this)) {
             Utils.initializeAndShow(this)
-            if (value == FOR_EVENT_TYPE_LIST) {
-                KotlinHitAPI.callGetAPI(FOR_EVENT_TYPE_LIST, this)
-            } else if (value == FOR_CURRENCY_LIST) {
-                KotlinHitAPI.callGetAPI(FOR_CURRENCY_LIST, this)
-            } else if (value == FOR_SAVE_UPDATE_EVENT_DETAIL) {
-                KotlinHitAPI.callAPI(args, FOR_SAVE_UPDATE_EVENT_DETAIL, this)
-            } else if (value == FOR_EVENT_DETAIL) {
+            if (value == Constants.FOR_EVENT_TYPE_LIST) {
+                KotlinHitAPI.callGetAPI(Constants.FOR_EVENT_TYPE_LIST, this)
+            } else if (value == Constants.FOR_CURRENCY_LIST) {
+                KotlinHitAPI.callGetAPI(Constants.FOR_CURRENCY_LIST, this)
+            } else if (value == Constants.FOR_SAVE_UPDATE_EVENT_DETAIL) {
+                KotlinHitAPI.callAPI(args, Constants.FOR_SAVE_UPDATE_EVENT_DETAIL, this)
+            } else if (value == Constants.FOR_EVENT_DETAIL) {
                 val obj = JSONObject()
                 obj.put("EventId", mEventId)
-                KotlinHitAPI.callAPI(obj.toString(), FOR_EVENT_DETAIL, this)
-            } else if (value == FOR_COUNTRIES_LIST) {
+                KotlinHitAPI.callAPI(obj.toString(), Constants.FOR_EVENT_DETAIL, this)
+            } else if (value == Constants.FOR_COUNTRIES_LIST) {
                 RetrofitAPI.callGetAPI(Constants.FOR_COUNTRIES_LIST, this@CreateEventActivity)
 
             } else if (value == FOR_STATE_LIST) {

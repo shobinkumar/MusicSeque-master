@@ -1,6 +1,5 @@
 package com.musicseque.artist.other_band.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -9,8 +8,6 @@ import android.view.ViewGroup
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.musicseque.R
-import com.musicseque.artist.band.band_activity.SearchBandMemberActivity
-import com.musicseque.artist.band.band_adapter.BandMemberStatusAdapter
 import com.musicseque.artist.band.band_model.BandMemberStatusModel
 import com.musicseque.artist.fragments.BaseFragment
 import com.musicseque.artist.other_band.adapters.OtherBandMemberAdapter
