@@ -1,22 +1,10 @@
 package com.musicseque.artist.activity.other_artist_activity;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -29,41 +17,24 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.google.gson.Gson;
-import com.musicseque.BuildConfig;
 import com.musicseque.Fonts.BoldNoyhr;
 import com.musicseque.Fonts.Noyhr;
-import com.musicseque.MainActivity;
 import com.musicseque.R;
 import com.musicseque.activities.BaseActivity;
-import com.musicseque.artist.band.band_fragment.BandMemberStatusFragment;
-import com.musicseque.artist.band.band_fragment.BandProfileDetailFragment;
-import com.musicseque.artist.fragments.GigsFragment;
-import com.musicseque.artist.fragments.ImagesFragment;
-import com.musicseque.artist.fragments.MusicFragment;
 import com.musicseque.artist.fragments.OtherArtistBandMemberStatusFragment;
 import com.musicseque.interfaces.MyInterface;
-import com.musicseque.models.ImageModel;
-import com.musicseque.retrofit_interface.ImageUploadClass;
 import com.musicseque.retrofit_interface.RetrofitAPI;
 import com.musicseque.utilities.Constants;
-import com.musicseque.utilities.FileUtils;
 import com.musicseque.utilities.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 
 public class ArtistBandDetailActivity extends BaseActivity implements MyInterface {
     @BindView(R.id.img_first_icon)

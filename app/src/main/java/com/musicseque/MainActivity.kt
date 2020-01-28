@@ -145,10 +145,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, DrawerListener, 
                 changeIconBottom(R.drawable.homeactive3, R.drawable.profile3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment)
             } else if (intent.getStringExtra("frag").equals("com.musicseque.artist.fragments.ProfileFragment", ignoreCase = true)) {
                 val b = intent.getBooleanExtra("profileTemp", false)
-                fragment = if (b == null) {
-                    if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equals("Y", ignoreCase = true)) ProfileFragment() else ProfileDetailFragment()
+                 if (b == null) {
+                    if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equals("Y", ignoreCase = true)) fragment =ProfileFragment() else fragment =ProfileDetailFragment()
                 } else {
-                    ProfileFragment()
+                     fragment =ProfileFragment()
                 }
                 changeIconBottom(R.drawable.home3, R.drawable.profileactive3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment)
             } else if (intent.getStringExtra("frag").equals("com.musicseque.venue_manager.fragment.CreateVenueFragment", ignoreCase = true)) {
@@ -170,18 +170,26 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, DrawerListener, 
                 changeIconBottom(R.drawable.home3, R.drawable.profile3, R.drawable.featured3, R.drawable.chat3, R.drawable.settingactive3, fragment)
             } else if (intent.getStringExtra("frag").equals("com.musicseque.music_lover.fragments.FragmentProfileMusicLover", ignoreCase = true)) {
                 val b = intent.getBooleanExtra("profileTemp", false)
-                fragment = if (b == null) {
-                    if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equals("Y", ignoreCase = true)) FragmentProfileMusicLover() else ProfileDetailFragment()
+               if (b == null) {
+                    if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equals("Y", ignoreCase = true))
+                        fragment = FragmentProfileMusicLover() else  fragment = ProfileDetailFragment()
                 } else {
-                    FragmentProfileMusicLover()
+                   fragment = FragmentProfileMusicLover()
                 }
                 changeIconBottom(R.drawable.home3, R.drawable.profileactive3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment)
-            } else if (intent.getStringExtra("frag").equals("com.musicseque.event_manager.fragment.EventManagerFormFragment", ignoreCase = true)) {
+            }
+            else if (intent.getStringExtra("frag").equals("com.musicseque.event_manager.fragment.EventManagerFormFragment", ignoreCase = true))
+            {
                 val b = intent.getBooleanExtra("profileTemp", false)
-                fragment = if (b == null) {
-                    if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equals("Y", ignoreCase = true)) EventManagerFormFragment() else EventManagerDetailFragment()
+                if (b == null) {
+                    if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equals("Y", ignoreCase = true)) {
+                        fragment=EventManagerFormFragment()
+                    } else {
+                        fragment=EventManagerDetailFragment()
+                    }
+
                 } else {
-                    EventManagerFormFragment()
+                    fragment= EventManagerDetailFragment()
                 }
                 changeIconBottom(R.drawable.home3, R.drawable.profileactive3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment)
             }

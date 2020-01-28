@@ -17,14 +17,11 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.google.gson.Gson
 import com.musicseque.Fonts.BoldNoyhr
 import com.musicseque.Fonts.Noyhr
 import com.musicseque.MainActivity
 import com.musicseque.R
 
-import com.musicseque.artist.fragments.ImagesFragment
-import com.musicseque.artist.fragments.MusicFragment
 import com.musicseque.interfaces.MyInterface
 import com.musicseque.models.ImageModel
 import com.musicseque.retrofit_interface.ImageUploadClass
@@ -37,7 +34,6 @@ import kotlinx.android.synthetic.main.fragment_band_profile_detail.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.File

@@ -472,7 +472,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/tvBioArtistEventManager" />
 
                 <FrameLayout
-                    android:id="@+id/frame_layoutArtistEventManager"
+                    android:id="@+id/frame_layout_ArtistEventManager"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"

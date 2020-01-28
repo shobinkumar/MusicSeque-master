@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +17,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.Status;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.musicseque.MainActivity;
 import com.musicseque.R;
 import com.musicseque.artist.activity.other_artist_activity.SearchArtistActivity;
@@ -31,16 +28,11 @@ import com.musicseque.artist.activity.other_artist_activity.SearchBandActivity;
 import com.musicseque.artist.fragments.BaseFragment;
 import com.musicseque.event_manager.activity.SearchArtistActivityEventManager;
 import com.musicseque.service.LocationService;
-import com.musicseque.utilities.Constants;
 import com.musicseque.utilities.SharedPref;
 import com.musicseque.utilities.Utils;
 import com.musicseque.venue_manager.activity.SearchVenueActivity;
 
 import java.util.Arrays;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 import static com.musicseque.utilities.Constants.PROFILE_TYPE;
 
@@ -52,18 +44,20 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private TextView et_explore;
     Fragment fragment = null;
 
-    @BindView(R.id.ivArtist)
+
     ImageView ivArtist;
 
-    @BindView(R.id.ivEditLoc)
+
     ImageView ivEditLoc;
-    @BindView(R.id.etLoc)
+
     EditText etLoc;
 
-    @BindView(R.id.ivBand)
     ImageView ivBand;
-    @BindView(R.id.rlSearch)
+
     RelativeLayout rlSearch;
+
+
+    ImageView ivSearch;
 
     View v;
     String mUserType = "";
@@ -113,13 +107,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
 
         v = inflater.inflate(R.layout.fragment_home, container, false);
-        ButterKnife.bind(this, v);
-        TextView tv_title = (TextView) ((MainActivity) getActivity()).findViewById(R.id.tvHeading);
-        TextView tvDone = (TextView) ((MainActivity) getActivity()).findViewById(R.id.tvDone);
-        tvDone.setVisibility(View.GONE);
-        ImageView img_right_icon = (ImageView) ((MainActivity) getActivity()).findViewById(R.id.img_right_icon);
-        img_right_icon.setVisibility(View.GONE);
-        tv_title.setText("Home");
+       initOtherViews();
         initialize();
         clickListner();
 
@@ -127,16 +115,32 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         return v;
     }
 
+    private void initOtherViews() {
+
+        TextView tv_title = (TextView) ((MainActivity) getActivity()).findViewById(R.id.tvHeading);
+        TextView tvDone = (TextView) ((MainActivity) getActivity()).findViewById(R.id.tvDone);
+        tvDone.setVisibility(View.GONE);
+        ImageView img_right_icon = (ImageView) ((MainActivity) getActivity()).findViewById(R.id.img_right_icon);
+        img_right_icon.setVisibility(View.GONE);
+        tv_title.setText("Home");
+    }
+
 
     public void initialize() {
         mUserType = SharedPref.getString(PROFILE_TYPE, "");
         img_gigs = (ImageView) v.findViewById(R.id.img_gigs);
         img_venue = (ImageView) v.findViewById(R.id.img_venue);
-
+        ivSearch = (ImageView) v.findViewById(R.id.ivSearch);
+        ivArtist = (ImageView) v.findViewById(R.id.ivArtist);
+        ivBand = (ImageView) v.findViewById(R.id.ivBand);
+        ivEditLoc = (ImageView) v.findViewById(R.id.ivEditLoc);
         iv_featured = (ImageView) v.findViewById(R.id.iv_profile);
         img_event_manger = (ImageView) v.findViewById(R.id.img_event_manger);
         img_talent_manager = (ImageView) v.findViewById(R.id.img_talent_manager);
         et_explore = (TextView) v.findViewById(R.id.et_explore);
+        etLoc = (EditText) v.findViewById(R.id.etLoc);
+
+        rlSearch=(RelativeLayout) v.findViewById(R.id.rlSearch);
         try {
             Address address = Utils.getCompleteAddressString(Double.parseDouble(LocationService.mLatitude), Double.parseDouble(LocationService.mLongitude), getActivity());
             etLoc.setText(address.getAddressLine(0));
@@ -147,13 +151,16 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     public void clickListner() {
-
-
         img_gigs.setOnClickListener(this);
         img_venue.setOnClickListener(this);
         img_event_manger.setOnClickListener(this);
         img_talent_manager.setOnClickListener(this);
         et_explore.setOnClickListener(this);
+        ivArtist.setOnClickListener(this);
+        rlSearch.setOnClickListener(this);
+        ivSearch.setOnClickListener(this);
+        ivEditLoc.setOnClickListener(this);
+        ivBand.setOnClickListener(this);
 //        etLoc.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 //            @Override
 //            public void onFocusChange(View view, boolean b) {
@@ -192,12 +199,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
 
         }
-
-
-    }
-
-    @OnClick({R.id.ivArtist, R.id.rlSearch, R.id.ivSearch, R.id.ivEditLoc, R.id.ivBand})
-    public void click(View view) {
         if (view.getId() == R.id.ivArtist) {
             searchArtistMethod();
 
@@ -212,7 +213,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             startActivity(new Intent(getActivity(), SearchBandActivity.class));
         }
 
+
     }
+
+
+
+
 
     private void searchArtistMethod() {
 

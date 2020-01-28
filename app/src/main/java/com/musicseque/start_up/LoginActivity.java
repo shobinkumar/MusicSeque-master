@@ -2,14 +2,11 @@ package com.musicseque.start_up;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
-import android.os.Handler;
-import android.preference.TwoStatePreference;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Base64;
@@ -49,14 +46,11 @@ import com.musicseque.utilities.Utils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 import static com.musicseque.utilities.Constants.FOR_RESEND_OTP;
 import static com.musicseque.utilities.Constants.FOR_VERIFY_ACCOUNT;

@@ -22,7 +22,6 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.lang.Exception
 import com.musicseque.interfaces.DateTimeInterface
-import com.musicseque.utilities.Constants
 import kotlin.collections.ArrayList
 import com.crystal.crystalrangeseekbar.interfaces.OnSeekbarChangeListener
 import com.musicseque.MainActivity
@@ -34,6 +33,7 @@ import com.musicseque.models.CountryModel
 import com.musicseque.models.StateModel
 import com.musicseque.retrofit_interface.ImageUploadClass
 import com.musicseque.retrofit_interface.RetrofitAPI
+import com.musicseque.utilities.Constants
 import com.musicseque.utilities.Constants.FOR_COUNTRIES_LIST
 import com.musicseque.utilities.Constants.FOR_CURRENCY_LIST
 import com.musicseque.utilities.Constants.FOR_EVENT_DETAIL
@@ -425,8 +425,11 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                     obj.put("EventState", mStateId)
                     obj.put("EventCountry", mCountryId)
                     obj.put("EventAddress", mAddress)
-
                     obj.put("EventPostalCode", mZipCode)
+                    obj.put("ArtistBookingFromTime", mFromTimeArtist)
+                    obj.put("ArtistBookingToTime", mToTimeArtist)
+                    obj.put("VenueBookingFromTime", mFromTimeVenue)
+                    obj.put("VenueBookingToTime", mToTimeVenue)
                     getAPI(FOR_SAVE_UPDATE_EVENT_DETAIL, obj.toString())
 
                 }

@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.musicseque.artist.activity.other_artist_activity.OtherProfileActivity
 import com.musicseque.event_manager.activity.EventDetailVenueActivity
-import com.musicseque.utilities.Constants
 import com.musicseque.venue_manager.model.BookingStatusModel
 import kotlinx.android.synthetic.main.row_accepted_rejected_booking_item.view.*
 import android.text.Spannable
@@ -19,6 +18,7 @@ import android.text.SpannableStringBuilder
 import android.text.style.StyleSpan
 import com.musicseque.Fonts.Noyhr
 import com.musicseque.R
+import com.musicseque.utilities.Constants
 
 
 class AcceptedAndRejectedBookingAdapter(val activity: Activity, val arrayList: ArrayList<BookingStatusModel>) : RecyclerView.Adapter<AcceptedAndRejectedBookingAdapter.MyHolder>() {

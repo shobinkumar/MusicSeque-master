@@ -212,4 +212,8 @@ public interface CommonInterfaceRetrofit {
     @POST(Constants.SEND_REQ_TO_ARTIST_FOR_EVENT_API)
     Call<String>  methodForSendArtistReq(@Body String params);
 
+    @Headers("Content-Type: application/json")
+    @POST(Constants.ARTIST_EVENT_ACCEPT_REJECT_API)
+    Call<String>  methodForAcceptRejectEventReq(@Body String params);
+
 }

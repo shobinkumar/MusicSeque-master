@@ -14,7 +14,6 @@ import android.support.v7.app.AlertDialog
 
 
 import com.musicseque.MainActivity
-import com.musicseque.start_up.LoginActivity
 
 import com.musicseque.MyApplication
 import com.musicseque.R

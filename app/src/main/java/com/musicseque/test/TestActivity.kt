@@ -4,7 +4,6 @@ import android.app.Activity
 import android.os.Bundle
 import com.musicseque.R
 import com.musicseque.interfaces.MyInterface
-import com.musicseque.retrofit_interface.KotlinHitAPI
 import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.Constants
 import org.json.JSONObject

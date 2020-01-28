@@ -11,6 +11,7 @@ import android.support.v4.util.ArrayMap
 import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.musicseque.artist.activity.AcceptRejectEventRequestActivity
 import com.musicseque.event_manager.activity.EventDetailActivity
 import com.musicseque.utilities.Constants.PROFILE_TYPE
 import com.musicseque.utilities.SharedPref
@@ -113,8 +114,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             val json = JSONObject(data)
 
 
-            if(json.get("Unique_Id") == "1" || json.get("Unique_Id") == "2")
-            {
+            if (json.get("Unique_Id") == "1" || json.get("Unique_Id") == "2") {
 
                 val resultIntent = Intent(this, EventDetailActivity::class.java)
                 resultIntent.putExtra("event_id", json.getString("Event_Id"))
@@ -135,13 +135,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 notificationManager.notify(random, notificationBuilder.build())
 
 
-
-
-
-
-            }
-
-          else  if (json.get("Unique_Id") == "3" || json.get("Unique_Id") == "4" || json.get("Unique_Id") == "5" ||json.get("Unique_Id") == "6") {
+            } else if (json.get("Unique_Id") == "3" || json.get("Unique_Id") == "4" || json.get("Unique_Id") == "5" || json.get("Unique_Id") == "6") {
                 val resultIntent = Intent(this, NotificationActivity::class.java)
 
 
@@ -161,8 +155,25 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 notificationManager.notify(random, notificationBuilder.build())
 
 
-            }
+            } else if (json.get("Unique_Id") == "8") {
+                val resultIntent = Intent(this, AcceptRejectEventRequestActivity::class.java)
+                resultIntent.putExtra("event_id", json.getString("Event_Id"))
 
+                val pendingIntent = PendingIntent.getActivity(
+                        this,
+                        0,
+                        resultIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                )
+
+                val notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID_ARTIST)
+                notificationBuilder.setAutoCancel(true)
+                notificationBuilder.setSmallIcon(android.support.v4.R.drawable.notification_icon_background)
+                notificationBuilder.setContentTitle(json.getString("Message"))
+                // notificationBuilder.setContentText()
+                notificationBuilder.setContentIntent(pendingIntent)
+                notificationManager.notify(random, notificationBuilder.build())
+            }
 
         }
 

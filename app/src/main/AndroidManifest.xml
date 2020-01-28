@@ -65,9 +65,6 @@
         <activity
             android:name=".artist.activity.MusicDetailActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".MainActivity"
-            android:screenOrientation="portrait" />
 
         <activity android:name=".event_manager.activity.UpcomingEventDetailActivity" />
         <activity
@@ -109,7 +106,8 @@
             android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
-
+        <activity android:name=".artist.activity.AcceptRejectEventRequestActivity"/>
+<activity android:name=".MainActivity"/>
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />

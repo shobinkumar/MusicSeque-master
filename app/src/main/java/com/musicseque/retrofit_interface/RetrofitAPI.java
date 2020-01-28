@@ -138,6 +138,10 @@ public class RetrofitAPI {
             call = api.methodForSendArtistReq(params);
 
         }
+        else if (TYPE == Constants.FOR_ACCEPT_REJECT_EVENT_REQ_ARTIST) {
+            call = api.methodForAcceptRejectEventReq(params);
+
+        }
 
         callRetrofit(call, TYPE);
 

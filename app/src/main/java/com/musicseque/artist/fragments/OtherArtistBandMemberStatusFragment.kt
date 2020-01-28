@@ -1,6 +1,5 @@
 package com.musicseque.artist.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -12,7 +11,6 @@ import com.google.gson.reflect.TypeToken
 import com.musicseque.Fonts.Noyhr
 import com.musicseque.R
 import com.musicseque.artist.artist_adapters.OtherArtistBandMemberStatusAdapter
-import com.musicseque.artist.band.band_activity.SearchBandMemberActivity
 import com.musicseque.artist.band.band_model.BandMemberStatusModel
 import com.musicseque.interfaces.MyInterface
 import com.musicseque.retrofit_interface.RetrofitAPI

@@ -8,13 +8,13 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.ScrollView
 import butterknife.ButterKnife
-import butterknife.OnClick
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.musicseque.Fonts.Noyhr
+import com.musicseque.MainActivity
 import com.musicseque.R
 import com.musicseque.activities.BaseActivity
 import com.musicseque.artist.activity.other_artist_activity.ArtistBandListActivity
@@ -32,7 +32,7 @@ import kotlinx.android.synthetic.main.toolbar_top.*
 import org.json.JSONException
 import org.json.JSONObject
 
-class ArtistDetailEventManagerActivity : BaseActivity(), MyInterface {
+class ArtistDetailEventManagerActivity : BaseActivity(), MyInterface, View.OnClickListener {
     private var isFollow: Boolean = false
     private var mFollowerCount: String = ""
     private var mUserId: Int = 0
@@ -49,6 +49,20 @@ class ArtistDetailEventManagerActivity : BaseActivity(), MyInterface {
 
     private fun listeneres() {
         ButterKnife.bind(this)
+        tvSendRequestArtistEventManager.setOnClickListener(this)
+        //tvBand.setOnClickListener(this)
+        img_first_icon.setOnClickListener(this)
+        ivCameraBackgroundArtistEventManager.setOnClickListener(this)
+        btnFollowArtistEventManager.setOnClickListener(this)
+        ivCameraProfilePicArtistEventManager.setOnClickListener(this)
+        tvMessageArtistEventManager.setOnClickListener(this)
+        ivIconDropArtistEventManager.setOnClickListener(this)
+        ivIconUpArtistEventManager.setOnClickListener(this)
+        llMusic.setOnClickListener(this)
+        llVideo.setOnClickListener(this)
+        llPhotos.setOnClickListener(this)
+        llGigs.setOnClickListener(this)
+        llCollaborators.setOnClickListener(this)
     }
 
     private fun initOtherViews() {
@@ -66,6 +80,7 @@ class ArtistDetailEventManagerActivity : BaseActivity(), MyInterface {
         val jsonObject = JSONObject()
         jsonObject.put("ArtistUserId", mUserId)
         jsonObject.put("LoginUserId", SharedPref.getString(Constants.USER_ID, ""))
+
         hitAPI(FOR_OTHER_PROFILE, jsonObject.toString())
 
 
@@ -158,11 +173,23 @@ class ArtistDetailEventManagerActivity : BaseActivity(), MyInterface {
             } catch (e: JSONException) {
                 e.printStackTrace()
             }
+            Constants.FOR_SEND_REQ_ARTIST -> {
+                val obj = JSONObject(response.toString())
+                if (obj.getString("Status").equals("Success", ignoreCase = true)) {
+                    Utils.showToast(this,obj.getString("Message"))
+                    startActivity(Intent(this, MainActivity::class.java))
+
+                }
+                else{
+                    Utils.showToast(this,obj.getString("Message"))
+
+                }
+            }
         }
     }
 
-    @OnClick(R.id.tvSendRequestArtistEventManager, R.id.tvBand, R.id.img_first_icon, R.id.ivCameraBackground, R.id.btnFollow, R.id.ivCameraProfilePic, R.id.tvMessage, R.id.ivIconDrop, R.id.ivIconUp, R.id.llMusic, R.id.llVideo, R.id.llPhotos, R.id.llGigs, R.id.llCollaborators)
-    fun setViewOnClickEvent(view: View) {
+
+    override fun onClick(view: View) {
         when (view.id) {
 
             R.id.tvSendRequestArtistEventManager -> {
@@ -170,6 +197,7 @@ class ArtistDetailEventManagerActivity : BaseActivity(), MyInterface {
                 val json = JSONObject()
                 json.put("ArtistId", mUserId)
                 json.put("EventId", mEventId)
+                json.put("RequestStatus", "P")
 
                 hitAPI(FOR_SEND_REQ_ARTIST, json.toString())
 
@@ -259,7 +287,7 @@ class ArtistDetailEventManagerActivity : BaseActivity(), MyInterface {
 
     fun changeFragment(fragment: Fragment?) {
         val ft = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.frame_layout, fragment!!).commit()
+        ft.replace(R.id.frame_layout_ArtistEventManager, fragment!!).commit()
     }
 
 
