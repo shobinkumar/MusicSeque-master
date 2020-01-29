@@ -22,7 +22,6 @@ import com.musicseque.artist.retrofit_upload.ProgressRequestBody;
 import com.musicseque.interfaces.MyInterface;
 import com.musicseque.retrofit_interface.ImageUploadInterface;
 import com.musicseque.retrofit_interface.RetrofitAPI;
-import com.musicseque.retrofit_interface.KotlinRetrofitClientInstance;
 import com.musicseque.retrofit_interface.RetrofitClientInstance;
 import com.musicseque.utilities.Constants;
 import com.musicseque.utilities.SharedPref;

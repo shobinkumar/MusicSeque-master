@@ -193,27 +193,122 @@ public interface CommonInterfaceRetrofit {
 
     @Headers("Content-Type: application/json")
     @POST(Constants.TEST_API)
-    Call<String>  methodTest(@Body String params);
+    Call<String> methodTest(@Body String params);
 
 
     @Headers("Content-Type: application/json")
     @POST(Constants.STATE_LIST_API)
-    Call<String>  methodForStateList(@Body String params);
+    Call<String> methodForStateList(@Body String params);
 
     @Headers("Content-Type: application/json")
     @POST(Constants.CITY_LIST_API)
-    Call<String>  methodForCityList(@Body String params);
+    Call<String> methodForCityList(@Body String params);
 
     @Headers("Content-Type: application/json")
     @POST(Constants.SEARCH_ARTIST_EVENT_MANAGER_API)
-    Call<String>  methodSearchArtistEventManager(@Body String params);
+    Call<String> methodSearchArtistEventManager(@Body String params);
 
     @Headers("Content-Type: application/json")
     @POST(Constants.SEND_REQ_TO_ARTIST_FOR_EVENT_API)
-    Call<String>  methodForSendArtistReq(@Body String params);
+    Call<String> methodForSendArtistReq(@Body String params);
 
     @Headers("Content-Type: application/json")
     @POST(Constants.ARTIST_EVENT_ACCEPT_REJECT_API)
-    Call<String>  methodForAcceptRejectEventReq(@Body String params);
+    Call<String> methodForAcceptRejectEventReq(@Body String params);
+
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.EVENT_SAVE_UPDATE_DETAIL_API)
+    Call<String> methodEventSaveUpdateDetail(@Body String params);
+
+
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.EVENT_DETAIL_API)
+    Call<String> methodEventDetail(@Body String params);
+
+
+
+    @Headers("Content-Type: application/json")
+    @GET(Constants.EVENT_TYPE_LIST_API)
+    Call<String> methodEvents();
+
+
+
+    @Headers("Content-Type: application/json")
+    @GET(Constants.CURRENCY_LIST_API)
+    Call<String> methodCurrency();
+
+
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.VENUE_LIST_API)
+    Call<String> methodForVenueList(@Body String params);
+
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.VENUE_ADD_UPDATE_PROFILE_API)
+    Call<String> methodForVenueProfileSaveUpdate(@Body String params);
+
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.GET_EVENTS_LIST_API)
+    Call<String> getEventsListMethod(@Body String params);
+
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.DELETE_EVENT_API)
+    Call<String> methodForDeleteEvent(@Body String params);
+
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.GET_VENUE_TIMMINGS_API)
+    Call<String> methodForGetVenueTimmings(@Body String params);
+
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.VENUE_BOOK_API)
+    Call<String> methodForVenueBook(@Body String params);
+
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.VENUE_TO_TIMMINGS_API)
+    Call<String> methodForVenueToTimmings(@Body String params);
+
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.VENUE_FROM_TIMMINGS_API)
+    Call<String> methodForVenueFromTimmings(@Body String params);
+
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.VENUE_SUBMIT_TIMMINGS_API)
+    Call<String> methodForSubmitVenueTimmings(@Body String params);
+
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.VENUE_BOOKED_PENDING_TIMMINGS_API)
+    Call<String> methodForVenueBookedPendingTimmings(@Body String params);
+
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.VENUE_ACCEPT_REJECT_API)
+    Call<String> methodAcceptRejectRequest(@Body String params);
+
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.EVENT_STATUS_API)
+    Call<String> methodEventStatus(@Body String params);
+
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.GIGS_ARTIST_API)
+    Call<String> methodArtistGigs(@Body String params);
+
+
+    @Headers("Content-Type: application/json")
+    @POST(Constants.GIGS_VENUE_API)
+    Call<String> methodVenueGigs(@Body String params);
+
 
 }

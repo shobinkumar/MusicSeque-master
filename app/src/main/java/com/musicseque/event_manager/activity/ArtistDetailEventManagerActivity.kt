@@ -20,7 +20,7 @@ import com.musicseque.activities.BaseActivity
 import com.musicseque.artist.activity.other_artist_activity.ArtistBandListActivity
 import com.musicseque.artist.fragments.*
 import com.musicseque.interfaces.MyInterface
-import com.musicseque.retrofit_interface.RetrofitAPI
+import com.musicseque.utilities.APIHit
 import com.musicseque.utilities.Constants
 import com.musicseque.utilities.Constants.FOR_OTHER_PROFILE
 import com.musicseque.utilities.Constants.FOR_SEND_REQ_ARTIST
@@ -87,26 +87,23 @@ class ArtistDetailEventManagerActivity : BaseActivity(), MyInterface, View.OnCli
     }
 
     private fun hitAPI(TYPE: Int, args: String) {
-        if (Utils.isNetworkConnected(this)) {
-            showDialog()
+
             if (TYPE == FOR_OTHER_PROFILE) {
                 try {
 
-                    RetrofitAPI.callAPI(args, Constants.FOR_OTHER_PROFILE, this)
+                    APIHit.sendPostData(args, Constants.FOR_OTHER_PROFILE, this,this)
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
             } else if (TYPE == Constants.FOR_FOLLOW_UNFOLLOW_ARTIST) {
-                RetrofitAPI.callAPI(args, Constants.FOR_FOLLOW_UNFOLLOW_ARTIST, this)
+                APIHit.sendPostData(args, Constants.FOR_FOLLOW_UNFOLLOW_ARTIST, this,this)
 
             } else if (TYPE == FOR_SEND_REQ_ARTIST) {
-                RetrofitAPI.callAPI(args, Constants.FOR_SEND_REQ_ARTIST, this)
+                APIHit.sendPostData(args, Constants.FOR_SEND_REQ_ARTIST, this,this)
 
             }
 
-        } else {
-            Utils.showToast(this, resources.getString(R.string.err_no_internet))
-        }
+
     }
 
 

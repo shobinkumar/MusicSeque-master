@@ -22,7 +22,6 @@ import com.musicseque.event_manager.adapter.SearchArtistAdapterEventManager
 import com.musicseque.event_manager.model.EventListModel
 import com.musicseque.interfaces.MyInterface
 import com.musicseque.interfaces.SpinnerData
-import com.musicseque.retrofit_interface.KotlinHitAPI
 import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.Constants
 import com.musicseque.utilities.Constants.FOR_SEARCH_ARTIST_EVENT_MANAGER
@@ -38,11 +37,13 @@ import java.util.*
 
 class SearchArtistActivityEventManager : BaseActivity(), MyInterface, View.OnClickListener {
     lateinit private var listPopupWindow: ListPopupWindow
-       public var arrayList=ArrayList<ArtistModel>()
+    public var arrayList = ArrayList<ArtistModel>()
     var mEventName = ""
-   public var mEventId = ""
+    public var mEventId = ""
 
     public var eventsList = ArrayList<EventListModel>()
+    public var eventsListTemp = ArrayList<EventListModel>()
+
     lateinit var arrEventName: Array<String>
     var alEventName = ArrayList<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -156,7 +157,7 @@ class SearchArtistActivityEventManager : BaseActivity(), MyInterface, View.OnCli
                 val obj = JSONObject()
                 obj.put("EventManagerId", SharedPref.getString(Constants.USER_ID, ""))
                 obj.put("EventStatus", "2")
-                KotlinHitAPI.callAPI(obj.toString(), Constants.FOR_SHOW_EVENTS_LIST, this)
+                RetrofitAPI.callAPI(obj.toString(), Constants.FOR_SHOW_EVENTS_LIST, this)
             }
 
         } else {
@@ -229,7 +230,11 @@ class SearchArtistActivityEventManager : BaseActivity(), MyInterface, View.OnCli
                     val listType = object : TypeToken<ArrayList<EventListModel>>() {}.type
                     eventsList = Gson().fromJson<ArrayList<EventListModel>>(arr.toString(), listType)
                     for (i in eventsList) {
-                        alEventName.add(i.event_title)
+                        if (i.artist_confirmation_status.equals("")) {
+                            eventsListTemp.add(i)
+                            alEventName.add(i.event_title)
+                        }
+
                     }
                     arrEventName = alEventName.toTypedArray()
                 } else {

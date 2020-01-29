@@ -14,7 +14,7 @@ import com.musicseque.event_manager.adapter.EventListAdapter
 import com.musicseque.event_manager.adapter.UpcomingEventAdapter
 import com.musicseque.event_manager.model.EventListModel
 import com.musicseque.interfaces.MyInterface
-import com.musicseque.retrofit_interface.KotlinHitAPI
+import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.Constants
 import com.musicseque.utilities.Constants.FOR_SHOW_EVENTS_LIST
 import com.musicseque.utilities.KotlinBaseFragment
@@ -49,11 +49,11 @@ class ArtistEventsListFragment(val value: Int) : KotlinBaseFragment(), MyInterfa
                 val obj = JSONObject()
                 obj.put("EventManagerId", SharedPref.getString(Constants.USER_ID, ""))
                 obj.put("EventStatus", mType)
-                KotlinHitAPI.callAPI(obj.toString(), Constants.FOR_SHOW_EVENTS_LIST, this)
+                RetrofitAPI.callAPI(obj.toString(), Constants.FOR_SHOW_EVENTS_LIST, this)
             } else if (type == Constants.FOR_DELETE_EVENT) {
                 val obj = JSONObject()
                 obj.put("EventId", mEventId)
-                KotlinHitAPI.callAPI(obj.toString(), Constants.FOR_DELETE_EVENT, this)
+                RetrofitAPI.callAPI(obj.toString(), Constants.FOR_DELETE_EVENT, this)
             }
 
 

@@ -12,7 +12,7 @@ import com.musicseque.R
 import com.musicseque.artist.fragments.BaseFragment
 import com.musicseque.interfaces.BookingAcceptReject
 import com.musicseque.interfaces.MyInterface
-import com.musicseque.retrofit_interface.KotlinHitAPI
+import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.Constants
 import com.musicseque.utilities.Constants.FOR_ACCEPTED_REQ
 import com.musicseque.utilities.Constants.FOR_ACCEPT_EVENT_REQ
@@ -61,23 +61,23 @@ class CommonBookingStatusFragment : BaseFragment(), MyInterface, BookingAcceptRe
                 json.put("VenueId", SharedPref.getString(Constants.USER_ID, ""))
                 json.put("VenueStatus", "B")
 
-                KotlinHitAPI.callAPI(json.toString(), FOR_ACCEPTED_REQ, this)
+                RetrofitAPI.callAPI(json.toString(), FOR_ACCEPTED_REQ, this)
             } else if (type == FOR_PENDING_REQ) {
                 val json = JSONObject()
                 json.put("VenueId", SharedPref.getString(Constants.USER_ID, ""))
                 json.put("VenueStatus", "P")
 
-                KotlinHitAPI.callAPI(json.toString(), FOR_PENDING_REQ, this)
+                RetrofitAPI.callAPI(json.toString(), FOR_PENDING_REQ, this)
             } else if (type == FOR_REJECTED_REQ) {
                 val json = JSONObject()
                 json.put("VenueId", SharedPref.getString(Constants.USER_ID, ""))
                 json.put("VenueStatus", "R")
 
-                KotlinHitAPI.callAPI(json.toString(), FOR_REJECTED_REQ, this)
+                RetrofitAPI.callAPI(json.toString(), FOR_REJECTED_REQ, this)
             } else if (type == FOR_ACCEPT_EVENT_REQ) {
-                KotlinHitAPI.callAPI(args, FOR_ACCEPT_EVENT_REQ, this)
+                RetrofitAPI.callAPI(args, FOR_ACCEPT_EVENT_REQ, this)
             } else if (type == FOR_REJECT_EVENT_REQ) {
-                KotlinHitAPI.callAPI(args, FOR_REJECT_EVENT_REQ, this)
+                RetrofitAPI.callAPI(args, FOR_REJECT_EVENT_REQ, this)
             }
         } else {
             Utils.showToast(requireContext(), resources.getString(R.string.err_no_internet))

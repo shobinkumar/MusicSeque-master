@@ -10,7 +10,7 @@ class EventStatusArtistPagerAdapter(fm: FragmentManager) : FragmentStatePagerAda
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> {
-                ArtistEventsListFragment(2)
+                   ArtistEventsListFragment(2)
             }
 
             else -> {

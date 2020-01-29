@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.musicseque.retrofit_interface.CommonInterfaceRetrofit;
-import com.musicseque.retrofit_interface.KotlinCommonInterface;
-import com.musicseque.retrofit_interface.KotlinRetrofitClientInstance;
 import com.musicseque.retrofit_interface.RetrofitClientInstance;
 import com.musicseque.utilities.Constants;
 import com.musicseque.utilities.Utils;

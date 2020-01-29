@@ -15,7 +15,6 @@ import com.musicseque.event_manager.adapter.EventAdapter
 import com.musicseque.event_manager.model.CurrencyModel
 import com.musicseque.interfaces.MyInterface
 import com.musicseque.interfaces.SpinnerData
-import com.musicseque.retrofit_interface.KotlinHitAPI
 import com.musicseque.utilities.KotlinUtils
 import com.musicseque.utilities.Utils
 import org.json.JSONArray
@@ -182,15 +181,15 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
         if (Utils.isNetworkConnected(this)) {
             Utils.initializeAndShow(this)
             if (value == Constants.FOR_EVENT_TYPE_LIST) {
-                KotlinHitAPI.callGetAPI(Constants.FOR_EVENT_TYPE_LIST, this)
+                RetrofitAPI.callGetAPI(Constants.FOR_EVENT_TYPE_LIST, this)
             } else if (value == Constants.FOR_CURRENCY_LIST) {
-                KotlinHitAPI.callGetAPI(Constants.FOR_CURRENCY_LIST, this)
+                RetrofitAPI.callGetAPI(Constants.FOR_CURRENCY_LIST, this)
             } else if (value == Constants.FOR_SAVE_UPDATE_EVENT_DETAIL) {
-                KotlinHitAPI.callAPI(args, Constants.FOR_SAVE_UPDATE_EVENT_DETAIL, this)
+                RetrofitAPI.callAPI(args, Constants.FOR_SAVE_UPDATE_EVENT_DETAIL, this)
             } else if (value == Constants.FOR_EVENT_DETAIL) {
                 val obj = JSONObject()
                 obj.put("EventId", mEventId)
-                KotlinHitAPI.callAPI(obj.toString(), Constants.FOR_EVENT_DETAIL, this)
+                RetrofitAPI.callAPI(obj.toString(), Constants.FOR_EVENT_DETAIL, this)
             } else if (value == Constants.FOR_COUNTRIES_LIST) {
                 RetrofitAPI.callGetAPI(Constants.FOR_COUNTRIES_LIST, this@CreateEventActivity)
 
@@ -415,8 +414,8 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
 
                     obj.put("EventDateFrom", mDate1)
                     obj.put("EventDateTo", mDate2)
-                    obj.put("EventTimeFrom", mFromTimeArtist)
-                    obj.put("EventTimeTo", mToTimeArtist)
+                    obj.put("EventTimeFrom", mFromTimeVenue)
+                    obj.put("EventTimeTo", mToTimeVenue)
                     obj.put("EventGatheringCapacity", mAttendence)
                     obj.put("EventChargesPayCurrencyId", mCurrencyId)
                     obj.put("EventBudget", mBudgetGuest)

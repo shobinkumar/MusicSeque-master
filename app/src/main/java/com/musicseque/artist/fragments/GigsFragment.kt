@@ -15,7 +15,7 @@ import com.musicseque.R
 import com.musicseque.artist.artist_adapters.ArtistGigsAdapter
 import com.musicseque.artist.artist_models.GigsModel
 import com.musicseque.interfaces.MyInterface
-import com.musicseque.retrofit_interface.KotlinHitAPI
+import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.Constants
 import com.musicseque.utilities.Constants.FOR_ARTIST_GIGS
 import com.musicseque.utilities.SharedPref
@@ -42,7 +42,7 @@ class GigsFragment : Fragment(), MyInterface {
             if (APITYPE == FOR_ARTIST_GIGS) {
                 val json = JSONObject()
                 json.put("LoggedInUserId", SharedPref.getString(Constants.USER_ID, ""))
-                KotlinHitAPI.callAPI(json.toString(), FOR_ARTIST_GIGS, this)
+                RetrofitAPI.callAPI(json.toString(), FOR_ARTIST_GIGS, this)
             }
         } else {
             Utils.showToast(activity, resources.getString(R.string.err_no_internet))

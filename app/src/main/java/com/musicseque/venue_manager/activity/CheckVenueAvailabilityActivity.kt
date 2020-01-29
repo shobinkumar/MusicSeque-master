@@ -10,7 +10,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.musicseque.R
 import com.musicseque.interfaces.MyInterface
-import com.musicseque.retrofit_interface.KotlinHitAPI
+import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.Constants
 import com.musicseque.utilities.Constants.FOR_VENUE_TIMMINGS
 import com.musicseque.utilities.KotlinUtils
@@ -149,7 +149,7 @@ class CheckVenueAvailabilityActivity : Activity(), View.OnClickListener, MyInter
                 val json = JSONObject()
                 json.put("VenueId", mVenueId)
                 json.put("BookingAsOnDate", sSelectedDate)
-                KotlinHitAPI.callAPI(json.toString(), FOR_VENUE_TIMMINGS, this)
+                RetrofitAPI.callAPI(json.toString(), FOR_VENUE_TIMMINGS, this)
             }
         } else {
             Utils.showToast(this, resources.getString(R.string.err_no_internet))

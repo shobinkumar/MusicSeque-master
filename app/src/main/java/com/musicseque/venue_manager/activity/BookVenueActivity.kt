@@ -23,7 +23,7 @@ import com.musicseque.event_manager.model.EventModel
 import com.musicseque.interfaces.MyInterface
 import com.musicseque.interfaces.SpinnerData
 import com.musicseque.retrofit_interface.ImageUploadClass
-import com.musicseque.retrofit_interface.KotlinHitAPI
+import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.Constants
 import com.musicseque.utilities.Constants.FOR_CURRENCY_LIST
 import com.musicseque.utilities.Constants.FOR_EVENT_TYPE_LIST
@@ -626,23 +626,23 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
                 val json = JSONObject()
                 json.put("VenueId", mVenueId)
                 // json.put("BookingAsOnDate", "01-01-1900")
-                KotlinHitAPI.callAPI(json.toString(), Constants.FOR_VENUE_FROM_TIMMINGS, this)
+                RetrofitAPI.callAPI(json.toString(), Constants.FOR_VENUE_FROM_TIMMINGS, this)
             } else if (type == FOR_VENUE_TO_TIMMINGS) {
                 val json = JSONObject()
                 json.put("VenueId", mVenueId)
                 json.put("FromDate", mStartDate)
                 json.put("FromTime", mStartTime)
 
-                KotlinHitAPI.callAPI(json.toString(), Constants.FOR_VENUE_TO_TIMMINGS, this)
+                RetrofitAPI.callAPI(json.toString(), Constants.FOR_VENUE_TO_TIMMINGS, this)
 
             } else if (type == FOR_VENUE_BOOK) {
-                KotlinHitAPI.callAPI(str, FOR_VENUE_BOOK, this)
+                RetrofitAPI.callAPI(str, FOR_VENUE_BOOK, this)
             } else if (type == FOR_EVENT_TYPE_LIST) {
-                KotlinHitAPI.callGetAPI(FOR_EVENT_TYPE_LIST, this)
+                RetrofitAPI.callGetAPI(FOR_EVENT_TYPE_LIST, this)
             } else if (type == FOR_CURRENCY_LIST) {
-                KotlinHitAPI.callGetAPI(FOR_CURRENCY_LIST, this)
+                RetrofitAPI.callGetAPI(FOR_CURRENCY_LIST, this)
             } else if (type == FOR_SAVE_UPDATE_EVENT_DETAIL) {
-                KotlinHitAPI.callAPI(str, FOR_SAVE_UPDATE_EVENT_DETAIL, this)
+                RetrofitAPI.callAPI(str, FOR_SAVE_UPDATE_EVENT_DETAIL, this)
             }
 
         } else {

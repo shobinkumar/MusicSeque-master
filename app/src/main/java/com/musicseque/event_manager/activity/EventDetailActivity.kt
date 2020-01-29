@@ -6,7 +6,7 @@ import com.bumptech.glide.Glide
 import com.musicseque.R
 import com.musicseque.activities.BaseActivity
 import com.musicseque.interfaces.MyInterface
-import com.musicseque.retrofit_interface.KotlinHitAPI
+import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.Constants
 import com.musicseque.utilities.KotlinUtils
 import com.musicseque.utilities.Utils
@@ -49,7 +49,7 @@ class EventDetailActivity : BaseActivity(), View.OnClickListener, MyInterface {
         if (Utils.isNetworkConnected(this)) {
             val obj = JSONObject()
             obj.put("EventId", intent.getStringExtra("event_id"))
-            KotlinHitAPI.callAPI(obj.toString(), Constants.FOR_EVENT_DETAIL, this)
+            RetrofitAPI.callAPI(obj.toString(), Constants.FOR_EVENT_DETAIL, this)
         } else {
             Utils.showToast(this, resources.getString(R.string.err_no_internet))
         }

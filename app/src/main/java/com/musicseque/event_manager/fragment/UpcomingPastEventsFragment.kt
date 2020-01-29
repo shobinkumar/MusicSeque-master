@@ -8,6 +8,7 @@ import com.musicseque.R
 import com.musicseque.utilities.KotlinBaseFragment
 
 class UpcomingPastEventsFragment:KotlinBaseFragment() {
+
     lateinit var v:View
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         v=inflater.inflate(R.layout.fragment_upcoming_past_events,null)

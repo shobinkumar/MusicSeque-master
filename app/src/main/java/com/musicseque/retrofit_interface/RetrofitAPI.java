@@ -142,6 +142,57 @@ public class RetrofitAPI {
             call = api.methodForAcceptRejectEventReq(params);
 
         }
+       else if (TYPE == Constants.FOR_EVENT_DETAIL) {
+            call = api.methodEventDetail(params);
+        } else if (TYPE == Constants.FOR_SAVE_UPDATE_EVENT_DETAIL) {
+            call = api.methodEventSaveUpdateDetail(params);
+        } else if (TYPE == Constants.FOR_SEARCH_VENUE_LIST) {
+            call = api.methodForVenueList(params);
+        } else if (TYPE == Constants.FOR_VENUE_TIMMINGS) {
+            call = api.methodForGetVenueTimmings(params);
+        } else if (TYPE == Constants.FOR_SUBMIT_TIMMINGS) {
+            call = api.methodForSubmitVenueTimmings(params);
+        } else if (TYPE == Constants.FOR_VENUE_BOOK) {
+            call = api.methodForVenueBook(params);
+        } else if (TYPE == Constants.FOR_DELETE_EVENT) {
+            call = api.methodForDeleteEvent(params);
+        } else if (TYPE == Constants.FOR_SHOW_EVENTS_LIST) {
+            call = api.getEventsListMethod(params);
+        } else if (TYPE == Constants.FOR_CREATE_UPDATE_VENUE_PROFILE) {
+            call = api.methodForVenueProfileSaveUpdate(params);
+        }  else if (TYPE == Constants.FOR_VENUE_TO_TIMMINGS) {
+            call = api.methodForVenueToTimmings(params);
+        } else if (TYPE == Constants.FOR_VENUE_FROM_TIMMINGS) {
+            call = api.methodForVenueFromTimmings(params);
+        } else if (TYPE == Constants.FOR_VENUE_SHOW_BOOKED_PENDING_TIMMINGS) {
+            call = api.methodForVenueBookedPendingTimmings(params);
+        } else if (TYPE == Constants.FOR_ACCEPT_EVENT_REQ) {
+            call = api.methodAcceptRejectRequest(params);
+        } else if (TYPE == Constants.FOR_REJECT_EVENT_REQ) {
+            call = api.methodAcceptRejectRequest(params);
+        }
+
+
+        else if (TYPE == Constants.FOR_PENDING_REQ) {
+            call = api.methodEventStatus(params);
+        }
+        else if (TYPE == Constants.FOR_ACCEPTED_REQ) {
+            call = api.methodEventStatus(params);
+        }
+
+        else if (TYPE == Constants.FOR_REJECTED_REQ) {
+            call = api.methodEventStatus(params);
+        }
+
+        else if (TYPE == Constants.FOR_TEST) {
+            call = api.methodTest(params);
+        }
+        else if (TYPE == Constants.FOR_ARTIST_GIGS) {
+            call = api.methodArtistGigs(params);
+        }
+        else if (TYPE == Constants.FOR_VENUE_GIGS) {
+            call = api.methodVenueGigs(params);
+        }
 
         callRetrofit(call, TYPE);
 
@@ -157,6 +208,12 @@ public class RetrofitAPI {
             call = api.callGenreList();
         } else if (TYPE == Constants.FOR_COUNTRIES_LIST) {
             call = api.callCountryList();
+        }
+       else if (TYPE == Constants.FOR_EVENT_TYPE_LIST) {
+            call = api.methodEvents();
+        } else if (TYPE == Constants.FOR_CURRENCY_LIST) {
+            call = api.methodCurrency();
+
         }
         callRetrofit(call, TYPE);
 

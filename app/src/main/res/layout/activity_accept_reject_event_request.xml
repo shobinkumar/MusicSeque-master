@@ -38,7 +38,7 @@
                         android:textSize="16sp" />
 
                     <com.musicseque.Fonts.Noyhr
-                        android:id="@+id/tvEventName"
+                        android:id="@+id/tvEventManagerName"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="60"
@@ -74,7 +74,7 @@
                         android:textSize="16sp" />
 
                     <com.musicseque.Fonts.Noyhr
-                        android:id="@+id/tvEventContact"
+                        android:id="@+id/tvEventManagerContact"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="60"
@@ -111,7 +111,7 @@
                         android:textSize="16sp" />
 
                     <com.musicseque.Fonts.Noyhr
-                        android:id="@+id/tvEventEmail"
+                        android:id="@+id/tvEventManagerEmail"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="60"
@@ -148,7 +148,7 @@
                         android:textSize="16sp" />
 
                     <com.musicseque.Fonts.Noyhr
-                        android:id="@+id/tvEventGigName"
+                        android:id="@+id/tvGigName"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="60"
@@ -299,7 +299,7 @@
                         android:textSize="16sp" />
 
                     <com.musicseque.Fonts.Noyhr
-                        android:id="@+id/tvEventEndtDateTime"
+                        android:id="@+id/tvEventEndDateTime"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="60"
@@ -348,7 +348,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:layout_below="@+id/llGathering"
+                    android:layout_below="@+id/llAddress"
                     android:layout_marginTop="5dp"
                     android:background="@color/color_white" />
             </RelativeLayout>
@@ -386,7 +386,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:layout_below="@+id/llGathering"
+                    android:layout_below="@+id/llCity"
                     android:layout_marginTop="5dp"
                     android:background="@color/color_white" />
             </RelativeLayout>
@@ -423,7 +423,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:layout_below="@+id/llGathering"
+                    android:layout_below="@+id/llState"
                     android:layout_marginTop="5dp"
                     android:background="@color/color_white" />
             </RelativeLayout>
@@ -460,7 +460,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:layout_below="@+id/llGathering"
+                    android:layout_below="@+id/llCountry"
                     android:layout_marginTop="5dp"
                     android:background="@color/color_white" />
             </RelativeLayout>
@@ -484,7 +484,7 @@
                         android:textSize="16sp" />
 
                     <com.musicseque.Fonts.Noyhr
-                        android:id="@+id/tvEventZipCodes"
+                        android:id="@+id/tvEventZipCode"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="60"
@@ -496,7 +496,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:layout_below="@+id/llGathering"
+                    android:layout_below="@+id/llZipCode"
                     android:layout_marginTop="5dp"
                     android:background="@color/color_white" />
             </RelativeLayout>

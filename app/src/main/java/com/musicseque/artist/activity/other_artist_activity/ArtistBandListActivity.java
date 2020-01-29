@@ -87,8 +87,7 @@ public class ArtistBandListActivity extends BaseActivity implements MyInterface 
     }
 
     private void hitAPIs(String type) {
-        if (Utils.isNetworkConnected(this)) {
-            Utils.initializeAndShow(this);
+
             try {
 
                 if (type.equalsIgnoreCase("get_list")) {
@@ -102,9 +101,7 @@ public class ArtistBandListActivity extends BaseActivity implements MyInterface 
                 e.printStackTrace();
             }
 
-        } else {
-            Utils.showToast(this, getResources().getString(R.string.err_no_internet));
-        }
+
 
     }
 

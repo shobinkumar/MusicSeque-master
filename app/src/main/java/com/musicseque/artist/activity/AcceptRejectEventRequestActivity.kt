@@ -7,11 +7,7 @@ import com.musicseque.MainActivity
 import com.musicseque.R
 import com.musicseque.activities.BaseActivity
 import com.musicseque.interfaces.MyInterface
-import com.musicseque.retrofit_interface.KotlinHitAPI
-import com.musicseque.utilities.Constants
-import com.musicseque.utilities.KotlinUtils
-import com.musicseque.utilities.SharedPref
-import com.musicseque.utilities.Utils
+import com.musicseque.utilities.*
 import kotlinx.android.synthetic.main.activity_accept_reject_event_request.*
 import kotlinx.android.synthetic.main.activity_accept_reject_event_request.tvEventType
 import kotlinx.android.synthetic.main.toolbar_top.*
@@ -71,19 +67,16 @@ class AcceptRejectEventRequestActivity:BaseActivity(),View.OnClickListener,MyInt
     }
 
     private fun hitAPI(API_TYPE: Int, args: String) {
-        if (KotlinUtils.isNetConnected(this)) {
-            Utils.initializeAndShow(this)
+
             if (API_TYPE == Constants.FOR_EVENT_DETAIL) {
                 val obj = JSONObject()
                 obj.put("EventId", intent.getStringExtra("event_id"))
-                KotlinHitAPI.callAPI(obj.toString(), Constants.FOR_EVENT_DETAIL, this)
+                APIHit.sendPostData(obj.toString(), Constants.FOR_EVENT_DETAIL, this,this)
             } else if (API_TYPE == Constants.FOR_ACCEPT_REJECT_EVENT_REQ_ARTIST) {
-                KotlinHitAPI.callAPI(args, Constants.FOR_ACCEPT_REJECT_EVENT_REQ_ARTIST, this)
+                APIHit.sendPostData(args, Constants.FOR_ACCEPT_REJECT_EVENT_REQ_ARTIST, this,this)
             }
 
-        } else {
-            Utils.showToast(this, resources.getString(R.string.err_no_internet))
-        }
+
 
 
     }
@@ -96,28 +89,34 @@ class AcceptRejectEventRequestActivity:BaseActivity(),View.OnClickListener,MyInt
                 if (jsonInner.getString("Status").equals("Success", true)) {
                     val array = jsonInner.getJSONArray("result")
                     val json = array.getJSONObject(0)
-                    mBookingId = json.getInt("VenueBookingId").toString()
-                    mVenueId = SharedPref.getString(Constants.USER_ID, "")
+//                    mBookingId = json.getInt("VenueBookingId").toString()
+//                    mVenueId = SharedPref.getString(Constants.USER_ID, "")
 
 
-                    tvEventName.text = json.getString("EventManagerName")
-                    tvEventContact.text = json.getString("EMPhone")
-                    tvEventEmail.text = json.getString("EMUsername")
-                    tvEventGigName.text = json.getString("EventTitle")
-
-                    tvEventDescription.text = json.getString("EventDescription")
+                    tvEventManagerName.text = json.getString("EventManagerName")
+                    tvEventManagerContact.text = json.getString("EMPhone")
+                    tvEventManagerEmail.text = json.getString("EMUsername")
+                    tvGigName.text = json.getString("EventTitle")
                     tvEventType.text=json.getString("EventTypeName")
+                    tvEventDescription.text = json.getString("EventDescription")
+
 
                     val (mFromDate, mToDate) = KotlinUtils.dateFormatToReceive(json.getString("VenueBookedFromDate"), json.getString("VenueBookedToDate"))
-                    tvEventStartDateTime.text = mFromDate + " ," + json.getString("EventTimeFrom")
-                    tvEventEndtDateTime.text = mToDate + " ," + json.getString("EventTimeTo")
+                    tvEventStartDateTime.text = mFromDate + " ," + json.getString("ArtistBookingFromTime")
+                    tvEventEndDateTime.text = mToDate + " ," + json.getString("ArtistBookingToTime")
+                    tvEventManagerAddress.text=json.getString("EventAddress")
+                    tvCityEvent.text=json.getString("EventCityName")
+                    tvStateEvent.text=json.getString("EventStateName")
+                    tvEventCountry.text=json.getString("EventCountryName")
+                    tvEventZipCode.text=json.getString("EventPostalCode")
+
                 } else {
 
                 }
 
 
             }
-            Constants.FOR_ACCEPT_EVENT_REQ -> {
+            Constants.FOR_ACCEPT_REJECT_EVENT_REQ_ARTIST -> {
                 val json = JSONObject(response.toString())
                 if (json.getString("Status").equals("Success", true)) {
                     Utils.showToast(this,json.getString("Message"))
@@ -131,7 +130,7 @@ class AcceptRejectEventRequestActivity:BaseActivity(),View.OnClickListener,MyInt
 
 
             }
-            Constants.FOR_REJECT_EVENT_REQ -> {
+            Constants.FOR_ACCEPT_REJECT_EVENT_REQ_ARTIST -> {
                 val json = JSONObject(response.toString())
                 if (json.getString("Status").equals("Success", true)) {
                     Utils.showToast(this,json.getString("Message"))

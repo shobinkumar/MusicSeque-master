@@ -7,7 +7,7 @@ import com.musicseque.MainActivity
 import com.musicseque.R
 import com.musicseque.activities.BaseActivity
 import com.musicseque.interfaces.MyInterface
-import com.musicseque.retrofit_interface.KotlinHitAPI
+import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.Constants
 import com.musicseque.utilities.Constants.FOR_ACCEPT_EVENT_REQ
 import com.musicseque.utilities.Constants.FOR_EVENT_DETAIL
@@ -86,11 +86,11 @@ class EventDetailVenueActivity : BaseActivity(), View.OnClickListener, MyInterfa
             if (API_TYPE == Constants.FOR_EVENT_DETAIL) {
                 val obj = JSONObject()
                 obj.put("EventId", intent.getStringExtra("event_id"))
-                KotlinHitAPI.callAPI(obj.toString(), FOR_EVENT_DETAIL, this)
+                RetrofitAPI.callAPI(obj.toString(), FOR_EVENT_DETAIL, this)
             } else if (API_TYPE == Constants.FOR_ACCEPT_EVENT_REQ) {
-                KotlinHitAPI.callAPI(args, FOR_ACCEPT_EVENT_REQ, this)
+                RetrofitAPI.callAPI(args, FOR_ACCEPT_EVENT_REQ, this)
             } else if (API_TYPE == Constants.FOR_REJECT_EVENT_REQ) {
-                KotlinHitAPI.callAPI(args, FOR_REJECT_EVENT_REQ, this)
+                RetrofitAPI.callAPI(args, FOR_REJECT_EVENT_REQ, this)
             }
 
         } else {

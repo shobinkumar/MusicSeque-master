@@ -31,7 +31,6 @@ import com.musicseque.models.CountryModel
 import com.musicseque.models.GenreModel
 import com.musicseque.models.StateModel
 import com.musicseque.retrofit_interface.ImageUploadClass
-import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.*
 import com.musicseque.utilities.Constants.FOR_BAND_PROFILE
 import com.musicseque.utilities.Constants.FOR_COUNTRIES_LIST
@@ -446,33 +445,30 @@ class BandFormFragment : KotlinBaseFragment(), View.OnClickListener, MyInterface
     }
 
     private fun hitAPIs(type: Int, args: String) {
-        if (Utils.isNetworkConnected(activity)) {
-            initializeLoader()
+
 
             if (type == FOR_GENRE_LIST)
-                RetrofitAPI.callGetAPI(Constants.FOR_GENRE_LIST, this@BandFormFragment)
+                APIHit.getGetData(Constants.FOR_GENRE_LIST, this@BandFormFragment,activity!!)
             else if (type == FOR_COUNTRIES_LIST) {
-                RetrofitAPI.callGetAPI(Constants.FOR_COUNTRIES_LIST, this@BandFormFragment)
+                APIHit.getGetData(Constants.FOR_COUNTRIES_LIST, this@BandFormFragment,activity!!)
             } else if (type == Constants.FOR_BAND_PROFILE) {
                 try {
                     val jsonObject = JSONObject()
                     jsonObject.put("BandId", mBandId)
-                    RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_BAND_PROFILE, this@BandFormFragment)
+                    APIHit.sendPostData(jsonObject.toString(), Constants.FOR_BAND_PROFILE, this@BandFormFragment,activity!!)
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
             } else if (type == Constants.FOR_STATE_LIST) {
-                RetrofitAPI.callAPI(args, Constants.FOR_STATE_LIST, this@BandFormFragment)
+                APIHit.sendPostData(args, Constants.FOR_STATE_LIST, this@BandFormFragment,activity!!)
             } else if (type == Constants.FOR_CITY_LIST) {
-                RetrofitAPI.callAPI(args, Constants.FOR_CITY_LIST, this@BandFormFragment)
+                APIHit.sendPostData(args, Constants.FOR_CITY_LIST, this@BandFormFragment,activity!!)
             }
             else if(type== FOR_UPDATE_BAND_PROFILE)
             {
-                RetrofitAPI.callAPI(args, Constants.FOR_UPDATE_BAND_PROFILE, this@BandFormFragment)
+                APIHit.sendPostData(args, Constants.FOR_UPDATE_BAND_PROFILE, this@BandFormFragment,activity!!)
             }
-        } else {
-            Utils.showToast(activity, resources.getString(R.string.err_no_internet))
-        }
+
     }
 
 

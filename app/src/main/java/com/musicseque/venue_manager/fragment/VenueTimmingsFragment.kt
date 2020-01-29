@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.musicseque.R
 import com.musicseque.interfaces.MyInterface
-import com.musicseque.retrofit_interface.KotlinHitAPI
 import kotlinx.android.synthetic.main.fragment_venue_timmings.*
 import android.util.DisplayMetrics
 import android.util.Log
@@ -18,6 +17,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.musicseque.Fonts.BoldNoyhr
 import com.musicseque.MainActivity
+import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.*
 import com.musicseque.utilities.Constants.FOR_SUBMIT_TIMMINGS
 import com.musicseque.utilities.Constants.FOR_VENUE_SHOW_BOOKED_PENDING_TIMMINGS
@@ -174,7 +174,7 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
                 val json = JSONObject()
                 json.put("VenueId", SharedPref.getString(Constants.USER_ID, ""))
                 // json.put("BookingAsOnDate", "01-01-1900")
-                KotlinHitAPI.callAPI(json.toString(), Constants.FOR_VENUE_SHOW_BOOKED_PENDING_TIMMINGS, this)
+                RetrofitAPI.callAPI(json.toString(), Constants.FOR_VENUE_SHOW_BOOKED_PENDING_TIMMINGS, this)
 
 
             } else if (sType == FOR_SUBMIT_TIMMINGS) {
@@ -182,7 +182,7 @@ class VenueTimmingsFragment : KotlinBaseFragment(), MyInterface, View.OnClickLis
               val sTimming=sTimmings.replace("\"[","[",true).replace("]\"","]",true).replace("\\", "")
 
 
-                KotlinHitAPI.callAPI(sTimming, Constants.FOR_SUBMIT_TIMMINGS, this)
+                RetrofitAPI.callAPI(sTimming, Constants.FOR_SUBMIT_TIMMINGS, this)
 
                        // .replace("\\", "")
             }
