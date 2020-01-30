@@ -1,18 +1,22 @@
 package com.musicseque.event_manager.adapter
 
 import android.content.Context
+import android.content.Intent
+import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.musicseque.R
+import com.musicseque.event_manager.activity.CreateEventActivity
+import com.musicseque.event_manager.fragment.PendingEventsFragment
 import com.musicseque.event_manager.model.EventListModel
 import com.musicseque.utilities.KotlinUtils
 import kotlinx.android.synthetic.main.list_item_pending_events.view.*
 import kotlinx.android.synthetic.main.list_item_upcoming_past_events.view.*
 
-class EventStatusCommonAdapter(val ctx: Context, val al: ArrayList<EventListModel>, val type: Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class EventStatusCommonAdapter(val ctx: Context, val al: ArrayList<EventListModel>, val type: Int,val frag:Fragment) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
     var FOR_PENDING = 1
@@ -24,12 +28,12 @@ class EventStatusCommonAdapter(val ctx: Context, val al: ArrayList<EventListMode
                 PendingViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_pending_events, parent, false))
             }
             FOR_UPCOMING -> {
-                UpcomingViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_upcoming_past_events, parent, false))
+                UpcomingPastViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_upcoming_past_events, parent, false))
 
             }
             else
             -> {
-                PastViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_upcoming_past_events, parent, false))
+                UpcomingPastViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_upcoming_past_events, parent, false))
 
             }
         }
@@ -44,35 +48,31 @@ class EventStatusCommonAdapter(val ctx: Context, val al: ArrayList<EventListMode
             FOR_PENDING -> {
                 val model = al.get(position)
                 val pendingHolder = holder as PendingViewHolder
-                pendingHolder.bindView(model, ctx)
+                pendingHolder.bindView(model, ctx,frag)
             }
-            FOR_UPCOMING -> {
+            FOR_UPCOMING,FOR_PAST -> {
                 val model = al.get(position)
-                val upcomingHolder = holder as UpcomingViewHolder
-                upcomingHolder.bindView(model, ctx)
+                val upcomingPastHolder = holder as UpcomingPastViewHolder
+                upcomingPastHolder.bindView(model, ctx)
             }
-            FOR_PAST -> {
-                val model = al.get(position)
-                val pastHolder = holder as PastViewHolder
-                pastHolder.bindView(model, ctx)
-            }
+
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return super.getItemViewType(position)
         return when (type) {
             FOR_PENDING ->
-                return FOR_PENDING
+                 FOR_PENDING
             FOR_UPCOMING ->
-                return FOR_UPCOMING
+                 FOR_UPCOMING
             FOR_PAST ->
-                return FOR_PAST
+                 FOR_PAST
+            else -> throw IllegalArgumentException("Invalid type of data " + position)
         }
     }
 
     class PendingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindView(model: EventListModel, ctx: Context) {
+        fun bindView(model: EventListModel, ctx: Context, frag: Fragment) {
             if (model.event_promotion_image.equals("")) {
                 Glide.with(ctx)
                         .load(R.drawable.icon_img_dummy).into(itemView.ivEventImagePending)
@@ -119,10 +119,19 @@ class EventStatusCommonAdapter(val ctx: Context, val al: ArrayList<EventListMode
                 }
 
             }
+            itemView.ivEditEventPending.setOnClickListener { v->
+                ctx.startActivity(Intent(ctx,CreateEventActivity::class.java).putExtra("event_id",model.event_id).putExtra("isEdit",true))
+            }
+            itemView.ivDeleteEventPending.setOnClickListener { v->
+                val fragment=frag as PendingEventsFragment
+                fragment.deleteEvents(model.event_id)
+
+            }
         }
+
     }
 
-    class UpcomingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class UpcomingPastViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindView(model: EventListModel, ctx: Context) {
             if (model.event_promotion_image.equals("")) {
                 Glide.with(ctx)
@@ -136,15 +145,12 @@ class EventStatusCommonAdapter(val ctx: Context, val al: ArrayList<EventListMode
             val (mFromDate, mToDate) = KotlinUtils.dateFormatToReceive(model.venue_from_date, model.venue_to_date)
             itemView.tvEventDayUpcomingPast.text = mFromDate.split("/")[0]
             itemView.tvEventDayWeekUpcomingPast.text = mFromDate.split("/")[1]
-            itemView.tvArtistPending.text = model.artist_full_name
-            itemView.tvVenuePending.text = model.venue_full_name
+            itemView.tvArtistUpcomingPast.text = model.artist_full_name
+            itemView.tvVenueUpcomingPast.text = model.venue_full_name
 
 
         }
     }
 
-    class PastViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindView(model: EventListModel, ctx: Context) {
-        }
-    }
+
 }

@@ -171,6 +171,9 @@ public class RetrofitAPI {
         } else if (TYPE == Constants.FOR_REJECT_EVENT_REQ) {
             call = api.methodAcceptRejectRequest(params);
         }
+        else if (TYPE == Constants.FOR_EVENT_CREATE_UPDATE) {
+            call = api.methodEventCreateUpdateDetail(params);
+        }
 
 
         else if (TYPE == Constants.FOR_PENDING_REQ) {

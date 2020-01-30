@@ -3,8 +3,9 @@ package com.musicseque.event_manager.adapter
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import com.musicseque.event_manager.fragment.UpcomingPastEventsFragment
+import com.musicseque.event_manager.fragment.PastEventsFragment
 import com.musicseque.event_manager.fragment.PendingEventsFragment
+import com.musicseque.event_manager.fragment.UpcomingEventsFragment
 
 
 class EventStatusPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm){
@@ -13,9 +14,9 @@ class EventStatusPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm){
             0 -> {
                 PendingEventsFragment()
             }
-            1 -> UpcomingPastEventsFragment()
+            1 -> UpcomingEventsFragment()
             else -> {
-                return UpcomingPastEventsFragment()
+                return PastEventsFragment()
             }
         }
     }

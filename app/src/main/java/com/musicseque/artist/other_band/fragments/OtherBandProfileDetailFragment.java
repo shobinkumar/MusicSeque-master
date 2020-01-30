@@ -197,7 +197,7 @@ public class OtherBandProfileDetailFragment extends BaseFragment implements View
         if (!isPicAPIHit) {
             getBandProfile();
             changeBackgroundColor(ivGigs, tvGigs, getResources().getDrawable(R.drawable.icon_gigs_active), getResources().getString(R.string.txt_gigs), ivImage, tvImage, getResources().getDrawable(R.drawable.icon_photos), getResources().getString(R.string.txt_image), ivMusic, tvMusic, getResources().getDrawable(R.drawable.icon_music), getResources().getString(R.string.txt_music), ivVideo, tvVideo, getResources().getDrawable(R.drawable.icon_videos), getResources().getString(R.string.txt_video), ivMember, tvMember, getResources().getDrawable(R.drawable.icon_collaborators), getResources().getString(R.string.txt_members));
-            changeFragment(new GigsFragment());
+           // changeFragment(new GigsFragment());
         }
 
     }
@@ -401,6 +401,7 @@ public class OtherBandProfileDetailFragment extends BaseFragment implements View
 
 
                     sv.fullScroll(ScrollView.FOCUS_UP);
+                    changeFragment(new GigsFragment());
 
                 } catch (JSONException e) {
                     e.printStackTrace();

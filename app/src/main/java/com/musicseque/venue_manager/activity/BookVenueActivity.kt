@@ -22,6 +22,9 @@ import com.musicseque.event_manager.model.CurrencyModel
 import com.musicseque.event_manager.model.EventModel
 import com.musicseque.interfaces.MyInterface
 import com.musicseque.interfaces.SpinnerData
+import com.musicseque.models.CityModel
+import com.musicseque.models.CountryModel
+import com.musicseque.models.StateModel
 import com.musicseque.retrofit_interface.ImageUploadClass
 import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.Constants
@@ -41,6 +44,8 @@ import com.musicseque.venue_manager.others.TimeInterface
 import com.musicseque.venue_manager.others.ToDialogTime
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import kotlinx.android.synthetic.main.activity_book_venue.*
+import kotlinx.android.synthetic.main.activity_book_venue.ivAddImage
+import kotlinx.android.synthetic.main.activity_book_venue.ivProfile
 import kotlinx.android.synthetic.main.toolbar_top.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -116,6 +121,17 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
     internal var endHashMap = HashMap<String, java.util.ArrayList<String>>()
     var mSelectedDate: String = ""
 
+
+
+
+    var mStateName = ""
+    var mStateId = ""
+
+    var mCityName = ""
+    var mCityId = ""
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_venue)
@@ -188,6 +204,12 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
         ivAddImage.setOnClickListener(this)
         iconDownEventType.setOnClickListener(this)
         iconUpEventType.setOnClickListener(this)
+        tvStateBookVenue!!.setOnClickListener(this)
+        tvCityBookVenue!!.setOnClickListener(this)
+        tvCountryBookVenue.setOnClickListener(this)
+
+
+
         etBudgetPerGuest.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(str: Editable?) {
                 if (str?.length == 0) {
@@ -226,7 +248,16 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
     override fun onClick(view: View) {
         when (view.id) {
 
+            R.id.tvCountryBookVenue -> {
 
+            }
+
+            R.id.tvStateBookVenue -> {
+
+            }
+            R.id.tvCityBookVenue -> {
+
+            }
             R.id.iconDownEventType -> {
                 recyclerEvent.setVisibility(View.VISIBLE)
                 iconDownEventType.setVisibility(View.GONE)
@@ -321,9 +352,6 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
                     obj.put("EventVenueId", mVenueId)
 
                     hitAPI(FOR_SAVE_UPDATE_EVENT_DETAIL, obj.toString())
-
-
-
 
 
                 }
@@ -621,8 +649,13 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
     private fun hitAPI(type: Int, str: String) {
         if (Utils.isNetworkConnected(this)) {
             Utils.initializeAndShow(this)
-
-            if (type == FOR_VENUE_FROM_TIMMINGS) {
+            if (type == Constants.FOR_COUNTRIES_LIST) {
+                RetrofitAPI.callGetAPI(Constants.FOR_COUNTRIES_LIST, this)
+            } else if (type == Constants.FOR_STATE_LIST) {
+                RetrofitAPI.callAPI(str, Constants.FOR_STATE_LIST, this)
+            } else if (type == Constants.FOR_CITY_LIST) {
+                RetrofitAPI.callAPI(str, Constants.FOR_CITY_LIST, this)
+            } else if (type == FOR_VENUE_FROM_TIMMINGS) {
                 val json = JSONObject()
                 json.put("VenueId", mVenueId)
                 // json.put("BookingAsOnDate", "01-01-1900")
@@ -705,10 +738,10 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
 
 
                 }
-                if(alDate.size>0)
-                dpd!!.show(fragmentManager, "Datepickerdialog")
+                if (alDate.size > 0)
+                    dpd!!.show(fragmentManager, "Datepickerdialog")
                 else
-                    Utils.showToast(this,"Please change your Start Date/Time")
+                    Utils.showToast(this, "Please change your Start Date/Time")
 
             } else {
                 Utils.showToast(this, "Please change your Start Date/Time")
@@ -804,12 +837,17 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
         listPopupWindow.setModal(true)
         listPopupWindow.setOnItemClickListener(AdapterView.OnItemClickListener { parent, view, position, id ->
             if (textView.id == com.musicseque.R.id.tvCurrency) {
-                spinnerData.getData(newList.get(position).id,newList.get(position).currency)
+                spinnerData.getData(newList.get(position).id, newList.get(position).currency)
             } else if (textView.id == com.musicseque.R.id.etAttendence) {
-                spinnerData.getData("",array[position])
+                spinnerData.getData("", array[position])
 
+            } else if (textView.id == R.id.tvStateBookVenue) {
+                spinnerData.getData(alState[position].stateId, array[position])
+            } else if (textView.id == R.id.tvCityBookVenue) {
+                spinnerData.getData(alCity[position].cityId, array[position])
+            } else if (textView.id == R.id.tvCountryBookVenue) {
+                spinnerData.getData(alCity[position].cityId, array[position])
             }
-
             listPopupWindow.dismiss()
         })
         listPopupWindow.show()

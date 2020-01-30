@@ -33,13 +33,7 @@ import com.musicseque.models.StateModel
 import com.musicseque.retrofit_interface.ImageUploadClass
 import com.musicseque.retrofit_interface.RetrofitAPI
 import com.musicseque.utilities.Constants
-import com.musicseque.utilities.Constants.FOR_COUNTRIES_LIST
-import com.musicseque.utilities.Constants.FOR_CURRENCY_LIST
-import com.musicseque.utilities.Constants.FOR_EVENT_DETAIL
-import com.musicseque.utilities.Constants.FOR_EVENT_TYPE_LIST
-import com.musicseque.utilities.Constants.FOR_SAVE_UPDATE_EVENT_DETAIL
-import com.musicseque.utilities.Constants.FOR_STATE_LIST
-import com.musicseque.utilities.Constants.FOR_UPLOAD_EVENT_PROFILE_IMAGE
+import com.musicseque.utilities.Constants.*
 import com.musicseque.utilities.SharedPref
 import kotlinx.android.synthetic.main.activity_create_event.*
 import kotlinx.android.synthetic.main.toolbar_top.*
@@ -184,8 +178,8 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                 RetrofitAPI.callGetAPI(Constants.FOR_EVENT_TYPE_LIST, this)
             } else if (value == Constants.FOR_CURRENCY_LIST) {
                 RetrofitAPI.callGetAPI(Constants.FOR_CURRENCY_LIST, this)
-            } else if (value == Constants.FOR_SAVE_UPDATE_EVENT_DETAIL) {
-                RetrofitAPI.callAPI(args, Constants.FOR_SAVE_UPDATE_EVENT_DETAIL, this)
+            } else if (value == Constants.FOR_EVENT_CREATE_UPDATE) {
+                RetrofitAPI.callAPI(args, Constants.FOR_EVENT_CREATE_UPDATE, this)
             } else if (value == Constants.FOR_EVENT_DETAIL) {
                 val obj = JSONObject()
                 obj.put("EventId", mEventId)
@@ -429,7 +423,7 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                     obj.put("ArtistBookingToTime", mToTimeArtist)
                     obj.put("VenueBookingFromTime", mFromTimeVenue)
                     obj.put("VenueBookingToTime", mToTimeVenue)
-                    getAPI(FOR_SAVE_UPDATE_EVENT_DETAIL, obj.toString())
+                    getAPI(FOR_EVENT_CREATE_UPDATE, obj.toString())
 
                 }
             }
@@ -562,32 +556,17 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                 if (json.getString("Status").equals("Success", true)) {
                     val array = json.getJSONArray("result")
                     val jsonInner = array.getJSONObject(0)
+
+
+
+                    mCurrencyId=jsonInner.getString("EventChargesPayCurrencyId")
+                    mCountryId=jsonInner.getString("EventCountryId")
+                    mStateId=jsonInner.getString("EventStateId")
+                    mCityId=jsonInner.getString("EventCityId")
+
+
                     etEventName.setText(jsonInner.getString("EventTitle"))
                     etEventDescription.setText(jsonInner.getString("EventDescription"))
-                    etAttendence.setText(jsonInner.getString("EventEstimatedGuest"))
-                    if (jsonInner.getString("VenueName").equals("")) {
-                        val (mFromDateArtist, mToDateArtist) = KotlinUtils.dateFormatToReceive(jsonInner.getString("EventDateFrom"), jsonInner.getString("EventDateTo"))
-
-                        tvStartDate.setText(mFromDateArtist)
-                        tvEndDate.text = mToDateArtist
-                        tvStartTime.setText(jsonInner.getString("EventTimeFrom"))
-                        tvEndTime.setText(jsonInner.getString("EventTimeTo"))
-                    } else {
-                        val (mFromDateArtist, mToDateArtist) = KotlinUtils.dateFormatToReceive(jsonInner.getString("VenueBookedFromDate"), jsonInner.getString("VenueBookedToDate"))
-
-                        tvStartDate.setText(mFromDateArtist)
-                        tvEndDate.text = mToDateArtist
-                        tvStartTime.setText(jsonInner.getString("VenueBookingFromTime"))
-                        tvEndTime.setText(jsonInner.getString("VenueBookingToTime"))
-                    }
-
-                    tvBudgetPerGuest.setText(jsonInner.getString("EventBudget"))
-                    val budget = jsonInner.getString("EventBudget").toFloat()
-                    //seekBarPrice.setMinValue(budget)
-                    mCurrency = jsonInner.getString("EventChargesPayCurrency")
-                    mCurrencyId = jsonInner.getString("EventChargesPayCurrencyId")
-                    tvCurrency.setText(mCurrency)
-
                     val arrayEvent = jsonInner.getString("EventTypeId").split(",")
                     for (eventId in arrayEvent) {
                         for (eventListAvailable in eventsList) {
@@ -599,7 +578,40 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                         }
                     }
                     recyclerEvent.adapter = EventAdapter(this, eventsList)
-                    Log.e("", "")
+
+
+
+
+                    etAttendence.setText(jsonInner.getString("EventEstimatedGuest"))
+                    val (mFromDateArtist, mToDateArtist) = KotlinUtils.dateFormatToReceive(jsonInner.getString("EventDateFrom"), jsonInner.getString("EventDateTo"))
+
+                    tvStartDate.text = mFromDateArtist
+                    tvEndDate.text = mToDateArtist
+                    tvStartTime.text = jsonInner.getString("ArtistBookingFromTime")
+                    tvEndTime.setText(jsonInner.getString("ArtistBookingToTime"))
+
+
+                    tvStartDateVenue.text = mFromDateArtist
+                    tvEndDateVenue.text = mToDateArtist
+                    tvStartTimeVenue.text = jsonInner.getString("VenueBookingFromTime1")
+                    tvEndTimeVenue.text = jsonInner.getString("VenueBookingToTime1")
+                    etAttendence.setText(jsonInner.getString("EventEstimatedGuest"))
+
+
+                    tvCurrency.text=jsonInner.getString("EventChargesPayCurrency")
+                    tvCountryCreateEvent.text=jsonInner.getString("EventCountryName")
+                    tvStateCreateEvent.text=jsonInner.getString("EventStateName")
+                    tvCityCreateEvent.text=jsonInner.getString("EventCityName")
+                    etAddressCreateEvent.setText(jsonInner.getString("EventAddress"))
+                    etZipCodeCreateEvent.setText(jsonInner.getString("EventPostalCode"))
+
+
+                    tvBudgetPerGuest.setText(jsonInner.getString("EventBudget"))
+                    val budget = jsonInner.getString("EventBudget").toFloat()
+                    //seekBarPrice.setMinValue(budget)
+
+
+
                     if (!jsonInner.getString("EventPromotionImg").equals("")) {
                         Glide.with(this).load(jsonInner.getString("EventPromotionImgPath") + jsonInner.getString("EventPromotionImg")).into(ivProfile)
 

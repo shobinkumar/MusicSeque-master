@@ -76,7 +76,7 @@ class ArtistDetailEventManagerActivity : BaseActivity(), MyInterface, View.OnCli
 
     private fun initViews() {
         changeBackgroundColor(ivGigs, tvGigs, resources.getDrawable(R.drawable.icon_gigs_active), resources.getString(R.string.txt_gigs), ivImage, tvImage, resources.getDrawable(R.drawable.icon_photos), resources.getString(R.string.txt_image), ivMusic, tvMusic, resources.getDrawable(R.drawable.icon_music), resources.getString(R.string.txt_music), ivVideo, tvVideo, resources.getDrawable(R.drawable.icon_videos), resources.getString(R.string.txt_video), ivCollaborators, tvCollaborators, resources.getDrawable(R.drawable.icon_collaborators), resources.getString(R.string.txt_collaborators))
-        changeFragment(GigsFragment())
+
         val jsonObject = JSONObject()
         jsonObject.put("ArtistUserId", mUserId)
         jsonObject.put("LoginUserId", SharedPref.getString(Constants.USER_ID, ""))
@@ -91,15 +91,15 @@ class ArtistDetailEventManagerActivity : BaseActivity(), MyInterface, View.OnCli
             if (TYPE == FOR_OTHER_PROFILE) {
                 try {
 
-                    APIHit.sendPostData(args, Constants.FOR_OTHER_PROFILE, this,this)
+                    APIHit.sendPostData(args, Constants.FOR_OTHER_PROFILE, this@ArtistDetailEventManagerActivity,this)
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
             } else if (TYPE == Constants.FOR_FOLLOW_UNFOLLOW_ARTIST) {
-                APIHit.sendPostData(args, Constants.FOR_FOLLOW_UNFOLLOW_ARTIST, this,this)
+                APIHit.sendPostData(args, Constants.FOR_FOLLOW_UNFOLLOW_ARTIST, this@ArtistDetailEventManagerActivity,this)
 
             } else if (TYPE == FOR_SEND_REQ_ARTIST) {
-                APIHit.sendPostData(args, Constants.FOR_SEND_REQ_ARTIST, this,this)
+                APIHit.sendPostData(args, Constants.FOR_SEND_REQ_ARTIST, this@ArtistDetailEventManagerActivity,this)
 
             }
 
@@ -110,7 +110,8 @@ class ArtistDetailEventManagerActivity : BaseActivity(), MyInterface, View.OnCli
     override fun sendResponse(response: Any, TYPE: Int) {
         Utils.hideProgressDialog()
         when (TYPE) {
-            Constants.FOR_OTHER_PROFILE -> try {
+            Constants.FOR_OTHER_PROFILE ->
+                try {
                 val jsonObject = JSONObject(response.toString())
                 if (jsonObject.getString("Status").equals("Success", ignoreCase = true)) {
                     val jsonArray = jsonObject.getJSONArray("result")
@@ -145,6 +146,7 @@ class ArtistDetailEventManagerActivity : BaseActivity(), MyInterface, View.OnCli
 
                 }
                 sv!!.fullScroll(ScrollView.FOCUS_UP)
+                    changeFragment(GigsFragment())
             } catch (e: JSONException) {
                 e.printStackTrace()
             }

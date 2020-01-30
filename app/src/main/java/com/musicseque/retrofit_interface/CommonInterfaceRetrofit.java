@@ -221,6 +221,9 @@ public interface CommonInterfaceRetrofit {
     @POST(Constants.EVENT_SAVE_UPDATE_DETAIL_API)
     Call<String> methodEventSaveUpdateDetail(@Body String params);
 
+    @Headers("Content-Type: application/json")
+    @POST(Constants.EVENT_CREATE_UPDATE_API)
+    Call<String> methodEventCreateUpdateDetail(@Body String params);
 
 
     @Headers("Content-Type: application/json")

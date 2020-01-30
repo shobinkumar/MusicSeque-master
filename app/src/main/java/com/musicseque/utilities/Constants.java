@@ -92,7 +92,7 @@ public class Constants {
     public static final String VENUE_BOOKED_PENDING_TIMMINGS_API = "Service/VenuePendingBookingsDisplay";
     public static final String VENUE_ACCEPT_REJECT_API = "Service/VenueBookingAccept";
     public static final String EVENT_STATUS_API = "Service/VenueBookingsList_ViaBookingStatus";
-
+    public static final String EVENT_CREATE_UPDATE_API ="Service/EventBookingSaveUpdate_EM";
 
 
     //Artist
@@ -207,6 +207,7 @@ public class Constants {
     public static final int FOR_SEARCH_ARTIST_EVENT_MANAGER = 171;
     public static final int FOR_SEND_REQ_ARTIST = 172;
     public static final int FOR_ACCEPT_REJECT_EVENT_REQ_ARTIST =173;
+    public static final int FOR_EVENT_CREATE_UPDATE = 174;
 
 
 

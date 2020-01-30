@@ -1,4 +1,4 @@
-package com.musicseque.fragments
+package com.musicseque.artist.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle

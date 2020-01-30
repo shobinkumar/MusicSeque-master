@@ -156,7 +156,7 @@ class SearchArtistActivityEventManager : BaseActivity(), MyInterface, View.OnCli
             if (type == Constants.FOR_SHOW_EVENTS_LIST) {
                 val obj = JSONObject()
                 obj.put("EventManagerId", SharedPref.getString(Constants.USER_ID, ""))
-                obj.put("EventStatus", "2")
+                obj.put("EventStatus", "4")
                 RetrofitAPI.callAPI(obj.toString(), Constants.FOR_SHOW_EVENTS_LIST, this)
             }
 

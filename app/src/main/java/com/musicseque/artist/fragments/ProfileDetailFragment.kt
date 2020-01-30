@@ -102,7 +102,7 @@ class ProfileDetailFragment : KotlinBaseFragment(), View.OnClickListener, MyInte
         if (!isPicAPIHit) {
             userProfile
             changeBackgroundColor(ivGigs, tvGigs, resources.getDrawable(R.drawable.icon_gigs_active), resources.getString(R.string.txt_gigs), ivImage, tvImage, resources.getDrawable(R.drawable.icon_photos), resources.getString(R.string.txt_image), ivMusic, tvMusic, resources.getDrawable(R.drawable.icon_music), resources.getString(R.string.txt_music), ivVideo, tvVideo, resources.getDrawable(R.drawable.icon_videos), resources.getString(R.string.txt_video), ivCollaborators, tvCollaborators, resources.getDrawable(R.drawable.icon_collaborators), resources.getString(R.string.txt_collaborators))
-            changeFragment(GigsFragment())
+
         }
     }
 
@@ -338,6 +338,7 @@ class ProfileDetailFragment : KotlinBaseFragment(), View.OnClickListener, MyInte
                     progressBar!!.visibility = View.GONE
                 }
                 sv!!.fullScroll(ScrollView.FOCUS_UP)
+                changeFragment(GigsFragment())
             } catch (e: JSONException) {
                 e.printStackTrace()
             }
