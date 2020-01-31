@@ -313,5 +313,8 @@ public interface CommonInterfaceRetrofit {
     @POST(Constants.GIGS_VENUE_API)
     Call<String> methodVenueGigs(@Body String params);
 
+    @Headers("Content-Type: application/json")
+    @POST(Constants.SEARCH_VENUE_EVENT_MANAGER_API)
+    Call<String> methodSearchVenueEventManager(@Body String params);
 
 }

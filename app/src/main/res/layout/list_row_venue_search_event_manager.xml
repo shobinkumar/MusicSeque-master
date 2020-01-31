@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llMainSearchVenueEventManager"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_black"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:id="@+id/llMainInnerSearchVenueEventManager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="80">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ivArtistImageSearchVenueEventManager"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:src="@color/color_white" />
+
+            <RelativeLayout
+                android:id="@+id/rlInnerSearchVenueEventManager"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toRightOf="@+id/ivArtistImageSearchVenueEventManager">
+
+                <com.musicseque.Fonts.Noyhr
+                    android:id="@+id/tvArtistNameSearchVenueEventManager"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/color_orange"
+                    android:textSize="@dimen/_16sdp" />
+
+                <ImageView
+                    android:id="@+id/ivIndicatorSearchVenueEventManager"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:layout_toRightOf="@+id/tvArtistNameSearchVenueEventManager"
+                    android:src="@drawable/icon_green" />
+
+                <com.musicseque.Fonts.Noyhr
+                    android:id="@+id/tvProfileTypeSearchVenueEventManager"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvArtistNameSearchVenueEventManager"
+                    android:layout_marginTop="3dp"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/_14sdp" />
+                <com.musicseque.Fonts.Noyhr
+                    android:id="@+id/tvCountrySearchVenueEventManager"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvProfileTypeSearchVenueEventManager"
+                    android:layout_marginTop="3dp"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/_14sdp" />
+                <com.musicseque.Fonts.Noyhr
+                    android:id="@+id/tvDistanceSearchVenueEventManager"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvCountry"
+                    android:layout_marginTop="3dp"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/_14sdp" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/rlOuterSearchVenueEventManager"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20"
+            android:layout_gravity="center">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_artist_calendar" />
+
+                <LinearLayout
+                    android:layout_width="75dp"
+                    android:layout_height="73dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvDaySearchVenueEventManager"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_centerHorizontal="true"
+                        android:includeFontPadding="false"
+                        android:lineSpacingExtra="0dp"
+                        android:layout_gravity="center_horizontal"
+                        android:text="22"
+                        android:textColor="@color/color_white"
+                        android:textSize="20sp" />
+
+                    <com.musicseque.Fonts.Noyhr
+                        android:id="@+id/tvMonthSearchVenueEventManager"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:includeFontPadding="false"
+                        android:layout_below="@+id/tvDaySearchVenueEventManager"
+                        android:text="April"
+                        android:singleLine="true"
+                        android:gravity="center"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/color_white"
+                        android:textSize="@dimen/_16sdp" />
+                </LinearLayout>
+
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/llMain"
+        android:layout_marginTop="15dp"
+        android:background="@color/color_white" />
+</LinearLayout>

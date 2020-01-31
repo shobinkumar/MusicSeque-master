@@ -31,6 +31,7 @@ import com.musicseque.service.LocationService;
 import com.musicseque.utilities.SharedPref;
 import com.musicseque.utilities.Utils;
 import com.musicseque.venue_manager.activity.SearchVenueActivity;
+import com.musicseque.event_manager.activity.SearchVenueEventManagerActivity;
 
 import java.util.Arrays;
 
@@ -107,7 +108,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
 
         v = inflater.inflate(R.layout.fragment_home, container, false);
-       initOtherViews();
+        initOtherViews();
         initialize();
         clickListner();
 
@@ -140,7 +141,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         et_explore = (TextView) v.findViewById(R.id.et_explore);
         etLoc = (EditText) v.findViewById(R.id.etLoc);
 
-        rlSearch=(RelativeLayout) v.findViewById(R.id.rlSearch);
+        rlSearch = (RelativeLayout) v.findViewById(R.id.rlSearch);
         try {
             Address address = Utils.getCompleteAddressString(Double.parseDouble(LocationService.mLatitude), Double.parseDouble(LocationService.mLongitude), getActivity());
             etLoc.setText(address.getAddressLine(0));
@@ -188,7 +189,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
         } else if (view == img_venue) {
 
-            startActivity(new Intent(getActivity(), SearchVenueActivity.class));
+            if (mUserType.equalsIgnoreCase("Event Manager"))
+
+                startActivity(new Intent(getActivity(), SearchVenueEventManagerActivity.class));
+            else
+                startActivity(new Intent(getActivity(), SearchVenueActivity.class));
 
 
         } else if (view == img_event_manger) {
@@ -200,12 +205,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
         }
         if (view.getId() == R.id.ivArtist) {
-            searchArtistMethod();
+            searchMethod();
 
         } else if (view.getId() == R.id.rlSearch) {
-            searchArtistMethod();
+            searchMethod();
         } else if (view.getId() == R.id.ivSearch) {
-            searchArtistMethod();
+            searchMethod();
         } else if (view.getId() == R.id.ivEditLoc) {
             etLoc.setCursorVisible(true);
             etLoc.setFocusable(true);
@@ -217,10 +222,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
 
-
-
-
-    private void searchArtistMethod() {
+    private void searchMethod() {
 
         if (mUserType.equalsIgnoreCase("Event Manager")) {
             startActivity(new Intent(getActivity(), SearchArtistActivityEventManager.class));

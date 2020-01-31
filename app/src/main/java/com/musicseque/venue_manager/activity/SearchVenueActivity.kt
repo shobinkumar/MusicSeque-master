@@ -12,6 +12,7 @@ import com.musicseque.R
 import com.musicseque.activities.BaseActivity
 import com.musicseque.interfaces.MyInterface
 import com.musicseque.retrofit_interface.RetrofitAPI
+import com.musicseque.utilities.APIHit
 import com.musicseque.utilities.Constants
 import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils
@@ -78,22 +79,19 @@ class SearchVenueActivity : BaseActivity(), View.OnClickListener, MyInterface {
     }
 
     fun hitAPI(params: String) {
-        if (Utils.isNetworkConnected(this@SearchVenueActivity)) {
-            Utils.initializeAndShow(this)
+
             val jsonObject = JSONObject()
             try {
                 jsonObject.put("LoggedInUserId", SharedPref.getString(Constants.USER_ID, ""))
 
                 jsonObject.put("SearchText", params)
-                RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_SEARCH_VENUE_LIST, this@SearchVenueActivity)
+                APIHit.sendPostData(jsonObject.toString(), Constants.FOR_SEARCH_VENUE_LIST, this@SearchVenueActivity,this)
             } catch (e: JSONException) {
                 e.printStackTrace()
             }
 
 
-        } else {
-            Utils.showToast(this@SearchVenueActivity, resources.getString(R.string.err_no_internet))
-        }
+
 
 
     }

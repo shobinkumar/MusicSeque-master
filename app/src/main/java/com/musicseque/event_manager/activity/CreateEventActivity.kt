@@ -423,6 +423,9 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                     obj.put("ArtistBookingToTime", mToTimeArtist)
                     obj.put("VenueBookingFromTime", mFromTimeVenue)
                     obj.put("VenueBookingToTime", mToTimeVenue)
+
+
+
                     getAPI(FOR_EVENT_CREATE_UPDATE, obj.toString())
 
                 }

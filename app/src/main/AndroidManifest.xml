@@ -51,7 +51,7 @@
         <activity android:name=".artist.activity.PrivacyPolicyActivity" />
         <activity android:name=".artist.activity.ChangePasswordActivity" />
         <activity android:name=".artist.activity.other_artist_activity.SearchBandActivity" />
-        <activity android:name=".event_manager.activity.EventsListActivity" />
+        <activity android:name=".event_manager.activity.SearchVenueEventManagerActivity" />
         <activity android:name=".event_manager.activity.SearchArtistActivityEventManager"/>
         <activity
             android:name=".start_up.LoginActivity"

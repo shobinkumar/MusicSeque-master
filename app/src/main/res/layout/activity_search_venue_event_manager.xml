@@ -7,7 +7,7 @@
     android:background="@color/color_app_background"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context=".venue_manager.activity.SearchVenueEventManagerActivity">
+    tools:context=".event_manager.activity.SearchVenueEventManagerActivity">
 
     <include
         android:id="@+id/toolbar"
