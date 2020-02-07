@@ -40,6 +40,7 @@ import com.musicseque.utilities.Constants
 import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils
 import com.musicseque.venue_manager.fragment.VenueBookingStatusFragment
+import com.musicseque.venue_manager.fragment.VenueFormFragment
 import com.musicseque.venue_manager.fragment.VenueProfileDetailFragment
 import com.musicseque.venue_manager.fragment.VenueTimmingsFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -80,11 +81,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, DrawerListener, 
     }
 
     private fun clickListener() {
-        iv_home!!.setOnClickListener(this)
-        iv_profile!!.setOnClickListener(this)
-        iv_feature!!.setOnClickListener(this)
-        iv_chat!!.setOnClickListener(this)
-        iv_settings!!.setOnClickListener(this)
+        ivHomeBottom!!.setOnClickListener(this)
+        ivProfileBottom!!.setOnClickListener(this)
+        ivFeatureBottom!!.setOnClickListener(this)
+        ivChatBottom!!.setOnClickListener(this)
+        ivSettingsBottom!!.setOnClickListener(this)
         ivDrawer!!.setOnClickListener(this)
         drawerLayout!!.setDrawerListener(this)
         ivUpArrow.setOnClickListener(this)
@@ -139,24 +140,30 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, DrawerListener, 
 
     private fun openDefaultFragment() {
         fragment = HomeFragment()
-        if (intent.getStringExtra("frag") == null) changeIconBottom(R.drawable.homeactive3, R.drawable.profile3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment) else {
-            if (intent.getStringExtra("frag").equals("com.musicseque.fragments.HomeFragment", ignoreCase = true)) {
+        if (intent.getStringExtra("frag") == null)
+
+            changeIconBottom(R.drawable.homeactive3, R.drawable.profile3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment) else {
+
+            if (intent.getStringExtra("frag").equals("com.musicseque.fragments.HomeFragment", ignoreCase = true))
+                  {
                 fragment = HomeFragment()
                 changeIconBottom(R.drawable.homeactive3, R.drawable.profile3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment)
             } else if (intent.getStringExtra("frag").equals("com.musicseque.artist.fragments.ProfileFragment", ignoreCase = true)) {
-                val b = intent.getBooleanExtra("profileTemp", false)
-                 if (b == null) {
-                    if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equals("Y", ignoreCase = true)) fragment =ProfileFragment() else fragment =ProfileDetailFragment()
-                } else {
-                     fragment =ProfileFragment()
-                }
+
+
+                if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equals("Y", ignoreCase = true))
+                    fragment = ProfileFragment()
+                else fragment = ProfileDetailFragment()
+
                 changeIconBottom(R.drawable.home3, R.drawable.profileactive3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment)
-            } else if (intent.getStringExtra("frag").equals("com.musicseque.venue_manager.fragment.CreateVenueFragment", ignoreCase = true)) {
-                val b = intent.getBooleanExtra("profileTemp", false)
-                if (b == null) {
-                    if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equals("Y", ignoreCase = true)) //fragment = new CreateVenueFragment();
-                        Log.e("", "") else fragment = VenueProfileDetailFragment()
-                } else { //  fragment = new CreateVenueFragment();
+            } else if (intent.getStringExtra("frag").equals("com.musicseque.venue_manager.fragment.VenueFormFragment", ignoreCase = true)) {
+
+                if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equals("Y", ignoreCase = true)) {
+                    fragment = VenueFormFragment();
+                    Log.e("", "")
+                } else {
+                    fragment = VenueProfileDetailFragment()
+
                 }
                 changeIconBottom(R.drawable.home3, R.drawable.profileactive3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment)
             } else if (intent.getStringExtra("frag").equals("com.musicseque.artist.fragments.BandFormFragment", ignoreCase = true)) {
@@ -169,28 +176,20 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, DrawerListener, 
                 fragment = SettingFragment()
                 changeIconBottom(R.drawable.home3, R.drawable.profile3, R.drawable.featured3, R.drawable.chat3, R.drawable.settingactive3, fragment)
             } else if (intent.getStringExtra("frag").equals("com.musicseque.music_lover.fragments.FragmentProfileMusicLover", ignoreCase = true)) {
-                val b = intent.getBooleanExtra("profileTemp", false)
-               if (b == null) {
-                    if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equals("Y", ignoreCase = true))
-                        fragment = FragmentProfileMusicLover() else  fragment = ProfileDetailFragment()
-                } else {
-                   fragment = FragmentProfileMusicLover()
-                }
-                changeIconBottom(R.drawable.home3, R.drawable.profileactive3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment)
-            }
-            else if (intent.getStringExtra("frag").equals("com.musicseque.event_manager.fragment.EventManagerFormFragment", ignoreCase = true))
-            {
-                val b = intent.getBooleanExtra("profileTemp", false)
-                if (b == null) {
-                    if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equals("Y", ignoreCase = true)) {
-                        fragment=EventManagerFormFragment()
-                    } else {
-                        fragment=EventManagerDetailFragment()
-                    }
 
+                if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equals("Y", ignoreCase = true))
+                    fragment = FragmentProfileMusicLover() else fragment = ProfileDetailFragment()
+
+                changeIconBottom(R.drawable.home3, R.drawable.profileactive3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment)
+            } else if (intent.getStringExtra("frag").equals("com.musicseque.event_manager.fragment.EventManagerFormFragment", ignoreCase = true)) {
+                val b = intent.getBooleanExtra("profileTemp", false)
+
+                if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equals("Y", ignoreCase = true)) {
+                    fragment = EventManagerFormFragment()
                 } else {
-                    fragment= EventManagerDetailFragment()
+                    fragment = EventManagerDetailFragment()
                 }
+
                 changeIconBottom(R.drawable.home3, R.drawable.profileactive3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment)
             }
         }
@@ -198,11 +197,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, DrawerListener, 
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.iv_home -> {
+            R.id.ivHomeBottom -> {
                 fragment = HomeFragment()
                 changeIconBottom(R.drawable.homeactive3, R.drawable.profile3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment)
             }
-            R.id.iv_profile -> {
+            R.id.ivProfileBottom -> {
                 if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equals("Y", ignoreCase = true)) {
                     if (mLoginType.equals("Venue Manager", ignoreCase = true)) { //   fragment = new CreateVenueFragment();
                     } else if (mLoginType.equals("Artist", ignoreCase = true)) {
@@ -225,15 +224,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, DrawerListener, 
                 }
                 changeIconBottom(R.drawable.home3, R.drawable.profileactive3, R.drawable.featured3, R.drawable.chat3, R.drawable.setting3, fragment)
             }
-            R.id.iv_feature -> {
+            R.id.ivFeatureBottom -> {
                 fragment = HomeFragment()
                 changeIconBottom(R.drawable.home3, R.drawable.profile3, R.drawable.featuredactive3, R.drawable.chat3, R.drawable.setting3, fragment)
             }
-            R.id.iv_chat -> {
+            R.id.ivChatBottom -> {
                 fragment = HomeFragment()
                 changeIconBottom(R.drawable.home3, R.drawable.profile3, R.drawable.featured3, R.drawable.chatactive3, R.drawable.setting3, fragment)
             }
-            R.id.iv_settings -> {
+            R.id.ivSettingsBottom -> {
                 fragment = SettingFragment()
                 changeIconBottom(R.drawable.home3, R.drawable.profile3, R.drawable.featured3, R.drawable.chat3, R.drawable.settingactive3, fragment)
             }
@@ -374,11 +373,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, DrawerListener, 
     }
 
     private fun changeIconBottom(home: Int, profile: Int, featured: Int, chat: Int, setting: Int, fragment: Fragment?) {
-        iv_home!!.setImageResource(home)
-        iv_profile!!.setImageResource(profile)
-        iv_feature!!.setImageResource(featured)
-        iv_chat!!.setImageResource(chat)
-        iv_settings!!.setImageResource(setting)
+        ivHomeBottom!!.setImageResource(home)
+        ivProfileBottom!!.setImageResource(profile)
+        ivFeatureBottom!!.setImageResource(featured)
+        ivChatBottom!!.setImageResource(chat)
+        ivSettingsBottom!!.setImageResource(setting)
         replaceFragment(fragment)
     }
 
@@ -453,8 +452,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, DrawerListener, 
             viewBookingStatus!!.visibility = View.VISIBLE
             llSchedule!!.visibility = View.VISIBLE
             viewSchedule!!.visibility = View.VISIBLE
+            tvProfile.visibility = View.VISIBLE
             tvProfile!!.setOnClickListener {
-                if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equals("Y", ignoreCase = true)) { // fragment = new CreateVenueFragment();
+                if (SharedPref.getString(Constants.IS_FIRST_LOGIN, "").equals("Y", ignoreCase = true)) {
+                    fragment = VenueFormFragment();
                 } else {
                     fragment = VenueProfileDetailFragment()
                 }

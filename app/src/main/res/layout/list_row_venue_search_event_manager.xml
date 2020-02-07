@@ -76,7 +76,7 @@
                     android:id="@+id/tvDistanceSearchVenueEventManager"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvCountry"
+                    android:layout_below="@+id/tvCountrySearchVenueEventManager"
                     android:layout_marginTop="3dp"
                     android:textColor="@color/color_white"
                     android:textSize="@dimen/_14sdp" />
@@ -140,7 +140,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_below="@+id/llMain"
+        android:layout_below="@+id/llMainSearchVenueEventManager"
         android:layout_marginTop="15dp"
         android:background="@color/color_white" />
 </LinearLayout>

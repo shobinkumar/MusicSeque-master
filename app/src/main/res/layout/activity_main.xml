@@ -30,21 +30,21 @@
             android:weightSum="5">
 
             <ImageView
-                android:id="@+id/iv_home"
+                android:id="@+id/ivHomeBottom"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:src="@drawable/homeactive3" />
 
             <ImageView
-                android:id="@+id/iv_profile"
+                android:id="@+id/ivProfileBottom"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:src="@drawable/profile3" />
 
             <ImageView
-                android:id="@+id/iv_feature"
+                android:id="@+id/ivFeatureBottom"
 
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -52,14 +52,14 @@
                 android:src="@drawable/featured3" />
 
             <ImageView
-                android:id="@+id/iv_chat"
+                android:id="@+id/ivChatBottom"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:src="@drawable/chat3" />
 
             <ImageView
-                android:id="@+id/iv_settings"
+                android:id="@+id/ivSettingsBottom"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

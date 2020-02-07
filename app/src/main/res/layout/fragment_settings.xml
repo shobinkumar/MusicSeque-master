@@ -114,7 +114,7 @@
                 android:textSize="@dimen/_18sdp"/>
 
             <com.musicseque.Fonts.Noyhr
-                android:id="@+id/tv_logout"
+                android:id="@+id/tvLogout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20sdp"

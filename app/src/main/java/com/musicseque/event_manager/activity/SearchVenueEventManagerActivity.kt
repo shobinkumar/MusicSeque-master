@@ -1,7 +1,9 @@
 package com.musicseque.event_manager.activity
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Handler
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
@@ -25,19 +27,22 @@ import com.musicseque.utilities.SharedPref
 import com.musicseque.utilities.Utils
 import com.musicseque.event_manager.adapter.SearchVenueEventManagerAdapter
 import com.musicseque.venue_manager.model.VenueSearchModel
+import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip
 import kotlinx.android.synthetic.main.activity_search_venue_event_manager.*
 import kotlinx.android.synthetic.main.toolbar_top.*
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.ArrayList
 
-class SearchVenueEventManagerActivity: BaseActivity(), MyInterface, View.OnClickListener {
+class SearchVenueEventManagerActivity : BaseActivity(), MyInterface, View.OnClickListener {
     lateinit private var listPopupWindow: ListPopupWindow
-     var arrayListArtist= ArrayList<ArtistModel>()
+    var arrayListArtist = ArrayList<ArtistModel>()
     var mEventName = ""
-     var mEventId = ""
+    var mEventId = ""
 
-     var eventsList = ArrayList<EventListModel>()
+    var eventsList = ArrayList<EventListModel>()
+    var eventsListMain = ArrayList<EventListModel>()
+
     lateinit var arrEventName: Array<String>
     var alEventName = ArrayList<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +52,7 @@ class SearchVenueEventManagerActivity: BaseActivity(), MyInterface, View.OnClick
         initOtherViews()
         initViews()
         listeners()
+        showDialog()
         hitAPI(Constants.FOR_SHOW_EVENTS_LIST, "")
     }
 
@@ -132,29 +138,27 @@ class SearchVenueEventManagerActivity: BaseActivity(), MyInterface, View.OnClick
 
     private fun hitAPI(type: Int, args: String) {
 
-            if (type == Constants.GET_ARTIST_LIST) {
-                val jsonObject = JSONObject()
-                try {
-                    jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""))
-                    jsonObject.put("ProfileTypeId", "6")
+        if (type == Constants.GET_ARTIST_LIST) {
+            val jsonObject = JSONObject()
+            try {
+                jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""))
+                jsonObject.put("ProfileTypeId", "6")
 
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                }
-
-                APIHit.sendPostData(jsonObject.toString(), Constants.GET_ARTIST_LIST, this@SearchVenueEventManagerActivity,this)
-            } else if (type == Constants.FOR_SEARCH_VENUE_EVENT_MANAGER) {
-                APIHit.sendPostData(args.toString(), Constants.FOR_SEARCH_VENUE_EVENT_MANAGER, this@SearchVenueEventManagerActivity,this)
-
-            }
-            if (type == Constants.FOR_SHOW_EVENTS_LIST) {
-                val obj = JSONObject()
-                obj.put("EventManagerId", SharedPref.getString(Constants.USER_ID, ""))
-                obj.put("EventStatus", "4")
-               APIHit.sendPostData(obj.toString(), Constants.FOR_SHOW_EVENTS_LIST, this,this)
+            } catch (e: JSONException) {
+                e.printStackTrace()
             }
 
+            APIHit.sendPostData(jsonObject.toString(), Constants.GET_ARTIST_LIST, this@SearchVenueEventManagerActivity, this)
+        } else if (type == Constants.FOR_SEARCH_VENUE_EVENT_MANAGER) {
+            APIHit.sendPostData(args.toString(), Constants.FOR_SEARCH_VENUE_EVENT_MANAGER, this@SearchVenueEventManagerActivity, this)
 
+        }
+        if (type == Constants.FOR_SHOW_EVENTS_LIST) {
+            val obj = JSONObject()
+            obj.put("EventManagerId", SharedPref.getString(Constants.USER_ID, ""))
+            obj.put("EventStatus", "4")
+            APIHit.sendPostData(obj.toString(), Constants.FOR_SHOW_EVENTS_LIST, this, this)
+        }
 
 
     }
@@ -220,8 +224,9 @@ class SearchVenueEventManagerActivity: BaseActivity(), MyInterface, View.OnClick
                     val listType = object : TypeToken<ArrayList<EventListModel>>() {}.type
                     eventsList = Gson().fromJson<ArrayList<EventListModel>>(arr.toString(), listType)
                     for (i in eventsList) {
-                        if(!i.artist_confirmation_status.equals("") && !i.artist_confirmation_status.equals("P",true) )
-                        alEventName.add(i.event_title)
+                        if (!i.artist_confirmation_status.equals("") && !i.artist_confirmation_status.equals("P", true))
+                            alEventName.add(i.event_title)
+                        eventsListMain.add(i)
                     }
                     arrEventName = alEventName.toTypedArray()
                 } else {
@@ -241,7 +246,7 @@ class SearchVenueEventManagerActivity: BaseActivity(), MyInterface, View.OnClick
         when (view.id) {
 
             R.id.img_first_icon -> finish()
-            R.id.rlEvents -> {
+            R.id.rlEventsVenue -> {
                 if (arrEventName.size == 0) {
                     Utils.showToast(this, "No Events is created yet")
                 } else {
@@ -276,5 +281,19 @@ class SearchVenueEventManagerActivity: BaseActivity(), MyInterface, View.OnClick
             listPopupWindow.dismiss()
         })
         listPopupWindow.show()
+    }
+
+    fun showDialog() {
+
+        var builder = AlertDialog.Builder(this);
+        builder.setMessage("Events in the list will be shown if created by the artist and it is approved by the artist first.")
+                .setCancelable(false)
+                .setPositiveButton("OK", DialogInterface.OnClickListener { dialogInterface, i ->
+                    dialogInterface.dismiss()
+                })
+
+
+        val alert = builder.create();
+        alert.show();
     }
 }

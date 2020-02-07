@@ -55,25 +55,25 @@ class ProfileFragment : KotlinBaseFragment(), View.OnClickListener, MyInterface 
     private var v: View? = null
     var genreAL = ArrayList<GenreModel>()
     var genreNameAL = ArrayList<String>()
-    var countryAL = ArrayList<CountryModel>()
-    var countryNameAL = ArrayList<String>()
-    var countryCodeAL = ArrayList<String>()
+//    var CountryStateCityClass.countryAL = ArrayList<CountryModel>()
+//    var CountryStateCityClass.countryNameAL = ArrayList<String>()
+//    var CountryStateCityClass.countryCodeAL = ArrayList<String>()
     private lateinit var listPopupWindow: ListPopupWindow
-    private lateinit var arrCountryCode: Array<String>
-    lateinit var arrGenre: Array<String>
-    lateinit var arrExperience: Array<String>
-    lateinit var arrExpertise: Array<String>
-    lateinit private var arrGrade: Array<String>
-    lateinit private var arrCertification: Array<String>
+  //  private lateinit var CountryStateCityClass.arrCountryCode: Array<String>
+    lateinit var arrGenre: Array<String?>
+    lateinit var arrExperience: Array<String?>
+    lateinit var arrExpertise: Array<String?>
+    lateinit private var arrGrade: Array<String?>
+    lateinit private var arrCertification: Array<String?>
     var mCount = 0
-    lateinit var arrStateName: Array<String>
-    var alState = ArrayList<StateModel>()
-    var alStateName = ArrayList<String>()
+//    lateinit var CountryStateCityClass.arrStateName: Array<String>
+//    var CountryStateCityClass.alState = ArrayList<StateModel>()
+//    var CountryStateCityClass.alStateName = ArrayList<String>()
     var mStateName = ""
     var mStateId = ""
-    lateinit var arrCityName: Array<String>
-    var alCity = ArrayList<CityModel>()
-    var alCityName = ArrayList<String>()
+//    lateinit var CountryStateCityClass.arrCityName: Array<String>
+//    var CountryStateCityClass.alCity = ArrayList<CityModel>()
+//    var CountryStateCityClass.alCityName = ArrayList<String>()
     var mCityName = ""
     var mCityId = ""
     var mCountryCode = ""
@@ -177,7 +177,7 @@ class ProfileFragment : KotlinBaseFragment(), View.OnClickListener, MyInterface 
             R.id.ivCamera -> checkPermissions("image", "com.musicseque.artist.fragments.ProfileFragment", this)
 
             R.id.btn_submit -> apiUpdateProfile()
-            R.id.tvCountryCode -> showDropdown(arrCountryCode, tvCountryCode, SpinnerData { mId, mName ->
+            R.id.tvCountryCode -> showDropdown(CountryStateCityClass.arrCountryCode, tvCountryCode, SpinnerData { mId, mName ->
                 mCountryId = mId
                 mCountryName = mName
                 tvCountry!!.text = mName
@@ -185,10 +185,10 @@ class ProfileFragment : KotlinBaseFragment(), View.OnClickListener, MyInterface 
                 mCityId = ""
                 tvState.text = ""
                 tvCity.text = ""
-                alCity.clear()
-                alCityName.clear()
-                alState.clear()
-                alStateName.clear()
+                CountryStateCityClass.alCity.clear()
+                CountryStateCityClass.alCityName.clear()
+                CountryStateCityClass.alState.clear()
+                CountryStateCityClass.alStateName.clear()
 
                 callStateAPI()
             }, mWidthCode)
@@ -203,12 +203,12 @@ class ProfileFragment : KotlinBaseFragment(), View.OnClickListener, MyInterface 
             }, mWidthExp)
             R.id.tvCertification -> showDropdown(arrCertification, tvCertification, SpinnerData { mId, mName -> mCertification = mName }, mWidthExp)
             R.id.tvGrade -> showDropdown(arrGrade, tvGrade, SpinnerData { mId, mName -> mGrade = mName }, mWidthExp)
-            R.id.tvState -> showDropdown(arrStateName, tvState, SpinnerData { mId, mName ->
+            R.id.tvState -> showDropdown(CountryStateCityClass.arrStateName, tvState, SpinnerData { mId, mName ->
                 mStateId = mId
                 mStateName = mName
                 tvState.text = mName
-                alCity.clear()
-                alCityName.clear()
+                CountryStateCityClass.alCity.clear()
+                CountryStateCityClass.alCityName.clear()
 
                 mCityId = ""
                 tvCity.text = ""
@@ -220,7 +220,7 @@ class ProfileFragment : KotlinBaseFragment(), View.OnClickListener, MyInterface 
 
             R.id.tvCity ->
                 if (!mStateId.equals("")) {
-                    showDropdown(arrCityName, tvCity, SpinnerData { mId, mName ->
+                    showDropdown(CountryStateCityClass.arrCityName, tvCity, SpinnerData { mId, mName ->
                         mCityId = mId
                         mCityName = mName
                         tvCity.text = mName
@@ -283,30 +283,27 @@ class ProfileFragment : KotlinBaseFragment(), View.OnClickListener, MyInterface 
     }
 
     private fun hitAPIs(type: Int, args: String) {
-        if (Utils.isNetworkConnected(activity)) {
-            initializeLoader()
+
             if (type == Constants.FOR_GENRE_LIST) {
-                RetrofitAPI.callGetAPI(Constants.FOR_GENRE_LIST, this@ProfileFragment)
+                APIHit.sendGetData(Constants.FOR_GENRE_LIST, this@ProfileFragment,activity!!)
             } else if (type == Constants.FOR_COUNTRIES_LIST) {
-                RetrofitAPI.callGetAPI(Constants.FOR_COUNTRIES_LIST, this@ProfileFragment)
+                CountryStateCityClass.sendGetData(Constants.FOR_COUNTRIES_LIST, this@ProfileFragment,activity!!)
             } else if (type == Constants.FOR_STATE_LIST) {
-                RetrofitAPI.callAPI(args, Constants.FOR_STATE_LIST, this@ProfileFragment)
+                CountryStateCityClass.sendPostData(args, Constants.FOR_STATE_LIST, this@ProfileFragment,activity!!)
             } else if (type == Constants.FOR_CITY_LIST) {
-                RetrofitAPI.callAPI(args, Constants.FOR_CITY_LIST, this@ProfileFragment)
+                CountryStateCityClass.sendPostData(args, Constants.FOR_CITY_LIST, this@ProfileFragment,activity!!)
             } else if (type == Constants.FOR_USER_PROFILE) {
                 try {
                     val jsonObject = JSONObject()
                     jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""))
-                    RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_USER_PROFILE, this@ProfileFragment)
+                    APIHit.sendPostData(jsonObject.toString(), Constants.FOR_USER_PROFILE, this@ProfileFragment,activity!!)
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
             } else if (type == Constants.FOR_UPDATE_PROFILE) {
-                RetrofitAPI.callAPI(args, Constants.FOR_UPDATE_PROFILE, this@ProfileFragment)
+                APIHit.sendPostData(args, Constants.FOR_UPDATE_PROFILE, this@ProfileFragment,activity!!)
             }
-        } else {
-            Utils.showToast(activity, resources.getString(R.string.err_no_internet))
-        }
+
     }
 
 
@@ -471,20 +468,8 @@ class ProfileFragment : KotlinBaseFragment(), View.OnClickListener, MyInterface 
                 e.printStackTrace()
             }
             Constants.FOR_COUNTRIES_LIST -> try {
-                val jsonArray = JSONArray(response.toString())
-                var i = 0
-                while (i < jsonArray.length()) {
-                    val jsonObject1 = jsonArray.getJSONObject(i)
-                    val model = CountryModel()
-                    model.countryId = jsonObject1.getString("CountryId")
-                    model.countryName = jsonObject1.getString("CountryName")
-                    model.countryCode = jsonObject1.getString("CountryCode")
-                    countryNameAL.add(jsonObject1.getString("CountryName"))
-                    countryCodeAL.add(jsonObject1.getString("CountryCode"))
-                    countryAL.add(model)
-                    i++
-                }
-                arrCountryCode = countryCodeAL.toTypedArray()
+                CountryStateCityClass.countriesDetail(response.toString())
+
                 arrGenre = genreNameAL.toTypedArray()
                 hitAPIs(Constants.FOR_USER_PROFILE, "")
             } catch (e: JSONException) {
@@ -556,43 +541,24 @@ class ProfileFragment : KotlinBaseFragment(), View.OnClickListener, MyInterface 
                 callStateAPI()
             }
             Constants.FOR_STATE_LIST -> try {
-                val jsonArray = JSONArray(response.toString())
-                var i = 0
-                while (i < jsonArray.length()) {
-                    val jsonObjectState = jsonArray.getJSONObject(i)
-                    val model = StateModel()
-                    model.stateName = jsonObjectState.getString("StateName")
-                    model.stateId = jsonObjectState.getString("StateId")
-                    alState.add(model)
-                    alStateName.add(jsonObjectState.getString("StateName"))
-                    i++
-                }
-                arrStateName = alStateName.toTypedArray()
+
+
+                CountryStateCityClass.stateList(response.toString())
                 if (!mStateId.equals("", ignoreCase = true)) {
                     callCityAPI()
                 }
             } catch (e: Exception) {
             }
             Constants.FOR_CITY_LIST -> try {
-                val jsonArray = JSONArray(response.toString())
-                var i = 0
-                while (i < jsonArray.length()) {
-                    val jsonObjectState = jsonArray.getJSONObject(i)
-                    val model = CityModel()
-                    model.cityName = jsonObjectState.getString("CityName")
-                    model.cityId = jsonObjectState.getString("CityId")
-                    alCity.add(model)
-                    alCityName.add(jsonObjectState.getString("CityName"))
-                    i++
-                }
-                arrCityName = alCityName.toTypedArray()
+                CountryStateCityClass.cityList(response.toString())
+
             } catch (e: Exception) {
             }
         }
     }
 
 
-    fun showDropdown(array: Array<String>, textView: TextView?, spinnerData: SpinnerData, width: Int) {
+    fun showDropdown(array: Array<String?>, textView: TextView?, spinnerData: SpinnerData, width: Int) {
         listPopupWindow = ListPopupWindow(
                 activity)
         listPopupWindow!!.setAdapter(ArrayAdapter<Any?>(
@@ -605,16 +571,16 @@ class ProfileFragment : KotlinBaseFragment(), View.OnClickListener, MyInterface 
         listPopupWindow!!.isModal = true
         listPopupWindow!!.setOnItemClickListener { parent, view, position, id ->
             if (textView!!.id == R.id.tvCountryCode) {
-                spinnerData.getData(countryAL[position].countryId, countryAL[position].countryName)
+                spinnerData.getData(CountryStateCityClass.countryAL[position].countryId, CountryStateCityClass.countryAL[position].countryName)
             } else if (textView.id == R.id.tvGenre) {
                 spinnerData.getData(genreAL[position].id, array[position])
             } else if (textView.id == R.id.tvExperience) {
                 val pos = position + 1
                 spinnerData.getData(pos.toString() + "", array[position])
             } else if (textView.id == R.id.tvState) {
-                spinnerData.getData(alState[position].stateId, array[position])
+                spinnerData.getData(CountryStateCityClass.alState[position].stateId, array[position])
             } else if (textView.id == R.id.tvCity) {
-                spinnerData.getData(alCity[position].cityId, array[position])
+                spinnerData.getData(CountryStateCityClass.alCity[position].cityId, array[position])
             } else if (textView.id == R.id.tvCertification) {
                 if (arrCertification[position].equals("Others", ignoreCase = true)) {
                     llCertification!!.visibility = View.VISIBLE

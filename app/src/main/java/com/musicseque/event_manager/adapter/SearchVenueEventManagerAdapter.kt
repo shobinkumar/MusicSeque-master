@@ -11,6 +11,9 @@ import com.musicseque.R
 import com.musicseque.artist.artist_models.ArtistModel
 import com.musicseque.event_manager.activity.ArtistDetailEventManagerActivity
 import com.musicseque.event_manager.activity.SearchVenueEventManagerActivity
+import com.musicseque.event_manager.activity.VenueDetailEventManagerActivity
+import com.musicseque.event_manager.model.EventListModel
+import com.musicseque.event_manager.model.EventModelParcelable
 import com.musicseque.service.LocationService
 import com.musicseque.utilities.Utils
 import kotlinx.android.synthetic.main.list_row_venue_search_event_manager.view.*
@@ -27,28 +30,19 @@ class SearchVenueEventManagerAdapter(val activity: SearchVenueEventManagerActivi
     }
 
     override fun onBindViewHolder(holdr: MyHolder, pos: Int) {
-        holdr.bind(arrayList.get(pos), activity)
+        holdr.bind(arrayList.get(pos), activity, pos)
     }
 
     class MyHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(artistModel: ArtistModel, act:SearchVenueEventManagerActivity) {
+        fun bind(artistModel: ArtistModel, act: SearchVenueEventManagerActivity, pos: Int) {
             itemView.llMainSearchVenueEventManager.setVisibility(View.VISIBLE)
-            itemView.tvArtistNameSearchVenueEventManager.setText(artistModel.getFirstName() + " " + artistModel.getLastName())
+            itemView.tvArtistNameSearchVenueEventManager.setText(artistModel.firstName + " " + artistModel.lastName)
 
-            val mDistance = Utils.calculateDistance(java.lang.Double.parseDouble(LocationService.mLatitude), java.lang.Double.parseDouble(LocationService.mLongitude), java.lang.Double.parseDouble(artistModel.getUserLatitude()), java.lang.Double.parseDouble(artistModel.getUserLongitude()))
-            var decimalFormat = DecimalFormat(".##")
 
-            if(mDistance==0.0)
-            {
-                itemView.tvDistanceSearchVenueEventManager.setText("0 miles")
+                itemView.tvDistanceSearchVenueEventManager.setText(artistModel.distanceFromLoggedInUserInMiles+" miles")
 
-            }
-            else
-            {
-                itemView.tvDistanceSearchVenueEventManager.setText(decimalFormat.format(mDistance) + " miles")
 
-            }
             itemView.tvProfileTypeSearchVenueEventManager.setText(artistModel.getExpertise() + "," + artistModel.getGenreTypeName())
             itemView.tvCountrySearchVenueEventManager.setText(artistModel.getCity() + "," + artistModel.getCountryName())
             if (!artistModel.getSocialImageUrl().equals("", ignoreCase = true)) {
@@ -76,7 +70,9 @@ class SearchVenueEventManagerAdapter(val activity: SearchVenueEventManagerActivi
                     if (act.mEventId.equals("")) {
                         Utils.showToast(act, "Select the event from the list")
                     } else {
-                        itemView.context.startActivity(Intent(itemView.context, ArtistDetailEventManagerActivity::class.java).putExtra("id", artistModel.getUserId()).putExtra("event_id", act.mEventId))
+                        val model = act.eventsListMain.get(pos)
+                        val model1 = EventModelParcelable(model.event_id, model.event_title, model.event_description, model.event_type_id, model.venue_from_date, model.venue_to_date, model.venue_from_time, model.venue_to_time, model.event_estimated_guest, model.event_currency_id, model.event_budget)
+                        itemView.context.startActivity(Intent(itemView.context, VenueDetailEventManagerActivity::class.java).putExtra("data", model1).putExtra("venue_id",artistModel.userId   ))
 
                     }
                 }

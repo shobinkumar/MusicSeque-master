@@ -102,7 +102,8 @@ class FragmentProfileDetailMusicLover : KotlinBaseFragment(), MyInterface, View.
         }
         else if(v?.id==R.id.img_right_icon)
         {
-            startActivity(Intent(activity, MainActivity::class.java).putExtra("profileTemp", true).putExtra("frag", "com.musicseque.music_lover.fragments.FragmentProfileMusicLover"))
+            startActivity(Intent(activity, MainActivity::class.java))
+                    //.putExtra("frag", "com.musicseque.music_lover.fragments.FragmentProfileMusicLover"))
 
         }
 

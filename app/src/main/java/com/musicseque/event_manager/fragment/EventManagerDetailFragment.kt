@@ -88,7 +88,8 @@ class EventManagerDetailFragment : KotlinBaseFragment(), MyInterface, View.OnCli
             checkPermissions("image", "com.musicseque.event_manager.fragment.EventManagerDetailFragment", this)
 
         } else if (v.id == R.id.img_right_icon) {
-            startActivity(Intent(activity, MainActivity::class.java).putExtra("profileTemp", true).putExtra("frag", "com.musicseque.event_manager.fragment.EventManagerFormFragment"))
+            startActivity(Intent(activity, MainActivity::class.java))
+                    //.putExtra("frag", "com.musicseque.event_manager.fragment.EventManagerFormFragment"))
         }
         else if (v.id == R.id.ivIconDropDetailEventManager) {
             tvBioDetailEventManager.setVisibility(View.VISIBLE);

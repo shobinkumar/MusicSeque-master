@@ -19,7 +19,7 @@ class APIHit {
             }
         }
 
-        fun getGetData(Type: Int, myInterface: MyInterface, context: Context) {
+        fun sendGetData(Type: Int, myInterface: MyInterface, context: Context) {
             if (Utils.isNetworkConnected(context)) {
                 Utils.initializeAndShow(context)
                 RetrofitAPI.callGetAPI(Type, myInterface)
@@ -27,5 +27,7 @@ class APIHit {
                 Utils.showToast(context, context.resources.getString(R.string.err_no_internet))
             }
         }
+
+
     }
     }

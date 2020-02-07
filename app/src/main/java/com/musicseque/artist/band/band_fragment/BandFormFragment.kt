@@ -56,13 +56,13 @@ class BandFormFragment : KotlinBaseFragment(), View.OnClickListener, MyInterface
     private var v: View? = null
     var genreAL = ArrayList<GenreModel>()
     var genreNameAL = ArrayList<String>()
-    var countryAL = ArrayList<CountryModel>()
-    var countryNameAL = ArrayList<String>()
-    var countryCodeAL = ArrayList<String>()
+    //    var countryAL = ArrayList<CountryModel>()
+//    var countryNameAL = ArrayList<String>()
+//    var countryCodeAL = ArrayList<String>()
     lateinit var listPopupWindow: ListPopupWindow
-    lateinit var arrCountryCode: Array<String>
-    lateinit var arrGenre: Array<String>
-    lateinit var arrExperience: Array<String>
+    //   lateinit var arrCountryCode: Array<String>
+    lateinit var arrGenre: Array<String?>
+    lateinit var arrExperience: Array<String?>
     lateinit var arrExpertise: Array<String>
     var mCount = 0
     var mCountryCode = ""
@@ -77,14 +77,14 @@ class BandFormFragment : KotlinBaseFragment(), View.OnClickListener, MyInterface
     var STATUS_ACTIVE = "Available"
     private val STATUS_INVISIBLE = "Offline"
     var mBandId = "0"
-    lateinit var arrCityName: Array<String>
-    var alCity = ArrayList<CityModel>()
-    var alCityName = ArrayList<String>()
+    //    lateinit var CountryStateCityClass.arrCityName: Array<String>
+//    var CountryStateCityClass.alCity = ArrayList<CityModel>()
+//    var CountryStateCityClass.alCityName = ArrayList<String>()
     var mCityName = ""
     var mCityId = ""
-    lateinit var arrStateName: Array<String>
-    var alState = ArrayList<StateModel>()
-    var alStateName = ArrayList<String>()
+    //    lateinit var CountryStateCityClass.arrStateName: Array<String>
+//    var CountryStateCityClass.alState = ArrayList<StateModel>()
+//    var CountryStateCityClass.alStateName = ArrayList<String>()
     var mStateName = ""
     var mStateId = ""
 
@@ -175,26 +175,21 @@ class BandFormFragment : KotlinBaseFragment(), View.OnClickListener, MyInterface
             } catch (e: JSONException) {
                 e.printStackTrace()
             }
-            Constants.FOR_COUNTRIES_LIST -> try {
-                val jsonArray = JSONArray(response.toString())
-                var i = 0
-                while (i < jsonArray.length()) {
-                    val jsonObject1 = jsonArray.getJSONObject(i)
-                    val model = CountryModel()
-                    model.countryId = jsonObject1.getString("CountryId")
-                    model.countryName = jsonObject1.getString("CountryName")
-                    model.countryCode = jsonObject1.getString("CountryCode")
-                    countryNameAL.add(jsonObject1.getString("CountryName"))
-                    countryCodeAL.add(jsonObject1.getString("CountryCode"))
-                    countryAL.add(model)
-                    i++
+            Constants.FOR_COUNTRIES_LIST ->
+
+
+                try {
+
+
+                    CountryStateCityClass.countriesDetail(response.toString())
+
+
+
+                    arrGenre = genreNameAL.toTypedArray()
+                    if (!mBandId.equals("0", ignoreCase = true)) hitAPIs(FOR_BAND_PROFILE, "")
+                } catch (e: JSONException) {
+                    e.printStackTrace()
                 }
-                arrCountryCode = countryCodeAL.toTypedArray()
-                arrGenre = genreNameAL.toTypedArray()
-                if (!mBandId.equals("0", ignoreCase = true)) hitAPIs(FOR_BAND_PROFILE, "")
-            } catch (e: JSONException) {
-                e.printStackTrace()
-            }
             Constants.FOR_BAND_PROFILE ->
                 try {
                     val jsonObj = JSONObject(response.toString())
@@ -261,36 +256,16 @@ class BandFormFragment : KotlinBaseFragment(), View.OnClickListener, MyInterface
                 }
 
             Constants.FOR_STATE_LIST -> try {
-                val jsonArray = JSONArray(response.toString())
-                var i = 0
-                while (i < jsonArray.length()) {
-                    val jsonObjectState = jsonArray.getJSONObject(i)
-                    val model = StateModel()
-                    model.stateName = jsonObjectState.getString("StateName")
-                    model.stateId = jsonObjectState.getString("StateId")
-                    alState.add(model)
-                    alStateName.add(jsonObjectState.getString("StateName"))
-                    i++
-                }
-                arrStateName = alStateName.toTypedArray()
+
+                CountryStateCityClass.stateList(response.toString())
                 if (!mStateId.equals("", ignoreCase = true)) {
                     callCityAPI()
                 }
             } catch (e: Exception) {
             }
             Constants.FOR_CITY_LIST -> try {
-                val jsonArray = JSONArray(response.toString())
-                var i = 0
-                while (i < jsonArray.length()) {
-                    val jsonObjectState = jsonArray.getJSONObject(i)
-                    val model = CityModel()
-                    model.cityName = jsonObjectState.getString("CityName")
-                    model.cityId = jsonObjectState.getString("CityId")
-                    alCity.add(model)
-                    alCityName.add(jsonObjectState.getString("CityName"))
-                    i++
-                }
-                arrCityName = alCityName.toTypedArray()
+                CountryStateCityClass.cityList(response.toString())
+
             } catch (e: Exception) {
             }
             Constants.FOR_UPLOAD_BAND_PROFILE_IMAGE -> {
@@ -338,16 +313,16 @@ class BandFormFragment : KotlinBaseFragment(), View.OnClickListener, MyInterface
             R.id.ivCameraBandProfile -> checkPermissions("image", "com.musicseque.artist.band.band_fragment.BandFormFragment", this)
             R.id.btnSubmitBandProfile -> apiUpdateProfile()
             R.id.tvCountryCodeBandProfile ->
-                showDropdown(arrCountryCode, tvCountryCodeBandProfile, SpinnerData { mId, mName ->
+                showDropdown(CountryStateCityClass.arrCountryCode, tvCountryCodeBandProfile, SpinnerData { mId, mName ->
                     mCountryId = mId
                     mCountryName = mName
                     tvCountryBandProfile.setText(mName)
 
-                    alState.clear()
-                    alStateName.clear()
+                    CountryStateCityClass.alState.clear()
+                    CountryStateCityClass.alStateName.clear()
 
-                    alCity.clear()
-                    alCityName.clear()
+                    CountryStateCityClass.alCity.clear()
+                    CountryStateCityClass.alCityName.clear()
                     mStateId = ""
                     mCityId = ""
                     tvStateBandProfile.text = ""
@@ -359,14 +334,14 @@ class BandFormFragment : KotlinBaseFragment(), View.OnClickListener, MyInterface
 
                 }, mWidthCode)
 
-            R.id.tvStateBandProfile -> showDropdown(arrStateName, tvStateBandProfile, SpinnerData { mId, mName ->
+            R.id.tvStateBandProfile -> showDropdown(CountryStateCityClass.arrStateName, tvStateBandProfile, SpinnerData { mId, mName ->
                 mStateId = mId
                 mStateName = mName
-                tvStateBandProfile.text=mName
+                tvStateBandProfile.text = mName
 
 
-                alCity.clear()
-                alCityName.clear()
+                CountryStateCityClass.alCity.clear()
+                CountryStateCityClass.alCityName.clear()
                 mCityId = ""
                 tvCityBandProfile.text = ""
                 callCityAPI()
@@ -374,16 +349,14 @@ class BandFormFragment : KotlinBaseFragment(), View.OnClickListener, MyInterface
             }, mWidthExp)
             R.id.tvCityBandProfile ->
                 if (!mStateId.equals("")) {
-                    showDropdown(arrCityName, tvCityBandProfile, SpinnerData { mId, mName ->
+                    showDropdown(CountryStateCityClass.arrCityName, tvCityBandProfile, SpinnerData { mId, mName ->
                         mCityId = mId
                         mCityName = mName
-                        tvCityBandProfile.text=mName
+                        tvCityBandProfile.text = mName
                     }, mWidthExp)
                 } else {
                     Utils.showToast(activity, resources.getString(R.string.err_state))
                 }
-
-
 
 
             R.id.tvGenreBandProfile -> showDropdown(arrGenre, tvGenreBandProfile, SpinnerData { mId, mName ->
@@ -447,27 +420,25 @@ class BandFormFragment : KotlinBaseFragment(), View.OnClickListener, MyInterface
     private fun hitAPIs(type: Int, args: String) {
 
 
-            if (type == FOR_GENRE_LIST)
-                APIHit.getGetData(Constants.FOR_GENRE_LIST, this@BandFormFragment,activity!!)
-            else if (type == FOR_COUNTRIES_LIST) {
-                APIHit.getGetData(Constants.FOR_COUNTRIES_LIST, this@BandFormFragment,activity!!)
-            } else if (type == Constants.FOR_BAND_PROFILE) {
-                try {
-                    val jsonObject = JSONObject()
-                    jsonObject.put("BandId", mBandId)
-                    APIHit.sendPostData(jsonObject.toString(), Constants.FOR_BAND_PROFILE, this@BandFormFragment,activity!!)
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                }
-            } else if (type == Constants.FOR_STATE_LIST) {
-                APIHit.sendPostData(args, Constants.FOR_STATE_LIST, this@BandFormFragment,activity!!)
-            } else if (type == Constants.FOR_CITY_LIST) {
-                APIHit.sendPostData(args, Constants.FOR_CITY_LIST, this@BandFormFragment,activity!!)
+        if (type == FOR_GENRE_LIST)
+            APIHit.sendGetData(Constants.FOR_GENRE_LIST, this@BandFormFragment, activity!!)
+        else if (type == FOR_COUNTRIES_LIST) {
+            CountryStateCityClass.sendGetData(Constants.FOR_COUNTRIES_LIST, this@BandFormFragment, activity!!)
+        } else if (type == Constants.FOR_BAND_PROFILE) {
+            try {
+                val jsonObject = JSONObject()
+                jsonObject.put("BandId", mBandId)
+                APIHit.sendPostData(jsonObject.toString(), Constants.FOR_BAND_PROFILE, this@BandFormFragment, activity!!)
+            } catch (e: JSONException) {
+                e.printStackTrace()
             }
-            else if(type== FOR_UPDATE_BAND_PROFILE)
-            {
-                APIHit.sendPostData(args, Constants.FOR_UPDATE_BAND_PROFILE, this@BandFormFragment,activity!!)
-            }
+        } else if (type == Constants.FOR_STATE_LIST) {
+            CountryStateCityClass.sendPostData(args, Constants.FOR_STATE_LIST, this@BandFormFragment, activity!!)
+        } else if (type == Constants.FOR_CITY_LIST) {
+            CountryStateCityClass.sendPostData(args, Constants.FOR_CITY_LIST, this@BandFormFragment, activity!!)
+        } else if (type == FOR_UPDATE_BAND_PROFILE) {
+            APIHit.sendPostData(args, Constants.FOR_UPDATE_BAND_PROFILE, this@BandFormFragment, activity!!)
+        }
 
     }
 
@@ -535,7 +506,7 @@ class BandFormFragment : KotlinBaseFragment(), View.OnClickListener, MyInterface
                     jsonBody.put("BandId", mBandId)
                     jsonBody.put("BandAddress", mAddress)
                     requestBody = jsonBody.toString()
-                    hitAPIs(FOR_UPDATE_BAND_PROFILE,requestBody)
+                    hitAPIs(FOR_UPDATE_BAND_PROFILE, requestBody)
 
                 } catch (e: JSONException) {
                     e.printStackTrace()
@@ -551,7 +522,7 @@ class BandFormFragment : KotlinBaseFragment(), View.OnClickListener, MyInterface
     }
 
 
-    fun showDropdown(array: Array<String>, textView: TextView, spinnerData: SpinnerData, width: Int) {
+    fun showDropdown(array: Array<String?>, textView: TextView, spinnerData: SpinnerData, width: Int) {
         listPopupWindow = ListPopupWindow(
                 activity)
         listPopupWindow!!.setAdapter(ArrayAdapter<Any?>(
@@ -564,20 +535,17 @@ class BandFormFragment : KotlinBaseFragment(), View.OnClickListener, MyInterface
         listPopupWindow!!.isModal = true
         listPopupWindow!!.setOnItemClickListener { parent, view, position, id ->
             if (textView.id == R.id.tvCountryCodeBandProfile) {
-                spinnerData.getData(countryAL[position].countryId, countryAL[position].countryName)
+                spinnerData.getData(CountryStateCityClass.countryAL[position].countryId, CountryStateCityClass.countryAL[position].countryName)
             } else if (textView.id == R.id.tvGenreBandProfile) {
-                spinnerData.getData( genreAL[position].id,array[position])
+                spinnerData.getData(genreAL[position].id, array[position])
             } else if (textView.id == R.id.tvExperienceBandProfile) {
                 val pos = position + 1
-                spinnerData.getData(pos.toString() + "",array[position])
-            }
-
-            else if (textView.id == R.id.tvStateBandProfile) {
-                spinnerData.getData(alState[position].stateId, array[position])
+                spinnerData.getData(pos.toString() + "", array[position])
+            } else if (textView.id == R.id.tvStateBandProfile) {
+                spinnerData.getData(CountryStateCityClass.alState[position].stateId, array[position])
             } else if (textView.id == R.id.tvCityBandProfile) {
-                spinnerData.getData(alCity[position].cityId, array[position])
-            }
-            else {
+                spinnerData.getData(CountryStateCityClass.alCity[position].cityId, array[position])
+            } else {
                 spinnerData.getData(array[position], "")
             }
             textView.text = array[position]

@@ -67,7 +67,7 @@ class VenueProfileDetailFragment : KotlinBaseFragment(), View.OnClickListener, M
     }
 
     private fun listeners() {
-        imgRight?.setOnClickListener { startActivity(Intent(activity, MainActivity::class.java).putExtra("profileTemp", true).putExtra("frag", "com.musicseque.venue_manager.fragment.CreateVenueFragment")) }
+        imgRight?.setOnClickListener { startActivity(Intent(activity, MainActivity::class.java).putExtra("profileTemp", true).putExtra("frag", "com.musicseque.venue_manager.fragment.VenueFormFragment")) }
         ivCameraBackground.setOnClickListener(this)
         ivCameraProfilePic.setOnClickListener(this)
         ivIconDrop.setOnClickListener(this)

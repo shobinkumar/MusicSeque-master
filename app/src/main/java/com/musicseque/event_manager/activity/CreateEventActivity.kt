@@ -626,7 +626,7 @@ class CreateEventActivity : BaseActivity(), View.OnClickListener, MyInterface, D
                 }
 
             }
-            FOR_SAVE_UPDATE_EVENT_DETAIL -> {
+            FOR_EVENT_CREATE_UPDATE -> {
                 val json = JSONObject(response.toString())
 
                 if (json.getString("Status").equals("Success")) {

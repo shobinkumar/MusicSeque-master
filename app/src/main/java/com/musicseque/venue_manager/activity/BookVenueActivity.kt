@@ -689,40 +689,37 @@ class BookVenueActivity : BaseActivity(), View.OnClickListener, MyInterface, Dat
     }
 
     private fun hitAPI(type: Int, str: String) {
-        if (Utils.isNetworkConnected(this)) {
-            Utils.initializeAndShow(this)
+
             if (type == Constants.FOR_COUNTRIES_LIST) {
-                RetrofitAPI.callGetAPI(Constants.FOR_COUNTRIES_LIST, this)
+                APIHit.sendGetData(Constants.FOR_COUNTRIES_LIST, this,this)
             } else if (type == Constants.FOR_STATE_LIST) {
-                RetrofitAPI.callAPI(str, Constants.FOR_STATE_LIST, this)
+                APIHit.sendPostData(str, Constants.FOR_STATE_LIST, this,this)
             } else if (type == Constants.FOR_CITY_LIST) {
-                RetrofitAPI.callAPI(str, Constants.FOR_CITY_LIST, this)
+                APIHit.sendPostData(str, Constants.FOR_CITY_LIST, this,this)
             } else if (type == FOR_VENUE_FROM_TIMMINGS) {
                 val json = JSONObject()
                 json.put("VenueId", mVenueId)
                 // json.put("BookingAsOnDate", "01-01-1900")
-                RetrofitAPI.callAPI(json.toString(), Constants.FOR_VENUE_FROM_TIMMINGS, this)
+                APIHit.sendPostData(json.toString(), Constants.FOR_VENUE_FROM_TIMMINGS, this,this)
             } else if (type == FOR_VENUE_TO_TIMMINGS) {
                 val json = JSONObject()
                 json.put("VenueId", mVenueId)
                 json.put("FromDate", mStartDate)
                 json.put("FromTime", mStartTime)
 
-                RetrofitAPI.callAPI(json.toString(), Constants.FOR_VENUE_TO_TIMMINGS, this)
+                APIHit.sendPostData(json.toString(), Constants.FOR_VENUE_TO_TIMMINGS, this,this)
 
             } else if (type == FOR_VENUE_BOOK) {
-                RetrofitAPI.callAPI(str, FOR_VENUE_BOOK, this)
+                APIHit.sendPostData(str, FOR_VENUE_BOOK, this,this)
             } else if (type == FOR_EVENT_TYPE_LIST) {
-                RetrofitAPI.callGetAPI(FOR_EVENT_TYPE_LIST, this)
+                APIHit.sendGetData(FOR_EVENT_TYPE_LIST, this,this)
             } else if (type == FOR_CURRENCY_LIST) {
-                RetrofitAPI.callGetAPI(FOR_CURRENCY_LIST, this)
+                APIHit.sendGetData(FOR_CURRENCY_LIST, this,this)
             } else if (type == FOR_SAVE_UPDATE_EVENT_DETAIL) {
-                RetrofitAPI.callAPI(str, FOR_SAVE_UPDATE_EVENT_DETAIL, this)
+                APIHit.sendPostData(str, FOR_SAVE_UPDATE_EVENT_DETAIL, this,this)
             }
 
-        } else {
-            Utils.showToast(this, resources.getString(R.string.err_no_internet))
-        }
+
 
 
     }

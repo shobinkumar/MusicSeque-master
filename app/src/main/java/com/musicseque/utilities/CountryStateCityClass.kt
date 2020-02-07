@@ -1,5 +1,7 @@
 package com.musicseque.utilities
 
+import android.content.Context
+import com.musicseque.interfaces.MyInterface
 import com.musicseque.models.CityModel
 import com.musicseque.models.CountryModel
 import com.musicseque.models.StateModel
@@ -8,6 +10,7 @@ import org.json.JSONException
 
 class CountryStateCityClass {
     companion object {
+
         lateinit var arrStateName: Array<String?>
         var alState = java.util.ArrayList<StateModel>()
         var alStateName = java.util.ArrayList<String>()
@@ -17,7 +20,10 @@ class CountryStateCityClass {
         var alCityName = java.util.ArrayList<String>()
         var countryAL = ArrayList<CountryModel>()
         var countryNameAL = ArrayList<String>()
+        var countryCodeAL = ArrayList<String>()
+
         lateinit var arrCountryName: Array<String?>
+        lateinit var arrCountryCode: Array<String?>
 
         fun countriesDetail(res: String) {
             try {
@@ -28,13 +34,13 @@ class CountryStateCityClass {
                     model.countryId = jsonObject.getString("CountryId")
                     model.countryName = jsonObject.getString("CountryName")
                     model.countryCode = jsonObject.getString("CountryCode")
-
+                    countryCodeAL.add(jsonObject.getString("CountryCode"))
                     countryNameAL.add(jsonObject.getString("CountryName"))
                     countryAL.add(model)
                 }
 
                 arrCountryName = countryNameAL.toTypedArray()
-
+                arrCountryCode=countryCodeAL.toTypedArray()
 
             } catch (e: JSONException) {
                 e.printStackTrace()
@@ -79,5 +85,21 @@ class CountryStateCityClass {
             arrCityName = alCityName.toTypedArray()
         }
 
+
+
+        fun sendPostData(params: String, Type: Int, myInterface: MyInterface, context: Context)
+        {
+            APIHit.sendPostData(params, Type, myInterface,context)
+
+        }
+
+        fun sendGetData(Type: Int, myInterface: MyInterface, context: Context) {
+            APIHit.sendGetData(Type, myInterface,context)
+
+        }
+
     }
+
+
+
 }

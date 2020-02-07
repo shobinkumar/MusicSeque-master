@@ -162,6 +162,18 @@ public class ArtistModel {
     @Expose
     private String loginUserLongitude;
 
+    @SerializedName("DistanceFromLoggedInUserInMiles")
+    @Expose
+    private String DistanceFromLoggedInUserInMiles;
+
+    public String getDistanceFromLoggedInUserInMiles() {
+        return DistanceFromLoggedInUserInMiles;
+    }
+
+    public void setDistanceFromLoggedInUserInMiles(String distanceFromLoggedInUserInMiles) {
+        DistanceFromLoggedInUserInMiles = distanceFromLoggedInUserInMiles;
+    }
+
     public Integer getUserId() {
         return userId;
     }

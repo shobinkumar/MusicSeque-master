@@ -39,6 +39,7 @@ import com.musicseque.MainActivity;
 import com.musicseque.R;
 import com.musicseque.interfaces.MyInterface;
 import com.musicseque.retrofit_interface.RetrofitAPI;
+import com.musicseque.utilities.APIHit;
 import com.musicseque.utilities.Constants;
 import com.musicseque.utilities.SharedPref;
 import com.musicseque.utilities.Utils;
@@ -52,7 +53,12 @@ import java.security.NoSuchAlgorithmException;
 
 import butterknife.ButterKnife;
 
+import static com.musicseque.utilities.Constants.FOR_ACCOUNT_EXISTS;
+import static com.musicseque.utilities.Constants.FOR_FORGOT_PASSWORD;
+import static com.musicseque.utilities.Constants.FOR_LOGIN;
 import static com.musicseque.utilities.Constants.FOR_RESEND_OTP;
+import static com.musicseque.utilities.Constants.FOR_RESET_PASSWORD;
+import static com.musicseque.utilities.Constants.FOR_SOCIAL_LOGIN;
 import static com.musicseque.utilities.Constants.FOR_VERIFY_ACCOUNT;
 
 
@@ -83,9 +89,8 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
     private Dialog dialogVerifyAccount;
 
 
-
     String mToken = "";
-    private CheckBox  cbRememberMe;
+    private CheckBox cbRememberMe;
 
 
     @Override
@@ -162,7 +167,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
         btn_signup = (Button) findViewById(R.id.btnSignup);
         iv_fb = (ImageView) findViewById(R.id.ivFB);
         ivGoogle = (ImageView) findViewById(R.id.ivGoogle);
-        cbRememberMe=(CheckBox)findViewById(R.id.cbRememberMe);
+        cbRememberMe = (CheckBox) findViewById(R.id.cbRememberMe);
         FirebaseApp.initializeApp(this);
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
@@ -287,7 +292,9 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
             case R.id.btnLogin:
                 userName = et_username.getText().toString();
                 password = et_password.getText().toString();
-
+                userName = "abhishekjindal1121991@gmail.com";
+                //userName="shobin.kumar@horizontelecom.in";
+                password = "Test@123";
                 if (userName.equals("")) {
                     Utils.showToast(LoginActivity.this, getResources().getString(R.string.err_email_id));
                 } else if (!Utils.emailValidator(userName)) {
@@ -299,29 +306,22 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                 } else if (password.length() < 6 || !Utils.isValidPassword(password)) {
                     Utils.showToast(LoginActivity.this, "Password is invalid.");
                 } else {
-                    if (Utils.isNetworkConnected(LoginActivity.this)) {
-                        initializeLoader();
-                        // showProgressDialog();
-                        JSONObject jsonBody = new JSONObject();
-                        SharedPref.putString(Constants.EMAIL_ID, userName);
-                        SharedPref.putString(Constants.PASSWORD, password);
-                        try {
 
-                            jsonBody.put("UserName", userName);
-                            jsonBody.put("Password", password);
-                            jsonBody.put("PopToken", FirebaseInstanceId.getInstance().getToken());
+                    JSONObject jsonBody = new JSONObject();
+                    SharedPref.putString(Constants.EMAIL_ID, userName);
+                    SharedPref.putString(Constants.PASSWORD, password);
+                    try {
+
+                        jsonBody.put("UserName", userName);
+                        jsonBody.put("Password", password);
+                        jsonBody.put("PopToken", FirebaseInstanceId.getInstance().getToken());
 
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                        RetrofitAPI.callAPI(jsonBody.toString(), Constants.FOR_LOGIN, LoginActivity.this);
-
-
-                    } else {
-                        Utils.showToast(LoginActivity.this, getResources().getString(R.string.err_no_internet));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
+
+                    hitAPI(FOR_LOGIN, jsonBody.toString());
 
 
                 }
@@ -357,6 +357,34 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                 break;
 
         }
+    }
+
+    private void hitAPI(int TYPE, String str) {
+        if (TYPE == FOR_LOGIN) {
+            APIHit.Companion.sendPostData(str, Constants.FOR_LOGIN, LoginActivity.this, this);
+
+        } else if (TYPE == FOR_ACCOUNT_EXISTS) {
+            APIHit.Companion.sendPostData(str, Constants.FOR_ACCOUNT_EXISTS, LoginActivity.this, this);
+
+        } else if (TYPE == FOR_FORGOT_PASSWORD) {
+            APIHit.Companion.sendPostData(str, Constants.FOR_FORGOT_PASSWORD, LoginActivity.this, this);
+
+        } else if (TYPE == FOR_RESEND_OTP) {
+            APIHit.Companion.sendPostData(str, Constants.FOR_RESEND_OTP, LoginActivity.this, this);
+
+        } else if (TYPE == FOR_VERIFY_ACCOUNT) {
+            APIHit.Companion.sendPostData(str, Constants.FOR_VERIFY_ACCOUNT, LoginActivity.this, this);
+
+        } else if (TYPE == FOR_SOCIAL_LOGIN) {
+            APIHit.Companion.sendPostData(str, Constants.FOR_SOCIAL_LOGIN, LoginActivity.this, this);
+
+        }
+        else if (TYPE == FOR_RESET_PASSWORD) {
+            APIHit.Companion.sendPostData(str, Constants.FOR_RESET_PASSWORD, LoginActivity.this, this);
+
+        }
+
+
     }
 
 
@@ -418,7 +446,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
             jsonBody.put("PopToken", FirebaseInstanceId.getInstance().getToken());
             jsonBody.put("SocialImageUrl", mImageURL);
             String requestBody = jsonBody.toString();
-            RetrofitAPI.callAPI(requestBody, Constants.FOR_ACCOUNT_EXISTS, LoginActivity.this);
+            hitAPI(FOR_ACCOUNT_EXISTS, requestBody);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -472,52 +500,31 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
 
                         }
 
+
+                        String isFirstLogin = obj.getString("IsFirstLogin");
                         if (obj.getString("ProfileTypeName").equalsIgnoreCase("Artist")) {
-                            Intent intent;
 
-                            if (obj.getString("IsFirstLogin").equalsIgnoreCase("Y"))
-                                intent = new Intent(LoginActivity.this, MainActivity.class).putExtra("frag", "com.musicseque.artist.fragments.ProfileFragment");
-                            else
-                                intent = new Intent(LoginActivity.this, MainActivity.class);
 
-                            startActivity(intent);
-                            finish();
+                            openMainActivity(isFirstLogin, "com.musicseque.artist.fragments.ProfileFragment");
+
                         } else if (obj.getString("ProfileTypeName").equalsIgnoreCase("Event Manager")) {
-                            Intent intent;
-                            if (obj.getString("IsFirstLogin").equalsIgnoreCase("Y"))
-                                intent = new Intent(LoginActivity.this, MainActivity.class).putExtra("frag", "com.musicseque.event_manager.fragment.EventManagerFormFragment");
-                            else
-                                intent = new Intent(LoginActivity.this, MainActivity.class);
 
-                            startActivity(intent);
-                            finish();
+                            openMainActivity(isFirstLogin, "com.musicseque.event_manager.fragment.EventManagerFormFragment");
+
+
                         } else if (obj.getString("ProfileTypeName").equalsIgnoreCase("Venue Manager")) {
-                            Intent intent;
-                            if (obj.getString("IsFirstLogin").equalsIgnoreCase("Y"))
-                                intent = new Intent(LoginActivity.this, MainActivity.class).putExtra("frag", "com.musicseque.venue_manager.fragment.CreateVenueFragment");
-                            else
-                                intent = new Intent(LoginActivity.this, MainActivity.class);
 
-                            startActivity(intent);
-                            finish();
+                            openMainActivity(isFirstLogin, "com.musicseque.venue_manager.fragment.CreateVenueFragment");
+
+
                         } else if (obj.getString("ProfileTypeName").equalsIgnoreCase("Music Lover")) {
-                            Intent intent;
-                            if (obj.getString("IsFirstLogin").equalsIgnoreCase("Y"))
-                                intent = new Intent(LoginActivity.this, MainActivity.class).putExtra("frag", "com.musicseque.music_lover.fragments.FragmentProfileMusicLover");
-                            else
-                                intent = new Intent(LoginActivity.this, MainActivity.class);
+                            openMainActivity(isFirstLogin, "com.musicseque.music_lover.fragments.FragmentProfileMusicLover");
 
-                            startActivity(intent);
-                            finish();
                         } else if (obj.getString("ProfileTypeName").equalsIgnoreCase("Event Manager")) {
-                            Intent intent;
-                            if (obj.getString("IsFirstLogin").equalsIgnoreCase("Y"))
-                                intent = new Intent(LoginActivity.this, MainActivity.class).putExtra("frag", "com.musicseque.event_manager.fragment.EventManagerFormFragment");
-                            else
-                                intent = new Intent(LoginActivity.this, MainActivity.class);
 
-                            startActivity(intent);
-                            finish();
+                            openMainActivity(isFirstLogin, "com.musicseque.event_manager.fragment.EventManagerFormFragment");
+
+
                         }
 
                     } else {
@@ -665,45 +672,31 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
 
                         dialogUserType.dismiss();
 
+                        String isFirstLogin = jsonObject.getString("IsFirstLogin");
                         if (jsonObject.getString("ProfileTypeName").equalsIgnoreCase("Artist")) {
-                            Intent intent;
 
-                            if (jsonObject.getString("IsFirstLogin").equalsIgnoreCase("Y"))
-                                intent = new Intent(LoginActivity.this, MainActivity.class).putExtra("frag", "com.musicseque.artist.fragments.ProfileFragment");
-                            else
-                                intent = new Intent(LoginActivity.this, MainActivity.class);
 
-                            startActivity(intent);
-                            finish();
-                        } else if (jsonObject.getString("ProfileTypeName").equalsIgnoreCase("Venue Manager")) {
-                            Intent intent;
-                            if (jsonObject.getString("IsFirstLogin").equalsIgnoreCase("Y"))
-                                intent = new Intent(LoginActivity.this, MainActivity.class).putExtra("frag", "com.musicseque.venue_manager.fragment.CreateVenueFragment");
-                            else
-                                intent = new Intent(LoginActivity.this, MainActivity.class);
+                            openMainActivity(isFirstLogin, "com.musicseque.artist.fragments.ProfileFragment");
 
-                            startActivity(intent);
-                            finish();
                         } else if (jsonObject.getString("ProfileTypeName").equalsIgnoreCase("Event Manager")) {
-                            Intent intent;
-                            if (jsonObject.getString("IsFirstLogin").equalsIgnoreCase("Y"))
-                                intent = new Intent(LoginActivity.this, MainActivity.class).putExtra("frag", "com.musicseque.event_manager.fragment.EventManagerFormFragment");
-                            else
-                                intent = new Intent(LoginActivity.this, MainActivity.class);
 
-                            startActivity(intent);
-                            finish();
+                            openMainActivity(isFirstLogin, "com.musicseque.event_manager.fragment.EventManagerFormFragment");
+
+
+                        } else if (jsonObject.getString("ProfileTypeName").equalsIgnoreCase("Venue Manager")) {
+
+                            openMainActivity(isFirstLogin, "com.musicseque.venue_manager.fragment.CreateVenueFragment");
+
+
                         } else if (jsonObject.getString("ProfileTypeName").equalsIgnoreCase("Music Lover")) {
-                            Intent intent;
-                            if (jsonObject.getString("IsFirstLogin").equalsIgnoreCase("Y"))
-                                intent = new Intent(LoginActivity.this, MainActivity.class).putExtra("frag", "com.musicseque.music_lover.fragments.FragmentProfileMusicLover");
-                            else
-                                intent = new Intent(LoginActivity.this, MainActivity.class);
+                            openMainActivity(isFirstLogin, "com.musicseque.music_lover.fragments.FragmentProfileMusicLover");
 
-                            startActivity(intent);
-                            finish();
+                        } else if (jsonObject.getString("ProfileTypeName").equalsIgnoreCase("Event Manager")) {
+
+                            openMainActivity(isFirstLogin, "com.musicseque.event_manager.fragment.EventManagerFormFragment");
+
+
                         }
-
 
                     } else {
                         Utils.showToast(LoginActivity.this, jsonObject.getString("Message"));
@@ -751,13 +744,23 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
         }
     }
 
+    private void openMainActivity(String isFirstLogin, String frag) {
+        Intent intent = null;
+
+        if (isFirstLogin.equalsIgnoreCase("Y")) {
+            intent = new Intent(LoginActivity.this, MainActivity.class).putExtra("frag", frag);
+
+        } else {
+            intent = new Intent(LoginActivity.this, MainActivity.class);
+        }
+
+        startActivity(intent);
+        finish();
+    }
+
     private void hitSignUpAPI() {
 
-        if (Utils.isNetworkConnected(LoginActivity.this)) {
 
-//            checkProgressDialog();
-//            showProgressDialog();
-            initializeLoader();
             String requestBody = "";
             try {
                 JSONObject jsonBody = new JSONObject();
@@ -778,10 +781,8 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                 e.printStackTrace();
             }
 
-            RetrofitAPI.callAPI(requestBody, Constants.FOR_SOCIAL_LOGIN, LoginActivity.this);
-        } else {
-            Utils.showToast(LoginActivity.this, getResources().getString(R.string.err_no_internet));
-        }
+            hitAPI(FOR_SOCIAL_LOGIN,requestBody);
+
 
 
     }
@@ -886,7 +887,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                     Utils.showToast(LoginActivity.this, getResources().getString(R.string.err_terms));
                 } else {
 
-                    if (Utils.isNetworkConnected(LoginActivity.this)) {
+
                         try {
 
                             SharedPref.putString(Constants.EMAIL_ID, Utils.getEDitText(etEmail));
@@ -897,9 +898,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                    } else {
-                        Utils.showToast(LoginActivity.this, getResources().getString(R.string.err_no_internet));
-                    }
+
 
 
                 }
@@ -945,9 +944,9 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
 
                 } else {
 
-                    if (Utils.isNetworkConnected(LoginActivity.this)) {
+
                         try {
-                            initializeLoader();
+
 
                             JSONObject jsonBody = new JSONObject();
                             jsonBody.put("Email", Utils.getEDitText(etEmail));
@@ -955,14 +954,11 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
 
                             SharedPref.putString(Constants.EMAIL_ID, Utils.getEDitText(etEmail));
                             String requestBody = jsonBody.toString();
-                            RetrofitAPI.callAPI(requestBody, Constants.FOR_FORGOT_PASSWORD, LoginActivity.this);
+                            hitAPI(FOR_FORGOT_PASSWORD,requestBody);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                    } else {
-                        Utils.showToast(LoginActivity.this, getResources().getString(R.string.err_no_internet));
-                    }
 
 
                 }
@@ -1024,7 +1020,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
                             jsonBody.put("OTPType", "PasswordReset");
 
                             String requestBody = jsonBody.toString();
-                            RetrofitAPI.callAPI(requestBody, Constants.FOR_RESET_PASSWORD, LoginActivity.this);
+                            hitAPI(FOR_RESET_PASSWORD,requestBody);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -1079,7 +1075,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
 
                     SharedPref.putString(Constants.EMAIL_ID, Utils.getEDitText(etEmail));
                     String requestBody = jsonBody.toString();
-                    callAPI(FOR_RESEND_OTP, requestBody);
+                    hitAPI(FOR_RESEND_OTP, requestBody);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -1128,7 +1124,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
 
 
                         String requestBody = jsonBody.toString();
-                        callAPI(FOR_VERIFY_ACCOUNT, requestBody);
+                        hitAPI(FOR_VERIFY_ACCOUNT, requestBody);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -1191,20 +1187,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, MyI
 
     }
 
-    void callAPI(int type, String args) {
-        if (Utils.isNetworkConnected(this)) {
-            initializeLoader();
-            if (type == FOR_VERIFY_ACCOUNT) {
-                RetrofitAPI.callAPI(args, FOR_VERIFY_ACCOUNT, LoginActivity.this);
 
-            } else if (type == FOR_RESEND_OTP) {
-                RetrofitAPI.callAPI(args, Constants.FOR_RESEND_OTP, LoginActivity.this);
-
-            }
-        } else {
-            Utils.showToast(LoginActivity.this, getResources().getString(R.string.err_no_internet));
-        }
-
-    }
 
 }

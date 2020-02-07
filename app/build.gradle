@@ -1,13 +1,18 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
 
+androidExtensions {
+    experimental = true
+}
 android {
 
     dataBinding {
         enabled = true
     }
+
+
 
     compileSdkVersion 28
     defaultConfig {
@@ -94,6 +99,7 @@ dependencies {
     implementation 'com.google.android.libraries.places:places:1.1.0'
 
     implementation 'com.wdullaer:materialdatetimepicker:3.4.0'
+    implementation 'com.github.douglasjunior:android-simple-tooltip:0.2.2'
 
 
 }

@@ -23,14 +23,11 @@ import com.musicseque.models.CountryModel
 import com.musicseque.models.StateModel
 import com.musicseque.retrofit_interface.ImageUploadClass
 import com.musicseque.retrofit_interface.RetrofitAPI
-import com.musicseque.utilities.Constants
+import com.musicseque.utilities.*
 import com.musicseque.utilities.Constants.FOR_COUNTRIES_LIST
 import com.musicseque.utilities.Constants.FOR_UPDATE_PROFILE
 import com.musicseque.utilities.Constants.FOR_USER_PROFILE
 import com.musicseque.utilities.Constants.IS_FIRST_LOGIN
-import com.musicseque.utilities.KotlinBaseFragment
-import com.musicseque.utilities.SharedPref
-import com.musicseque.utilities.Utils
 import kotlinx.android.synthetic.main.fragment_profile_music_lover.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -57,17 +54,10 @@ class FragmentProfileMusicLover : KotlinBaseFragment(), MyInterface, View.OnClic
     private var mWidthCode: Int = 0
     private var mWidthFullCode: Int = 500
 
-    var countryAL = ArrayList<CountryModel>()
-    var countryNameAL = ArrayList<String>()
-    var countryCodeAL = ArrayList<String>()
-    lateinit var arrStateName: Array<String>
-    var alState = ArrayList<StateModel>()
-    var alStateName = ArrayList<String>()
+  
     var mStateName = ""
     var mStateId = ""
-    lateinit var arrCityName: Array<String>
-    var alCity = ArrayList<CityModel>()
-    var alCityName = ArrayList<String>()
+  
     var mCityName = ""
     var mCityId = ""
     private var mAddress: String = ""
@@ -114,29 +104,26 @@ class FragmentProfileMusicLover : KotlinBaseFragment(), MyInterface, View.OnClic
     }
 
     private fun hitAPIs(type: Int, params: String) {
-        if (Utils.isNetworkConnected(activity)) {
-            Utils.initializeAndShow(activity)
+
             if (type == FOR_COUNTRIES_LIST) {
-                RetrofitAPI.callGetAPI(Constants.FOR_COUNTRIES_LIST, this@FragmentProfileMusicLover)
+                CountryStateCityClass.sendGetData(Constants.FOR_COUNTRIES_LIST, this@FragmentProfileMusicLover,activity!!)
             } else if (type == Constants.FOR_USER_PROFILE) {
                 try {
                     val jsonObject = JSONObject()
                     jsonObject.put("UserId", SharedPref.getString(Constants.USER_ID, ""))
-                    RetrofitAPI.callAPI(jsonObject.toString(), Constants.FOR_USER_PROFILE, this@FragmentProfileMusicLover)
+                    APIHit.sendPostData(jsonObject.toString(), Constants.FOR_USER_PROFILE, this@FragmentProfileMusicLover,activity!!)
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
             } else if (type == Constants.FOR_STATE_LIST) {
-                RetrofitAPI.callAPI(params, Constants.FOR_STATE_LIST, this)
+                CountryStateCityClass.sendPostData(params, Constants.FOR_STATE_LIST, this,activity!!)
             } else if (type == Constants.FOR_CITY_LIST) {
-                RetrofitAPI.callAPI(params, Constants.FOR_CITY_LIST, this)
+                CountryStateCityClass.sendPostData(params, Constants.FOR_CITY_LIST, this,activity!!)
             } else if (type == FOR_UPDATE_PROFILE) {
-                RetrofitAPI.callAPI(params, FOR_UPDATE_PROFILE, this)
+               APIHit.sendPostData(params, FOR_UPDATE_PROFILE, this,activity!!)
 
             }
-        } else {
-            Utils.showToast(activity, resources.getString(R.string.err_no_internet))
-        }
+
     }
 
     override fun sendResponse(response: Any, TYPE: Int) {
@@ -145,21 +132,8 @@ class FragmentProfileMusicLover : KotlinBaseFragment(), MyInterface, View.OnClic
 
             FOR_COUNTRIES_LIST -> {
                 try {
-                    val jsonArray = JSONArray(response.toString())
-                    for (i in 0 until jsonArray.length()) {
 
-                        val jsonObject1 = jsonArray.getJSONObject(i)
-                        val model = CountryModel()
-                        model.countryId = jsonObject1.getString("CountryId")
-                        model.countryName = jsonObject1.getString("CountryName")
-                        model.countryCode = jsonObject1.getString("CountryCode")
-
-                        countryNameAL.add(jsonObject1.getString("CountryName"))
-                        countryCodeAL.add(jsonObject1.getString("CountryCode"))
-                        countryAL.add(model)
-
-                    }
-
+                    CountryStateCityClass.countriesDetail(response.toString())
                     hitAPIs(FOR_USER_PROFILE, "")
                 } catch (e: Exception) {
                     Log.e("TAG", e.toString())
@@ -170,36 +144,14 @@ class FragmentProfileMusicLover : KotlinBaseFragment(), MyInterface, View.OnClic
 
 
             Constants.FOR_STATE_LIST -> try {
-                val jsonArray = JSONArray(response.toString())
-                var i = 0
-                while (i < jsonArray.length()) {
-                    val jsonObjectState = jsonArray.getJSONObject(i)
-                    val model = StateModel()
-                    model.stateName = jsonObjectState.getString("StateName")
-                    model.stateId = jsonObjectState.getString("StateId")
-                    alState.add(model)
-                    alStateName.add(jsonObjectState.getString("StateName"))
-                    i++
-                }
-                arrStateName = alStateName.toTypedArray()
+                CountryStateCityClass.stateList(response.toString())
                 if (!mStateId.equals("", ignoreCase = true)) {
                     callCityAPI()
                 }
             } catch (e: Exception) {
             }
             Constants.FOR_CITY_LIST -> try {
-                val jsonArray = JSONArray(response.toString())
-                var i = 0
-                while (i < jsonArray.length()) {
-                    val jsonObjectState = jsonArray.getJSONObject(i)
-                    val model = CityModel()
-                    model.cityName = jsonObjectState.getString("CityName")
-                    model.cityId = jsonObjectState.getString("CityId")
-                    alCity.add(model)
-                    alCityName.add(jsonObjectState.getString("CityName"))
-                    i++
-                }
-                arrCityName = alCityName.toTypedArray()
+                CountryStateCityClass.cityList(response.toString())
             } catch (e: Exception) {
             }
 
@@ -294,7 +246,7 @@ class FragmentProfileMusicLover : KotlinBaseFragment(), MyInterface, View.OnClic
         }
     }
 
-    fun showDropdown(array: Array<String>, textView: TextView, spinnerData: SpinnerData, width: Int) {
+    fun showDropdown(array: Array<String?>, textView: TextView, spinnerData: SpinnerData, width: Int) {
         listPopupWindow = ListPopupWindow(
                 activity)
         listPopupWindow.setAdapter(ArrayAdapter<Any?>(
@@ -307,11 +259,11 @@ class FragmentProfileMusicLover : KotlinBaseFragment(), MyInterface, View.OnClic
         listPopupWindow.setModal(true)
         listPopupWindow.setOnItemClickListener(OnItemClickListener { parent, view, position, id ->
             if (textView.id == R.id.tvCountryCodeMusicLover) {
-                spinnerData.getData(countryAL[position].countryId, countryAL[position].countryName)
+                spinnerData.getData(CountryStateCityClass.countryAL[position].countryId, CountryStateCityClass.countryAL[position].countryName)
             } else if (textView.id == R.id.tvStateProfileMusicLover) {
-                spinnerData.getData(alState[position].stateId, array[position])
+                spinnerData.getData(CountryStateCityClass.alState[position].stateId, array[position])
             } else if (textView.id == R.id.tvCityProfileMusicLover) {
-                spinnerData.getData(alCity[position].cityId, array[position])
+                spinnerData.getData(CountryStateCityClass.alCity[position].cityId, array[position])
             }
             textView.text = array[position]
             listPopupWindow.dismiss()
@@ -322,8 +274,7 @@ class FragmentProfileMusicLover : KotlinBaseFragment(), MyInterface, View.OnClic
     override fun onClick(view: View) {
         when (view.id) {
             R.id.tvCountryCodeMusicLover -> {
-                var arrCountryCode = countryCodeAL.toTypedArray()
-                showDropdown(arrCountryCode, tvCountryCodeMusicLover, SpinnerData { mId, mName ->
+                showDropdown(CountryStateCityClass.arrCountryCode, tvCountryCodeMusicLover, SpinnerData { mId, mName ->
                     mCountryId = mId
                     mCountryName = mName
                     tvCountryMusicLover.text = mName
@@ -331,21 +282,21 @@ class FragmentProfileMusicLover : KotlinBaseFragment(), MyInterface, View.OnClic
                     mCityId = ""
                     tvStateProfileMusicLover.text = ""
                     tvCityProfileMusicLover.text = ""
-                    alCity.clear()
-                    alCityName.clear()
-                    alState.clear()
-                    alStateName.clear()
+                    CountryStateCityClass.alCity.clear()
+                    CountryStateCityClass.alCityName.clear()
+                    CountryStateCityClass.alState.clear()
+                    CountryStateCityClass.alStateName.clear()
 
                     callStateAPI()
                 }, mWidthCode)
             }
 
-            R.id.tvStateProfileMusicLover -> showDropdown(arrStateName, tvStateProfileMusicLover, SpinnerData { mId, mName ->
+            R.id.tvStateProfileMusicLover -> showDropdown(CountryStateCityClass.arrStateName, tvStateProfileMusicLover, SpinnerData { mId, mName ->
                 mStateId = mId
                 mStateName = mName
                 tvStateProfileMusicLover.text = mName
-                alCity.clear()
-                alCityName.clear()
+                CountryStateCityClass.alCity.clear()
+                CountryStateCityClass.alCityName.clear()
 
                 mCityId = ""
                 tvCityProfileMusicLover.text = ""
@@ -354,7 +305,7 @@ class FragmentProfileMusicLover : KotlinBaseFragment(), MyInterface, View.OnClic
             }, mWidthFullCode)
             R.id.tvCityProfileMusicLover ->
                 if (!mStateId.equals("")) {
-                    showDropdown(arrCityName, tvCityProfileMusicLover, SpinnerData { mId, mName ->
+                    showDropdown(CountryStateCityClass.arrCityName, tvCityProfileMusicLover, SpinnerData { mId, mName ->
                         mCityId = mId
                         mCityName = mName
                         tvCityProfileMusicLover.text = mName
